@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+    <script src="https://kit.fontawesome.com/c96d31bca3.js" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/elegant-icons.css" type="text/css">
@@ -44,7 +46,6 @@
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -85,8 +86,8 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
+                <li><i class="fa fa-envelope"></i> santabox@gmail.com</li>
+                <li>20,000원 이상 구매시 무료배송</li>
             </ul>
         </div>
     </div>
@@ -140,17 +141,17 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+82 031-1234-1234</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="/resources/img/hero/banner.jpg">
+                    <div class="hero__item set-bg" data-setbg="/resources/img/present.png">
                         <div class="hero__text">
-                            <span>FRUIT FRESH</span>
-                            <h2>Vegetable <br />100% Organic</h2>
-                            <p>Free Pickup and Delivery Available</p>
-                            <a href="#" class="primary-btn">SHOP NOW</a>
+                            <span>매일이 크리스마스처럼...</span>
+                            <h2> 산타의 <br />선물 상자</h2>
+                            <p>장난감, 문구류 할인 및 배달 가능</p>
+                            <a href="#" class="primary-btn">상품보러 가기</a>
                         </div>
                     </div>
                 </div>
