@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!--component-scan은 spring이 관리하는 코드 (객체를 자동 주입해준다.) -->
+	<context:component-scan base-package="org.zero.sample"></context:component-scan> <!-- 스프링이 관리할 패키지 이름 입력  -->
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	
+	<!-- 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
+			 -->	
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>	
+		
+		<property name="username" value="shopmanager"></property>
+		<property name="password" value="shop5353"></property>
+		
+	</bean>
+
+	<!-- HikariCP configuration -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	
+	<!--  MyBatis sql 세션 공장 등록 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 스프링이 마이바티스용으로 org.zerok.mapper 패키지에 있는 java 파일을 관여한다. -->
+	<mybatis-spring:scan base-package="org.zerok.mapper"/>
+	
+	
+	<!-- 서비스 패키지 등록 @service 어노테이션 등록으로 spring이 service로 관리함-->
+	<context:component-scan base-package="org.zerock.service"/>		
+	
+	
+	<!--트랜잭션 매니저 추가  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property> <!-- 히카리씨피 -->
+	</bean>
+	
+	<tx:annotation-driven/> 
+	
+	<!-- 트랜잭션 설정 끝 -->
+	
+
+	<!-- 추가할 component-scan , bean 은 밑에 작성해주세요 -->
+	
+	
+</beans>
