@@ -41,7 +41,7 @@
 	</bean>
 	
 	<!-- 스프링이 마이바티스용으로 org.zerok.mapper 패키지에 있는 java 파일을 관여한다. -->
-	<mybatis-spring:scan base-package="org.zerok.mapper"/>
+	<mybatis-spring:scan base-package="org.zerock.mapper"/>
 	
 	
 	<!-- 서비스 패키지 등록 @service 어노테이션 등록으로 spring이 service로 관리함-->

@@ -1,4 +1,4 @@
-package org.zerok.mapper;
+package org.zerock.mapper;
 
 import org.apache.ibatis.annotations.Select;
 
