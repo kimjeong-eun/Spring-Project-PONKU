@@ -10,7 +10,11 @@
 	
 	<security:http>
 			
-			<security:form-login login-page="/customLogin"/>
+			<security:form-login login-page="/customLogin" default-target-url="/"/>
+			
+			<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
+			
+			<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 			
 	</security:http>
 

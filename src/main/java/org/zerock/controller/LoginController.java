@@ -14,10 +14,9 @@ public class LoginController {
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
 			//로그인페이지로 이동하는 컨트롤러
-		
-		
-		
+			
 	}
+	
 	
 	
 }

@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="/resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+    
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+  
 </head>
 
 
@@ -58,8 +64,16 @@
                             </div>
                             <div class="header__top__right__auth">
                             	
-                            	                            
-                                <a href="/customLogin"><i class="fa fa-user"></i> Login</a>
+                            	<sec:authorize access="isAuthenticated()">
+                            	<form action="/logout" method="post" name="logoutForm">
+                            		<a href="#" name="logoutBtn" ><i class="fa fa-user"></i>LogOut</a>
+                            		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            	</form>
+                            	</sec:authorize>                    		   
+                                <sec:authorize access="isAnonymous()">
+                                	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
+                                </sec:authorize>
+                                
                             </div>
                         </div>
                     </div>
@@ -70,7 +84,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="/resources/img/logo.png" alt=""></a>
+                        <a href="/"><img src="/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -80,14 +94,25 @@
                             <li><a href="./shop-grid.html">상품구매</a></li>
                             <li><a href="./blog.html">리뷰 이벤트</a></li>
                             <li><a href="./contact.html">문의게시판</a></li>
-                            <li><a href="#">마이페이지</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
+                            
+                            <sec:authorize access="isAuthenticated()">
+                            
+								<li><a href="#" name="myPage">마이페이지</a>
+	                                <ul class="header__menu__dropdown">
+	                                    <li><a href="./shop-details.html">Shop Details</a></li>
+	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+	                                    <li><a href="./checkout.html">Check Out</a></li>
+	                                    <li><a href="./blog-details.html">Blog Details</a></li>
+	                                </ul>
+	                            </li>
+                            </sec:authorize>
+                            
+                            <sec:authorize access="isAnonymous()">
+								<li>
+									<a href="#" name="noMember">마이페이지</a>
+	                            </li>                  
+                            </sec:authorize>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -107,3 +132,33 @@
         </div>
     </header>
     <!-- Header Section End -->
+    
+    <script>
+	
+     $(document).ready(function(){
+    	
+    	 $("a[name='logoutBtn']").on("click",function(e){
+    		
+    		 e.preventDefault();
+    		 var formObj = $("form[name='logoutForm']");
+    		 formObj.submit();
+    		 alert("로그아웃 완료");
+    	 });
+
+    	 $("a[name='noMember']").on("click",function(e){
+    		
+    		 e.preventDefault();
+    		
+    		 alert("로그인 후 이용 가능합니다!!");
+    		 
+    		 
+    	 });
+    	 
+     });
+    
+    
+    </script>
+    
+    
+    
+    

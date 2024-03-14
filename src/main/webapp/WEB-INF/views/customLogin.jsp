@@ -78,7 +78,7 @@ html, body {
     <!--  html 전체 영역을 지정하는 container -->
     <div id="container">
       <!--  login 폼 영역을 : loginBox -->
-
+	
       <form id="loginBox" action="/login" method="post">
    
         <!-- 로그인 페이지 타이틀 -->
@@ -87,8 +87,10 @@ html, body {
         <div id="inputBox">
           <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control"></div>
           <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control"></div>
+          <input type="checkbox" name="remember-me" />로그인 상태 유지
           <div class="button-login-box" >
             <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
+            
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>
