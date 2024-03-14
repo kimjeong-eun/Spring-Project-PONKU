@@ -5,16 +5,25 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> <!-- 패스워드인코딩  -->
+	
 	<security:http>
 			
-			<security:form-login/>
+			<security:form-login login-page="/customLogin"/>
 			
 	</security:http>
 
 
 	<security:authentication-manager>
-
-	
+		
+		<security:authentication-provider>
+		
+			<security:user-service>
+				<security:user name="jeongeun"  password="{noop}1234" authorities="ROLE_ADMIN,ROLE_MEMBER"/>
+			</security:user-service>
+		</security:authentication-provider>
+		
 	</security:authentication-manager>
 
 </beans>
