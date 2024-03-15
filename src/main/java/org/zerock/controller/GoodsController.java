@@ -12,5 +12,9 @@ public class GoodsController {
 	public void getList() {
 		log.info("목록 페이지 접속=====================");
 	}
+	@GetMapping("/NewFile") //테스트
+	public void newFile() {
+		log.info("프론트 테스트 페이지 접속=====================");
+	}
 }
 

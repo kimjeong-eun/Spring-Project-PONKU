@@ -5,6 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.dropdown-menu {
+	width: 100%;
+	height: 200px;
+	overflow: auto;
+}
+
+/* 분류 버튼 */
+.dropdown-toggle {
+	width: 100%;
+}
+
+/* 수정된 CSS */
+.dropdown-menu-apple, .dropdown-menu-sam {
+	display: none;
+}
+</style>
+
 </head>
 <body>
 	<!-- Header Section Begin -->
@@ -128,69 +146,76 @@
 					</div>
 					<!-- col-lg-4 -->
 
-					<div class="col-lg-8 col-md-6">
-						<div class="h-5">
-							<p>
-								카테고리<span>*</span>
-							</p>
+					<div class="col-lg-8 col-md-6 container">
+						<p>
+							기종 카테고리<span>*</span>
+						</p>
+						<div class="categ checkout__input row" style="height: 200px">
 							<!-- 대분류 -->
-							<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button"
-									id="dropdownMenuButton1" data-bs-toggle="dropdown"
-									aria-expanded="false">Dropdown button</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li><a class="dropdown-item" href="#">Another action</a></li>
-									<li><a class="dropdown-item" href="#">Something else
-											here</a></li>
+							<div class="dropdown col">
+								<button class="btn btn-light dropdown-toggle btn1" type="button"
+									aria-expanded="false">브랜드</button>
+								<ul class="dropdown-menu menuu">
+									<li><p class="dropdown-item dropdown-item1">애플</p></li>
+									<li><p class="dropdown-item dropdown-item2">삼성</p></li>
+									<li><p class="dropdown-item dropdown-item3">구글</p></li>
 								</ul>
 							</div>
-
-
 							<!-- 중분류 -->
-							<!-- 소분류 -->
-						</div>
-						<div class="checkout__input">
-							<p>
-								상품명<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<div class="checkout__input">
-							<p>
-								판매가<span>*</span>
-							</p>
-							<input type="text" placeholder="Street Address"
-								class="checkout__input__add">
-						</div>
-						<div class="checkout__input">
-							<p>
-								재고수량<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<div>
-							<p>
-								상품 이미지<span>*</span>
-							</p>
-							<form method="post" enctype="multipart/form-data"
-								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
-								<input type='file' name='uploadFile' multiple>
-							</form>
+							<div class="dropdown col">
+								<button class="btn btn-light dropdown-toggle" type="button"
+									aria-expanded="false">기기명</button>
 
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" /> <input type="hidden" name="_csrf">
-							<!-- post방식 시 토큰 필수 -->
+								<ul class="dropdown-menu dropdown-menu-apple">
+									<li><p class="dropdown-item style" href="">아이폰 S</p></li>
+								</ul>
+								<ul class="dropdown-menu dropdown-menu-sam">
+									<li><p class="dropdown-item" href="">갤럭시 S</p></li>
+								</ul>
+							</div>
+							<!-- .categ -->
 
-							<button id='uploadBtn'>Upload</button>
-						</div>
-						<div class="checkout__input">
-							<p>
-								상세 설명<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<!-- <div class="checkout__input__checkbox">
+							<div class="checkout__input">
+								<p>
+									상품명<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div class="checkout__input">
+								<p>
+									판매가<span>*</span>
+								</p>
+								<input type="text" placeholder="Street Address"
+									class="checkout__input__add">
+							</div>
+							<div class="checkout__input">
+								<p>
+									재고수량<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<div>
+								<p>
+									상품 이미지<span>*</span>
+								</p>
+								<form method="post" enctype="multipart/form-data"
+									action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
+									<input type='file' name='uploadFile' multiple>
+								</form>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
+								<!-- post방식 시 토큰 필수 -->
+
+								<button id='uploadBtn'>Upload</button>
+							</div>
+							<div class="checkout__input">
+								<p>
+									상세 설명<span>*</span>
+								</p>
+								<input type="text">
+							</div>
+							<!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
                                     <input type="checkbox" id="acc">
@@ -199,8 +224,8 @@
                             </div>
                             <p>Create an account by entering the information below. If you are a returning customer
                             please login at the top of the page</p> -->
+						</div>
 					</div>
-				</div>
 			</form>
 		</div>
 		<!-- .container -->
@@ -212,6 +237,34 @@
 		crossorigin="anonymous"></script>
 
 	<script>
+		$(function() {
+			// 기본적으로 대중소 ul과 내용 숨기기
+			var toggleBtn = $(".btn1"); // 버튼 선택
+			var menu1Ul = $(".menuu");
+
+			var item1 = $(".dropdown-item1");
+			var item2 = $(".dropdown-item2");
+			var item3 = $(".dropdown-item3");
+
+			var appleItem = $(".dropdown-menu-apple");
+			var samItem = $(".dropdown-menu-sam");
+
+			// 대분류 버튼을 클릭하면 대분류 드롭다운 메뉴 항목 보이기
+			toggleBtn.click(function() {
+				menu1Ul.toggle(); // 대분류 드롭다운 메뉴 항목 보이거나 숨기기
+			});
+
+			item1.click(function() {
+				appleItem.show();
+				samItem.hide();
+			});
+
+			item2.click(function() {
+				samItem.show();
+				appleItem.hide();
+			});
+		});
+
 		//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
 		$(document).ajaxSend(function(e, xhr, options) {
 			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
