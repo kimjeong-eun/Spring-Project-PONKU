@@ -22,7 +22,7 @@
 	<!-- 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
 			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
 			 -->	
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>		
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@43.201.9.52:1521:XE"></property>	
 		
 		<property name="username" value="shopmanager"></property>
@@ -56,9 +56,6 @@
 	<tx:annotation-driven/> 
 	
 	<!-- 트랜잭션 설정 끝 -->
-	
-
 	<!-- 추가할 component-scan , bean 은 밑에 작성해주세요 -->
-	
 	
 </beans>
