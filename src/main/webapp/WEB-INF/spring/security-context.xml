@@ -8,23 +8,28 @@
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> <!-- 패스워드인코딩  -->
 	
+	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+	
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	
 	<security:http>
 			
-			<security:form-login login-page="/customLogin" default-target-url="/"/>
+			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>
 			
 			<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
 			
 			<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 			
+			<security:access-denied-handler ref="customAccessDenied"/>
+			
 	</security:http>
 	
 	<security:authentication-manager>
 		
-		<security:authentication-provider>
+		<security:authentication-provider user-service-ref="customUserDetailsService" >
 		
-			<security:user-service>
-				<security:user name="jeongeun"  password="{noop}1234" authorities="ROLE_ADMIN,ROLE_MEMBER"/>
-			</security:user-service>
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			
 		</security:authentication-provider>
 		
 	</security:authentication-manager>

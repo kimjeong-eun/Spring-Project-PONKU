@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  
+
+  <mapper namespace="org.zerock.mapper.LoginMapper">
+  
+  	<resultMap type="org.zerock.domain.MemberVO" id="loginMap">
+  	
+  		<id property="member_seq" column="member_seq"/>
+  		<result property="member_seq" column="member_seq"/>
+  		<result  property="userid" column="userid"/>
+  		<result property="password" column="password"/> 
+  		<result property="username" column="username"/> 
+  		<result property="age" column="age"/> 
+  		<result property="gender" column="gender"/>
+  		<result property="phone" column="phone"/>  		
+  		<result property="email" column="email"/>
+  		<result property="address" column="address"/>  
+  		<result property="enroll_date" column="enroll_date"/>  
+  		<result property="last_update" column="last_update"/>  
+  		
+  		<collection property="authList" resultMap="authMap"></collection>
+  	
+  	</resultMap>
+  	
+  	<resultMap type="org.zerock.domain.AuthVO" id="authMap">
+  		<result property="member_seq" column="member_seq"/>
+  		<result property="auth" column="authority"/>
+  	</resultMap>
+  
+  	<resultMap type="org.zerock.domain.MemberVO" id="validIdMap">
+  		<result property="userid" column="userid"/>
+  		<result property="username" column="username"/>
+  		<result property="email" column="email"/>
+  		<result property="enroll_date" column="enroll_date"/>
+  	</resultMap>
+  
+  
+  <select id="read" resultMap="loginMap">
+  
+  	select mem.member_seq ,userid , password , username, age, gender,phone, email, address,
+  		 enroll_date,last_update, auth.authority from shop_member mem left outer join shop_authority auth
+  		 on mem.member_seq = auth.member_seq where mem.userid = #{userid}
+  </select>
+    
+    
+   <select id="getIdByNameAndEmail" resultMap="validIdMap">
+   
+   	select userid , username, email, enroll_date from shop_member where username=#{name} and email =#{email}
+   
+   </select>
+    
+  </mapper>

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/resources/css/style.css" type="text/css">
     
+    <!-- jquery cdn  -->
     <script
   src="https://code.jquery.com/jquery-3.7.1.js"
   integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -140,16 +141,13 @@
     		 e.preventDefault();
     		 var formObj = $("form[name='logoutForm']");
     		 formObj.submit();
-    		 alert("로그아웃 완료");
+    		 alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
     	 });
 
     	 $("a[name='noMember']").on("click",function(e){
     		
     		 e.preventDefault();
-    		
     		 alert("로그인 후 이용 가능합니다!!");
-    		 
-    		 
     	 });
     	 
      });

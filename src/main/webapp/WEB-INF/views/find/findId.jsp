@@ -73,7 +73,7 @@ html, body {
 
 </style>
 
- <title>로그인</title>
+ <title>아이디 찾기</title>
 
  <!-- Bootstrap CSS -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -84,44 +84,79 @@ html, body {
 
 </head>
   <body class="text-center">
-    <jsp:include page="./includes/header.jsp"></jsp:include>
+    <jsp:include page="../includes/header.jsp"></jsp:include>
     
     <!--  html 전체 영역을 지정하는 container -->
     <div id="container">
       <!--  login 폼 영역을 : loginBox -->
 	
-      <form id="loginBox" action="/login" method="post">
+      <form id="loginBox" action="/validId" method="post" name="findForm">
    
         <!-- 로그인 페이지 타이틀 -->
-        <div id="loginBoxTitle">산타의 선물상자</div>
+        <div id="loginBoxTitle">아이디 찾기</div>
         <!-- 아이디, 비번, 버튼 박스 -->
         <div id="inputBox">
-          <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control"></div>
-          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control"></div>
-      	  <p style="color:red ">${errorMsg }</p> <!-- 로그인 정보 일치하지 않을 시 오류메세지  -->
-          <input type="checkbox" name="remember-me" /><p style="display: inline ;">로그인 상태 유지</p>
-			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/findPw">Pw찾기</a>|<a href="/">회원가입</a></div>
+          <div class="input-form-box"><span>이름 </span><input type="text" name="Inputname" class="form-control"></div>
+          <div class="input-form-box"><span>이메일 </span><input type="email" name="Inputemail" class="form-control"></div>
+          
           <div class="button-login-box" >
-            <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>        
+            <button name="findBtn" type="button" class="btn btn-primary btn-xs" style="width:100%">회원 정보 찾기</button>
+            
+			<div id="findInfo"><a href="/findPw">Pw찾기</a> | <a href="/">회원가입</a></div>    
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>
-      </div>
+        
+      </div> <!-- end 컨테이너  -->
     </form>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-	<jsp:include page="./includes/footer.jsp"></jsp:include>
+	<jsp:include page="../includes/footer.jsp"></jsp:include>
   </body>
   
   	<script>
   		
-  		if(${not empty errorMsg }){
-  			//로그인 실패라면 id입력 태그 포커스 
+  		$(document).ready(function(){
   			
-  			$("input[name=username]").focus();
   			
-  		}
+  			
+  			$("botton[name='findBtn']").on("click",function(e){
+  				
+  				var name= $("input[name='Inputname']").val();
+  				var email =$("input[name='Inputemail']").val();
+  				
+  				e.preventDefault();
+  				
+  				$.ajax({
+  					
+  					url : '/validId/'+name+'/'+email
+  					type:'get',
+  					dataTtpe:'json'
+  					success:function(result){
+  						alert("찾았읍니다");
+  						showResult(result);
+  					}
+  					
+  				});	
+  			});
+  			
+  			function showResult(findResult){
+  				
+  				
+  				
+  				
+  				
+  			};
+  			
+  			
+  			
+  			
+  			
+  		});
+  		
+  		
+  		
 
   	</script>
   	 	
