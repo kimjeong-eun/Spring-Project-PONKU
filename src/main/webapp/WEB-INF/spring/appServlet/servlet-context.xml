@@ -28,7 +28,8 @@
 	<context:component-scan base-package="org.zerock.controller" />
 		
 	<!-- 파일 업로드를위한 객체 등록  -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 	
 	<!-- 스프링 시큐리티 관련 어노테이션 등록 4.2버전으로 바꿈 -->
