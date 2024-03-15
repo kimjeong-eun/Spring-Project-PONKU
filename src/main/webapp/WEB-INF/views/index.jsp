@@ -20,7 +20,7 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Humberger Begin -->
+<!--     Humberger Begin
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
@@ -76,8 +76,8 @@
             </ul>
         </div>
     </div>
-    <!-- Humberger End -->
-
+    Humberger End
+ -->
     <!-- Header Section Begin -->
 	
 	<jsp:include page="./includes/header.jsp"></jsp:include>
