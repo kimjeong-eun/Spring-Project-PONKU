@@ -13,19 +13,199 @@
 
 	<!-- Header Section End -->
 
-	<h1>Upload with Ajax</h1>
+	<!-- Hero Section Begin -->
+	<section class="hero hero-normal">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="hero__categories">
+					<div class="hero__categories__all">
+						<i class="fa fa-bars"></i> <span>All departments</span>
+					</div>
+					<ul>
+						<li><a href="#">Fresh Meat</a></li>
+						<li><a href="#">Vegetables</a></li>
+						<li><a href="#">Fruit & Nut Gifts</a></li>
+						<li><a href="#">Fresh Berries</a></li>
+						<li><a href="#">Ocean Foods</a></li>
+						<li><a href="#">Butter & Eggs</a></li>
+						<li><a href="#">Fastfood</a></li>
+						<li><a href="#">Fresh Onion</a></li>
+						<li><a href="#">Papayaya & Crisps</a></li>
+						<li><a href="#">Oatmeal</a></li>
+						<li><a href="#">Fresh Bananas</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-9">
+				<div class="hero__search">
+					<div class="hero__search__form">
+						<form action="#">
+							<div class="hero__search__categories">
+								All Categories <span class="arrow_carrot-down"></span>
+							</div>
+							<input type="text" placeholder="What do yo u need?">
+							<button type="submit" class="site-btn">SEARCH</button>
+						</form>
+					</div>
+					<div class="hero__search__phone">
+						<div class="hero__search__phone__icon">
+							<i class="fa fa-phone"></i>
+						</div>
+						<div class="hero__search__phone__text">
+							<h5>+65 11.188.888</h5>
+							<span>support 24/7 time</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+	<!-- Hero Section End -->
 
-	<form method="post" enctype="multipart/form-data"
-		action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
-		<input type='file' name='uploadFile' multiple>
-	</form>
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg"
+		data-setbg="/resources/img/breadcrumb.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="breadcrumb__text">
+					<h2>관리자 추가 모드</h2>
+					<div class="breadcrumb__option">
+						<a href="./index.html">Home</a> <span>Checkout</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+	<!-- Breadcrumb Section End -->
 
-	<input type="hidden" name="${_csrf.parameterName}"
-		value="${_csrf.token}" />
-	<input type="hidden" name="_csrf">
-	<!-- post방식 시 토큰 필수 -->
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
+	<div class="container">
+		<div class="checkout__form">
+			<h4>관리자 추가 모드</h4>
+			<form action="#">
+				<div class="row">
+					<div class="col-lg-4 col-md-6">
+						<div class="checkout__order">
+							<h4>상품 관리</h4>
+							<div class="checkout__order__products">
+								Products <span>Total</span>
+							</div>
+							<ul>
+								<li>Vegetable’s Package <span>$75.99</span></li>
+								<li>Fresh Vegetable <span>$151.99</span></li>
+								<li>Organic Bananas <span>$53.99</span></li>
+							</ul>
+							<div class="checkout__order__subtotal">
+								Subtotal <span>$750.99</span>
+							</div>
+							<div class="checkout__order__total">
+								Total <span>$750.99</span>
+							</div>
+							<div class="checkout__input__checkbox">
+								<label for="acc-or"> Create an account? <input
+									type="checkbox" id="acc-or"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do
+								eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							<div class="checkout__input__checkbox">
+								<label for="payment"> Check Payment <input
+									type="checkbox" id="payment"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<div class="checkout__input__checkbox">
+								<label for="paypal"> Paypal <input type="checkbox"
+									id="paypal"> <span class="checkmark"></span>
+								</label>
+							</div>
+							<button type="submit" class="site-btn">PLACE ORDER</button>
+						</div>
+					</div>
+					<!-- col-lg-4 -->
 
-	<button id='uploadBtn'>Upload</button>
+					<div class="col-lg-8 col-md-6">
+						<div class="h-5">
+							<p>
+								카테고리<span>*</span>
+							</p>
+							<!-- 대분류 -->
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="dropdownMenuButton1" data-bs-toggle="dropdown"
+									aria-expanded="false">Dropdown button</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li><a class="dropdown-item" href="#">Another action</a></li>
+									<li><a class="dropdown-item" href="#">Something else
+											here</a></li>
+								</ul>
+							</div>
+
+
+							<!-- 중분류 -->
+							<!-- 소분류 -->
+						</div>
+						<div class="checkout__input">
+							<p>
+								상품명<span>*</span>
+							</p>
+							<input type="text">
+						</div>
+						<div class="checkout__input">
+							<p>
+								판매가<span>*</span>
+							</p>
+							<input type="text" placeholder="Street Address"
+								class="checkout__input__add">
+						</div>
+						<div class="checkout__input">
+							<p>
+								재고수량<span>*</span>
+							</p>
+							<input type="text">
+						</div>
+						<div>
+							<p>
+								상품 이미지<span>*</span>
+							</p>
+							<form method="post" enctype="multipart/form-data"
+								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
+								<input type='file' name='uploadFile' multiple>
+							</form>
+
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" /> <input type="hidden" name="_csrf">
+							<!-- post방식 시 토큰 필수 -->
+
+							<button id='uploadBtn'>Upload</button>
+						</div>
+						<div class="checkout__input">
+							<p>
+								상세 설명<span>*</span>
+							</p>
+							<input type="text">
+						</div>
+						<!-- <div class="checkout__input__checkbox">
+                                <label for="acc">
+                                    Create an account?
+                                    <input type="checkbox" id="acc">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <p>Create an account by entering the information below. If you are a returning customer
+                            please login at the top of the page</p> -->
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- .container -->
+	</section>
+	<!-- Checkout Section End -->
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -85,9 +265,7 @@
 		});
 	</script>
 	<!-- Footer Section Begin -->
-		
-	<jsp:include page="./includes/footer.jsp"></jsp:include>	
-   
-    <!-- Footer Section End -->
-</body>
-</html>
+
+	<jsp:include page="./includes/footer.jsp"></jsp:include>
+
+	<!-- Footer Section End -->
