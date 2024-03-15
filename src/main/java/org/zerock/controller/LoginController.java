@@ -44,20 +44,7 @@ public class LoginController {
 	public String findInfo() {
 		//회원정보 찾기 페이지
 		
-		return "/find/findId";
+		return "/findId";
 	}
-	
-	
-	@GetMapping(value = "/validId/{name}/{email}", consumes = "application/json",
-	produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	@ResponseBody
-	public ResponseEntity<MemberVO> validId(@PathVariable("name") String name , @PathVariable("email") String email){
-		
-		MemberVO vo = loginService.findId(name, email);
-
-		return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
-	}
-	
-	
 	
 }

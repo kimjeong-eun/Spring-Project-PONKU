@@ -2,19 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
-    <script
+ <script
   src="https://code.jquery.com/jquery-3.7.1.js"
   integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
   crossorigin="anonymous"></script>
 
-<style type="text/css">
+<style>
 * { padding: 0; margin: 0; }
 
-html, body {
+body {
   height: 100%;
   background: #ffffff;
 }
@@ -75,16 +74,10 @@ html, body {
 
  <title>아이디 찾기</title>
 
- <!-- Bootstrap CSS -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
- <!-- 나의 스타일 추가 -->
- <link rel="stylesheet" href="css/login.css?v=1234">
-
-
 </head>
   <body class="text-center">
-    <jsp:include page="../includes/header.jsp"></jsp:include>
+  
+    <jsp:include page="./includes/header.jsp"></jsp:include>
     
     <!--  html 전체 영역을 지정하는 container -->
     <div id="container">
@@ -96,7 +89,7 @@ html, body {
         <div id="loginBoxTitle">아이디 찾기</div>
         <!-- 아이디, 비번, 버튼 박스 -->
         <div id="inputBox">
-          <div class="input-form-box"><span>이름 </span><input type="text" name="Inputname" class="form-control"></div>
+        
           <div class="input-form-box"><span>이메일 </span><input type="email" name="Inputemail" class="form-control"></div>
           
           <div class="button-login-box" >
@@ -106,58 +99,53 @@ html, body {
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>
-        
       </div> <!-- end 컨테이너  -->
     </form>
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-	<jsp:include page="../includes/footer.jsp"></jsp:include>
+	<jsp:include page="./includes/footer.jsp"></jsp:include>
   </body>
   
   	<script>
   		
   		$(document).ready(function(){
   			
-  			
-  			
-  			$("botton[name='findBtn']").on("click",function(e){
-  				
-  				var name= $("input[name='Inputname']").val();
-  				var email =$("input[name='Inputemail']").val();
-  				
+  			var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+			var csrfTokenValue = "${_csrf.token}";
+
+  			$("button[name='findBtn']").on("click",function(e){
   				e.preventDefault();
+  				
+  				var email =$("input[name='Inputemail']").val();
   				
   				$.ajax({
   					
-  					url : '/validId/'+name+'/'+email
-  					type:'get',
-  					dataTtpe:'json'
-  					success:function(result){
-  						alert("찾았읍니다");
+  					url :'/validId',
+  					data : {useremail: email},
+  					type:'POST',
+  					dataType : 'text',
+  					beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+					},
+  					success: function(result){
+  						//alert("찾았읍니다");
   						showResult(result);
-  					}
-  					
+  					},
+  					error : function(e){
+  					    console.log(e);
+  					  }
   				});	
   			});
-  			
+
   			function showResult(findResult){
   				
   				
   				
-  				
-  				
+  		  				
   			};
-  			
-  			
-  			
-  			
-  			
+
   		});
-  		
-  		
-  		
 
   	</script>
   	 	
-</html>

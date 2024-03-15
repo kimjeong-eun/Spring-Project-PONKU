@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
+
 <html >
 
 <head>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Humberger Begin -->
-<!--     <div class="humberger__menu__overlay"></div>
+  <!--   <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
             <a href="#"><img src="/resources/img/logo.png" alt=""></a>
@@ -77,7 +77,7 @@
                 <li>20,000원 이상 구매시 무료배송</li>
             </ul>
         </div>
-    </div> -->
+    </div>  -->
     <!-- Humberger End -->
 
     <!-- Header Section Begin -->
