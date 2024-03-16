@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
@@ -61,10 +61,10 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                            	
+                            	<sec:authentication property="principal" var="pinfo" />
                             	<sec:authorize access="isAuthenticated()">
                             	<form action="/logout" method="post" name="logoutForm">
-                            		<a href="#" name="logoutBtn" ><i class="fa fa-user"></i>LogOut</a>
+                            		<a href="#" name="logoutBtn" ><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
                             		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             	</form>
                             	</sec:authorize>                    		   

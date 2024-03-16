@@ -48,8 +48,17 @@
     
    <select id="getIdByNameAndEmail" resultMap="validIdMap">
    
-   	select userid , username, email, enroll_date from shop_member where email =#{email}
+   	select userid , username, email, enroll_date from shop_member where email =#{email} and username =#{name}
    
    </select>
+   
+   
+    <select id="getPwByIdAndEmail" resultMap="validIdMap">
+   
+   	select userid , username, email, enroll_date from shop_member where email =#{email} and userid =#{id}
+   
+   </select>
+   
+   
     
   </mapper>

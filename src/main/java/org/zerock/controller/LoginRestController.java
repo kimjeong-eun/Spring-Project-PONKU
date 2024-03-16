@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,15 +28,43 @@ public class LoginRestController {
 	LoginService loginService;
 	
 	@PostMapping(value = "/validId",
-		produces = {MediaType.TEXT_PLAIN_VALUE} )
-	public ResponseEntity<String> validId(String useremail){
-		//이메일로 아이디를 찾는 메서드
+		produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+	public ResponseEntity<MemberVO> validId(String useremail,String username){
+		//이메일과 이름으로 아이디를 찾는 컨트롤라
 		
-		MemberVO vo = loginService.findId(useremail);
+		MemberVO vo = loginService.findId(useremail ,username);
 		
-		String str = vo.getUserid() +"/"+vo.getEmail();
+		SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+		sdt.format(vo.getEnroll_date());
 		
-		return new ResponseEntity<String>(str,HttpStatus.OK); 
+		
+		
+		log.info("============================");
+		log.info(sdt.format(vo.getEnroll_date()));
+		log.info("============================");
+		
+		return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
 	}
+	
+	
+	@PostMapping(value = "/validInfo",
+			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
+		public ResponseEntity<MemberVO> validInfo(String useremail,String userId){
+			//이메일과 아이디로  pw를 찾는(초기화 하는 메서드)
+			
+			MemberVO vo = loginService.findPw(useremail ,userId);
+			
+			SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+			sdt.format(vo.getEnroll_date());
+			
+			
+			
+			log.info("============================");
+			log.info(sdt.format(vo.getEnroll_date()));
+			log.info("============================");
+			
+			return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
+		}
+		
 	
 }

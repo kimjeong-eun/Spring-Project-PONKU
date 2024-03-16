@@ -22,9 +22,15 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public MemberVO findId(String email) {
-		// 이름과 아이디로 정보를 찾는다
-		return loginMapper.getIdByNameAndEmail(email);
+	public MemberVO findId(String email , String name) {
+		// 이름과 이메일로 정보를 찾는다
+		return loginMapper.getIdByNameAndEmail(email ,name);
+	}
+
+	@Override
+	public MemberVO findPw(String email, String id) {
+		// 아이디와 이메일로 정보를 찾는다
+		return loginMapper.getPwByIdAndEmail(email, id);
 	}
 
 }

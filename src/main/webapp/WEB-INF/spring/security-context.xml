@@ -28,7 +28,7 @@
 		
 		<security:authentication-provider user-service-ref="customUserDetailsService" >
 		
-			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			<security:password-encoder ref="bcryptPasswordEncoder"/> 
 			
 		</security:authentication-provider>
 		

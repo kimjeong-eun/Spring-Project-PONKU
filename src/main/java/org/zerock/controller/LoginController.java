@@ -23,18 +23,17 @@ import lombok.extern.log4j.Log4j2;
 public class LoginController {
 
 	@Setter(onMethod_ = @Autowired )
-	private LoginService loginService ;
+	private LoginService loginService ; //로그인을 위한 매퍼 서비스 객체
 	
 	
 	@GetMapping("/customLogin")
 	public void loginInput(String error, String logout, Model model) {
-			//로그인페이지로 이동하는 컨트롤러
-					
+			//로그인페이지로 이동하는 컨트롤러			
 	}
 	
 	@GetMapping("/loginError")
 	public String loginError(Model model) {
-		
+		//에러 메세지를 전달하는 컨트롤러
 		model.addAttribute("errorMsg","로그인 정보가 일치하지 않습니다.");
 		
 		return "/customLogin";
@@ -42,9 +41,16 @@ public class LoginController {
 	
 	@GetMapping("/findId")
 	public String findInfo() {
-		//회원정보 찾기 페이지
+		//회원정보 찾기 페이지로 이동하는 컨트롤러
 		
 		return "/findId";
+	}
+	
+	@GetMapping("/findPw")
+	public String findPwInfo() {
+		//회원정보 찾기 페이지로 이동하는 컨트롤러
+		
+		return "/findPw";
 	}
 	
 }

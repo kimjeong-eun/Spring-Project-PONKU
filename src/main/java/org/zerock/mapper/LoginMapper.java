@@ -7,6 +7,7 @@ public interface LoginMapper {
 
 		public MemberVO read (String userid);
 		
-		public MemberVO getIdByNameAndEmail(@Param("email") String email);
+		public MemberVO getIdByNameAndEmail(@Param("email") String email,@Param("name") String name);
 		
+		public MemberVO getPwByIdAndEmail(@Param("email") String email,@Param("id") String id );
 }

@@ -56,4 +56,24 @@
 	<!-- 트랜잭션 설정 끝 -->
 	<!-- 추가할 component-scan , bean 은 밑에 작성해주세요 -->
 	
+	<!-- smtp 설정 --> 
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.naver.com" /> 
+	<property name="port" value="465" />
+	<property name="username" value="아이디입력" />
+	<property name="password" value="비밀번호입력" />
+	<property name="defaultEncoding" value="utf-8" />
+	<property name="javaMailProperties">
+		<props>
+			<prop key="mail.debug">true</prop>
+			<prop key="mail.smtp.starttls.enable">true</prop>
+			<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+			<prop key="mail.smtp.auth">true</prop>
+			<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop> <!--중요!!!!  -->
+			<prop key="mail.smtps.ssl.trust">*</prop>
+			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		</props>
+	</property>
+</bean>
+	
 </beans>

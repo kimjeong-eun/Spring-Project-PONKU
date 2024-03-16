@@ -96,34 +96,34 @@ body {
       <form id="loginBox" action="/validId" method="post" name="findForm" >
         
         <!-- 로그인 페이지 타이틀 -->
-        <div id="loginBoxTitle">아이디 찾기</div>
-        <p style="font-size: 12px;">회원 정보 확인을 위한 이름과 e-mail을 입력해주세요.</p>
+        <div id="loginBoxTitle">비밀번호 찾기</div>
+        <p style="font-size: 12px;">회원 정보 확인을 위한 ID와 e-mail을 입력해주세요.</p>
       
         <!-- 아이디, 비번, 버튼 박스 -->
         <div id="inputBox">
           
-          <div class="input-form-box"><span>이름 </span><input type="text" name="Inputname" class="form-control" placeholder="이름을 입력하세요" required="required" autofocus="autofocus" ></div>
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="InputId" class="form-control" placeholder="아이디를 입력하세요" required="required" autofocus="autofocus" ></div>
           <div class="input-form-box"><span>이메일 </span><input type="email" name="Inputemail" class="form-control" placeholder="이메일을 입력하세요" required="required" style="margin-bottom: 10px;"></div>
           
           <div class="button-login-box" >
             <button name="findBtn" type="submit" class="btn btn-primary btn-xs" style="width:100% ; margin-bottom: 15px;" >회원 정보 찾기</button>
             
-			<div id="findInfo"><a href="/findPw">Pw찾기</a> | <a href="/">회원가입</a> | <a href="/customLogin">로그인</a></div>    
+			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/">회원가입</a> | <a href="/customLogin">로그인</a></div>    
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>
         </form>
-        
-        <!-- 아이디 찾은 결과  -->
+
+		  <!-- 회원정보 확인 결과  -->
         <div id="resultBox" hidden="hidden">
         	
-        	 <div id="loginBoxTitle" style="font-size: 20px;">회원 정보</div>
+        	 <div id="loginBoxTitle" style="font-size: 20px;">비밀번호 초기화</div>
         	<div id="resultarea">
 
         
         	</div>
         </div>
-  
+        
       </div> <!-- end 컨테이너  -->
       
 
@@ -135,9 +135,7 @@ body {
   	<script>
   		
   		$(document).ready(function(){
-  			
-  			
-  			
+
   			var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
 			var csrfTokenValue = "${_csrf.token}";
 
@@ -145,19 +143,11 @@ body {
   				e.preventDefault();
   				
   				var email =$("input[name='Inputemail']").val();
-  				var name = $("input[name='Inputname']").val();
+  				var id = $("input[name='InputId']").val();
   				
   				//정규식 사용하여 이메일 이름 입력값 확인
   				var emailregexp = new RegExp("^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$");
-  				var nameregexp = new RegExp("^[가-힣]{2,4}");
-  				
-  				
-  				if(!nameregexp.test(name)){
-  					alert("이름 입력 형식이 잘못되었습니다!*한글만 가능*");
-  					$("input[name='Inputname']").focus();
-  					return;
-  					
-  				}
+  				//var nameregexp = new RegExp("^[a-z]{2,15}");
   				
   				if(!emailregexp.test(email)){
   					alert("이메일 입력 형식이 잘못되었습니다!!");
@@ -165,15 +155,15 @@ body {
   					return;
   				}
   				$.ajax({
-  					url :'/validId',
-  					data : {useremail: email,username:name},
+  					url :'/validInfo',
+  					data : {useremail: email,userId:id},
   					type:'POST',
   					dataType : 'json',
   					beforeSend: function(xhr){   // 헤더에 csrf 값 추가
 						xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 					},
   					success: function(result){
-  						//alert("찾았읍니다");'
+  						//alert("찾았읍니다");
   						console.log(result);
   						
   						showResult(result);
@@ -186,34 +176,51 @@ body {
   				
   			});
 
-  	  		function showResult(findResult){
+  			//결과 함수
+  			function showResult(findResult){
 					
-  	  				$("#resultBox").removeAttr("hidden");
-  	  				
-  	  				var resultarea = $("#resultarea");
-  	  				
-  	  				var userid = findResult.userid;
-  	  			
-  	  				var username = findResult.username;
-  	  				var enroll_date = new Date(findResult.enroll_date);
-  	  				
-  	  				var enroll_date_str =  enroll_date.getFullYear() +
-  	  			'-' + ( (enroll_date.getMonth()+1) < 9 ? "0" + (enroll_date.getMonth()+1) : (enroll_date.getMonth()+1) )+
-  	  		'-' + ( (enroll_date.getDate()) < 9 ? "0" + (enroll_date.getDate()) : (enroll_date.getDate()) );
-  	  				
-  	  			var maskingUserId = maskingId(userid); //id 마스킹 처리
-  	  			
-	  				/*alert(findResult.userid);
-	  				alert(findResult.username);
-	  				alert(enroll_date_str); */
-	  				
-	  				var str = "<p>ID : "+maskingUserId+"</p><p> 회원가입일 : "+enroll_date_str+"</p>";
-	  				
-	  				resultarea.html(str);
-	  				
-	  		};
-	  		
-	  		//아이디 마스킹처리
+  				var email = findResult.email;
+  				
+  					$.ajax({
+  						
+  						url:'/resetPw',
+  						data:{useremail:email},
+  						type:'POST',
+  						dataType : 'text',
+  						beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+  							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+  						},
+  						success: function(result){
+  	  						//alert("찾았읍니다");
+  	  						console.log(result);
+  	  						issuccess = result;
+  	  						
+  	  					},
+  	  					error : function(e){
+  							alert("메일 발송중 오류가 발생했습니다! 관리자에게 문의하세요");
+  					  	  	console.log(e);
+  					  	  	return;
+  					  	}
+  						
+  					});
+  					//메일 보내기를 성공했을 시
+  				
+  		  				$("#resultBox").removeAttr("hidden");
+  		  				
+  		  				var resultarea = $("#resultarea");
+  		  				
+  		  				var useremail = findResult.email;			
+  		  				var maskingemail = maskingEmail(useremail);// 이메일 마스킹 처리 
+  		  				
+  		  				var str ="<p>"+maskingemail+" 주소로 PW 변경 메일을 발송했습니다. 확인 후 PW를 변경해주세요.</p>";
+
+  	  					resultarea.html(str);
+  	  					//alert(maskingemail);
+  				
+
+  			};
+
+	  		//아이디 마스킹처리 메서드
 			function maskingId(str) {
 			    if (str == undefined || str === "") {
 			        return "";
@@ -221,8 +228,15 @@ body {
 			    var pattern = /.{3}$/; // 정규식
 			    return str.replace(pattern, "***");
 			};
-				  		
-  			
+			
+			//이메일 마스킹 처리 메서드
+			function maskingEmail(email) {
+			 
+			   // len = email.split('@')[0].length ;  // ******@gmail.com
+			   var len = email.split('@')[0].length-3; // AB***@gamil.com
+			   return email.replace(new RegExp('.(?=.{0,' + len + '}@)', 'g'), '*');
+			 
+			}
 
   		});
 

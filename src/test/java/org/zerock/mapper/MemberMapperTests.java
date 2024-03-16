@@ -31,7 +31,15 @@ public class MemberMapperTests {
 	@Test
 	public void getByNameAndEmail() {
 		
-		MemberVO vo = mapper.getIdByNameAndEmail("jeongeun587@naver.com");
+		MemberVO vo = mapper.getIdByNameAndEmail("jeongeun587@naver.com","김정은");
+		
+		 log.info(vo);
+	}
+	
+	@Test
+	public void getByIdAndEmail() {
+		
+		MemberVO vo = mapper.getPwByIdAndEmail("jeongeun587@naver.com","jeongeun2");
 		
 		 log.info(vo);
 	}
