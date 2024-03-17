@@ -255,7 +255,7 @@ public class MailTests {
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
 				+ "<p style=\"line-height: 140%;\"><span style=\"color: #666666; line-height: 19.6px;\"><span style=\"font-size: 18px; line-height: 25.2px;\">고객님의 비밀번호가 초기화 되었습니다.</span></span></p>\r\n"
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
-				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는"+newpassword +"입니다. 감사합니다.</span></p>\r\n"
+				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는["+newpassword +"]입니다. 감사합니다.</span></p>\r\n"
 				+ "  </div>\r\n"
 				+ "\r\n"
 				+ "      </td>\r\n"

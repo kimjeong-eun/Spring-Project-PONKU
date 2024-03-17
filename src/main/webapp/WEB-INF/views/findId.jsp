@@ -135,9 +135,7 @@ body {
   	<script>
   		
   		$(document).ready(function(){
-  			
-  			
-  			
+
   			var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
 			var csrfTokenValue = "${_csrf.token}";
 
@@ -165,7 +163,7 @@ body {
   					return;
   				}
   				$.ajax({
-  					url :'/validId',
+  					url :'/validEmailName',
   					data : {useremail: email,username:name},
   					type:'POST',
   					dataType : 'json',
@@ -195,6 +193,7 @@ body {
   	  				var userid = findResult.userid;
   	  			
   	  				var username = findResult.username;
+  	  				
   	  				var enroll_date = new Date(findResult.enroll_date);
   	  				
   	  				var enroll_date_str =  enroll_date.getFullYear() +

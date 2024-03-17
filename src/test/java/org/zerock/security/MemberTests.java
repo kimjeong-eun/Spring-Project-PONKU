@@ -67,6 +67,32 @@ public class MemberTests {
 	  }
 	  
 	  
+	  @Test
+	  public void testResetMyPassword() {
+		  
+		  String sql = "update shop_member set password = ? where userid= 'jeongeun2'";
+		  Connection con = null;
+		  PreparedStatement pstmt = null;
+		  
+		  try {
+			con = ds.getConnection();
+			  pstmt = con.prepareStatement(sql);
+			  
+			  pstmt.setString(1, pwencoder.encode("1234"));
+			  
+			  int n = pstmt.executeUpdate();
+			  
+		} catch (SQLException e) {
+		
+			
+			e.printStackTrace();
+		}
+		  
+		  
+		  
+		  
+	  }
+	  
 	  
 	  
 }

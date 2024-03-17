@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.service.LoginService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -22,20 +23,31 @@ import lombok.extern.log4j.Log4j2;
 public class MailController {
 
 	@Setter(onMethod_ =@Autowired )
-	JavaMailSenderImpl mailSender;
+	JavaMailSenderImpl mailSender; // 메일보내는 bean 
+	
+	@Setter(onMethod_ =@Autowired )
+	LoginService loginService;
 	
 	
-	@PostMapping(value ="/resetPw",produces = {MediaType.TEXT_PLAIN_VALUE} )
-	public ResponseEntity<String> sendMail(String useremail){
+	@PostMapping(value ="/resetPw", produces = {MediaType.TEXT_PLAIN_VALUE} )
+	public ResponseEntity<String> sendPwMail(String useremail, String userid){
 		//패스워드 리셋 메일 보내는 컨트롤러
 		
 		String newpassword =getRandomPassword(5);
 		
+		//resetPassword 메서드를 통해 회원 비밀번호 초기화 
+		if(!loginService.resetPassword(newpassword ,userid).equals("success")) {
+			//비밀번호 reset 오류 시 오류 상태 전송 
+			return new ResponseEntity<String>("fail",HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+		
+		//비밀번호 초기화 성공시 사용자의 이메일로 메일 전송 
 		String setfrom = "santabox53@naver.com"; //보내는 사람
 		String settitle = "비밀번호 초기화"; // 제목
 		
 		String setcontent = ""
-				+ ""
+				+ "안녕하세요, 산타의 선물상자입니다. 고객님의 비밀번호 초기화 메일을 보내드립니다. 재로그인 후 비밀번호를 변경해주세요."
 				+ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\r\n"
 				+ "<head>\r\n"
@@ -258,7 +270,7 @@ public class MailController {
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
 				+ "<p style=\"line-height: 140%;\"><span style=\"color: #666666; line-height: 19.6px;\"><span style=\"font-size: 18px; line-height: 25.2px;\">고객님의 비밀번호가 초기화 되었습니다.</span></span></p>\r\n"
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
-				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는"+newpassword +"입니다. 감사합니다.</span></p>\r\n"
+				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는[      "+newpassword +"     ]입니다. 감사합니다.</span></p>\r\n"
 				+ "  </div>\r\n"
 				+ "\r\n"
 				+ "      </td>\r\n"
@@ -371,7 +383,6 @@ public class MailController {
 		
 		String tomail = useremail; // 받을 주소
 		
-
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message,

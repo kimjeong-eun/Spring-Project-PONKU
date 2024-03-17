@@ -27,18 +27,16 @@ public class LoginRestController {
 	@Setter(onMethod_ = @Autowired )
 	LoginService loginService;
 	
-	@PostMapping(value = "/validId",
+	@PostMapping(value = "/validEmailName",
 		produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-	public ResponseEntity<MemberVO> validId(String useremail,String username){
-		//이메일과 이름으로 아이디를 찾는 컨트롤라
+	public ResponseEntity<MemberVO> findId(String useremail,String username){
+		//이메일과 이름으로 회원정보를 확인하는 컨트롤러 (아이디 찾기 시 사용)
 		
 		MemberVO vo = loginService.findId(useremail ,username);
 		
 		SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
 		sdt.format(vo.getEnroll_date());
-		
-		
-		
+			
 		log.info("============================");
 		log.info(sdt.format(vo.getEnroll_date()));
 		log.info("============================");
@@ -46,18 +44,16 @@ public class LoginRestController {
 		return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
 	}
 	
-	
-	@PostMapping(value = "/validInfo",
+	@PostMapping(value = "/validEmailId",
 			produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
-		public ResponseEntity<MemberVO> validInfo(String useremail,String userId){
-			//이메일과 아이디로  pw를 찾는(초기화 하는 메서드)
+		public ResponseEntity<MemberVO> findPw(String useremail,String userId){
+			//이메일과 아이디로 회원정보를 확인하는 컨틀롤라 (비밀번호 찾기 시 사용)
 			
 			MemberVO vo = loginService.findPw(useremail ,userId);
 			
 			SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
 			sdt.format(vo.getEnroll_date());
-			
-			
+		
 			
 			log.info("============================");
 			log.info(sdt.format(vo.getEnroll_date()));

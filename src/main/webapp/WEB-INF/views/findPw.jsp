@@ -155,7 +155,7 @@ body {
   					return;
   				}
   				$.ajax({
-  					url :'/validInfo',
+  					url :'/validEmailId',
   					data : {useremail: email,userId:id},
   					type:'POST',
   					dataType : 'json',
@@ -176,15 +176,16 @@ body {
   				
   			});
 
-  			//결과 함수
+  			//결과 함수 ->아이디 이메일 일치하면 비밀번호 reset과 메일 전송
   			function showResult(findResult){
 					
-  				var email = findResult.email;
   				
+  				var email = findResult.email;
+  				var id = findResult.userid;
   					$.ajax({
   						
   						url:'/resetPw',
-  						data:{useremail:email},
+  						data:{useremail:email,userid:id},
   						type:'POST',
   						dataType : 'text',
   						beforeSend: function(xhr){   // 헤더에 csrf 값 추가
