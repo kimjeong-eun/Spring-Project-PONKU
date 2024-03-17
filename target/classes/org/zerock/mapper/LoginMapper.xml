@@ -43,6 +43,7 @@
   	select mem.member_seq ,userid , password , username, age, gender,phone, email, address,
   		 enroll_date,last_update, auth.authority from shop_member mem left outer join shop_authority auth
   		 on mem.member_seq = auth.member_seq where mem.userid = #{userid}
+  		 
   </select>
     
     

@@ -28,7 +28,7 @@ public class MailTests {
 	public void mailTest() {
 		
 		String newpassword ="1234";
-		String setfrom = "santabox53@naver.com"; //보내는 사람
+		String setfrom = ""; //보내는 사람
 		String settitle = "비밀번호초기화"; // 제목
 		
 		String setcontent = ""
@@ -366,7 +366,7 @@ public class MailTests {
 				+ "</html>\r\n"
 				+ "    "; //내용
 		
-		String tomail = "jeongeun587@naver.com"; // 받을 주소
+		String tomail = ""; // 받을 주소
 		
 
 		try {

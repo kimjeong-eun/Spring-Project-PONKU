@@ -43,7 +43,7 @@ public class MailController {
 		}
 		
 		//비밀번호 초기화 성공시 사용자의 이메일로 메일 전송 
-		String setfrom = "santabox53@naver.com"; //보내는 사람
+		String setfrom = ""; //보내는 사람
 		String settitle = "비밀번호 초기화"; // 제목
 		
 		String setcontent = ""
