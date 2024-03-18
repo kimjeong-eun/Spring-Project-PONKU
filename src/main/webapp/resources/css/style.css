@@ -3466,3 +3466,13 @@ ol {
 		font-size: 24px;
 	}
 }
+
+/* 문의 게시판 추가 */
+	.ask__main__list {
+		width: 90%;
+		margin: 50px;
+	}
+	.table {
+		display : center;
+	}
+	
