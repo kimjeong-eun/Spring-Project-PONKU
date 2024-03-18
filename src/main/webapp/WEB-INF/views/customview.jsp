@@ -10,7 +10,7 @@
 .custombox{
 
 	border: 1px solid blue;
-	width: 70%;
+	width: 72%;
 	height: 80%;
 	position: relative;
 }
@@ -23,17 +23,16 @@
 	background-image: url("/resources/img/iphone.png");
 	position:relative;
 	left: 15%;
-	
-	
+		
 }
 
 .canvas-select{
 
 	position:absolute;
-	width: 20%;
+	width: 30%;
 	height: 50%;
 	border: 1px solid red;
-	left: 900px;
+	left: 70%;
 	top:40%;
 	display: inline-block;
 	float: left;
@@ -60,6 +59,19 @@
 
 }
 
+#pinkstyle{
+
+	background-image: url("/resources/img/alphabet/pink_a.png");
+	background-size: 400px 410px;
+	right: 0;
+}
+
+#pinkstyle:hover{
+
+	cursor: pointer;a
+}
+
+
 </style>
 
  <script
@@ -81,16 +93,14 @@
 		
 	<strong>나만의 커스텀 케이스를 완성하세요.</strong>
 	
-	
- 	<button  class="select-btn" name="pink" ></button>
+	<p>글꼴 스타일</p>
+ 	<button  class="select-btn" name="pinkstyle" id="pinkstyle"></button>
  	<button  class="select-btn" ></button>
 	
-	<input type="text" name="input-content" placeholder="내용을 입력하세요" class="inputbox">
+	<input type="text" name="input-content" placeholder="내용을 입력하세요(영문만 가능)" class="inputbox">
 </div>
 
 </div>
-
-
 
 
 
@@ -106,21 +116,20 @@
 		
 		$(document).ready(function() {
 
-			var canvas1 = $(".customview");
-			var ctx = canvas1[0].getContext("2d");
-			  ctx.beginPath();
-			var myImage = "/resources/img/alphabet/pink_a.png";
+			var canvas = $(".customview");
+			var ctx = canvas[0].getContext("2d");
 			
 			var letter ="";
-			var customstyle="pink";
+			var customstyle="";
 			var imgurl="resources/img/alphabet/"+customstyle+"_"+letter+".png";
 
 			
-			var x =320; //아이폰 고정
-			var y = 470; //아이폰 고정
+			var x =320; //아이폰 x고정
+			var y = 470; //아이폰 y고정
 			
 		
-			$(".select-btn[name=pink]").on("click",function(){
+			$(".select-btn[name=pinkstyle]").on("click",function(){
+				//핑크 글꼴을 선택했을 시
 				
 				customstyle="pink";
 				
@@ -129,50 +138,82 @@
 			});
 			
 			
-			$("input[name='input-content']").change(function() {
+			$("input[name='input-content']").keydown(function(e) { //키보드가 눌렸을 때
 				
-			    ctx.clearRect(0,0,canvas1.width, canvas1.height);
-			    ctx.beginPath();
-				
-				
-				var inputcontent = $("input[name='input-content']").val().split('');
-				
-				console.log(inputcontent.length);
-				
-				
-				for(var i = 0 ; i < inputcontent.length ; i++){
+				if(customstyle == "" || customstyle == null){
+					$("input[name='input-content']").val("");
 					
-					console.log(inputcontent[i]);
+					alert("글꼴 스타일을 먼저 선택해주시길 바랍니다");
 					
-					letter=inputcontent[i];
-					
-					console.log(imgurl);
-					
-					imgurl="resources/img/alphabet/"+customstyle+"_"+letter+".png";
-					
-					addToCanvas(ctx,imgurl,550,550);
-					
+					return;
 				}
+				
+				
+				var cur_inputcontent = e.key;
+				letter = cur_inputcontent;
+				imgurl="resources/img/alphabet/"+customstyle+"_"+letter+".png";
+				addToCanvas(ctx,imgurl,550,550);
+				letter="";
 				
 			});
 			
+
+			/* var pre_inputcontent =""; //이전에 입력했던 값
+			$("input[name='input-content']").on("propertychange change paste input", function() {
+							//실시간으로 입력탐지
+							
+				var cur_inputcontent = $(this).val();
+							
+				if()			
+							
+				//새로 입력된 문자열(현재문자열)에서 이전 문자열을 치환함 (이전 문자열은 새로 추가되지않음)				
+				letter = cur_inputcontent;
+				
+				imgurl="resources/img/alphabet/"+customstyle+"_"+letter+".png";
+				
+				addToCanvas(ctx,imgurl,550,550);
+				
+				pre_inputcontent += cur_inputcontent;
+
+			}); */
+			
+			
 			function addToCanvas(ctx, image, w ,h) {
+				//캔버스에 이미지를 추가하는 메서드
 				  var img = new Image();
 				  img.src = image;
 				  
-				  img.onload = function() {
+				  img.onload = function(){
 					  
 					  if(y<=50){
 						  alert("더이상 추가할 수 없습니다!");
 						  return;
 					  }
 					  
-				    ctx.drawImage(img, x, y, w,h);
+				    ctx.drawImage(img, x, y, w , h);
 				    console.log(y);
 				    y=y-50;
 				    
 				  };
-				};
+				  
+			};
+			
+			
+			$("input[name='input-content']").keydown(function(event) {
+
+				//백스페이스 키의 keyCode 는 8 입니다
+
+				if ( event.keyCode === 8 ) {
+					
+					
+					ctx.clearRect(0,0,canvas[0].width,canvas[0].height); //전체지우기
+					y=470;
+					$(this).val("");
+
+				}
+
+			});
+
 		});
 		
 		
