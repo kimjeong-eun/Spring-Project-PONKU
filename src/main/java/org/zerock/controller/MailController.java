@@ -43,11 +43,11 @@ public class MailController {
 		}
 		
 		//비밀번호 초기화 성공시 사용자의 이메일로 메일 전송 
-		String setfrom = ""; //보내는 사람
+		String setfrom = "ponkuu@naver.com"; //보내는 사람
 		String settitle = "비밀번호 초기화"; // 제목
 		
 		String setcontent = ""
-				+ "안녕하세요, 산타의 선물상자입니다. 고객님의 비밀번호 초기화 메일을 보내드립니다. 재로그인 후 비밀번호를 변경해주세요."
+				+ "안녕하세요, 고객님의 비밀번호 초기화 메일을 보내드립니다. 재로그인 후 비밀번호를 변경해주세요."
 				+ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"
 				+ "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\r\n"
 				+ "<head>\r\n"
@@ -212,7 +212,7 @@ public class MailController {
 				+ "  <tr>\r\n"
 				+ "    <td style=\"padding-right: 0px;padding-left: 0px;\" align=\"center\">\r\n"
 				+ "      \r\n"
-				+ "      <img align=\"center\" border=\"0\" src=\"/image-1.png\" alt=\"Image\" title=\"Image\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 10%;max-width: 58px;\" width=\"58\"/>\r\n"
+				+ "      <img align=\"center\" border=\"0\" src=\"/image-1.png\" alt=\"Image\" title=\"Image\" style=\"outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 10%;max-width: 58px;\" width=\"58\"/>\r\n" //이미지
 				+ "      \r\n"
 				+ "    </td>\r\n"
 				+ "  </tr>\r\n"

@@ -88,7 +88,7 @@ html, body {
       <form id="loginBox" action="/login" method="post">
    
         <!-- 로그인 페이지 타이틀 -->
-        <div id="loginBoxTitle">산타의 선물상자</div>
+        <div id="loginBoxTitle">PonKu</div>
         <!-- 아이디, 비번, 버튼 박스 -->
         <div id="inputBox">
           <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control"></div>

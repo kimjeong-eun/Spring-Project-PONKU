@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,19 +17,19 @@ import org.zerock.mapper.MemberMapperTests;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 @Log4j2
 public class MailTests {
 
-	@Setter(onMethod_ =@Autowired )
+	@Setter(onMethod_ = @Autowired )
 	JavaMailSenderImpl mailSender;
 	
 	@Test
 	public void mailTest() {
 		
 		String newpassword ="1234";
-		String setfrom = ""; //보내는 사람
+		String setfrom = "ponkuu@naver.com"; //보내는 사람
 		String settitle = "비밀번호초기화"; // 제목
 		
 		String setcontent = ""
@@ -255,7 +256,7 @@ public class MailTests {
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
 				+ "<p style=\"line-height: 140%;\"><span style=\"color: #666666; line-height: 19.6px;\"><span style=\"font-size: 18px; line-height: 25.2px;\">고객님의 비밀번호가 초기화 되었습니다.</span></span></p>\r\n"
 				+ "<p style=\"font-size: 14px; line-height: 140%;\"> </p>\r\n"
-				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는["+newpassword +"]입니다. 감사합니다.</span></p>\r\n"
+				+ "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"font-size: 18px; line-height: 25.2px; color: #666666;\">초기화된 비밀번호는[]입니다. 감사합니다.</span></p>\r\n"
 				+ "  </div>\r\n"
 				+ "\r\n"
 				+ "      </td>\r\n"
@@ -366,7 +367,7 @@ public class MailTests {
 				+ "</html>\r\n"
 				+ "    "; //내용
 		
-		String tomail = ""; // 받을 주소
+		String tomail = "jeongeun587@naver.com"; // 받을 주소
 		
 
 		try {
@@ -380,6 +381,7 @@ public class MailTests {
 			messageHelper.setText(setcontent , true); // 메일 내용 , html여부
 
 			mailSender.send(message);
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		}

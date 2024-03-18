@@ -37,12 +37,13 @@ public class MemberTests {
 	  public void testInsertMember() {
 		  
 		  String sql = "insert into shop_member(member_seq, userid, password, username) values (998,?,?,?)";
-			Connection con=null;
-			PreparedStatement pstmt=null;
+			
+		  Connection con=null;
+		  PreparedStatement pstmt=null;
 			
 	      try {
 	    	  con = ds.getConnection();
-			   pstmt = con.prepareStatement(sql);
+			  pstmt = con.prepareStatement(sql);
 			  
 			  pstmt.setString(1,"jeongeun2");
 			  pstmt.setString(2, pwencoder.encode("1234"));

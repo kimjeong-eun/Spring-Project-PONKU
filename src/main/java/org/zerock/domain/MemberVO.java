@@ -11,18 +11,19 @@ import lombok.Data;
 public class MemberVO {
 
 	private long member_seq; //기본키
-	private String userid;
-	private String password;
-	private String username;
-	private String email;
+	private String userid; //아이디
+	private String password; //패스워드
+	private String username; //이름
+	private String email; //이메일
+
+	private char gender; //성별
+	private String phone; //핸드폰번호
+	private String address1; //
+	private String address2; //
+	private String address3; //
+	private Date enroll_date; //가입일
+	private Date last_update; //업데이트일
 	
-	private long age;
-	private char gender;
-	private String phone;
-	private String address;
-	private Date enroll_date;
-	private Date last_update;
-	
-	private List<AuthVO> authList;
+	private List<AuthVO> authList; //권한리스트
 	
 }
