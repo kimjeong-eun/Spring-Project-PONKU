@@ -9,63 +9,45 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
+import org.zerock.mapper.MemberMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
-public class MemberServiceImpl implements MemberService{
-	
-	@Setter(onMethod_ = @Autowired)
-	private DataSource ds; //히카리시피 데이터소스
-	
-	@Setter(onMethod_ = @Autowired)
-	private PasswordEncoder pwencoder; //스프링 시큐리티에서 제공하는 인코더
-	
-
-	@Override
-	public String join(MemberVO member) {
-		String result = "";
-		String sql = "insert into shop_member (member_seq, userid, password, username, gender, email, phone, adress1, adress2, adress3, enroll_date, last_update)"
-				+ "values (member_seq.nextval, ?, ?, ?, ?, ?, ?, null, null, null, sysdate, sysdate)";
-		
-		String sql2 = "insert into shop_authority (AUTHORITY) values (?)";
-		
-		PreparedStatement pstmt = null;
-		Connection con = null;
-		
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(sql);
-			//스프링 시큐리티를 사용하기 위해 인코더 사용
-			pstmt.setString(1, member.getUserid());
-			pstmt.setString(2, pwencoder.encode(member.getPassword()));
-			pstmt.setString(3, member.getUsername());
-			pstmt.setString(4, member.getGender());
-			pstmt.setString(5, member.getEmail());
-			pstmt.setString(6, member.getPhone());
-			
-			int n = pstmt.executeUpdate();
-			
-			if(n>0) {
-				result = "success";
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
+public class MemberServiceImpl implements MemberService{@Override
+	public int join(MemberVO member) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+	
+	
+	/*
+	 * @Setter(onMethod_ = @Autowired) private MemberMapper mapper;
+	 * 
+	 * @Setter(onMethod_ = @Autowired) private PasswordEncoder pwencoder; //스프링
+	 * 시큐리티에서 제공하는 인코더
+	 * 
+	 * //회원가입
+	 * 
+	 * @Transactional //트랜잭션 작업 1개라도 실패하면 rollback!
+	 * 
+	 * @Override public int join(MemberVO member) { int result = 0; String message =
+	 * "member insert 예외 발생";
+	 * member.setPassword(pwencoder.encode(member.getPassword()));
+	 * 
+	 * result = mapper.insertMember(member); if(result == 0) { log.info(message);
+	 * throw new RuntimeException(message); } AuthVO auth = new AuthVO();
+	 * auth.setMember_seq(result); //selectKey로 member_seq 값 받음
+	 * auth.setAuth("ROLE_MEMBER"); result = mapper.insertMemberAuth(auth);
+	 * if(result == 0) { log.info(message); throw new RuntimeException(message); }
+	 * 
+	 * return result; }
+	 */
+	
 	
 }
