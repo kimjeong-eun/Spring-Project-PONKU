@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<!-- <i> 태그 = 아이콘을 넣기 위한 script -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <style>
@@ -307,7 +307,7 @@ div.ask__main {
 	</div>
 </div>
 
-
+<!-- 테이블 시작 -->
 <div class="container mt-4">
 	<table class="table">
 		<thead>
@@ -321,7 +321,7 @@ div.ask__main {
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
+			<!-- <tr> -- 예시 --
 				<th scope="row">1</th>
 				<td>상품문의</td>
 				<td>상품2</td>
@@ -331,76 +331,7 @@ div.ask__main {
 				</td>
 				<td>user1</td>
 				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요 <i class="fa-solid fa-lock"
-					style="color: #cd0000;"></i>
-				</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요 <i class="fa-solid fa-paperclip"
-					style="color: #cd0000;"></i> <i class="fa-solid fa-lock"
-					style="color: #cd0000;"></i>
-				</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
-			<tr>
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr>
+			</tr> -->
 		</tbody>
 	</table>
 </div>
@@ -569,9 +500,8 @@ div.ask__main {
 		    });
 		  });
 		});
-
-
 </script>
+<script type="text/javascript" src="/resources/js/asklist.js"></script>
 
 
 </body>

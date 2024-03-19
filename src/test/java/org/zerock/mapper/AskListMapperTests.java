@@ -49,7 +49,7 @@ public class AskListMapperTests {
 	
 	@Test
 	public void testRead() {
-		AskListVO vo = mapper.read(21L);
+		AskListVO vo = mapper.read(22L);
 		log.info(vo);
 	}
 	
