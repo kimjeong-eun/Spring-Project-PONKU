@@ -36,7 +36,7 @@ public class MemberTests {
 	  @Test
 	  public void testInsertMember() {
 		  
-		  String sql = "insert into shop_member(member_seq, userid, password, username) values (998,?,?,?)";
+		  String sql = "insert into shop_member(member_seq, userid, password, username) values (999,?,?,?)";
 			
 		  Connection con=null;
 		  PreparedStatement pstmt=null;
@@ -45,7 +45,7 @@ public class MemberTests {
 	    	  con = ds.getConnection();
 			  pstmt = con.prepareStatement(sql);
 			  
-			  pstmt.setString(1,"jeongeun2");
+			  pstmt.setString(1,"jeongeun3");
 			  pstmt.setString(2, pwencoder.encode("1234"));
 			  pstmt.setString(3,"김정은");
 			  

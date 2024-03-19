@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.MemberMapper">
+	
+	<resultMap type="org.zerock.domain.MemberVO" id="memberMap">
+		<id property="member_seq" column="MEMBER_SEQ"/>
+		<id property="userid" column="USERID"/>
+		<id property="password" column="PASSWORD"/>
+		<id property="username" column="USERNAME"/>
+		<id property="gender" column="GENDER"/>
+		<id property="email" column="EMAIL"/>
+		<id property="phone" column="PHONE"/>
+		<id property="adress1" column="ADDRESS1"/>
+		<id property="adress2" column="ADDRESS2"/>
+		<id property="adress3" column="ADDRESS3"/>
+		<id property="enroll_date" column="ENROLL_DATE"/>
+		<id property="last_update" column="LAST_UPDATE"/>
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+		
+	<resultMap type="org.zerock.domain.AuthVO" id="authMap">
+		<result property="member_seq" column="MEMBER_SEQ"/>
+		<result property="auth" column="AUTHORITY"/>
+	</resultMap>
+		
+	<insert id="insertMember" parameterType="org.zerock.domain.MemberVO">
+		<selectKey keyProperty="member_seq" order="BEFORE"
+			resultType="Long">
+			select member_seq.nextval from dual
+		</selectKey>
+		
+		insert into shop_member (
+			member_seq, 
+			userid, 
+			password, 
+			username, 
+			gender, 
+			email, 
+			phone
+		) values (
+			#{member_seq}, 
+			#{userid},
+			#{password}, 
+			#{username}, 
+			#{gender}, 
+			#{email}, 
+			#{phone}
+		)
+	</insert>
+	
+	<insert id="insertMemberAuth" parameterType="org.zerock.domain.MemberVO">
+		<foreach item="item" collection="auth">
+			INSERT INTO SHOP_AUTHORITY(
+				MEMBER_SEQ, 
+				AUTHORITY
+			) VALUES (
+				#{member_seq},
+				#{item} <!-- auth를 item 변수명으로~! -->
+			)	
+		</foreach>
+	</insert>
+		
+	<select id="selectMember" resultMap="memberMap">
+		SELECT mem.member_seq, userid, password, username, gender, email, phone, adress1, adress2, adress3, enroll_date, last_update, authList 
+		FROM shop_member mem 
+		LEFT OUTER JOIN shop_authority auth on mem.member_seq=auth.member_seq
+		WHERE mem.member_seq = #{member_seq}
+	</select>
+
+</mapper>

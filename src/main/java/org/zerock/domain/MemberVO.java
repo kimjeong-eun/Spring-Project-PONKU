@@ -1,7 +1,5 @@
 package org.zerock.domain;
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +14,7 @@ public class MemberVO {
 	private String username; //이름
 	private String email; //이메일
 
-	private char gender; //성별
+	private String gender; //성별
 	private String phone; //핸드폰번호
 	private String address1; //
 	private String address2; //
