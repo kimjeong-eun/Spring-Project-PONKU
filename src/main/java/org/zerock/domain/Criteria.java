@@ -8,10 +8,10 @@ import lombok.ToString;
 
 @ToString
 @Setter
-@Getter
+@Getter // root-context에 빈으로 등록해야 게터를 준다
 public class Criteria {
 
-	private int pageNum;		// 현재 페이지 번호 ..?
+	private int pageNum;		// 현재 페이지 번호
 	private int amount;			// 게시물 몇개씩 보일것인지
 
 	private String type;		// 검색타입
@@ -21,7 +21,7 @@ public class Criteria {
 		this(1, 10);
 	}
 
-	public Criteria(int pageNum, int amount) {	
+	public Criteria(int pageNum, int amount) {	// 페이지 번호를 넘겨받아서 생성자
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}

@@ -2,4 +2,71 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.zerock.mapper.AskListMapper"></mapper>
+<mapper namespace="org.zerock.mapper.AskListMapper">
+
+	<select id="getList" resultType="org.zerock.domain.AskListVO">
+	<![CDATA[
+		select * from ask_list where ask_list_no > 0 and rownum <= 100
+		]]>
+	</select>
+
+	<select id="getListWithPaging" resultType="org.zerock.domain.AskListVO">
+  	<![CDATA[
+	select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+ 	from 
+   	(
+    select /*+INDEX(ask_list ask_list_no_pk) */ 
+    	rownum rn, ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+    from ask_list
+    where ask_list_no > 0
+    	and rownum <= #{pageNum} * #{amount}
+   	)
+ 	 where rn > (#{pageNum} -1) * #{amount}
+	]]>
+	</select> <!-- cri: 인터페이스에서 @param으로 받아야 사용가능 !!!! 주의주의주의 -->
+
+	<insert id="insert">
+		insert into ask_list(ask_list_no,
+		ask_list_inquirytype, ask_list_title,
+		ask_list_content,
+		ask_list_writer, ask_list_updatedate,
+		ask_list_attach, ask_list_lock)
+		values(seq_ask_list_no.nextval, #{ask_list_inquirytype},
+		#{ask_list_title}, #{ask_list_content},
+		#{ask_list_writer}, null,
+		#{ask_list_attach}, #{ask_list_lock})
+	</insert>
+
+	<select id="read" resultType="org.zerock.domain.AskListVO">
+		select * from ask_list where
+		ask_list_no = #{ask_list_no}
+	</select>
+
+	<delete id="delete">
+		delete ask_list where ask_list_no = #{ask_list_no}
+	</delete>
+
+	<update id="update"> <!-- 번호, 작성자, 작성일 빼고 수정 가능 -->
+		update ask_list set
+		ask_list_inquirytype = #{ask_list_inquirytype},
+		ask_list_productno = #{ask_list_productno},
+		ask_list_title =
+		#{ask_list_title},
+		ask_list_content = #{ask_list_content},
+		ask_list_updatedate = sysdate,
+		ask_list_attach = #{ask_list_attach},
+		ask_list_lock = #{ask_list_lock},
+		ask_list_lock_password =
+		#{ask_list_lock_password}
+		where ask_list_no = #{ask_list_no}
+	</update>
+
+	<select id="getTotalCount" resultType="int"> <!-- 아직 안할랭 -->
+		select count(*) from ask_list where ask_list_no > 0
+	</select>
+
+
+
+
+
+</mapper>

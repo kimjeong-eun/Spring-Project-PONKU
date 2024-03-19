@@ -27,3 +27,16 @@ select * from ASK_LIST order by ask_list_no desc;
 
 -- 더미데이터 삭제용
 delete from ask_list;
+
+-- 테스트
+select * from ask_list where ask_list_no > 0 and rownum <= 100;
+select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+ 	from 
+   	(
+    select /*+INDEX(ask_list ask_list_no_pk) */ 
+    	rownum rn, ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+    from ask_list
+    where ask_list_no > 0
+    	and rownum <= 2 * 10
+   	)
+ 	 where rn > (2 -1) * 10;
