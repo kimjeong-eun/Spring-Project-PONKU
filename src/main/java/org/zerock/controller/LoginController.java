@@ -56,8 +56,12 @@ public class LoginController {
 		return "/findPw";
 	}
 	
+	@GetMapping("/join")
+	public void join() {
+	
+	}
+	
 	@PostMapping("/join")
-	@PreAuthorize("isAuthenticated()")
 	public String join(MemberVO member, RedirectAttributes rttr) {
 
 		log.info("==========================");
@@ -70,7 +74,7 @@ public class LoginController {
 
 		rttr.addFlashAttribute("result");
 		
-		return "redirect:/join";
+		return "/join";
 	}
 	
 	

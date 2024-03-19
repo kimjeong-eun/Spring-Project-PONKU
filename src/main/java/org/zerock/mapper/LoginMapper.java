@@ -24,4 +24,7 @@ public interface LoginMapper {
 	//멤버 정보 삭제
 	public int deleteMember(String userid);
 	
+	//아이디 중복확인
+	public int checkId (String userid);
+	
 }

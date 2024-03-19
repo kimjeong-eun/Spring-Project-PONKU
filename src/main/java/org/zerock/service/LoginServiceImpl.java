@@ -111,5 +111,18 @@ public class LoginServiceImpl implements LoginService {
 		  }
 		  return result; 
 	  }
-
+	  
+	  @Override
+      public int checkId(String userid) {
+		 //멤버이면 int 반환
+		  int result = 0;
+		  String message = "member checkId 예외 발생";
+		  result = loginMapper.checkId(userid);
+		  if(result == 0) {
+			  log.info(message);
+			  throw new RuntimeException(message);
+		  } 
+		  return result;
+      }
+	  
 }

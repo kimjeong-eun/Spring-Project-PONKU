@@ -14,9 +14,9 @@
   		<result property="gender" column="gender"/>
   		<result property="phone" column="phone"/>  		
   		<result property="email" column="email"/>
-  		<result property="address1" column="address"/>
-  		<result property="address2" column="address"/>
-  		<result property="address3" column="address"/>
+  		<result property="address1" column="address1"/>
+  		<result property="address2" column="address2"/>
+  		<result property="address3" column="address3"/>
   		<result property="enroll_date" column="enroll_date"/>  
   		<result property="last_update" column="last_update"/>  
   		
@@ -35,6 +35,7 @@
   		<result property="email" column="email"/>
   		<result property="enroll_date" column="enroll_date"/>
   	</resultMap>
+  	
   
    <select id="selectMember" resultMap="loginMap">
   
@@ -94,7 +95,13 @@
 			)	
 		</foreach>
 	</insert>
+	
+	
+   <select id="checkId" resultType="int">
    
+   		select * from shop_member where userid = #{userid}
+   
+   </select>
    
     
   </mapper>
