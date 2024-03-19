@@ -23,8 +23,8 @@ public class AskController {
 		log.info("lock 메서드 실행중 ... ");
 	}
 	
-	@GetMapping("/rite")
-	public void rite() {
+	@GetMapping("/write")
+	public void write() {
 		
 	}
 	
