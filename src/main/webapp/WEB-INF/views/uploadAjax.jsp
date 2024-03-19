@@ -25,9 +25,21 @@ body {
 	display: none;
 }
 
+input[type=file]::file-selector-button {
+	width: 150px;
+	height: 30px;
+	background: #fff;
+	border: 1px solid rgb(77, 77, 77);
+	border-radius: 3px;
+	cursor: pointer; &: hover { background : rgb( 77, 77, 77);
+	color: #fff;
+}
+
+}
+
 /* 기본 크기 */
 .checkout.spad {
-	min-height: 400px; /* 기본 최소 높이 */
+	min-height: 1160px; /* 기본 최소 높이 */
 }
 
 /* 화면 너비가 768px 이하인 경우 */
@@ -76,6 +88,7 @@ body {
 				</ul>
 			</div>
 		</div>
+		<!-- col-md-일 때 머로 하지;; -->
 		<div class="col-lg-9">
 			<div class="hero__search">
 				<div class="hero__search__form">
@@ -105,14 +118,14 @@ body {
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/breadcrumb.jpg">
+	data-setbg="/resources/img/bg1.png">
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12 text-center">
 			<div class="breadcrumb__text">
-				<h2>관리자 추가 모드</h2>
+				<h2>새 상품 추가</h2>
 				<div class="breadcrumb__option">
-					<a href="./index.html">Home</a> <span>Checkout</span>
+					<a href="./index.html">Home</a> <span>Add New Product</span>
 				</div>
 			</div>
 		</div>
@@ -129,23 +142,19 @@ body {
 		<form action="#">
 			<div class="row">
 				<div class="col-lg-4 col-md-6">
+				
 					<div class="checkout__order">
-						<h4>상품 관리</h4>
-						<div class="checkout__order__products">
-							Products <span>Total</span>
-						</div>
+						<div class="checkout__order__products" style="border-bottom: 1px solid e5e5e5;">상품 관리</div>
 						<ul>
-							<li>Vegetable’s Package <span>$75.99</span></li>
-							<li>Fresh Vegetable <span>$151.99</span></li>
-							<li>Organic Bananas <span>$53.99</span></li>
+							<li>상품 등록<span>아이콘1</span></li>
+							<li>상품 수정<span>아이콘2</span></li>
+							<li>상품 삭제<span>아이콘3</span></li>
 						</ul>
 						<div class="checkout__order__subtotal">
-							Subtotal <span>$750.99</span>
+							중분류<span>아이콘</span>
 						</div>
-						<div class="checkout__order__total">
-							Total <span>$750.99</span>
-						</div>
-						<div class="checkout__input__checkbox">
+						
+						<!-- <div class="checkout__input__checkbox">
 							<label for="acc-or"> Create an account? <input
 								type="checkbox" id="acc-or"> <span class="checkmark"></span>
 							</label>
@@ -161,84 +170,100 @@ body {
 							<label for="paypal"> Paypal <input type="checkbox"
 								id="paypal"> <span class="checkmark"></span>
 							</label>
-						</div>
-						<button type="submit" class="site-btn">PLACE ORDER</button>
+						</div> -->
+						
 					</div>
+					
 				</div>
 				<!-- col-lg-4 -->
 
-<div cl></div>
+				<div class="col-lg-1"></div>
 
-				<div class="col-lg-7 col-md-6">
-					<p>
-						기종 카테고리<span>*</span>
-					</p>
-					<div class="categ checkout__input row" style="height: 200px">
+				<div class="col-lg-7 col-md-6" style="padding: 0; margin: 0;">
+
+					<div class="checkout__input row" style="height: 80px">
+						<p>
+							기종 카테고리<span>*</span>
+						</p>
 						<!-- 대분류 -->
-						<div class="dropdown col" style="box-sizing: border-box;">
-							<button class="btn btn-light dropdown-toggle brandBtn" style="border-radius: 0;"
-								type="button" aria-expanded="false">브랜드</button>
-							<ul class="dropdown-menu" style="border-radius: 0; border: none; background-color: #f5f5f5;">
+						<div class="dropdown col">
+							<button class="btn btn-light dropdown-toggle brandBtn"
+								style="border-radius: 0;" type="button" aria-expanded="false">브랜드</button>
+							<ul class="dropdown-menu"
+								style="border-radius: 0; border: none; background-color: #f5f5f5;">
 								<li><a class="dropdown-item dropdown-brand1">애플</a></li>
 								<li><a class="dropdown-item dropdown-brand2">삼성</a></li>
 								<li><a class="dropdown-item dropdown-brand3">구글</a></li>
 							</ul>
 						</div>
 						<!-- 중분류 -->
-						<div class="dropdown col" style="box-sizing: border-box;">
-							<button class="btn btn-light dropdown-toggle" type="button" style="border-radius: 0;"
-								aria-expanded="false">기기명</button>
+						<div class="dropdown col">
+							<button class="btn btn-light dropdown-toggle" type="button"
+								style="border-radius: 0;" aria-expanded="false">기기명</button>
 
-							<ul class="dropdown-menu dropdown-menu-apple" style="border-radius: 0; border: none; background-color: #f5f5f5;">
+							<ul class="dropdown-menu dropdown-menu-apple"
+								style="border-radius: 0; border: none; background-color: #f5f5f5;">
 								<li><a class="dropdown-item">아이폰 S</a></li>
 							</ul>
-							<ul class="dropdown-menu dropdown-menu-sam">
+							<ul class="dropdown-menu dropdown-menu-sam"
+								style="border-radius: 0; border: none; background-color: #f5f5f5;">
 								<li><a class="dropdown-item" href="">갤럭시 S</a></li>
 							</ul>
 						</div>
-						<!-- .categ -->
+					</div>
 
-						<div class="checkout__input mbd">
-							<p>
-								상품명<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<div class="checkout__input">
-							<p>
-								판매가<span>*</span>
-							</p>
-							<input type="text" placeholder="Street Address"
-								class="checkout__input__add">
-						</div>
-						<div class="checkout__input">
-							<p>
-								재고수량<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<div>
+
+					<div class="checkout__input cateMar" style="margin-top: 50px;">
+						<p>
+							상품명<span>*</span>
+						</p>
+						<input type="text">
+					</div>
+					<div class="checkout__input">
+						<p>
+							판매가<span>*</span>
+						</p>
+						<input type="text" class="checkout__input__add">
+					</div>
+					<div class="checkout__input">
+						<p>
+							재고수량<span>*</span>
+						</p>
+						<input type="text">
+					</div>
+					<div class="checkout__input">
+						<p>
+							상세 설명<span>*</span>
+						</p>
+						<input type="text">
+					</div>
+
+					<div class="checkout__input">
+						<div class="row">
 							<p>
 								상품 이미지<span>*</span>
 							</p>
+						</div>
+						<div class="row">
 							<form method="post" enctype="multipart/form-data"
 								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
-								<input type='file' name='uploadFile' multiple>
+								<div class="col-10">
+									<input type='file' name='uploadFile' multiple
+										style="border: 0; padding: 0;">
+								</div>
+								<div class="col-2">
+									<button id='uploadBtn' class="btn btn-light"
+										style="width: 100%;">Upload</button>
+								</div>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
+								<!-- post방식 시 토큰 필수 -->
 							</form>
-
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" /> <input type="hidden" name="_csrf">
-							<!-- post방식 시 토큰 필수 -->
-
-							<button id='uploadBtn'>Upload</button>
 						</div>
-						<div class="checkout__input">
-							<p>
-								상세 설명<span>*</span>
-							</p>
-							<input type="text">
-						</div>
-						<!-- <div class="checkout__input__checkbox">
+					</div>
+
+					<!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
                                     <input type="checkbox" id="acc">
@@ -247,8 +272,18 @@ body {
                             </div>
                             <p>Create an account by entering the information below. If you are a returning customer
                             please login at the top of the page</p> -->
-					</div>
 				</div>
+				<!-- col-lg-7 -->
+			</div>
+			<!-- row -->
+			
+			<h4>주의사항 저장하시기 전에 한 번 더 확인</h4>
+			
+			<div class="checkout__input" style="text-align: center;">
+				<button type="submit" class="site-btn"
+					style="margin-top: 160px; padding: 15px 60px; font-size: 1rem;">상품
+					등록</button>
+			</div>
 		</form>
 	</div>
 	<!-- .container -->
@@ -265,7 +300,6 @@ body {
 		var menu = $(".dropdown-menu");
 		var appleItem = $(".dropdown-menu-apple");
 		var samItem = $(".dropdown-menu-sam");
-		//var mbd = $(".mbd");
 
 		// 버튼을 클릭하면 드롭다운 메뉴 항목 보이기
 		toggleBtn.click(function() {
@@ -274,9 +308,9 @@ body {
 			samItem.hide(); // 삼성 메뉴 항목 숨기기
 
 			if ($(".dropdown-menu").css("display") === "block") {
-				$(".mbd").css("margin-top", "140px");
+				$(".cateMar").css("margin-top", "140px");
 			} else {
-				$(".mbd").css("margin-top", "50px");
+				$(".cateMar").css("margin-top", "50px");
 			}
 		});
 
@@ -317,31 +351,31 @@ body {
 			return true; //반복을 위함 (문제 없을 시 true)
 		}
 
-		$("#uploadBtn").on("click", function(e) { //버튼 클릭 시
-			var formData = new FormData(); //파라미터 대신 전달하는 폼데이터 생성
+		$("#uploadBtn").on("click", function(e) {
+			e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+
+			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files; //배열에 추가
+			var files = inputFile[0].files;
 
-			console.log(files);
-
-			//add filedate to formdata
+			// 파일 업로드 처리
 			for (var i = 0; i < files.length; i++) {
-				if (!checkExtension(files[i].name, files[i].size)) {
-					return false;
-				}
-				formData.append("uploadFile", files[i]); //K, V
+				formData.append("uploadFile", files[i]);
 			}
 
 			$.ajax({
-				url : '/uploadAjaxAction',
-				processData : false, //기본값
+				url : 'uploadAjaxAction',
+				processData : false,
 				contentType : false,
 				data : formData,
 				type : 'POST',
 				success : function(result) {
 					alert("Uploaded");
+				},
+				error : function(xhr, status, error) {
+					console.error(xhr.responseText);
 				}
-			}); //ajax
+			});
 		});
 	});
 </script>
