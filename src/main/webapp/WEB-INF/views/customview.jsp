@@ -42,7 +42,7 @@
 
 .select-btn{
 	
-	margin-top: 30px;
+	margin-top: 15px;
 	width: 20%;
 	height: 20%;
 	/* background-image: url("/resources/img/logo.png"); */
@@ -71,6 +71,20 @@
 	cursor: pointer;a
 }
 
+p{
+
+
+margin-bottom: 0;
+
+
+}
+
+
+.casestyle{
+
+
+
+}
 
 </style>
 
@@ -91,7 +105,16 @@
 
 <div class="canvas-select">
 		
+		
+		
 	<strong>나만의 커스텀 케이스를 완성하세요.</strong>
+	
+	
+	<p>케이스 스타일</p>
+	
+	<div class="casestyle"></div>
+	
+	
 	
 	<p>글꼴 스타일</p>
  	<button  class="select-btn" name="pinkstyle" id="pinkstyle"></button>
