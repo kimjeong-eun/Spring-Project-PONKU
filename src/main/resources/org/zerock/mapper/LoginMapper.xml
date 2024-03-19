@@ -2,9 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-  
-
-  <mapper namespace="org.zerock.mapper.LoginMapper">
+<mapper namespace="org.zerock.mapper.LoginMapper">
   
   	<resultMap type="org.zerock.domain.MemberVO" id="loginMap">
   	
@@ -38,14 +36,13 @@
   		<result property="enroll_date" column="enroll_date"/>
   	</resultMap>
   
-  
-  <select id="read" resultMap="loginMap">
+   <select id="selectMember" resultMap="loginMap">
   
   	select mem.member_seq ,userid , password , username, gender,phone, email, address1, address2, address3
   		 enroll_date,last_update, auth.authority from shop_member mem left outer join shop_authority auth
   		 on mem.member_seq = auth.member_seq where mem.userid = #{userid}
   		 
-  </select>
+   </select>
        
    <select id="getIdByNameAndEmail" resultMap="validIdMap">
    
@@ -54,11 +51,49 @@
    </select>
    
    
-    <select id="getPwByIdAndEmail" resultMap="validIdMap">
+   <select id="getPwByIdAndEmail" resultMap="validIdMap">
    
    	select userid , username, email, enroll_date from shop_member where email =#{email} and userid =#{id}
    
    </select>
+   
+   <!-- 회원가입용 -->
+   <insert id="insertMember" parameterType="org.zerock.domain.MemberVO">
+		<selectKey keyProperty="member_seq" order="BEFORE"
+			resultType="Long">
+			select member_seq.nextval from dual
+		</selectKey>
+		
+		insert into shop_member (
+			member_seq, 
+			userid, 
+			password, 
+			username, 
+			gender, 
+			email, 
+			phone
+		) values (
+			#{member_seq}, 
+			#{userid},
+			#{password}, 
+			#{username}, 
+			#{gender}, 
+			#{email}, 
+			#{phone}
+		)
+	</insert>
+	
+	<insert id="insertMemberAuth" parameterType="org.zerock.domain.MemberVO">
+		<foreach item="item" collection="auth">
+			INSERT INTO SHOP_AUTHORITY(
+				MEMBER_SEQ, 
+				AUTHORITY
+			) VALUES (
+				#{member_seq},
+				#{item} <!-- auth를 item 변수명으로~! -->
+			)	
+		</foreach>
+	</insert>
    
    
     

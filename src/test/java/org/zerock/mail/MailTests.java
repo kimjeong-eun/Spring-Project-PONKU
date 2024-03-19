@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
-import org.zerock.mapper.MemberMapperTests;
+import org.zerock.mapper.LoginMapperTests;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;

@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.warn("Load User By UserName : " + username);
 		log.info("=========================================");
 		
-		MemberVO vo = loginMapper.read(username); //security는 username이 userid로 처리
+		MemberVO vo = loginMapper.selectMember(username); //security는 username이 userid로 처리
 		
 		return vo == null ? null : new CustomUser(vo);
 		
