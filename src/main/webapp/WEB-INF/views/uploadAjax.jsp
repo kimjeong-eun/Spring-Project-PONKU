@@ -175,7 +175,7 @@ body {
 					</p>
 					<div class="categ checkout__input row" style="height: 200px">
 						<!-- 대분류 -->
-						<div class="dropdown col">
+						<div class="dropdown col" style="box-sizing: border-box;">
 							<button class="btn btn-light dropdown-toggle brandBtn" style="border-radius: 0;"
 								type="button" aria-expanded="false">브랜드</button>
 							<ul class="dropdown-menu" style="border-radius: 0; border: none; background-color: #f5f5f5;">
@@ -185,7 +185,7 @@ body {
 							</ul>
 						</div>
 						<!-- 중분류 -->
-						<div class="dropdown col">
+						<div class="dropdown col" style="box-sizing: border-box;">
 							<button class="btn btn-light dropdown-toggle" type="button" style="border-radius: 0;"
 								aria-expanded="false">기기명</button>
 
