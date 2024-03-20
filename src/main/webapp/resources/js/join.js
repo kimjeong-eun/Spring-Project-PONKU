@@ -263,10 +263,8 @@ submitBtn.addEventListener('click', function() {
       break
     }
   }
-  if (isAllFilled === true) {
-    resultFailEl.textContent = ""
-    setTimeout(function() {
-      alert("서버 전송 데이터 : " + JSON.stringify(account))
-    }, 300)
+  if(!checkId) { 
+   alert("아이디를 다시 입력해주세요.");
+   return;
   }
 })

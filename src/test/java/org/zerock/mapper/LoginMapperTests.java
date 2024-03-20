@@ -40,10 +40,10 @@ public class LoginMapperTests {
 		member.setEmail("ktndud2@naver.com");
 		member.setPhone("01022796331");
 		
-		int member_seq = mapper.insertMember(member);
+		int member_seq = mapper.insertMember(member); //insert 성공/실패여부
 		
 		log.info("================");
-		log.info(member_seq);
+		log.info(member.getMember_seq());
 	}
 
 }

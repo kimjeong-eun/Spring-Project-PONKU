@@ -25,6 +25,7 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @Log4j2
 public class LoginController {
+	@Setter(onMethod_ = @Autowired)
 	private LoginService service;
 	
 	@Setter(onMethod_ = @Autowired )

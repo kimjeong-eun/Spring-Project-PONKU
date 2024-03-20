@@ -105,8 +105,9 @@ public class LoginServiceImpl implements LoginService {
 		  } 
 	  
 		  AuthVO auth = new AuthVO();
-		  auth.setMember_seq(result); //selectKey로 member_seq 값 받음
-		  auth.setAuth("ROLE_MEMBER"); result = loginMapper.insertMemberAuth(auth);
+		  auth.setMember_seq(member.getMember_seq()); //selectKey로 member_seq 값 받음
+		  auth.setAuth("ROLE_MEMBER"); 
+		  result = loginMapper.insertMemberAuth(auth);
 		  if(result == 0) { 
 			  log.info(message); throw new RuntimeException(message);
 		  }

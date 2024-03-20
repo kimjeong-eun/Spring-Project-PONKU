@@ -167,8 +167,9 @@ idInputEl.addEventListener('change', () => {
 
 	$(document).ready(function() {
 	
-	var csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
-	var csrfTokenValue = "${_csrf.token}";
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	let checkId = false;
 	
     // ID 입력란에서 포커스가 벗어날 때 동작한다.
     $("input[name='userid']").blur(function() {
@@ -191,13 +192,16 @@ idInputEl.addEventListener('change', () => {
 			},
             success: function(result) {
                 if (result == "true") {
+                	checkId = false;
                     $("#id-error-msg").css("color", "red").text("사용 불가능한 ID 입니다.");
                 } else {
+                	checkcId = true;
                     $("#id-error-msg").css("color", "black").text("사용 가능한 ID 입니다.");
                 }
             },
             error: function(xhr, status, error) {
                 // 서버 요청 실패 시 실행할 코드
+                checkId = false;
                 console.error('AJAX request failed:', error);
             }
         }); // End Ajax
