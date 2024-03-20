@@ -31,9 +31,9 @@ public class AskListServiceImpl implements AskListService {
 	}
 
 	@Override
-	public void register(AskListVO askList) {
+	public int register(AskListVO askList) {
 		log.info("service 영역에서 register 메서드 실행");
-		mapper.insert(askList);
+		return mapper.insert(askList);
 		
 	}
 
@@ -53,6 +53,12 @@ public class AskListServiceImpl implements AskListService {
 	public boolean modify(AskListVO askList) {
 		log.info("service 영역에서 modify 메서드 실행");
 		return mapper.update(askList) == 1;
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		log.info("service 영역에서 getTotal 메서드 실행");
+		return mapper.getTotalCount(cri);
 	}
 
 	

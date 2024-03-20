@@ -15,7 +15,7 @@ public interface AskListMapper {
 	public List<AskListVO> getListWithPaging(Criteria cri);
 	
 	// 게시물 객체를 받아 insert 한다.
-	public void insert(AskListVO askList);
+	public int insert(AskListVO askList);
 	
 	// 게시물 번호를 받아 게시물 객체를 찾아서 리턴한다.
 	public AskListVO read(Long ask_list_no);
@@ -27,7 +27,7 @@ public interface AskListMapper {
 	public int update(AskListVO askList);
 	
 	// 게시물 전체의 갯수를 리턴한다.
-	//public int getTotalCount(Criteria cri);
+	public int getTotalCount(Criteria cri);
 	
 	// (나중에)게시물 번호를 받아 해당 게시물 번호의 파일 리스트를 가져온다
 	//public List<???> findByAskListNO(Long ask_list_no);

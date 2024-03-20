@@ -76,7 +76,7 @@
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<!-- 스프링 시큐리티는 단독 xml을 사용함 security-context.xml 추가-->
 		
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
 		    <version>5.0.6.RELEASE</version>
@@ -98,7 +98,7 @@
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>5.0.6.RELEASE</version>
-		</dependency>
+		</dependency> -->
 		
 		<!-- 스프링 시큐리티 4가지 추가 끝-->	
 

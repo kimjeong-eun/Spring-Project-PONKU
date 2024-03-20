@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
 <!-- <i> 태그 = 아이콘을 넣기 위한 script -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
 <jsp:include page="../includes/header.jsp"></jsp:include>
 <style>
 .faq-dropdown-container {
@@ -140,9 +142,9 @@
 }
 
 .button-container {
-    display: flex; /* 버튼들을 수평으로 나열하기 위해 flexbox 사용 */
-    flex-wrap: nowrap; /* 버튼이 줄 바꿈 되지 않도록 설정 */
-    width: 100%;
+	display: flex; /* 버튼들을 수평으로 나열하기 위해 flexbox 사용 */
+	flex-wrap: nowrap; /* 버튼이 줄 바꿈 되지 않도록 설정 */
+	width: 100%;
 }
 
 .button {
@@ -181,11 +183,13 @@ div.ask__main {
 .button-search-container {
 	width: 100%;
 }
+
 .breadcrumb-section a {
 	color: #fff;
 	text-decoration: none;
 	transition: color 0.3s;
 }
+
 .breadcrumb-section a:hover {
 	color: #cd0000;
 }
@@ -201,7 +205,7 @@ div.ask__main {
 							departments</span>
 					</div>
 					<ul>
-					
+
 						<li><a href="#">Fresh Meat</a></li>
 						<li><a href="#">Vegetables</a></li>
 						<li><a href="#">Fruit & Nut Gifts</a></li>
@@ -275,7 +279,7 @@ div.ask__main {
 					</div>
 					<!-- 비밀글 ON 버튼 이동 -->
 					<button id="toggleButton" class="secretOn ml-2">비밀글 ON</button>
-					<form id="searchForm" class="d-flex">
+					<form id="searchForm" class="d-flex" action="/ask/main" method='get'>
 						<select id="searchCategory" class="mr-2">
 							<option value="all">전체</option>
 							<option value="title">제목</option>
@@ -301,7 +305,7 @@ div.ask__main {
 			<button class="button">배송문의</button>
 			<button class="button">주문결제</button>
 			<div class="faq-dropdown d-flex align-items-center ml-auto">
-				<button class="faq-toggle ml-3 mr-3">글쓰기</button>
+				<button data-oper='write' class="faq-toggle ml-3 mr-3">글쓰기</button>
 			</div>
 		</div>
 	</div>
@@ -320,23 +324,29 @@ div.ask__main {
 				<th scope="col">작성일</th>
 			</tr>
 		</thead>
-		<tbody>
-			<!-- <tr> -- 예시 --
-				<th scope="row">1</th>
-				<td>상품문의</td>
-				<td>상품2</td>
-				<td>상품 이거 왜이러나요 <i class="fa-solid fa-paperclip"
-					style="color: #cd0000;"></i> <i class="fa-solid fa-lock"
-					style="color: #cd0000;"></i>
-				</td>
-				<td>user1</td>
-				<td>2024-03-18</td>
-			</tr> -->
+		<tbody class="ask_list_tbody">
+			<!-- <i class="fa-solid fa-paperclip" style="color: #cd0000;"></i>
+			<i class="fa-solid fa-lock" style="color: #cd0000;"></i> -->
+			<c:forEach items="${list}" var="askList">
+				<tr>
+					<th scope="row"><c:out value="${askList.ask_list_no}" /></th>
+					<td><c:out value="${askList.ask_list_inquirytype}" /></td>
+					<td><c:out value="${askList.ask_list_productno}" /></td>
+					<td><a class='move' href='<c:out value="${askList.ask_list_no}"/>'><c:out value="${askList.ask_list_title}" /></a>
+					<td><c:out value="${askList.ask_list_writer}" /></td>
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${askList.ask_list_regdate}" /></td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>
 
-
+<form id='actionForm' action="/ask/main" method='get'>
+	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	<input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
+	<input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+</form>
 
 
 <div class="pagination-container">
@@ -467,7 +477,7 @@ div.ask__main {
 			// 페이지네이션 링크 요소 생성
 			const a = document.createElement('a');
 			// 링크 URL 설정
-			a.href = '#';
+			a.href = '/ask/main/' + i;
 			// 링크 텍스트 설정
 			a.textContent = i;
 			// 현재 페이지인 경우 active 클래스 추가
@@ -501,8 +511,97 @@ div.ask__main {
 		  });
 		});
 </script>
-<script type="text/javascript" src="/resources/js/asklist.js"></script>
 
+<script type="text/javascript">
+	$(document).ready( function() {
+						/* var result = '<c:out value="${result}"/>';
+						
+						checkModal(result);
+
+						history.replaceState({}, null, null);
+
+						function checkModal(result) {
+
+							if (result === '' || history.state) {
+								return;
+							}
+
+							if (parseInt(result) > 0) {
+								$(".modal-body").html(
+										"게시글 " + parseInt(result)
+												+ " 번이 등록되었습니다.");
+							}
+
+							$("#myModal").modal("show");
+						}
+
+						$("#regBtn").on("click", function() {
+
+							self.location = "/board/register";
+
+						});*/
+
+						var actionForm = $("#actionForm");
+						
+						// 페이징(숫자버튼)
+						$(".paginate_button a").on("click", function(e) {
+							e.preventDefault();
+							console.log('click');
+
+							actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+							actionForm.submit();
+						}); 
+
+						$(".move").on("click", function(e) {
+							e.preventDefault(); // 기존동작무시
+							actionForm.append("<input type='hidden' name='ask_list_no' value='" + $(this).attr("href") + "'>");
+							actionForm.attr("action", "/board/get");
+							actionForm.submit();
+						});
+
+						var searchForm = $("#searchForm");
+
+						$("#searchForm button").on(
+								"click",
+								function(e) {
+
+									if (!searchForm.find("option:selected")
+											.val()) {
+										alert("검색종류를 선택하세요");
+										return false;
+									}
+
+									if (!searchForm.find(
+											"input[name='keyword']").val()) {
+										alert("키워드를 입력하세요");
+										return false;
+									}
+
+									searchForm.find("input[name='pageNum']")
+											.val("1");
+									e.preventDefault();
+
+									searchForm.submit();
+
+								});
+
+					});
+</script>
+
+<!-- cdn header.jsp에 추가 -->
+<script type="text/javascript" src="/resources/js/asklist.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	var ask_list_tbody = $(".ask_list_tbody"); 
+
+	askListService.getListWithPaging({page:1}, function(list){
+		  for(var i = 0,  len = list.length||0; i < len; i++ ){
+		    console.log(list[i]);
+		  }
+	});
+	
+});
+</script>
 
 </body>
 
