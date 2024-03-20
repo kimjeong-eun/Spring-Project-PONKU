@@ -95,13 +95,5 @@
 			)	
 		</foreach>
 	</insert>
-	
-	
-   <select id="checkId" resultType="int">
-   
-   		select * from shop_member where userid = #{userid}
-   
-   </select>
-   
     
   </mapper>

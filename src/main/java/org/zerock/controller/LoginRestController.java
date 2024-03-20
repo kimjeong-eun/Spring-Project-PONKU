@@ -61,6 +61,18 @@ public class LoginRestController {
 			
 			return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
 		}
-		
+	
+	@PostMapping(value = "/checkId", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public boolean checkId(String userid) {
+		boolean result = false;
+		result = loginService.isMember(userid);
+		return result; //화면으로 결과값 전송
+	}
 	
 }
+
+
+
+
+
+

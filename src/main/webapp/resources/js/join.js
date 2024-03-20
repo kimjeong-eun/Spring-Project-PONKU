@@ -42,9 +42,14 @@ idInputEl.addEventListener('change', () => {
 });
 
 	$(document).ready(function() {
+	
+	var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+	var csrfTokenValue = "${_csrf.token}";
+	
     // ID 입력란에서 포커스가 벗어날 때 동작한다.
     $("#id-input-field").focusout(function() {
         var userId = $("#id-input-field").val();
+        console.log('userId : ',userId);
 
         if (userId == '' || userId.length == 0) {
             $("#id-error-msg").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
@@ -53,7 +58,7 @@ idInputEl.addEventListener('change', () => {
 
         // Ajax로 전송
         $.ajax({
-            url: "checkId", // 실제로 서버에서 ID 중복 확인을 처리하는 스크립트의 경로
+            url: "/checkId", // 실제로 서버에서 ID 중복 확인을 처리하는 스크립트의 경로
             type: "post",
             data: {userId: userId},
             dataType: 'json',

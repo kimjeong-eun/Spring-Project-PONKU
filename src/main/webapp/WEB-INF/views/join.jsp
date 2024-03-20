@@ -16,9 +16,11 @@
   <link rel="stylesheet" href="../resources/css/join.css">
   <script defer src="../resources/js/join.js"></script>
   
+  
 </head>
  
 <body>
+ <jsp:include page="./includes/header.jsp"></jsp:include>
   <div class="container">
     <form id="joinForm" action="/join" method="post">
 	    <div class="content">
@@ -88,6 +90,7 @@
 	    </div>
     </form>
   </div>
+  <jsp:include page="./includes/footer.jsp"></jsp:include>
 </body>
 
 </html>

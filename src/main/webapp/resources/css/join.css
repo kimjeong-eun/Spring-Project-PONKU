@@ -78,8 +78,8 @@ option {
 
 /* CONTAINER */
 .container {
-  position: absolute;
-  display: flex;
+  position: static;
+  display: block;
   flex-direction: column;
   width: 450px;
   height: 800px;

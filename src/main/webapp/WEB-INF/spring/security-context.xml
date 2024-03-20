@@ -13,6 +13,8 @@
 	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
 	
 	<security:http>
+			<security:intercept-url pattern="/checkId" access="permitAll"/>
+			<security:intercept-url pattern="/join" access="permitAll"/>
 			
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>
 			
@@ -21,6 +23,8 @@
 			<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 			
 			<security:access-denied-handler ref="customAccessDenied"/>
+			
+			<security:csrf disabled="true"/> <!-- csrf 안씀~@ -->
 			
 	</security:http>
 	

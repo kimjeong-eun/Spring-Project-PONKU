@@ -16,5 +16,4 @@ public interface LoginService {
 	
 	public int join(MemberVO member); //회원가입용
 	
-	public int checkId(String userid); //회원인지 확인하는 메서드(int 반환)
 }
