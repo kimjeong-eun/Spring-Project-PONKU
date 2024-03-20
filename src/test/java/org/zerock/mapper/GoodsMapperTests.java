@@ -31,4 +31,25 @@ public class GoodsMapperTests {
 
 		log.info(goods);
 	}
+	
+	@Test
+	public void testRead() {
+		GoodsVO goods = mapper.read(2L);
+		
+		log.info(goods);
+	}
+	
+	@Test
+	public void testInsertSelectKey() {
+		GoodsVO goods = new GoodsVO();
+		goods.setGname("새로 작성하는 상품");
+		goods.setPrice(22222);
+		goods.setQuantity(22);
+		//goods.setInformation("새로 작성하는 상품 설명");
+		
+		mapper.insertSelectKey(goods);
+		
+		log.info(goods);
+		//goods.setTitle
+	}
 }

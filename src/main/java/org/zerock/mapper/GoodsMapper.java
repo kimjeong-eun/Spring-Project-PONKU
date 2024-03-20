@@ -10,4 +10,6 @@ public interface GoodsMapper {
 	public void insert(GoodsVO goods);
 	
 	public void insertSelectKey(GoodsVO goods);
+	
+	public GoodsVO read(Long goods_seq);
 }

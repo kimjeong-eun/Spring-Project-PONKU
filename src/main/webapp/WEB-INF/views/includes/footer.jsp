@@ -76,12 +76,7 @@
 <!-- Footer Section End -->
 
 <!-- Js Plugins -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-></script>
-<script src="/resources/js/bootstrap.min.js"></script>
 <script src="/resources/js/jquery.nice-select.min.js"></script>
-<script src="/resources/js/jquery-ui.min.js"></script>
 <script src="/resources/js/jquery.slicknav.js"></script>
 <script src="/resources/js/mixitup.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
