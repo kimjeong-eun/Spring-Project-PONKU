@@ -94,8 +94,9 @@ public class LoginServiceImpl implements LoginService {
 	  public int join(MemberVO member){
 		  int result = 0; 
 		  String message = "member insert 예외 발생";
+		  
 		  member.setPassword(pwencoder.encode(member.getPassword()));
-	  
+		  
 		  result = loginMapper.insertMember(member); 
 	  
 		  if(result == 0) {

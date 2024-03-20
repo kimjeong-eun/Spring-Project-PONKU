@@ -36,14 +36,14 @@ public class LoginMapperTests {
 		member.setUserid("ksy0417");
 		member.setPassword(pwencoder.encode("1234"));
 		member.setUsername("김수영");
-		member.setGender("W");
+		member.setBirth("19970417");
 		member.setEmail("ktndud2@naver.com");
 		member.setPhone("01022796331");
 		
 		int member_seq = mapper.insertMember(member);
-		auth.setAuth("ROLE_MEMBER");
-		auth.setMember_seq(member_seq);
-		mapper.insertMemberAuth(auth);
+		
+		log.info("================");
+		log.info(member_seq);
 	}
 
 }

@@ -15,5 +15,5 @@ public interface LoginService {
 	public String resetPassword(String newpassword, String id); //비밀번호를 초기화 하는메서드(implement에서 바로 sql실행예정)
 	
 	public int join(MemberVO member); //회원가입용
-	
+
 }

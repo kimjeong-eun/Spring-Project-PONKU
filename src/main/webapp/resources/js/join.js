@@ -23,59 +23,7 @@ const account = {
   mobile: null
 }
 
-/*** SECTION - ID ***/
-const idInputEl = document.querySelector('#info__id input');
-const idErrorMsgEl = document.querySelector('#info__id .error-msg');
-const idCheckBtn = document.querySelector('#id-check');
 
-idInputEl.addEventListener('change', () => {
-  const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
-  if(idRegExp.test(idInputEl.value)) { // 정규식 조건 만족 O
-    idErrorMsgEl.textContent = "";
-    account.id = idInputEl.value;
-  } else { // 정규식 조건 만족 X
-    idErrorMsgEl.style.color = "red";
-    idErrorMsgEl.textContent = errMsg.id.invalid;
-    account.id = null;
-  }
-  console.log(account);
-});
-
-	$(document).ready(function() {
-	
-	var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
-	var csrfTokenValue = "${_csrf.token}";
-	
-    // ID 입력란에서 포커스가 벗어날 때 동작한다.
-    $("#id-input-field").focusout(function() {
-        var userId = $("#id-input-field").val();
-        console.log('userId : ',userId);
-
-        if (userId == '' || userId.length == 0) {
-            $("#id-error-msg").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
-            return false;
-        }
-
-        // Ajax로 전송
-        $.ajax({
-            url: "/checkId", // 실제로 서버에서 ID 중복 확인을 처리하는 스크립트의 경로
-            type: "post",
-            data: {userId: userId},
-            dataType: 'json',
-            success: function(result) {
-                if (result == true) {
-                    $("#id-error-msg").css("color", "black").text("사용 가능한 ID 입니다.");
-                } else {
-                    $("#id-error-msg").css("color", "red").text("사용 불가능한 ID 입니다.");
-                }
-            },
-            error: function(xhr, status, error) {
-                // 서버 요청 실패 시 실행할 코드
-                console.error('AJAX request failed:', error);
-            }
-        }); // End Ajax
-    });
-});
 
 /*** SECTION - PASSWORD ***/
 // pwVal: 패스워드, pwReVal: 패스워드 재입력, isPwValid: 패스워드 유효 여부

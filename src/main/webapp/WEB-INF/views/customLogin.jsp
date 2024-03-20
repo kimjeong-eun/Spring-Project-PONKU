@@ -95,7 +95,7 @@ html, body {
           <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control"></div>
       	  <p style="color:red ">${errorMsg }</p> <!-- 로그인 정보 일치하지 않을 시 오류메세지  -->
           <input type="checkbox" name="remember-me" /><p style="display: inline ;">로그인 상태 유지</p>
-			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/findPw">Pw찾기</a>|<a href="/">회원가입</a></div>
+			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/findPw">Pw찾기</a>|<a href="/join">회원가입</a></div>
           <div class="button-login-box" >
             <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>        
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -117,7 +117,7 @@ html, body {
   			$("input[name=username]").focus();
   			
   		}
-
+	
   	</script>
   	 	
 </html>

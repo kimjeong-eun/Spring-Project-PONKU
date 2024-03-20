@@ -64,19 +64,19 @@ public class LoginController {
 	}
 	
 	@PostMapping("/join")
-	public String join(MemberVO member, RedirectAttributes rttr) {
-
+	public String join(MemberVO member) {
+		//폼에서 전송된 값이 member에 저장!
 		log.info("==========================");
 
 		log.info("join: " + member);
 
 		log.info("==========================");
-
-		service.join(member);
-
-		rttr.addFlashAttribute("result");
 		
-		return "/join";
+		 int result =service.join(member);
+		 log.info(result);
+		 
+		return "/customLogin";
+		
 	}
 	
 	

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,11 +63,18 @@ public class LoginRestController {
 			return new ResponseEntity<MemberVO>(vo,HttpStatus.OK); 
 		}
 	
-	@PostMapping(value = "/checkId", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public boolean checkId(String userid) {
-		boolean result = false;
-		result = loginService.isMember(userid);
-		return result; //화면으로 결과값 전송
+	@PreAuthorize("isAnonymous()")
+	@PostMapping(value = "/checkId", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> checkId(String userId) {
+		String result = "false";
+		log.info("=======================");
+		log.info(userId);
+		boolean isMember = loginService.isMember(userId);
+		if(isMember == true) { // 존재하는 아이디일 경우
+			result = "true";
+		}
+		
+		return new ResponseEntity<String>(result, HttpStatus.OK);  //화면으로 결과값 전송
 	}
 	
 }

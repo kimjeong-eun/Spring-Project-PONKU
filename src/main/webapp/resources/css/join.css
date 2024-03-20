@@ -78,8 +78,8 @@ option {
 
 /* CONTAINER */
 .container {
-  position: static;
-  display: block;
+  position: absolute;
+  display: flex;
   flex-direction: column;
   width: 450px;
   height: 800px;
@@ -250,7 +250,7 @@ button#submit {
   }
 }
 
-/* MOBILE 
+/* MOBILE */
 @media screen and (max-width: 500px) {
   body {
     min-height: 780px;
@@ -267,4 +267,4 @@ button#submit {
     width: 85vw;
     min-width: 380px;
   }
-} */
+}
