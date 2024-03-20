@@ -23,7 +23,7 @@
 			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
 			 -->	
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>		
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@??????:1521:XE"></property>	
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@????????:1521:XE"></property>	
 		
 		<property name="username" value="shopmanager"></property>
 		<property name="password" value="shop5353"></property>	
@@ -42,7 +42,6 @@
 	<!-- 스프링이 마이바티스용으로 org.zerok.mapper 패키지에 있는 java 파일을 관여한다. -->
 	<mybatis-spring:scan base-package="org.zerock.mapper"/>
 	
-	
 	<!-- 서비스 패키지 등록 @service 어노테이션 등록으로 spring이 service로 관리함-->
 	<context:component-scan base-package="org.zerock.service"/>		
 
@@ -55,6 +54,5 @@
 	
 	<!-- 트랜잭션 설정 끝 -->
 	<!-- 추가할 component-scan , bean 은 밑에 작성해주세요 -->
-	
-	
+		
 </beans>
