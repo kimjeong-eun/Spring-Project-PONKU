@@ -96,7 +96,7 @@
                             
                             <sec:authorize access="isAuthenticated()">
                             
-								<li><a href="#" name="myPage">마이페이지</a>
+								<li><a href="/myPage" name="myPage">마이페이지</a>
 	                                <ul class="header__menu__dropdown">
 	                                    <li><a href="./shop-details.html">Shop Details</a></li>
 	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
