@@ -89,7 +89,7 @@ public class LoginServiceImpl implements LoginService {
 		
 	}
 	
-	  @Transactional //트랜잭션 작업 1개라도 실패하면 rollback!
+	  @Transactional
 	  @Override
 	  public int join(MemberVO member){
 		  int result = 0; 
@@ -97,20 +97,13 @@ public class LoginServiceImpl implements LoginService {
 		  
 		  member.setPassword(pwencoder.encode(member.getPassword()));
 		  
-		  result = loginMapper.insertMember(member); 
+		  result = loginMapper.insertMember(member);
 	  
 		  if(result == 0) {
 			  log.info(message);
 			  throw new RuntimeException(message);
 		  } 
-	  
-		  AuthVO auth = new AuthVO();
-		  auth.setMember_seq(member.getMember_seq()); //selectKey로 member_seq 값 받음
-		  auth.setAuth("ROLE_MEMBER"); 
-		  result = loginMapper.insertMemberAuth(auth);
-		  if(result == 0) { 
-			  log.info(message); throw new RuntimeException(message);
-		  }
+		 
 		  return result; 
 	  }
 	  

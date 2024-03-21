@@ -61,12 +61,6 @@
    <!-- 회원가입용 -->
    <!-- loginmapper 반영된 레코드 수 반환 -->
    <insert id="insertMember" parameterType="org.zerock.domain.MemberVO">
-		
-		<selectKey keyProperty="member_seq" order="BEFORE"
-			resultType="Long">
-			select member_seq.nextval from dual
-		</selectKey>
-		
 		insert into shop_member (
 			member_seq, 
 			userid, 
@@ -76,7 +70,7 @@
 			email, 
 			phone
 		) values (
-			#{member_seq}, 
+			member_seq.nextval, 
 			#{userid},
 			#{password}, 
 			#{username}, 
@@ -84,17 +78,6 @@
 			#{email}, 
 			#{phone}
 		)
-	</insert>
-	<!-- 2개로 insert 나눠야함 -->
-	<insert id="insertMemberAuth" parameterType="org.zerock.domain.MemberVO">
-			INSERT INTO SHOP_AUTHORITY(
-				MEMBER_SEQ, 
-				AUTHORITY
-			) VALUES (
-				#{member_seq},
-				#{auth} <!-- auth를 item 변수명으로~! -->
-			)	
-
 	</insert>
     
   </mapper>
