@@ -279,7 +279,8 @@ div.ask__main {
 					</div>
 					<!-- 비밀글 ON 버튼 이동 -->
 					<button id="toggleButton" class="secretOn ml-2">비밀글 ON</button>
-					<form id="searchForm" class="d-flex" action="/ask/main" method='get'>
+					<form id="searchForm" class="d-flex" action="/ask/main"
+						method='get'>
 						<select id="searchCategory" class="mr-2">
 							<option value="all">전체</option>
 							<option value="title">제목</option>
@@ -327,7 +328,7 @@ div.ask__main {
 		<tbody class="ask_list_tbody">
 			<!-- <i class="fa-solid fa-paperclip" style="color: #cd0000;"></i>
 			<i class="fa-solid fa-lock" style="color: #cd0000;"></i> -->
-			<c:forEach items="${list}" var="askList">
+			<%-- <c:forEach items="${list}" var="askList">
 				<tr>
 					<th scope="row"><c:out value="${askList.ask_list_no}" /></th>
 					<td><c:out value="${askList.ask_list_inquirytype}" /></td>
@@ -336,7 +337,7 @@ div.ask__main {
 					<td><c:out value="${askList.ask_list_writer}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${askList.ask_list_regdate}" /></td>
 				</tr>
-			</c:forEach>
+			</c:forEach> --%>
 		</tbody>
 	</table>
 </div>
@@ -344,8 +345,10 @@ div.ask__main {
 <form id='actionForm' action="/ask/main" method='get'>
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-	<input type='hidden' name='type' value='<c:out value="${ pageMaker.cri.type }"/>'>
-	<input type='hidden' name='keyword' value='<c:out value="${ pageMaker.cri.keyword }"/>'>
+	<input type='hidden' name='type'
+		value='<c:out value="${ pageMaker.cri.type }"/>'> <input
+		type='hidden' name='keyword'
+		value='<c:out value="${ pageMaker.cri.keyword }"/>'>
 </form>
 
 
@@ -462,54 +465,48 @@ div.ask__main {
 			toggleButton.classList.add("secretOn");
 		}
 	});
-
-	// 페이지네이션 생성 함수
-	function createPagination(totalPages, currentPage) {
-		// 페이지네이션 컨테이너 요소 선택
-		const paginationContainer = document.querySelector('.pagination');
-		// 페이지네이션 컨테이너 초기화
-		paginationContainer.innerHTML = '';
-
-		// 전체 페이지 수만큼 반복하여 페이지네이션 아이템 생성
-		for (let i = 1; i <= totalPages; i++) {
-			// 페이지네이션 아이템 요소 생성
-			const li = document.createElement('li');
-			// 페이지네이션 링크 요소 생성
-			const a = document.createElement('a');
-			// 링크 URL 설정
-			a.href = '/ask/main/' + i;
-			// 링크 텍스트 설정
-			a.textContent = i;
-			// 현재 페이지인 경우 active 클래스 추가
-			if (i === currentPage) {
-				li.classList.add('active');
-			}
-			// 링크를 아이템에 추가
-			li.appendChild(a);
-			// 아이템을 페이지네이션 컨테이너에 추가
-			paginationContainer.appendChild(li);
-		}
-	}
-
-	// 예시 사용: 총 페이지 수와 현재 페이지 설정하여 페이지네이션 생성
-	const totalPages = 10; // 전체 페이지 수
-	const currentPage = 1; // 현재 활성화된 페이지
-	createPagination(totalPages, currentPage);
 	
-	document.addEventListener('DOMContentLoaded', function () {
-		  const buttons = document.querySelectorAll('.button');
-		  const allButton = document.querySelector('.button-container .button:first-child'); // 첫 번째 버튼 가져오기
-		  
-		  // 페이지 로드 시 "전체" 버튼에 active 클래스 추가
-		  allButton.classList.add('active');
-		  
-		  buttons.forEach(button => {
-		    button.addEventListener('click', function () {
-		      buttons.forEach(btn => btn.classList.remove('active'));
-		      this.classList.add('active');
-		    });
-		  });
-		});
+	 var pageNum = 1;
+	 var pagination = $(".pagination");
+	 
+	 function showReplyPage(replyCnt){
+	      
+	      var endNum = Math.ceil(pageNum / 10.0) * 10;  
+	      var startNum = endNum - 9; 
+	      
+	      var prev = startNum != 1;
+	      var next = false;
+	      
+	      if(endNum * 10 >= replyCnt){
+	        endNum = Math.ceil(replyCnt/10.0);
+	      }
+	      
+	      if(endNum * 10 < replyCnt){
+	        next = true;
+	      }
+	      
+	      var str = "";
+	      
+	      if(prev){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>이전</a></li>";
+	      }
+	      
+	      for(var i = startNum ; i <= endNum; i++){
+	        
+	        var active = pageNum == i? "active":"";
+	        
+	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+	      }
+	      
+	      if(next){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>다음</a></li>";
+	      }
+	      
+	      console.log(str);
+	      
+	      pagination.html(str);
+	    }
+
 </script>
 
 <script type="text/javascript">
@@ -592,15 +589,80 @@ div.ask__main {
 <script type="text/javascript" src="/resources/js/asklist.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	var ask_list_tbody = $(".ask_list_tbody"); 
-
-	askListService.getListWithPaging({page:1}, function(list){
-		  for(var i = 0,  len = list.length||0; i < len; i++ ){
-		    console.log(list[i]);
-		  }
-	});
+	
+	showList(1); // 리스트 출력 전, 리스트에 값이 있는지 검사하고 출력한다.
+	
+	function showList(page){
+		console.log("show list " + page);
+		askListService.getListWithPaging({page:page|| 1}, function(askListCnt, list){
+			if(page == -1){
+		          pageNum = Math.ceil(askListCnt/10.0);
+		          showList(pageNum);
+		          return;
+		    }
+			if(list == null || list.length == 0){
+		          return;
+		    }
+			// 위 두개가 검증되었으면
+			displayList(list); // 화면에 출력(완료)
+			showAskListPage(askListCnt);
+			
+		}); // 익명함수 종료
+	} // showList
+	
+	var pageNum = 1;
+	
+	// 페이지 번호를 클릭했을 때 해당 페이지 데이터를 가져오는 함수 호출
+    $(document).on('click', '.page-link', function (event) {
+        event.preventDefault();
+        var pageNumber = $(this).data('page-number');
+        askListService.getListWithPaging({page:page}, function(list){
+  		displayList(list); // 화면에 출력(완료)
+  	});
+    });
 	
 });
+
+/* // Ajax를 사용하여 데이터를 가져오는 함수
+function getList(pageNumber) {
+    $.ajax({
+        type: 'GET',
+        url: '/main/' + pageNumber, // 컨트롤러의 매핑 주소
+        success: function (data) {
+            // 성공적으로 데이터를 받았을 때 처리
+            displayList(data);
+        },
+        error: function (error) {
+            // 오류 발생 시 처리
+            console.error('Error fetching data:', error);
+        }
+    });
+} */
+
+// 받은 데이터를 가지고 목록을 화면에 표시하는 함수(완료)
+function displayList(list) {
+    var ask_list_tbody = $(".ask_list_tbody"); 
+    ask_list_tbody.empty(); // 이전 목록 삭제
+
+    var str = '';
+    $.each(list, function (index, askList) {
+        str += '<tr><th scope="row">' + askList.ask_list_no + '</th>';
+        str += '<td>' + askList.ask_list_inquirytype + '</td>';
+        if(askList.ask_list_productno != null){
+        	str += '<td>' + askList.ask_list_productno + '</td>';
+        } else {
+        	str += '<td></td>';
+        }
+        str += '<td><a class="move" href="' + askList.ask_list_no + '">' + askList.ask_list_title + '</a></td>';
+        str += '<td>' + askList.ask_list_writer + '</td>';
+        var regDate = new Date(askList.ask_list_regdate);
+        var formattedDate = regDate.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        str += '<td>' + formattedDate + '</td></tr>';
+    }); 
+
+    ask_list_tbody.html(str); // 리스트 출력
+}
+
 </script>
 
 </body>

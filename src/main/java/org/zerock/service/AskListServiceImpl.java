@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zerock.domain.AskListPageDTO;
 import org.zerock.domain.AskListVO;
 import org.zerock.domain.Criteria;
 import org.zerock.mapper.AskListMapper;
@@ -25,9 +26,9 @@ public class AskListServiceImpl implements AskListService {
 	}
 	
 	@Override
-	public List<AskListVO> getListWithPaging(Criteria cri) {
+	public AskListPageDTO getListWithPaging(Criteria cri) {
 		log.info("service 영역에서 getListWithPaging 메서드 실행");
-		return mapper.getListWithPaging(cri);
+		return new AskListPageDTO(mapper.getTotalCount(cri), mapper.getListWithPaging(cri));
 	}
 
 	@Override
@@ -55,12 +56,5 @@ public class AskListServiceImpl implements AskListService {
 		return mapper.update(askList) == 1;
 	}
 
-	@Override
-	public int getTotal(Criteria cri) {
-		log.info("service 영역에서 getTotal 메서드 실행");
-		return mapper.getTotalCount(cri);
-	}
-
-	
 
 }

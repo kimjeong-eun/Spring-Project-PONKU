@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.domain.AskListPageDTO;
 import org.zerock.domain.AskListVO;
 import org.zerock.domain.Criteria;
 import org.zerock.service.AskListService;
@@ -32,7 +33,7 @@ public class AskRestController {
 
 	@GetMapping(value = "/main/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<List<AskListVO>> getListWithPaging(@PathVariable("page") int page) {
+	public ResponseEntity<AskListPageDTO> getListWithPaging(@PathVariable("page") int page) {
 
 		Criteria cri = new Criteria(page, 10);
 

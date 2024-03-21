@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.PageDTO;
+import org.zerock.domain.AskListPageDTO;
 import org.zerock.service.AskListService;
 
 import lombok.AllArgsConstructor;
@@ -31,14 +31,6 @@ public class AskController { // 페이지의 분기를 담당한다.
 	public void main(Criteria cri, Model model) {
 
 		log.info("cri : " + cri);
-		model.addAttribute("list", service.getListWithPaging(cri));
-		// model.addAttribute("pageMaker", new PageDTO(cri, 123));
-
-		int total = service.getTotal(cri);
-
-		log.info("total: " + total);
-
-		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}
 
