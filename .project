@@ -44,11 +44,4 @@
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/webapp/resources/vid/visual.mp4</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/AppData/Local/Temp/vmware-mit/VMwareDnD/23bf6562/visual.mp4</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

@@ -11,7 +11,12 @@
 주문페이지에요 ~
 
 
-${customorder.modelinput }
+${dto.filePath }
+${dto.modelinput }
+${dto.codeinput }
+${dto.customcontent }
+${dto.quantity }
+${dto.totalprice }
 
 </body>
 </html>

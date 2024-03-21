@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>커스텀 페이지 </title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<jsp:include page="./includes/header.jsp"></jsp:include>
+
 <style type="text/css">
 
 body{
 	width:100%;
-	height: 100vh; 
+	height: 110%; 
 }
 
 .sub-header{
@@ -26,9 +25,9 @@ body{
 
 /* 	border: 1px solid blue;  */
 	top:200px;
-	left: 15%;
-	width: 72%;
-	height: 80%;
+	left: 5%;
+	width: 90%;
+	height: 65rem;
 	position: relative;
 }
 
@@ -48,7 +47,7 @@ body{
 
 	position:absolute;
 	width: 30%;
-	height: 85%;
+	height: 60%;
 /* 	border: 1px solid red;  */
 	left: 60%;
 	top:0;
@@ -209,14 +208,7 @@ p{
 }
 </style>
 
- <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
 
-
-</head>
-<body>
 
 <div class="sub-header" id="sub-header"></div>
 
@@ -242,6 +234,9 @@ p{
 			<option name="model" value="iphone15">아이폰15</option>
 			<option name="model" value="iphone15Pro">아이폰15Pro</option>
 		</optgroup>
+		<optgroup label="갤럭시">
+			<option disabled="disabled">준비중입니다.</option>
+		</optgroup>
 		</select>
 
 		<p>케이스 스타일</p>
@@ -262,8 +257,7 @@ p{
 		<button  class="sticker-select-btn" name="blackheart" id="blackheart" style="background-image:url('/resources/img/black_heartimg.png');" data-url="/resources/img/black_heart.png"></button>
 		
 		
-		<form action="/" method="post" name="formObj" id="formObj" enctype="">
-			<input type="hidden" >
+		<form action="/orderCustom" method="post" name="formObj" id="formObj" >
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
 			<input type="hidden" name="modelinput" value=""> <!--선택한 기종  -->
 			<input type="hidden" name="customimginput" value=""> <!-- 커스터마이징한 이미지 위치-->
@@ -456,8 +450,7 @@ p{
 
 				}
 			});
-			
-			
+
 			//수량항목이 변화가 있을때 수량만큼 전체가격 더해짐
 			$("input[name='quantity']").change(function() {
 				
@@ -484,15 +477,14 @@ p{
 				e.preventDefault();
 				
 				$("input[name='modelinput']").val(model); //모델
-				$("input[name='customimginput']").val();
 				$("input[name='codeinput']").val(code); // 상품코드
 				$("input[name='customcontent']").val($("input[name='input-content']").val()); //입력 문구
 				//수량 (460줄에서 따로 입력됨)	
 				//최종가격(460줄에서 따로 입력됨)
+				//이미지 저장위치는 ajax를 통해 처리
 				
 				var imgDataUrl = canvas[0].toDataURL('image/png');
-				
-				console.log(imgDataUrl);
+				/* console.log(imgDataUrl); */
 				
 				var blobBin = atob(imgDataUrl.split(',')[1]); //base64 데이터 디코딩
 			    var array = [];
@@ -502,11 +494,12 @@ p{
 			    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});	// Blob 생성
 			    var formdata = new FormData();	// formData 생성
 			    formdata.append("file", file);	// file data 추가
-				formdata.append("modelinput",$("input[name='modelinput']").val());
+			    
+				/* formdata.append("modelinput",$("input[name='modelinput']").val());
 				formdata.append("codeinput",$("input[name='codeinput']").val());
 				formdata.append("customcontent",$("input[name='customcontent']").val());
 				formdata.append("quantity",$("input[name='quantity']").val());
-				formdata.append("totalprice",$("input[name='totalprice']").val());
+				formdata.append("totalprice",$("input[name='totalprice']").val()); */
 				
 				//폼데이터를 컨트롤러로 전송~
 				 $.ajax({
@@ -516,43 +509,31 @@ p{
 				        data : formdata,
 				        processData : false,	// data 파라미터 강제 string 변환 방지!!
 				        contentType : false,	// application/x-www-form-urlencoded; 방지!!
-				        dataType:'json',
+				        dataType:'html',
 				        beforeSend: function(xhr){   // 헤더에 csrf 값 추가
 							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 						},
-				        success : function(result){
+				        success : function(filePath){ //이미지 저장위치 받아옴
 				        	console.log("성공");
-				        	console.log(result);
-				        	console.log(result.filePath);
-				        	console.log(result.customcontent);
-				        	var str = "바보바보";
-				        	$.ajax({
-				        		type:'POST',
-				        		url:'/orderCustom',
-				        		data: {filePath:str},
-				        		contentType:'text',
-				        		beforeSend: function(xhr){   // 헤더에 csrf 값 추가
-									xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-								},
-								success : function(){
-									console.log("성공2");
-								},
-								error:function(e){
-									console.log(e);
-								}
-				        		
-				        	});
+				        	console.log(filePath);
+				        	$("input[name='customimginput']").val(filePath); //저장위치 저장
+				        	$("form[name='formObj']").submit(); //폼 전송 (일반 컨트롤러)
+
 				        },
 				        error : function(e){
 	  					    console.log(e);
 	  					 }
 				 
 				    });
-				 
+
 			});
 
 		});
+		
 </script>
+
+
+<jsp:include page="./includes/footer.jsp"></jsp:include>
 
 </body>
 </html>
