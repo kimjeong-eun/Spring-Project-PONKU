@@ -17,14 +17,14 @@ body{
 	position: absolute;
 	width: 100%;
 	height:20%;
-	border: 1px solid green; 
+/* 	border: 1px solid green;  */
 	background-image: url("/resources/img/subheader.png");
 	background-size: cover;
 }
 
 .custombox{
 
-	border: 1px solid blue; 
+/* 	border: 1px solid blue;  */
 	top:200px;
 	left: 15%;
 	width: 72%;
@@ -36,8 +36,9 @@ body{
 
 	width: 600px;
 	height: 600px;
-	border: 1px solid red; 
+	border: 1px solid black;  
 	background-image: url("/resources/img/iphone.png");
+	background-color: gray;
 	position:relative;
 	left: 15%;
 		
@@ -48,7 +49,7 @@ body{
 	position:absolute;
 	width: 30%;
 	height: 85%;
-	border: 1px solid red; 
+/* 	border: 1px solid red;  */
 	left: 60%;
 	top:0;
 	display: inline-block;
@@ -156,7 +157,7 @@ p{
 	margin-bottom:10%;
 	width: 100%;
 	height: 30%;
-	border: 1px solid red;
+/* 	border: 1px solid red; */
 	float: left;
 
 }
@@ -198,6 +199,12 @@ p{
 	margin-top:10px;
 	widows: width:50%;
 	height:30px;
+
+}
+
+.sticker-select-btn:hover {
+
+	border: 2px solid #FF9100;
 
 }
 </style>
@@ -252,15 +259,16 @@ p{
 		<input type="text" name="input-content" placeholder="내용을 입력하세요(영문만 가능)" class="inputbox">
 		
 		<p>스티커</p>
-		<p name="sticker-msg" style="color: red ; font-size: 12px; margin-bottom: 0; display: none">원하는 위치를 클릭하세요. 범위밖을 벗어났을 시 이미지가 잘립니다.</p>
-		<button  class="sticker-select-btn" name="blackheart" id="blackheart" style="background-image:url('/resources/img/black_heart.png');" data-url="/resources/img/black_heart.png"></button>
+		<button  class="sticker-select-btn" name="blackheart" id="blackheart" style="background-image:url('/resources/img/black_heartimg.png');" data-url="/resources/img/black_heart.png"></button>
 		
 		
-		<form action="/" method="post" name="formObj" id="formObj">
+		<form action="/" method="post" name="formObj" id="formObj" enctype="">
+			<input type="hidden" >
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
 			<input type="hidden" name="modelinput" value=""> <!--선택한 기종  -->
 			<input type="hidden" name="customimginput" value=""> <!-- 커스터마이징한 이미지 위치-->
 			<input type="hidden" name="codeinput" value=""> <!--상품코드  -->
+			<input type="hidden" name="customcontent" value=""> <!--입력 문구  -->
 			<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1"><br/>
 			<strong style="font-size: 20px; text-align: center;">가격</strong><input type="text" value="" readonly="readonly" name="totalprice" id="totalprice"/>
 			<button type="button" name="purchase" id="purchase">구매하기</button>
@@ -288,7 +296,7 @@ p{
 			var model = $("#modelselect option:selected").val(); //기본모델
 			var code = "ip0327"; //기본 상품코드
 			
-			/* console.log(model); */
+			/*  console.log(model);  */
 			
 			$("input[name='totalprice']").val(price);
 		
@@ -385,18 +393,16 @@ p{
 
 			$(".sticker-select-btn[name='blackheart']").on("click",function(){
 				//스티커 버튼 눌렸다면
-				var stickerurl = $(this).data("url");
 				
+					var stickerurl = $(this).data("url");
 				
-				if($(this).css("border-color") == "rgb(0, 0, 0)"){
-				
-					$(".sticker-select-btn").css("border","2px solid black");
-					$(this).css("border","2px solid #FF9100"); //눌렸을 때 색깔 바뀜
-					$("p[name='sticker-msg']").show(); //안내메세지 출력
 					console.log(stickerurl);
 					
-					
-					canvas[0].onclick = function(event) {
+					addToCanvas(ctx,stickerurl,490,490);
+					var inputval = $("input[name='input-content']").val();
+					$("input[name='input-content']").val(inputval+"♥");
+
+					/* canvas[0].onclick = function(event) {
 					const sticker_x = event.clientX - ctx.canvas.offsetLeft;
 				    const sticker_y = event.clientY - ctx.canvas.offsetTop;
 					
@@ -413,16 +419,7 @@ p{
 
 				    //ctx.fillRect(sticker_x-320, sticker_y-100, 30, 30);
 					 
-					};
-					
-				}else{
-					
-					$(this).css("border","2px solid black");
-					$("p[name='sticker-msg']").hide();
-					return;
-	
-				}
-
+					}; */
 			});
 
 			function addToCanvas(ctx, image, w ,h) {
@@ -440,10 +437,9 @@ p{
 					  
 				    ctx.drawImage(img, x, y, w , h);
 				    console.log(y);
-				    y=y-50;
+				    y=y-52;
 				    
 				  };
-				  
 			};
 
 			$("input[name='input-content']").keydown(function(event) {
@@ -474,21 +470,85 @@ p{
 					
 					var quantity = parseInt($(this).val()); //수량 정보를 가져옴
 					
-					$("input[name='quantity']").val(quantity);
-					$("input[name='totalprice']").val(price*quantity);		
+					$("input[name='quantity']").val(quantity+"");
+					$("input[name='totalprice']").val(price*quantity+"");		
 				}				
 			});
+			
+			var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+			var csrfTokenValue = "${_csrf.token}";
 			
 			//구매동작
 			$("button[name='purchase']").on("click",function(e){
 				
-				e.prevantDefault();
+				e.preventDefault();
 				
-				$("input[name='modelinput']").val(model);
+				$("input[name='modelinput']").val(model); //모델
 				$("input[name='customimginput']").val();
-				$("input[name='codeinput']").val(code);
+				$("input[name='codeinput']").val(code); // 상품코드
+				$("input[name='customcontent']").val($("input[name='input-content']").val()); //입력 문구
+				//수량 (460줄에서 따로 입력됨)	
+				//최종가격(460줄에서 따로 입력됨)
 				
+				var imgDataUrl = canvas[0].toDataURL('image/png');
 				
+				console.log(imgDataUrl);
+				
+				var blobBin = atob(imgDataUrl.split(',')[1]); //base64 데이터 디코딩
+			    var array = [];
+			    for (var i = 0; i < blobBin.length; i++) {
+			        array.push(blobBin.charCodeAt(i));
+			    }
+			    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});	// Blob 생성
+			    var formdata = new FormData();	// formData 생성
+			    formdata.append("file", file);	// file data 추가
+				formdata.append("modelinput",$("input[name='modelinput']").val());
+				formdata.append("codeinput",$("input[name='codeinput']").val());
+				formdata.append("customcontent",$("input[name='customcontent']").val());
+				formdata.append("quantity",$("input[name='quantity']").val());
+				formdata.append("totalprice",$("input[name='totalprice']").val());
+				
+				//폼데이터를 컨트롤러로 전송~
+				 $.ajax({
+					 
+				        type : 'POST',
+				        url : '/customOrder',
+				        data : formdata,
+				        processData : false,	// data 파라미터 강제 string 변환 방지!!
+				        contentType : false,	// application/x-www-form-urlencoded; 방지!!
+				        dataType:'json',
+				        beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+						},
+				        success : function(result){
+				        	console.log("성공");
+				        	console.log(result);
+				        	console.log(result.filePath);
+				        	console.log(result.customcontent);
+				        	var str = "바보바보";
+				        	$.ajax({
+				        		type:'POST',
+				        		url:'/orderCustom',
+				        		data: {filePath:str},
+				        		contentType:'text',
+				        		beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+									xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+								},
+								success : function(){
+									console.log("성공2");
+								},
+								error:function(e){
+									console.log(e);
+								}
+				        		
+				        	});
+				        },
+				        error : function(e){
+	  					    console.log(e);
+	  					 }
+				 
+				    });
+				 
 			});
 
 		});
