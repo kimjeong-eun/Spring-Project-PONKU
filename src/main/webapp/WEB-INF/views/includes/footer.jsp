@@ -14,7 +14,7 @@
 					<ul>
 						<li>Address: 경기도 수원시</li>
 						<li>Phone: +82 031.1234.1234</li>
-						<li>Email: santabox@gmail.com</li>
+						<li>Email: ponkuu@naver.com</li>
 					</ul>
 				</div>
 			</div>

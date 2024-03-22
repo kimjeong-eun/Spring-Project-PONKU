@@ -110,7 +110,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.html"><img src="/resources/img/logo.png"
+						<a href="/"><img src="/resources/img/logo.png"
 							alt=""></a>
 					</div>
 				</div>

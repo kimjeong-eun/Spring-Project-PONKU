@@ -21,7 +21,7 @@ public class CustomOrderRestController {
 	@PreAuthorize("isAnonymous()")
 	@PostMapping(value = "/customOrder", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE , MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<String> customOrder(MultipartFile file){
-		
+		//커스텀 이미지를 서버에 저장하는 컨트롤러 
 		
 		
 		log.info("====================================");

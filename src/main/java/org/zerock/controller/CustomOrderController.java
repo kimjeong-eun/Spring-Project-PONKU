@@ -15,15 +15,9 @@ public class CustomOrderController {
 	@PostMapping("/orderCustom")
 	public String orderCustom(String customimginput, String modelinput, String codeinput, String customcontent,
 				String quantity , String totalprice , Model model) {
-		
+		//커스텀케이스 구매 페이지로 이동하는 컨트롤러 
 		
 		CustomOrderDTO dto = new CustomOrderDTO();
-		dto.setCodeinput(codeinput);
-		dto.setCustomcontent(customcontent);
-		dto.setFilePath(customimginput);
-		dto.setModelinput(modelinput);
-		dto.setQuantity(quantity);
-		dto.setTotalprice(totalprice);
 		
 		model.addAttribute("dto", dto);
 		
