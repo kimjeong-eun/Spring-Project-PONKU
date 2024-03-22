@@ -342,19 +342,19 @@ div.ask__main {
 	</table>
 </div>
 
-<form id='actionForm' action="/ask/main" method='get'>
+<%-- <form id='actionForm' action="/ask/main" method='get'> <!-- 그냥 컨트롤러를 이용하는 방법 -->
 	<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	<input type='hidden' name='type'
 		value='<c:out value="${ pageMaker.cri.type }"/>'> <input
 		type='hidden' name='keyword'
 		value='<c:out value="${ pageMaker.cri.keyword }"/>'>
-</form>
+</form> --%>
 
 
 <div class="pagination-container">
 	<!-- 페이징 -->
-	<ul class="pagination"></ul>
+	
 </div>
 
 <!-- Contact Section Begin 오프라인 매장이 있는 컨셉이라면 .. 넣기 -->
@@ -466,51 +466,10 @@ div.ask__main {
 		}
 	});
 	
-	 var pageNum = 1;
-	 var pagination = $(".pagination");
-	 
-	 function showReplyPage(replyCnt){
-	      
-	      var endNum = Math.ceil(pageNum / 10.0) * 10;  
-	      var startNum = endNum - 9; 
-	      
-	      var prev = startNum != 1;
-	      var next = false;
-	      
-	      if(endNum * 10 >= replyCnt){
-	        endNum = Math.ceil(replyCnt/10.0);
-	      }
-	      
-	      if(endNum * 10 < replyCnt){
-	        next = true;
-	      }
-	      
-	      var str = "";
-	      
-	      if(prev){
-	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>이전</a></li>";
-	      }
-	      
-	      for(var i = startNum ; i <= endNum; i++){
-	        
-	        var active = pageNum == i? "active":"";
-	        
-	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
-	      }
-	      
-	      if(next){
-	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>다음</a></li>";
-	      }
-	      
-	      console.log(str);
-	      
-	      pagination.html(str);
-	    }
-
 </script>
 
 <script type="text/javascript">
-	$(document).ready( function() {
+	//$(document).ready( function() {
 						/* var result = '<c:out value="${result}"/>';
 						
 						checkModal(result);
@@ -538,10 +497,10 @@ div.ask__main {
 
 						});*/
 
-						var actionForm = $("#actionForm");
 						
-						// 페이징(숫자버튼)
-						$(".paginate_button a").on("click", function(e) {
+						
+						// 페이징(숫자버튼)(그냥 컨트롤러를 이용하는 방법)
+						/* $(".paginate_button a").on("click", function(e) {
 							e.preventDefault();
 							console.log('click');
 
@@ -554,9 +513,9 @@ div.ask__main {
 							actionForm.append("<input type='hidden' name='ask_list_no' value='" + $(this).attr("href") + "'>");
 							actionForm.attr("action", "/board/get");
 							actionForm.submit();
-						});
+						}); */
 
-						var searchForm = $("#searchForm");
+						/* var searchForm = $("#searchForm"); 검색 아직 구현 안함
 
 						$("#searchForm button").on(
 								"click",
@@ -582,7 +541,7 @@ div.ask__main {
 
 								});
 
-					});
+					}); */
 </script>
 
 <!-- cdn header.jsp에 추가 -->
@@ -590,36 +549,106 @@ div.ask__main {
 <script type="text/javascript">
 $(document).ready(function () {
 	
-	showList(1); // 리스트 출력 전, 리스트에 값이 있는지 검사하고 출력한다.
+	var ask_list_tbody = $(".ask_list_tbody"); 
+	showList(1); // 기본 페이지는 1페이지
 	
-	function showList(page){
+	function showList(page){ // 리스트에 값이 있는지 검사하고 출력한다.
 		console.log("show list " + page);
-		askListService.getListWithPaging({page:page|| 1}, function(askListCnt, list){
+	
+		askListService.getListWithPaging({page: page|| 1}, function(askListCnt, list){
+			
+			console.log("askListCnt: "+ askListCnt );
+	        console.log("list: " + list);
+			
+			
 			if(page == -1){
 		          pageNum = Math.ceil(askListCnt/10.0);
 		          showList(pageNum);
 		          return;
 		    }
+			var str = "";
 			if(list == null || list.length == 0){
 		          return;
 		    }
+			// ask_list_tbody.empty(); // 이전 목록 삭제
 			// 위 두개가 검증되었으면
-			displayList(list); // 화면에 출력(완료)
-			showAskListPage(askListCnt);
+			for (var i = 0, len = list.length || 0; i < len; i++) {
+				str += '<tr><th scope="row">' + list[i].ask_list_no + '</th>';
+			    str += '<td>' + list[i].ask_list_inquirytype + '</td>';
+			    if(list[i].ask_list_productno != null){
+			    	str += '<td>' + list[i].ask_list_productno + '</td>';
+			    } else {
+			    	str += '<td></td>';
+			    }
+			    str += '<td><a class="move" href="' + list[i].ask_list_no + '">' + list[i].ask_list_title + '</a></td>';
+			    str += '<td>' + list[i].ask_list_writer + '</td>';
+			    var regDate = new Date(list[i].ask_list_regdate);
+			    var formattedDate = regDate.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+			    str += '<td>' + formattedDate + '</td></tr>';
+         }
+		ask_list_tbody.html(str); // 리스트 출력
+		showAskListPage(askListCnt);
 			
 		}); // 익명함수 종료
 	} // showList
 	
 	var pageNum = 1;
+	var paginationContainer = $(".pagination-container"); // 페이징이 출력될 곳(div)
 	
-	// 페이지 번호를 클릭했을 때 해당 페이지 데이터를 가져오는 함수 호출
-    $(document).on('click', '.page-link', function (event) {
-        event.preventDefault();
-        var pageNumber = $(this).data('page-number');
-        askListService.getListWithPaging({page:page}, function(list){
-  		displayList(list); // 화면에 출력(완료)
-  	});
-    });
+	function showAskListPage(askListCnt){ // 페이징을 계산해서 페이지번호를 출력
+	      
+	      var endNum = Math.ceil(pageNum / 10.0) * 10;	// 마지막 페이지
+	      var startNum = endNum - 9; 					// 시작 페이지
+	      
+	      var prev = startNum != 1;						// 이전
+	      var next = false;								// 다음
+	      
+	      if(endNum * 10 >= replyCnt){					// ?
+	        endNum = Math.ceil(replyCnt/10.0);
+	      }
+	      
+	      if(endNum * 10 < replyCnt){					// 다음으로 true
+	        next = true;
+	      }
+	      
+	      var str = '<ul class="pagination">';
+	      
+	      if(prev){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>이전</a></li>";
+	      }
+	      
+	       
+	      
+	      for(var i = startNum ; i <= endNum; i++){
+	        
+	        var active = pageNum == i? "active":"";
+	        
+	        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+	      }
+	      
+	      if(next){
+	        str+= "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>다음</a></li>";
+	      }
+	      
+	      str += "</ul>";
+	      
+	      console.log(str);
+	      paginationContainer.html(str);
+	      
+	} // showAskListPage
+	
+	// 페이지 번호를 클릭했을 때 해당 페이지 번호를 showList로 보내 리스트를 출력
+	paginationContainer.on("click","li a", function(e){
+        e.preventDefault(); // 기존 동작 무시
+        
+        var targetPageNum = $(this).attr("href");
+        
+        console.log("targetPageNum: " + targetPageNum);
+        
+        pageNum = targetPageNum;
+        
+        showList(pageNum);
+    }); // 익명함수종료
 	
 });
 
@@ -639,29 +668,7 @@ function getList(pageNumber) {
     });
 } */
 
-// 받은 데이터를 가지고 목록을 화면에 표시하는 함수(완료)
-function displayList(list) {
-    var ask_list_tbody = $(".ask_list_tbody"); 
-    ask_list_tbody.empty(); // 이전 목록 삭제
 
-    var str = '';
-    $.each(list, function (index, askList) {
-        str += '<tr><th scope="row">' + askList.ask_list_no + '</th>';
-        str += '<td>' + askList.ask_list_inquirytype + '</td>';
-        if(askList.ask_list_productno != null){
-        	str += '<td>' + askList.ask_list_productno + '</td>';
-        } else {
-        	str += '<td></td>';
-        }
-        str += '<td><a class="move" href="' + askList.ask_list_no + '">' + askList.ask_list_title + '</a></td>';
-        str += '<td>' + askList.ask_list_writer + '</td>';
-        var regDate = new Date(askList.ask_list_regdate);
-        var formattedDate = regDate.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-        str += '<td>' + formattedDate + '</td></tr>';
-    }); 
-
-    ask_list_tbody.html(str); // 리스트 출력
-}
 
 </script>
 
