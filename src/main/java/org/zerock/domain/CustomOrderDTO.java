@@ -22,7 +22,7 @@ public class CustomOrderDTO {
 	private String userid; //유저아이디
 
 	private String model_name; //모델명
-	private String custom_image; //커스텀이미지
+	private String custom_image; //커스텀이미지저장위치
 	private String custom_content; //커스텀문구
 	private String quantity; //주문수량
 	private String totalprice; //총가격

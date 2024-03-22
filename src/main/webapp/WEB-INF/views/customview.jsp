@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <jsp:include page="./includes/header.jsp"></jsp:include>
 
 <style type="text/css">
@@ -256,8 +256,16 @@ p{
 		<p>스티커</p>
 		<button  class="sticker-select-btn" name="blackheart" id="blackheart" style="background-image:url('/resources/img/black_heartimg.png');" data-url="/resources/img/black_heart.png"></button>
 		
+		<sec:authentication property="principal" var="pinfo"/>
 		
 		<form action="/orderCustom" method="post" name="formObj" id="formObj" >
+		
+		<sec:authorize access="isAnonymous()">
+			<input type="hidden" name="userid" value="nomember">
+		</sec:authorize> 
+		<sec:authorize access="isAuthenticated()">
+			<input type="hidden" name="userid" value="${pinfo.username }">
+		</sec:authorize> 
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
 			<input type="hidden" name="modelinput" value=""> <!--선택한 기종  -->
 			<input type="hidden" name="customimginput" value=""> <!-- 커스터마이징한 이미지 위치-->
@@ -473,7 +481,8 @@ p{
 			
 			//구매동작
 			$("button[name='purchase']").on("click",function(e){
-				
+				var userid = $("input[name=userid]").val();
+				console.log(userid);
 				e.preventDefault();
 				
 				$("input[name='modelinput']").val(model); //모델
@@ -509,7 +518,7 @@ p{
 				        data : formdata,
 				        processData : false,	// data 파라미터 강제 string 변환 방지!!
 				        contentType : false,	// application/x-www-form-urlencoded; 방지!!
-				        dataType:'html',
+				        dataType:'text',
 				        beforeSend: function(xhr){   // 헤더에 csrf 값 추가
 							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 						},
@@ -517,7 +526,7 @@ p{
 				        	console.log("성공");
 				        	console.log(filePath);
 				        	$("input[name='customimginput']").val(filePath); //저장위치 저장
-				        	$("form[name='formObj']").submit(); //폼 전송 (일반 컨트롤러)
+				        	$("form[name='formObj']").submit(); //폼 전송 (일반 컨트롤러) */
 
 				        },
 				        error : function(e){

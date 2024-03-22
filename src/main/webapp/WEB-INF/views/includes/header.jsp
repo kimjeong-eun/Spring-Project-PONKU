@@ -134,7 +134,7 @@
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
 							<li class="active"><a href="/">상품구매</a></li>
-							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
+							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="./contact.html">문의게시판</a></li>
 							
