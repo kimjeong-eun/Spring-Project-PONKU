@@ -64,6 +64,7 @@
 
 </head>
 
+				
 <body>
 	<!-- Page Preloder -->
 	<div id="preloder">
@@ -78,7 +79,6 @@
 					<div class="col-lg-4 col-md-4">
 						<a><i class="fa fa-envelope"></i> ponkuu@naver.com</a>
 					</div>
-
 					<div class="header__top__center col-lg-4 col-md-4">
 						<a>20,000원 이상 구매시 무료배송</a>
 					</div>
@@ -97,7 +97,23 @@
 							</ul>
 						</div>
 						<div class="header__top__right__auth">
-							<a href="#"><i class="fa fa-user"></i> Login</a>
+								<sec:authentication property="principal" var="pinfo" />
+                            	<sec:authorize access="isAuthenticated()">
+                            	<div class="hero__cart" style="display: inline-block;">
+									<ul>
+										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+									</ul>
+								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
+								</div>
+                            	<form action="/logout" method="post" name="logoutForm">
+                            		<a href="#" name="logoutBtn" style="display: inline-block;"><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
+                            		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            	</form>
+                            	</sec:authorize>                    		   
+                                <sec:authorize access="isAnonymous()">
+                                	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
+                                </sec:authorize>
 						</div>
 					</div>
 				</div>
@@ -118,16 +134,28 @@
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
 							<li class="active"><a href="/">상품구매</a></li>
-							<li><a href="/custompage">커스텀 케이스</a></li>
+							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="./contact.html">문의게시판</a></li>
-							<li><a href="#">마이페이지</a>
-								<ul class="header__menu__dropdown">
-									<li><a href="./shop-details.html">Shop Details</a></li>
-									<li><a href="./shoping-cart.html">Shoping Cart</a></li>
-									<li><a href="./checkout.html">Check Out</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
-								</ul></li>
+							
+ 							<sec:authorize access="isAuthenticated()">
+                            
+								<li><a href="/myPage" name="myPage">마이페이지</a>
+	                                <ul class="header__menu__dropdown">
+	                                    <li><a href="./shop-details.html">Shop Details</a></li>
+	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+	                                    <li><a href="./checkout.html">Check Out</a></li>
+	                                    <li><a href="./blog-details.html">Blog Details</a></li>
+	                                </ul>
+	                            </li>
+                            </sec:authorize>
+                            
+                            <sec:authorize access="isAnonymous()">
+								<li>
+									<a href="#" name="noMember">마이페이지</a>
+	                            </li>                  
+                            </sec:authorize>
+
 						</ul>
 					</nav>
 				</div>
@@ -136,6 +164,30 @@
 			<!-- row -->
 		</div>
 		<!-- container -->
+		
+		
+		  <script>
+	
+		     $(document).ready(function(){
+		    	
+		    	 $("a[name='logoutBtn']").on("click",function(e){
+		    		
+		    		 e.preventDefault();
+		    		 var formObj = $("form[name='logoutForm']");
+		    		 formObj.submit();
+		    		 alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
+		    	 });
+		
+		    	 $("a[name='noMember']").on("click",function(e){
+		    		
+		    		 e.preventDefault();
+		    		 alert("로그인 후 이용 가능합니다!!");
+		    	 });
+		    	 
+		     });
+     
+    </script>
+		
 
 	</header>
 	<!-- Header Section End -->
