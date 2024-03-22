@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class GoodsVO {
-	private long goods_seq;
+	private long gno;
 	private String gname;
 	private int price;
 	private int quantity;

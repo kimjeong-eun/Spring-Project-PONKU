@@ -78,19 +78,12 @@
 
 		<!-- 히어로 -->
 		<div class="hero__item">
-			<!-- <div class="hero__text">
-                            <span>매일이 크리스마스처럼...</span>
-                            <h2> 산타의 <br />선물 상자</h2>
-                            <p>장난감, 문구류 할인 및 배달 가능</p>
-                            <a href="#" class="primary-btn">상품보러 가기</a>
-                        </div> -->
 			<video src="/resources/vid/case1.webm" style="width: 100%; height: 100%;" autoplay muted loop></video>
 			
 			<!-- 이것도 퍼오긴 했는데 동영상 비율이 달라서 배너? 등으로 사용하면 좋을 것 같아요 -->
 			<!-- <video src="/resources/vid/case2.mp4" style="width: 100%; height: 100%;" autoplay muted loop></video> -->
 		</div>
-	</div>
-	<!-- .container -->
+	</div> <!-- .container -->
 </section>
 <!-- Hero Section End -->
 
@@ -215,23 +208,6 @@
 </section>
 <!-- Blog Section End -->
 
-<script>
-	$(document).ready(function() {
-		$('.cateUl').hide(); //웹페이지 로딩 후 카테고리 숨김
-
-		$('.cateUl').click(function() { //이벤트 리스너 추가
-
-			// 현재 .cateUl의 display 속성
-			var currentDisplay = $(this).css('display');
-
-			if (currentDisplay === 'none' || currentDisplay === 'hidden') {
-				$(this).show();
-			} else {
-				$(this).hide();
-			}
-		});
-	});
-</script>
 <!-- Footer Section Begin -->
 
 <jsp:include page="./includes/footer.jsp"></jsp:include>

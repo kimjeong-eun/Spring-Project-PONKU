@@ -1,31 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.GoodsMapper">
 
-	<!-- 	메서드명		 반환타입 -->
-	<select id="getList" resultType="org.zerock.domain.GoodsVO"> 
+	<!-- 테이블의 모든 값 읽기 -->
+	<select id="getList" resultType="org.zerock.domain.GoodsVO">
 		<![CDATA[
-		select * from Shop_goods where goods_seq > 0
+		select * from Shop_goods where gno > 0
 		]]>
 	</select>
-	
+
 	<insert id="insert">
-	insert into Shop_goods (goods_seq, gname, price, quantity, information, title_img, info_img) values (goods_seq.nextval, #{gname}, #{price}, #{quantity}, #{information}, #{title_img}, #{info_img})
+		insert into Shop_goods (gno, gname, price, quantity) values
+		(#{gno}, #{gname}, #{price}, #{quantity})
 	</insert>
-	
-	<insert id="insertSelectKey">
-	<!-- key인 goods_seq를 ? 전에 찾아서.. -->
-	<selectKey keyProperty="goods_seq" order="BEFORE" resultType = "long">
-		select goods_seq.nextval from dual
-	</selectKey>	
-	
-	insert into Shop_goods (goods_seq, gname, price, quantity) values (#{goods_seq}, #{gname}, #{price}, #{quantity});
+
+	<insert id="insertWithOption">
+	 INSERT INTO Shop_goods (gno, gname, price, quantity, information, title_img, info_img) VALUES 
+    (#{gno}, #{gname}, #{price}, #{quantity}, #{information, jdbcType=VARCHAR}, #{title_img, jdbcType=VARCHAR}, #{info_img, jdbcType=VARCHAR})
 	</insert>
-	
+
+	<!-- gno에 해당하는 값 읽기 -->
 	<select id="read" resultType="org.zerock.domain.GoodsVO">
-	select * from Shop_goods where goods_seq = #{goods_seq}
+		select * from Shop_goods where gno = #{gno}
 	</select>
 	
+	<delete id="delete">
+	delete from Shop_goods where gno = #{gno}
+	</delete>
+	
+	<update id="update">
+	update Shop_goods set gname = #{gname}, price = #{price}, quantity = #{quantity}, information = #{information, jdbcType=VARCHAR},
+						  title_img  = #{title_img, jdbcType=VARCHAR}, info_img = #{info_img, jdbcType=VARCHAR}, update_date = sysdate
+						  where gno = #{gno}
+	</update>
+
 </mapper>
