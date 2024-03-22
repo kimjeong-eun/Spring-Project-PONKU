@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ;(function ($, document, window) {
     var
     // default settings object.
@@ -583,7 +582,6 @@
         }
     };
 }(jQuery, document, window));
-=======
 ;(function ($, document, window) {
     var
     // default settings object.
@@ -1166,4 +1164,3 @@
         }
     };
 }(jQuery, document, window));
->>>>>>> refs/remotes/origin/master
