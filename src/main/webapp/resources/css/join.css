@@ -78,7 +78,7 @@ option {
 
 /* CONTAINER */
 .container {
-  position: absolute;
+/*   position: absolute;
   display: flex;
   flex-direction: column;
   width: 450px;
@@ -94,7 +94,7 @@ option {
   border: 1px solid #f8f8f8;
   border-radius: 40px;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  box-sizing: border-box; */
 }
 
 .content {
@@ -232,10 +232,12 @@ button#submitBtn {
     min-height: 700px;
   }
   .container {
-    height: 670px;
+   /*  height: 670px; */
   }
 
   .content {
+  	position:relative;
+  	left:40%;
     width: 360px;
     margin-top: 30px;
     margin-bottom: 10px;

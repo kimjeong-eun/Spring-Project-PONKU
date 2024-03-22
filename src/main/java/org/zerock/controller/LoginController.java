@@ -83,6 +83,7 @@ public class LoginController {
 	
 	@GetMapping("/myPage")
 	public String myPage() {
+		
 		return "/myPage";
 	}
 	

@@ -108,7 +108,7 @@ body {
           <div class="button-login-box" >
             <button name="findBtn" type="submit" class="btn btn-primary btn-xs" style="width:100% ; margin-bottom: 15px;" >회원 정보 찾기</button>
             
-			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/">회원가입</a> | <a href="/customLogin">로그인</a></div>    
+			<div id="findInfo"><a href="/findId">ID찾기</a> | <a href="/join">회원가입</a> | <a href="/customLogin">로그인</a></div>    
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>

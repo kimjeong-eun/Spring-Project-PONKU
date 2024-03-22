@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
-<html>
+
+
+<jsp:include page="./includes/header.jsp"></jsp:include>
+
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,14 +19,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="../resources/css/join.css">
   <script defer src="../resources/js/join.js"></script>
- <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-
 </head>
  
 <body>
+
   <div class="container">
 	<div class="content">
     	<form id="joinForm" name="joinForm" action="/join" method="post">
@@ -419,6 +419,5 @@ $(document).ready(function() {
 
 </script>
 	
-</body>
 
-</html>
+<jsp:include page="./includes/footer.jsp"></jsp:include>
