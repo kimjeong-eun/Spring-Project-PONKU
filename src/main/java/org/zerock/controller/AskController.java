@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 @RequestMapping("/ask/*")
 @AllArgsConstructor
 public class AskController { // 페이지의 분기를 담당한다.
-	
+
 	private AskListService service;
 
 	@GetMapping("/write") // 글쓰기 페이지로 보내는 역할
@@ -29,9 +29,7 @@ public class AskController { // 페이지의 분기를 담당한다.
 
 	@GetMapping("/main") // 페이징사용, 첫 페이지를 보여준다.
 	public void main(Criteria cri, Model model) {
-
 		log.info("cri : " + cri);
-
 	}
 
 	@GetMapping({ "/get", "/modify" }) // 상세보기 또는 수정페이지로 이동..
@@ -40,11 +38,10 @@ public class AskController { // 페이지의 분기를 담당한다.
 		log.info("get 또는 modify 경로 메서드 실행");
 		model.addAttribute("AskListVO", service.get(ask_list_no));
 	}
-	
+
 	@GetMapping("/lock")
 	public void lock() {
-		
+
 	}
 
-	
 }

@@ -249,7 +249,7 @@ div.ask__main {
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/breadcrumb.jpg">
+	data-setbg="/resources/img/bannerimg.png">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -306,7 +306,7 @@ div.ask__main {
 			<button class="button">배송문의</button>
 			<button class="button">주문결제</button>
 			<div class="faq-dropdown d-flex align-items-center ml-auto">
-				<button data-oper='write' class="faq-toggle ml-3 mr-3">글쓰기</button>
+				<button class="faq-toggle ml-3 mr-3" onclick="location.href='/ask/write'">글쓰기</button>
 			</div>
 		</div>
 	</div>
@@ -557,7 +557,7 @@ $(document).ready(function () {
 	
 		askListService.getListWithPaging({page: page|| 1}, function(askListCnt, list){
 			
-			console.log("askListCnt: "+ askListCnt );
+			console.log("askListCnt: "+ askListCnt ); 
 	        console.log("list: " + list);
 			
 			
@@ -580,7 +580,12 @@ $(document).ready(function () {
 			    } else {
 			    	str += '<td></td>';
 			    }
-			    str += '<td><a class="move" href="' + list[i].ask_list_no + '">' + list[i].ask_list_title + '</a></td>';
+			    str += '<td><a class="move" href="' + list[i].ask_list_no + '">' + list[i].ask_list_title;
+			    if(list[i].ask_list_lock == true || list[i].ask_list_lock == 1){
+			    	str += ' <i class="fa-solid fa-lock" style="color: #cd0000;"></i>';
+			    }
+			    /* 나중에 첨부파일도 하기! if */
+			    '</a></td>';
 			    str += '<td>' + list[i].ask_list_writer + '</td>';
 			    var regDate = new Date(list[i].ask_list_regdate);
 			    var formattedDate = regDate.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -603,11 +608,11 @@ $(document).ready(function () {
 	      var prev = startNum != 1;						// 이전
 	      var next = false;								// 다음
 	      
-	      if(endNum * 10 >= replyCnt){					// ?
-	        endNum = Math.ceil(replyCnt/10.0);
+	      if(endNum * 10 >= askListCnt){					
+	        endNum = Math.ceil(askListCnt/10.0);
 	      }
 	      
-	      if(endNum * 10 < replyCnt){					// 다음으로 true
+	      if(endNum * 10 < askListCnt){					// 다음으로 true
 	        next = true;
 	      }
 	      
@@ -649,25 +654,10 @@ $(document).ready(function () {
         
         showList(pageNum);
     }); // 익명함수종료
+    
+    
 	
 });
-
-/* // Ajax를 사용하여 데이터를 가져오는 함수
-function getList(pageNumber) {
-    $.ajax({
-        type: 'GET',
-        url: '/main/' + pageNumber, // 컨트롤러의 매핑 주소
-        success: function (data) {
-            // 성공적으로 데이터를 받았을 때 처리
-            displayList(data);
-        },
-        error: function (error) {
-            // 오류 발생 시 처리
-            console.error('Error fetching data:', error);
-        }
-    });
-} */
-
 
 
 </script>

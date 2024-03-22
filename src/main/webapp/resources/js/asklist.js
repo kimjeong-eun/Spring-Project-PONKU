@@ -20,13 +20,31 @@ var askListService = (function() {
 			});
 	}
 
+	function write(ask, callback, error) {
+		console.log("스크립트 write 실행중 ... ");
+
+		$.ajax({
+			type: 'post',
+			url: '/ask/write',
+			data: JSON.stringify(ask),
+			contentType: "application/json; charset=utf-8",
+			success: function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error: function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		})
+	}
+
 	return {
-		getListWithPaging : getListWithPaging,
+		getListWithPaging: getListWithPaging,
+		write: write
 	};
-
-
-
-
 
 
 
