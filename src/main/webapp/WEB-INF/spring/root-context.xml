@@ -23,7 +23,7 @@
 			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> 
 			 -->	
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>		
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@43.201.9.52:1521:XE"></property>	
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@???????:1521:XE"></property>	
 		<property name="username" value="shopmanager"></property>
 		<property name="password" value="shop5353"></property>	
 	</bean>
@@ -59,8 +59,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	<property name="host" value="smtp.naver.com" /> 
 	<property name="port" value="465" />
-	<property name="username" value="ponkuu" />
-	<property name="password" value="shop!5353" />
+	<property name="username" value="" />
+	<property name="password" value="" />
 	<property name="defaultEncoding" value="utf-8" />
 	<property name="javaMailProperties">
 		<props>
