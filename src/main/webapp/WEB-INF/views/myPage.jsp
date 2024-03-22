@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
-<html>
+<jsp:include page="./includes/header.jsp"></jsp:include>
 <head>
 	<meta charset="UTF-8">
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,11 +24,12 @@
 <body>
 
   <div class="container">
+  <sec:authentication property="principal" var="pinfo" />
 	<div class="content">
 	      <!-- HEADER -->
 	      <header>
 	        <h2>마이페이지</h2>
-	        <h3>"${username}"님 환영합니다.</h3>
+	        <h3>${pinfo.member.username} 님 환영합니다.</h3>
 	      </header>
 		 
 	      <!-- INPUT -->
@@ -72,4 +73,4 @@
 
 
 </body>
-</html>
+<jsp:include page="./includes/footer.jsp"></jsp:include>
