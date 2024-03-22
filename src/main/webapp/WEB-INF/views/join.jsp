@@ -91,7 +91,7 @@
 	        </div>
 	      </section>
 	      <div id="result-fail"></div>
-	      <button name="btn-join" id="submit" type="button">가입하기</button>
+	      <button name="btn-join" id="submitBtn" type="button">가입하기</button>
 	      
 	      <div class="exist">
 	        <span>이미 회원이신가요?</span>
@@ -263,9 +263,9 @@ $(document).ready(function() {
 	const pwReInputEl = document.querySelector('#info__pwRe input')
 	const pwReErrorMsgEl = document.querySelector('#info__pwRe .error-msg')
 	pwReInputEl.addEventListener('change', () => {
-	pwReVal = pwReInputEl.value
-	checkPwValid()
-	console.log(pwVal, pwReVal, isPwValid, account)
+		pwReVal = pwReInputEl.value
+		checkPwValid()
+		console.log(pwVal, pwReVal, isPwValid, account);
 	});
 	
 	/*** SECTION - BIRTH ***/
@@ -382,22 +382,20 @@ $(document).ready(function() {
 	});
 	
 	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
-	$("button[name='btn-join']").on("click", function(e){
-		e.preventDefault();
-		
+	$("#submitBtn").on("click", function(e){
 		//이름 유효성 검사
 		const nameRegExp = /^[a-zA-Z가-힣\s]{2,}$/; // Allow alphabets, spaces, and Korean characters
 	    const nameInput = $("#info__name input").val().trim();
 	    if (!nameRegExp.test(nameInput)) {
 	        alert("올바른 이름을 입력해주세요.");
-	        return;
+	        return false;
 	    }
 	    
 		//id 유효성 검사	
 		const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
 		if(!idRegExp.test(idInputEl.value)) {
 			alert("아이디는 영문자 또는 숫자로 6자 이상 20자 이하여야 합니다.");
-			return;
+			return false;
 		}
 		
 		// 비밀번호 유효성 검사
@@ -412,47 +410,12 @@ $(document).ready(function() {
 	        alert("비밀번호가 일치하지 않습니다.");
 	        return;
 	    }
-
-	    // Email 유효성 검사 - 여기서는 간단하게 입력 여부만 확인합니다.
-	    if ($("#email-txt").val().trim() === "" || $("#domain-txt").val().trim() === "") {
-	        alert("이메일을 입력해주세요.");
-	        return;
-	    }
-
-	    // 생년월일 유효성 검사  
-	    if ($("select[name='birthY'] option:selected").text() == "출생 연도" || $("select[name='birthM'] option:selected").text() == "월" || $("select[name='birthD'] option:selected").text() == "일") {
-			alert("생년월일을 모두 선택해주세요.");
-			return;
-		}
 	    
-	    // 휴대폰 번호 유효성 검사 
-	    if ($("#info__mobile input").val().trim() === "") {
-	        alert("휴대폰 번호를 입력해주세요.");
-	        return;
-	    }
-
-	    // ID 중복 확인 여부 검사
-	    if (!alertCheckId) {
-	        alert("아이디 중복 확인을 해주세요.");
-	        return;
-	    }
-		
-
-	    // 모든 검사를 통과한 경우 폼 제출
-			submitf();
-	});
-	
-	
-	function submitf(){
-		
 	    var form = $("form[name='joinForm']"); // ID를 사용하여 폼 요소를 선택
-		form.submit(); 
+		form.submit();
 	    
-		
-	}
-
+	});
 });
-
 
 </script>
 	

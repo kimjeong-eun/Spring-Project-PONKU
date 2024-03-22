@@ -37,7 +37,7 @@ public class LoginMapperTests {
 		member.setPassword(pwencoder.encode("1234"));
 		member.setUsername("김수영");
 		member.setBirth("19970417");
-		member.setEmail("ktndud2@naver.com");
+		member.setEmail("ksy0417@naver.com");
 		member.setPhone("01022796331");
 		
 		int member_seq = mapper.insertMember(member); //insert 성공/실패여부
