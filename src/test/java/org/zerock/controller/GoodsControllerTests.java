@@ -38,7 +38,7 @@ public class GoodsControllerTests {
 	public void testList() throws Exception {
 		
 		log.info(
-			mockMvc.perform(MockMvcRequestBuilders.get("/board/list"))
+			mockMvc.perform(MockMvcRequestBuilders.get("/goods/list"))
 			.andReturn()
 			.getModelAndView()
 			.getModelMap());
@@ -49,9 +49,10 @@ public class GoodsControllerTests {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders
 										.post("/goods/register")
+											.param("gno", "10")
 											.param("gname", "테스트 새글 제목")
 											.param("price", "3000")
-											.param("quantity", "6"))
+											.param("quantity", "10"))
 											.andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);

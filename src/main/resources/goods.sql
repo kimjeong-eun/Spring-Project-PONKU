@@ -19,3 +19,6 @@ INSERT INTO Shop_Goods (GNO, GNAME, PRICE, QUANTITY, INFORMATION) VALUES ('4', '
 INSERT INTO Shop_Goods (GNO, GNAME, PRICE, QUANTITY, INFORMATION) VALUES ('5', '테스트5', '550000', '500', '테스트5 상품 설명입니다');
 
 SELECT * FROM Shop_goods;
+
+select * from user_tables;
+select * from SHOP_MEMBER;
