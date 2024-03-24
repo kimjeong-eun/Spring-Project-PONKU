@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zerock.mapper.CustomOrderMapper">
+
+	<insert id="insertOrder" >
+	
+		insert into Custom_goods_order(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address)
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image} ,#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address})
+	
+	</insert>
+
+	<insert id="insertOrderNomember">
+
+		insert into Custom_goods_order(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address, orderpw )
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image},#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{orderpw})
+	</insert>
+
+
+</mapper>

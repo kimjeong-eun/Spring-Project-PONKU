@@ -46,11 +46,15 @@ end;
 --커스텀 케이스 주문 테이블
 
 CREATE TABLE Custom_goods_order ( 
-    ORDERNO VARCHAR2(50) PRIMARY KEY , --주문번호
+    ORDERNO VARCHAR2(150) PRIMARY KEY , --주문번호
     GNO VARCHAR2(50) references Custom_Shop_goods(GNO) ON DELETE SET NULL,--상품번호
-    MODEL_NAME VARCHAR2(100),--모델명
     USERID VARCHAR2(50), --유저아이디
-    
+    EMAIL VARCHAR2(50),--유저 이메일
+    PHONE VARCHAR2(50),
+    MODEL_NAME VARCHAR2(100),--모델명
+   
+    CASENAME VARCHAR2(100),--케이스 이름
+    PRICE VARCHAR2(50), --케이스 가격
     CUSTOM_IMAGE VARCHAR2(1500), --커스텀이미지
     CUSTOM_CONTENT VARCHAR2(1000), --커스텀 문구
     QUANTITY VARCHAR2(50), --수량
@@ -58,6 +62,14 @@ CREATE TABLE Custom_goods_order (
     
     PAYMENT VARCHAR2(100), --결제수단
     ORDER_REQUEST VARCHAR2(1000), --요청사항
-    DELEVERY_REQUEST VARCHAR2(1000),--배송요청사항
-    DELEVERY_ADDRESS VARCHAR2(150) --배송주소 
+    DELIVERY_REQUEST VARCHAR2(1000),--배송요청사항
+    DELIVERY_ADDRESS VARCHAR2(150), --배송주소 
+    ORDERPW VARCHAR2(50) DEFAULT NULL
+    
 ); 
+
+
+
+
+select * from custom_goods_order;
+drop table  Custom_goods_order;

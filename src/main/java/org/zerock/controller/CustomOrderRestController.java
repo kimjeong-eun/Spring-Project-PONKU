@@ -32,7 +32,7 @@ public class CustomOrderRestController {
 	
 	@PreAuthorize("permitAll")
 	@PostMapping(value = "/customOrder", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE , MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE})
-	public ResponseEntity<String> customOrder(MultipartFile file){
+	public ResponseEntity<CustomImgDTO> customOrder(MultipartFile file){
 		//커스텀 이미지를 서버에 저장하는 컨트롤러 
 				
 		log.info("====================================");
@@ -42,7 +42,7 @@ public class CustomOrderRestController {
 		
 		String uploadFolder = "C:\\upload";
 
-		String uploadFolderPath = getFolder();
+		String uploadFolderPath = "\\custom";
 		
 		// make folder --------
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
@@ -58,18 +58,18 @@ public class CustomOrderRestController {
 		
 		tmpCustomImgPath = tmpCustomImgPath.substring(tmpCustomImgPath.lastIndexOf("\\")+1);
 		
-		customImg.setFileName(tmpCustomImgPath);
+		customImg.setFileName(tmpCustomImgPath); //파일이름
 		
-		UUID uuid = UUID.randomUUID();
+		UUID uuid = UUID.randomUUID(); //랜덤 uuid
 		
-		tmpCustomImgPath = uuid.toString()+"_"+tmpCustomImgPath+".png";
+		tmpCustomImgPath = uuid.toString()+"_"+tmpCustomImgPath+".png"; //저장경로
 		
 		
 		try {
 			File tmpSaveFile = new File(uploadPath,tmpCustomImgPath);
 			file.transferTo(tmpSaveFile);
 			
-			customImg.setUuid(uuid.toString());
+			customImg.setUuid(uuid.toString()); 
 			customImg.setUploadPath(uploadFolderPath);
 			
 			// check image type file
@@ -93,7 +93,7 @@ public class CustomOrderRestController {
 			log.info(tmpCustomImgPath);
 			log.info("====================================");
 		
-		return new ResponseEntity<String>(tmpCustomImgPath,HttpStatus.OK);
+		return new ResponseEntity<CustomImgDTO>(customImg ,HttpStatus.OK);
 		
 	}
 	

@@ -241,9 +241,9 @@ p{
 
 		<p>케이스 스타일</p>
 		<div class="casestyle">
-			<div class="case-select-btn" style="background-image:url('/resources/img/iphone.png');" data-url ="/resources/img/iphone.png" data-maxsize="90" data-price="16000" data-code="ip0327"><div>글라스 범퍼<br/>(16,000)</div></div>
-			<div class="case-select-btn" style="background-image:url('/resources/img/iphonemacsafe.png');" data-url ="/resources/img/iphonemacsafe.png" data-maxsize="120" data-price="20000" data-code="ip0328"><div>맥세이프 투명젤<br/>(20,000)</div></div>
-			<div class="case-select-btn" style="background-image:url('/resources/img/iphonesoap.png');" data-url ="/resources/img/iphonesoap.png" data-maxsize="90" data-price="15000" data-code="ip0329"><div>비누 젤<br/>(15,000)</div></div>
+			<div class="case-select-btn" style="background-image:url('/resources/img/iphone.png');" data-url ="/resources/img/iphone.png" data-maxsize="90" data-price="16000" data-code="ip0327" data-casename="글라스 범퍼"><div>글라스 범퍼<br/>(16,000)</div></div>
+			<div class="case-select-btn" style="background-image:url('/resources/img/iphonemacsafe.png');" data-url ="/resources/img/iphonemacsafe.png" data-maxsize="120" data-price="20000" data-code="ip0328" data-casename="맥세이프 투명젤"><div>맥세이프 투명젤<br/>(20,000)</div></div>
+			<div class="case-select-btn" style="background-image:url('/resources/img/iphonesoap.png');" data-url ="/resources/img/iphonesoap.png" data-maxsize="90" data-price="15000" data-code="ip0329" data-casename="비누 젤"><div>비누 젤<br/>(15,000)</div></div>
 		</div>
 		
 		<p>글꼴 스타일</p>
@@ -267,11 +267,19 @@ p{
 			<input type="hidden" name="userid" value="${pinfo.username }">
 		</sec:authorize> 
 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
-			<input type="hidden" name="modelinput" value=""> <!--선택한 기종  -->
-			<input type="hidden" name="customimginput" value=""> <!-- 커스터마이징한 이미지 위치-->
-			<input type="hidden" name="codeinput" value=""> <!--상품코드  -->
-			<input type="hidden" name="customcontent" value=""> <!--입력 문구  -->
-			<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1"><br/>
+			
+			<input type="hidden" name="fileName" value="" /> <!--이미지 파일 이름  -->
+			<input type="hidden" name="uploadPath" value=""/> <!-- 이미지 저장위치  -->
+			<input type="hidden" name="uuid" value=""/> <!--이미지 uuid  -->
+			<input type="hidden" name="image" value=""/> <!--이미지파일여부 -->
+			<input type="hidden" name="caseimgurl" value="" /> <!--선택한 케이스 이미지   -->
+			<input type="hidden" name="casename" value=""> <!-- 케이스 이름  -->
+			<input type="hidden" name="modelinput" value=""/> <!--선택한 기종  -->
+			<input type="hidden" name="price" value=""/>
+			<input type="hidden" name="customimginput" value=""/> <!-- 커스터마이징한 이미지 위치-->
+			<input type="hidden" name="codeinput" value=""/> <!--상품코드  -->
+			<input type="hidden" name="customcontent" value=""/> <!--입력 문구  -->
+			<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1"/><br/>
 			<strong style="font-size: 20px; text-align: center;">가격</strong><input type="text" value="" readonly="readonly" name="totalprice" id="totalprice"/>
 			<button type="button" name="purchase" id="purchase">구매하기</button>
 		</form>
@@ -327,8 +335,13 @@ p{
 
 				if(!($(this).data("url")==null | $(this).data("url")=="")){
 					
-					var canvasurl=$(this).data("url");
+					var canvasurl=$(this).data("url"); //케이스 이미지 url
+					var casename=$(this).data("casename"); //케이스 이름
+					var price = $(this).data("price"); //케이스 가격 
 					
+					$("input[name='casename']").val(casename);
+					$("input[name='caseimgurl']").val(canvasurl);
+					$("input[name='price']").val(price);
 					$(".customview").css("background-image","url('"+canvasurl+"')");
 					maxsize= parseInt($(this).data("maxsize"));
 						 
@@ -492,8 +505,13 @@ p{
 				//최종가격(460줄에서 따로 입력됨)
 				//이미지 저장위치는 ajax를 통해 처리
 				
+				
+				
+				
+				
+				//이미지 파일 변환
 				var imgDataUrl = canvas[0].toDataURL('image/png');
-				/* console.log(imgDataUrl); */
+				/*  console.log(imgDataUrl);  */
 				
 				var blobBin = atob(imgDataUrl.split(',')[1]); //base64 데이터 디코딩
 			    var array = [];
@@ -518,14 +536,19 @@ p{
 				        data : formdata,
 				        processData : false,	// data 파라미터 강제 string 변환 방지!!
 				        contentType : false,	// application/x-www-form-urlencoded; 방지!!
-				        dataType:'text',
+				        dataType:'json',
 				        beforeSend: function(xhr){   // 헤더에 csrf 값 추가
 							xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 						},
-				        success : function(filePath){ //이미지 저장위치 받아옴
+				        success : function(customImg){ //이미지파일객체
 				        	console.log("성공");
-				        	console.log(filePath);
-				        	$("input[name='customimginput']").val(filePath); //저장위치 저장
+				        	console.log(customImg);
+				        	
+				        	$("input[name='fileName']").val(customImg.fileName);
+				        	$("input[name='uploadPath']").val(customImg.uploadPath);
+				        	$("input[name='uuid']").val(customImg.uuid);
+				        	$("input[name='image']").val(customImg.image);
+				        	
 				        	$("form[name='formObj']").submit(); //폼 전송 (일반 컨트롤러) */
 
 				        },
