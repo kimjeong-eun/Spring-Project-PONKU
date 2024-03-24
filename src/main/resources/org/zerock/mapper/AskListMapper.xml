@@ -3,7 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.AskListMapper">
-
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " >
+			<choose>
+				<when test="type == 'all'.toString()">
+				ask_list_title like '%'||#{keyword}||'%' or ask_list_content like '%'||#{keyword}||'%' or ask_list_writer like '%'||#{keyword}||'%' 
+				</when>
+				<when test="type == 'title'.toString()">
+					ask_list_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="type == 'content'.toString()">
+					ask_list_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="type == 'writer'.toString()">
+					ask_list_writer like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</trim>
+	</sql>
+	
 	<select id="getList" resultType="org.zerock.domain.AskListVO">
 	<![CDATA[
 		select * from ask_list where ask_list_no > 0 and rownum <= 100
@@ -14,13 +33,14 @@
   	<![CDATA[
 	select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
  	from 
-   	(
-    select /*+INDEX(ask_list ask_list_no_pk) */ 
+   	(select /*+INDEX(ask_list ask_list_no_pk) */ 
     	rownum rn, ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
     from ask_list
-    where ask_list_no > 0
-    	and rownum <= #{pageNum} * #{amount}
-   	)
+    where
+    ]]>
+    <include refid="criteria"></include>
+    <![CDATA[
+    ask_list_no > 0 and rownum <= #{pageNum} * #{amount})
  	 where rn > (#{pageNum} -1) * #{amount}
 	]]>
 	</select> <!-- cri: 인터페이스에서 @param으로 받아야 사용가능 !!!! 주의주의주의 -->

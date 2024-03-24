@@ -279,15 +279,14 @@ div.ask__main {
 					</div>
 					<!-- 비밀글 ON 버튼 이동 -->
 					<button id="toggleButton" class="secretOn ml-2">비밀글 ON</button>
-					<form id="searchForm" class="d-flex" action="/ask/main"
-						method='get'>
-						<select id="searchCategory" class="mr-2">
-							<option value="all">전체</option>
-							<option value="title">제목</option>
-							<option value="content">내용</option>
-							<option value="author">작성자</option>
-						</select> <input type="text" id="searchInput" class="mr-2"
-							placeholder="검색어를 입력하세요">
+					<form id="searchForm" class="d-flex" > <!-- action="/ask/main" method='get' -->
+						<select id="searchCategory" class="mr-2" name="type">
+							<option value="all" <c:out value="${pageMaker.cri.type == null || pageMaker.cri.type eq 'all'?'selected':''}"/>>전체</option>
+							<option value="title" <c:out value="${pageMaker.cri.type eq 'title'?'selected':''}"/>>제목</option>
+							<option value="content" <c:out value="${pageMaker.cri.type eq 'content'?'selected':''}"/>>내용</option>
+							<option value="writer" <c:out value="${pageMaker.cri.type eq 'writer'?'selected':''}"/>>작성자</option>
+						</select>
+						<input type="text" id="searchInput" class="mr-2" name="keyword" placeholder="검색어를 입력하세요">
 						<button type="submit" class="searchbutton">
 							<i class="fa-solid fa-magnifying-glass" style="color: #cd0000;"></i>
 						</button>
@@ -515,33 +514,6 @@ div.ask__main {
 							actionForm.submit();
 						}); */
 
-						/* var searchForm = $("#searchForm"); 검색 아직 구현 안함
-
-						$("#searchForm button").on(
-								"click",
-								function(e) {
-
-									if (!searchForm.find("option:selected")
-											.val()) {
-										alert("검색종류를 선택하세요");
-										return false;
-									}
-
-									if (!searchForm.find(
-											"input[name='keyword']").val()) {
-										alert("키워드를 입력하세요");
-										return false;
-									}
-
-									searchForm.find("input[name='pageNum']")
-											.val("1");
-									e.preventDefault();
-
-									searchForm.submit();
-
-								});
-
-					}); */
 </script>
 
 <!-- cdn header.jsp에 추가 -->
@@ -549,13 +521,16 @@ div.ask__main {
 <script type="text/javascript">
 $(document).ready(function () {
 	
-	var ask_list_tbody = $(".ask_list_tbody"); 
-	showList(1); // 기본 페이지는 1페이지
+	var ask_list_tbody = $(".ask_list_tbody");
+	var searchForm = $("#searchForm"); 
+	var searchType = $("#searchCategory");
+	var searchKeyword = $("#searchInput");
+	showList(1, searchType, searchKeyword); // 기본 페이지는 1페이지
 	
-	function showList(page){ // 리스트에 값이 있는지 검사하고 출력한다.
+	function showList(page, type, keyword){ // 리스트에 값이 있는지 검사하고 출력한다.
 		console.log("show list " + page);
 	
-		askListService.getListWithPaging({page: page|| 1}, function(askListCnt, list){
+		askListService.getListWithPaging({page: page|| 1, type: type, keyword: keyword}, function(askListCnt, list){
 			
 			console.log("askListCnt: "+ askListCnt ); 
 	        console.log("list: " + list);
@@ -655,10 +630,25 @@ $(document).ready(function () {
         showList(pageNum);
     }); // 익명함수종료
     
+	$("#searchForm button").on("click", function(e) {
+				if (!searchForm.find("option:selected").val()) {
+					alert("검색종류를 선택하세요");
+					return false;
+				}
+
+				if (!searchForm.find("input[name='keyword']").val()) {
+					alert("키워드를 입력하세요");
+					return false;
+				}
+
+				showList(1, searchType, searchKeyword); // 기본 페이지는 1페이지
+
+	});
+
+});
+    
     
 	
-});
-
 
 </script>
 

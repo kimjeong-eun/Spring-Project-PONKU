@@ -30,6 +30,7 @@ public class AskController { // 페이지의 분기를 담당한다.
 	@GetMapping("/main") // 페이징사용, 첫 페이지를 보여준다.
 	public void main(Criteria cri, Model model) {
 		log.info("cri : " + cri);
+		model.addAttribute("cri", cri);
 	}
 
 	@GetMapping({ "/get", "/modify" }) // 상세보기 또는 수정페이지로 이동..
