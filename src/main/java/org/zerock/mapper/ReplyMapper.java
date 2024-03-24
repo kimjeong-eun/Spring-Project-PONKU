@@ -27,7 +27,7 @@ public interface ReplyMapper {
 
 	public int insertComment(String comment);
 	
-	
+	public int getCountByid(Long id);
 	
 	
 	

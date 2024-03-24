@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.commentVO;
 import org.zerock.mapper.ReplyMapper;
 
@@ -65,6 +66,12 @@ public class ReplyServiceImpl implements ReplyService{
 		log.info("댓글 삽입 :" + comment);
 		
 		return mapper.insertComment(comment) ;
+	}
+
+	@Override
+	public ReplyPageDTO getListPage(Criteria cri, Long id) {
+		
+		return new ReplyPageDTO(mapper.getCountByid(id), mapper.getListWithPaging(cri, id));
 	}
 
 }

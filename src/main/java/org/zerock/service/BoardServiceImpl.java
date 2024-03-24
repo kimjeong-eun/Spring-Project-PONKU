@@ -63,9 +63,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
 
-		log.info("get List with criteria: " + cri);
+		log.info("목록: " + cri);
 
 		return mapper.getList();
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+
+		log.info("전체 조회 수");
+		
+		return mapper.getTotalCount(cri);
 	}
 
 	
