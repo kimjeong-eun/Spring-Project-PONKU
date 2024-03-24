@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+	<insert id="insert">
+
+		insert into comments (id, replyer, content)
+		values (id_num.nextval, #{replyer}, #{content})
+
+	</insert>
+
+	<select id="read" resultType="org.zerock.domain.commentVO">
+
+		select * from comments where id = #{id}
+
+	</select>
+
+
+	<delete id="delete">
+
+		delete from comments where id = #{id}
+
+	</delete>
+
+	<update id="update">
+
+		update comments set id = #{content}, updatedate = sysdate where id = #{id}
+
+	</update>
+
+
+	<select id="getCountByBno" resultType="int">
+<![CDATA[
+select count(id) from comments where id = #{id}
+]]>
+	</select>
+
+	<update id="updateReplyCnt">
+		update comments set replycnt = replycnt + #{amount} where id = #{id}
+	</update>
+
+
+</mapper>
