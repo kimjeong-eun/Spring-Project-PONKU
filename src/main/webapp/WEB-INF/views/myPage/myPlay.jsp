@@ -3,35 +3,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
-
-<jsp:include page="./includes/header.jsp"></jsp:include>
-
+<jsp:include page="../includes/header.jsp"></jsp:include>
 
 <head>
 	<meta charset="UTF-8">
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
- 	<title>Sign Up</title>
+  	<link rel="stylesheet" type="text/css" href="../resources/css/myPage/myPage.css">
  	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-    <link rel="stylesheet" href="../resources/css/join.css">
 </head>
 
-<body>
+<body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
+<noscript>
+	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWBFGRL"
+	        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 
-  <div class="container">
-	<div class="content" id="content" class="content_myssg">
+<div id="skip">
+	<h2>스킵 네비게이션</h2>
+	<ul>
+		<li><a href="#content">본문바로가기</a></li>
+	</ul>
+</div>
+
+<div id="category" class="category"></div>
+<div id="container" class="cmmyssg_wrap">
+				<!-- SSG -->
+<input type="hidden" id="ssgDomain" value="http://www.ssg.com">
+<input type="hidden" id="couponWebImgPathUrl" value="https://sui.ssgcdn.com">
+<input type="hidden" id="openChooseBenefit" value="N">
+<input type="hidden" id="mbrspMbrDivCd" value="2001">
+<input type="hidden" id="mbrGrdCd" value="10">
+<div class="cmmyssg_header ty_light react-area">
+            <div class="cmmyssg_user" data-react-tarea-cd="00034_000000001">
+                <div class="cmmyssg_user_info">
+                    <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
+                        <sec:authentication property="principal" var="pinfo"/>
+                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
+                    </h2>
+                </div>
+            </div>     
+</div>
+
+<jsp:include page="../myPage/myPageAsideBar.jsp"></jsp:include>
+
+<div id="content" class="content_myssg">
 		<form id="submitForm" name="submitForm" method="post">
 		<sec:authentication property="principal" var="pinfo"/>
-	      <!-- HEADER -->
-	      <header>
-	        <h2>마이페이지</h2>
-	        <h3>${pinfo.member.username}님 환영합니다.</h3>
-	      </header>
-		 
+	    <h2 class="stit"><span>나의 활동정보</span></h2>
 	     <div class="form_section">
 			<div class="content_intro">
 				<h3>필수정보입력</h3>
@@ -44,20 +66,21 @@
 				<div class="field">
 					<span class="label">아이디 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
 					<div class="insert" id="idCheckDiv">
-						
-							<span>ktndud2</span>
-						
-						
+							<span>${pinfo.member.userid}</span>
 					</div>
 				</div>
+				    <div class="field">
+				        <span class="label">비밀번호 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
+				        <div class="insert">
+				            <span id="mbrNm">*****</span>
+				        </div>
+				    </div>
 				<div class="field">
 					<span class="label">이름 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
 					<div class="insert">
-						<span id="mbrNm">김수영</span>
+						<span id="mbrNm">${pinfo.member.username}</span>
 					</div>
 				</div>
-				
-				
 				<div class="field">
 					<label for="mbrCntsELno" class="label">휴대폰번호 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 					<input type="hidden" name="cntsTypeCd" value="20">
@@ -87,22 +110,12 @@
 		<div class="cs_info_box">
 			<h3 class="cs_info_subtit">회원정보변경 안내</h3>
 			<ul class="cs_info_lst">
-				<li>신세계포인트 회원 주소 정보는 신세계포인트 사이트에서 변경하실 수 있습니다.</li>
 				<li>배송지 정보는 '나의 정보관리 &gt; 배송지 관리' 메뉴에서 추가/수정/삭제하실 수 있습니다.</li>
 				<li>주문 정보는 회원 정보에 등록된 휴대폰번호 및 이메일주소로 안내됩니다.</li>
 			</ul>
 		</div>
-	      
-	      <div class="exist">
-	        <span>회원을 탈퇴하시겠습니까?</span>
-	        <a href="/">회원탈퇴</a>
-	      </div>
-	      <div class="exist">
-	        <span>홈으로 이동하시겠습니까?</span>
-	        <a href="/">PONKU</a>
-	      </div>
 	      </form>
 	 </div>
   </div>
-
-<jsp:include page="./includes/footer.jsp"></jsp:include>
+  </div>
+<jsp:include page="../includes/footer.jsp"></jsp:include>

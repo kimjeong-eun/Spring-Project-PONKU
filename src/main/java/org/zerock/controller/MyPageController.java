@@ -26,60 +26,47 @@ import lombok.extern.log4j.Log4j2;
 
 @Controller
 @Log4j2
-public class LoginController {
+public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
 	private LoginService service;
 	
 	@Setter(onMethod_ = @Autowired )
 	private LoginService loginService ; //로그인을 위한 매퍼 서비스 객체
 	
-	
-	@GetMapping("/customLogin")
-	public void loginInput(String error, String logout, Model model) {
-			//로그인페이지로 이동하는 컨트롤러			
-	}
-	
-	@GetMapping("/loginError")
-	public String loginError(Model model) {
-		//에러 메세지를 전달하는 컨트롤러
-		model.addAttribute("errorMsg","로그인 정보가 일치하지 않습니다.");
+	//마이페이지 + 회원정보변경
+	@GetMapping("/myPage")
+	public String myPage() {
 		
-		return "/customLogin";
+		return "./myPage/myPage";
 	}
 	
-	@GetMapping("/findId")
-	public String findInfo() {
-		//회원정보 찾기 페이지로 이동하는 컨트롤러
+	//회원탈퇴
+	@GetMapping("/deleteMember")
+	public String deleteMember() {
+			
+		return "./myPage/deleteMember";
+	}
 		
-		return "/findId";
-	}
-	
-	@GetMapping("/findPw")
-	public String findPwInfo() {
-		//회원정보 찾기 페이지로 이동하는 컨트롤러
+	//비밀번호 변경
+	@GetMapping("/updatePw")
+	public String updatePw() {
 		
-		return "/findPw";
+		return "./myPage/updatePw";
 	}
 	
-	@GetMapping("/join")
-	public void join() {
-	
-	}
-	
-	@PostMapping("/join")
-	public String join(MemberVO member) {
-		//폼에서 전송된 값이 member에 저장!
-		log.info("==========================");
-
-		log.info("join: " + member);
-
-		log.info("==========================");
+	//나의 주문관리
+	@GetMapping("/myOrder")
+	public String myOrder() {
 		
-		 int result =service.join(member);
-		 log.info(result);
-		 
-		return "/customLogin";
-		
+		return "./myPage/myOrder";
 	}
+	
+	//나의 활동관리
+	@GetMapping("/myPlace")
+	public String myPlace() {
+		
+		return "./myPage/myPlay";
+	}
+	
 	
 }
