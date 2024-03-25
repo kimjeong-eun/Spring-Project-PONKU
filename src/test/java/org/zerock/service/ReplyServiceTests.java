@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.zerock.domain.commentVO;
+import org.zerock.domain.ReplyVO;
 import org.zerock.service.ReplyService;
 
 import lombok.Setter;
@@ -31,7 +31,7 @@ public class ReplyServiceTests {
 	@Test
 	public void testRegister() {
 		
-		commentVO vo = new commentVO();
+		ReplyVO vo = new ReplyVO();
 		vo.setId(29L);
 		vo.setContent("새 사용자");
 		vo.setContent("새로운 내용");

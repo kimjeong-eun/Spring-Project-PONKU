@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
 <%@include file="../includes/header.jsp"%>
@@ -16,7 +17,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default" style="text-align: center; position: relative;">
             <div class="panel-heading">리뷰 페이지
-                <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: 0; right: 0;">리뷰 게시판</button>
+           <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: 0; right: 0;">리뷰 등록</button>
             </div>
         </div>
     </div>
@@ -65,22 +66,11 @@
 									<c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
 								<option value="W"
 									<c:out value="${pageMaker.cri.type eq 'W'?'selected':''}"/>>작성자</option>
-								<option value="TC"
-									<c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목
-									or 내용</option>
-								<option value="TW"
-									<c:out value="${pageMaker.cri.type eq 'TW'?'selected':''}"/>>제목
-									or 작성자</option>
-								<option value="TWC"
-									<c:out value="${pageMaker.cri.type eq 'TWC'?'selected':''}"/>>제목
-									or 내용 or 작성자</option>
-							</select> <input type='text' name='keyword'
-								value='<c:out value="${pageMaker.cri.keyword}"/>' /> <input
-								type='hidden' name='pageNum'
-								value='<c:out value="${pageMaker.cri.pageNum}"/>' /> <input
-								type='hidden' name='amount'
-								value='<c:out value="${pageMaker.cri.amount}"/>' />
-							<button class='btn btn-default'>Search</button>
+							</select> 
+							<input type='text' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>' /> 
+							<input type='hidden' name='pageNum' value='<c:out value="${pageMaker.cri.pageNum}"/>' /> 
+							<input type='hidden' name='amount' value='<c:out value="${pageMaker.cri.amount}"/>' />
+							<button class='btn btn-default'>검색</button>
 						</form>
 					</div>
 				</div>
@@ -131,16 +121,12 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">처리가 완료되었습니다.</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save
-								changes</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary">저장</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -148,19 +134,6 @@
 				<!-- /.modal-dialog -->
 			</div>
 			<!-- /.modal -->
-
-
-		</div>
-		<!--  end panel-body -->
-	</div>
-	<!-- end panel -->
-</div>
-</div>
-<!-- /.row -->
-
-
-
-
 
 
 <script type="text/javascript">
@@ -204,8 +177,7 @@
 						function(e) {
 
 								e.preventDefault();
-					actionForm
-					.append("<input type='hidden' name='bno' value='"
+					actionForm.append("<input type='hidden' name='bno' value='"
 					+ $(this).attr("href") + "'>");
 						actionForm.attr("action", "/review/get");
 								actionForm.submit();

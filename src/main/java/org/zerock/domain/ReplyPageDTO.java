@@ -12,5 +12,5 @@ import lombok.Getter;
 public class ReplyPageDTO {
 
   private int replyCnt;
-  private List<commentVO> list;
+  private List<ReplyVO> list;
 }

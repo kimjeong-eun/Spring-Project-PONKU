@@ -11,7 +11,7 @@
 
 	</insert>
 
-	<select id="read" resultType="org.zerock.domain.commentVO">
+	<select id="read" resultType="org.zerock.domain.ReplyVO">
 
 		select * from comments where id = #{id}
 
@@ -29,17 +29,28 @@
 		update comments set id = #{content}, updatedate = sysdate where id = #{id}
 
 	</update>
-
-
-	<select id="getCountByBno" resultType="int">
-<![CDATA[
-select count(id) from comments where id = #{id}
-]]>
+	
+	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+		<![CDATA[
+ 			select  id, replyer, content, replyDate, updateDate
+ 		from (
+   		 select /*+INDEX(comments id) */ 
+      		rownum rn, id, replyer, content, replyDate, updateDate
+    from comments
+    where id =  #{id}
+    and id > 0
+    and rownum <= #{cri.pageNum} * #{cri.amount} ) where rn > (#{cri.pageNum} -1) * #{cri.amount}
+		]]>
 	</select>
 
-	<update id="updateReplyCnt">
-		update comments set replycnt = replycnt + #{amount} where id = #{id}
-	</update>
+
+	<select id="getCountByid" resultType="int">
+		<![CDATA[
+			select count(id) from comments where id = #{id}
+				]]>
+	</select>
+	
+	
 
 
 </mapper>

@@ -6,21 +6,29 @@ import java.util.stream.IntStream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.Criteria;
-import org.zerock.domain.commentVO;
+import org.zerock.domain.ReplyVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({
+	  "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	  "file:src/main/webapp/WEB-INF/spring/security-context.xml"
+	  })
 @Log4j2
 public class ReplyMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ReplyMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private PasswordEncoder pwencoder; 
+	
 	
 	@Test
 	public void testMapper() {
@@ -33,7 +41,7 @@ public class ReplyMapperTests {
 		public void testCreate() { // bno가 있는 값을 확인하여 반복 더미데이터를 삽입
 			
 				IntStream.rangeClosed(1, 10).forEach(i -> {
-					commentVO cvo = new commentVO();
+					ReplyVO cvo = new ReplyVO();
 			
 				cvo.setId(bnoArr[i % 5]);	// 위에 만든 배열을 5로 나눈 나머지 값을 넣음
 				cvo.setContent("댓글 테스트" + i);
@@ -49,7 +57,7 @@ public class ReplyMapperTests {
 		public void testList() {
 			Criteria cri = new Criteria();
 			
-			List<commentVO> replies = mapper.getListWithPaging(cri, bnoArr[0]);
+			List<ReplyVO> replies = mapper.getListWithPaging(cri, bnoArr[1]);
 			
 			log.info("------------------------------------------------");
 			replies.forEach(reply -> log.info(reply));
@@ -59,9 +67,9 @@ public class ReplyMapperTests {
 		@Test
 		public void testRead() {
 			
-			Long targetRno = 1L;
+			Long targetRno = 22L;
 			
-			commentVO cvo = mapper.read(targetRno);
+			ReplyVO cvo = mapper.read(targetRno);
 			
 			log.info("------------------------");
 			
@@ -73,7 +81,7 @@ public class ReplyMapperTests {
 			
 			Long targetRno = 5L;
 			
-			commentVO vo = mapper.read(targetRno);
+			ReplyVO vo = mapper.read(targetRno);
 			
 			vo.setContent("댓글 수정");
 			
@@ -96,7 +104,7 @@ public class ReplyMapperTests {
 		public void testInsertComment() {
 			
 			IntStream.rangeClosed(1, 10).forEach(i -> {
-			commentVO cvo = new commentVO();
+			ReplyVO cvo = new ReplyVO();
 			
 				cvo.setId(idArr[i % 5]);
 				cvo.setContent("댓글 내용 : " + i);

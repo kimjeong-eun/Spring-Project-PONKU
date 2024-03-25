@@ -5,11 +5,13 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class commentVO {
+public class ReplyVO {
+	
+	private Long id;
 	
 	private String content;
-	private Long id;
 	private String replyer;
+	
 	private Date replyDate;		
 	private Date updateDate;
 

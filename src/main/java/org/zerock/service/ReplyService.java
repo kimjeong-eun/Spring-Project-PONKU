@@ -4,19 +4,19 @@ import java.util.List;
 
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyPageDTO;
-import org.zerock.domain.commentVO;
+import org.zerock.domain.ReplyVO;
 
 public interface ReplyService {
 
-	public int register(commentVO cvo);
+	public int register(ReplyVO cvo);
 	
-	public commentVO get(Long id);
+	public ReplyVO get(Long id);
 	
-	public int modify(commentVO cvo);
+	public int modify(ReplyVO cvo);
 	
 	public int remove(Long rno);
 	
-	public List<commentVO> getList(Criteria cri, Long bno);
+	public List<ReplyVO> getList(Criteria cri, Long bno);
 	
 	public ReplyPageDTO getListPage(Criteria cri, Long bno);
 	

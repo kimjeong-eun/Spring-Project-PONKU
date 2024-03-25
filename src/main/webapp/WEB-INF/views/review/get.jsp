@@ -10,7 +10,6 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">게시판 조회</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -20,7 +19,6 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">게시판 조회 페이지</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
@@ -58,7 +56,7 @@
 
 <button data-oper='list' class="btn btn-info">목록</button>
 
-<form id='operForm' action="/boad/modify" method="get">
+<form id='operForm' action="/review/modify" method="get">
   <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
   <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
   <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
@@ -176,9 +174,9 @@
       </div>      -->
       
       <div class="panel-heading">
-        <i class="fa fa-comments fa-fw"></i> Reply
+        <i class="fa fa-comments fa-fw"></i> 댓글
         <sec:authorize access="isAuthenticated()">
-        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
+        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 달기</button>
         </sec:authorize>
       </div>      
        
@@ -240,9 +238,7 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
-
-
+      
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 
 <script>

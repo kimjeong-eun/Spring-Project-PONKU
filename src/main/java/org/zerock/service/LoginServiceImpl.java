@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.LoginMapper;
 import lombok.Setter;
