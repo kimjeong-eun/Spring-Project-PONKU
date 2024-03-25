@@ -32,14 +32,15 @@ public class AskRestController {
 
 	@GetMapping(value = "/main/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<AskListPageDTO> getListWithPaging(@PathVariable("page") int page) {
-
-		Criteria cri = new Criteria(page, 10);
-
-		log.info("cri:" + cri);
+	public ResponseEntity<AskListPageDTO> getListWithPaging(@PathVariable("page") int page, Criteria cri) {
+		
+		cri.setPageNum(page);
+		//cri.setAmount(10);
+		
+		log.info(cri);
 
 		return new ResponseEntity<>(service.getListWithPaging(cri), HttpStatus.OK);
-	} // 페이지 번호를 눌렀을 때의 
+	} 
 
 	@PostMapping(value = "/write", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> write(@RequestBody AskListVO vo) {

@@ -16,6 +16,8 @@ public class Criteria {
 
 	private String type;		// 검색타입
 	private String keyword;		// 검색어
+	
+	private boolean secret;		// 비밀글 여부
 
 	public Criteria() {			// 기본생성자(테스트용)
 		this(1, 10);
@@ -31,7 +33,7 @@ public class Criteria {
 		return type == null ? new String[] {} : type.split("");
 	}
 
-	public String getListLink() {	// 뭔소리야 
+	public String getListLink() {	// Spring Framework에서 사용되는 UriComponentsBuilder를 사용하여 쿼리 매개변수가 포함된 URI를 생성하는 메서드
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
 				.queryParam("pageNum", this.pageNum)

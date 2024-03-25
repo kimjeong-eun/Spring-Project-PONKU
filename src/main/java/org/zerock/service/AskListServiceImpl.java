@@ -28,6 +28,7 @@ public class AskListServiceImpl implements AskListService {
 	@Override
 	public AskListPageDTO getListWithPaging(Criteria cri) {
 		log.info("service 영역에서 getListWithPaging 메서드 실행");
+		log.info("cri : " + cri.getType() + "," + cri.getKeyword());
 		return new AskListPageDTO(mapper.getTotalCount(cri), mapper.getListWithPaging(cri));
 	}
 

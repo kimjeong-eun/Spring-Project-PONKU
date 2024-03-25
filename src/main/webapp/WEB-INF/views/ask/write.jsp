@@ -175,7 +175,7 @@ input[type=file]::file-selector-button {
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/breadcrumb.jpg">
+	data-setbg="/resources/img/bannerimg.png">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -195,44 +195,48 @@ input[type=file]::file-selector-button {
 <section class="write-post">
 	<div class="container">
 		<h2>
-			<i class="fa-solid fa-question" style="color: #cd0000;"></i>&nbsp;&nbsp;&nbsp;문의하기&nbsp;&nbsp;&nbsp;<i
-				class="fa-solid fa-question" style="color: #cd0000;"></i>
+			<i class="fa-solid fa-question" style="color: #cd0000;"></i>&nbsp;&nbsp;&nbsp;문의하기&nbsp;&nbsp;&nbsp;
+			<i class="fa-solid fa-question" style="color: #cd0000;"></i>
 		</h2>
-		<form id="postForm" action="#" method="POST">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<form id="writeForm" action="#" method="POST">
+		<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%> <!-- csrf 토큰 -->
 			<div id="type" class="form-group">
-				<label for="postType">문의종류</label> <select id="postType"
-					name="postType">
-					<option value="general">상품문의</option>
-					<option value="question">교환반품</option>
-					<option value="review">배송문의</option>
-					<option value="review">주문결제</option>
-					<option value="review">기타</option>
+				<label for="postType">문의종류</label>
+				<select id="postType" name="ask_list_inquirytype">
+					<option value="상품문의">상품문의</option>
+					<option value="교환반품">교환반품</option>
+					<option value="배송문의">배송문의</option>
+					<option value="주문결제">주문결제</option>
+					<option value="기타">기타</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="title">제목</label> <input type="text" id="title"
-					name="title" required>
+				<label for="product">상품정보</label>
+				<button type="button" id="product" name="ask_list_productno" >검색하기</button> <!-- required : 필수값 -->
+			</div>
+			<div class="form-group">
+				<label for="title">제목</label>
+				<input type="text" id="title" name="ask_list_title" required> <!-- required : 필수값 -->
 			</div>
 			<div class="form-group">
 				<label for="content">내용</label>
-				<textarea id="content" name="content" rows="8" required></textarea>
+				<textarea id="content" name="ask_list_content" rows="8" required></textarea> <!-- 한글 최대 666자 -->
 			</div>
 			<div class="form-group">
-				<label for="author">작성자</label> <input type="text" id="author"
-					name="author">
+				<label for="author">작성자</label>
+				<input type="text" id="author" name="ask_list_writer"> <!-- 로그인쪽에서 끌어올 예정 -->
 			</div>
 			<div class="form-group">
-				<label for="attachment">첨부 파일</label> <input type="file"
-					id="attachment" name="attachment" multiple>
+				<label for="attachment">첨부 파일</label>
+				<input type="file" id="attachment" name="ask_list_attach" multiple> <!-- 파일 여러개 선택 가능 -->
 			</div>
 			<div class="form-group">
-				<label for="secret" class="checkbox-label">비밀글</label> <input
-					type="checkbox" id="secret" name="secret">
+				<label for="secret" class="checkbox-label">비밀글</label>
+				<input type="checkbox" id="secret" name="ask_list_lock">
 			</div>
 			<div id="password-group" class="form-group">
-				<label for="password" class="password">비밀번호</label> <input
-					type="password" id="password" name="password">
+				<label for="password" class="password">비밀번호</label>
+				<input type="password" id="password" name="ask_list_lock_password">
 			</div>
 			<div class="ritediv">
 				<button type="submit" class="rite">글 작성</button>
@@ -256,12 +260,11 @@ input[type=file]::file-selector-button {
 	document.getElementById("secret").addEventListener("change", function() {
 		var passwordGroup = document.getElementById("password-group");
 		if (this.checked) {
-			passwordGroup.style.display = "block";
+			passwordGroup.style.display = "block"; // 표시함
 		} else {
-			passwordGroup.style.display = "none";
+			passwordGroup.style.display = "none"; // 숨김
 		}
 	});
 </script>
 </body>
-
 </html>

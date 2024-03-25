@@ -5,19 +5,35 @@ var askListService = (function() {
 	function getListWithPaging(param, callback, error) {
 
 		var page = param.page || 1;
-
-		$.getJSON("/ask/main/" + page + ".json",
-			function(data) {
+		var data = {type: param.type, keyword: param.keyword, secret: param.secret};
+		
+		if (!param.type) { // 파라미터로 전달된 type 값이 없으면
+        	data.type = '';
+   		}
+    	if (!param.keyword) { // 파라미터로 전달된 keyword 값이 없으면
+        	data.keyword = '';
+    	}
+    	//if (!param.secret) { // 파라미터로 전달된 secret 값이 없으면
+		//	data.secret = true;
+		//}
+		
+		console.log("secret : " + data.secret);
+				
+		$.ajax({
+			type: 'get',
+			url: "/ask/main/" + page + ".json",
+			data: data,
+			success: function(result, status, xhr) {
 				if (callback) {
-					//callback(data); // 댓글 목록을 가져온다.
-					console.log(data);
-					callback(data.askListCnt, data.list); //댓글 숫자와 목록을 가져오는 경우 
+					callback(result.askListCnt, result.list);
 				}
-			}).fail(function(xhr, status, err) {
+			},
+			error: function(xhr, status, er) {
 				if (error) {
-					error();
+					error(er);
 				}
-			});
+			}
+		})
 	}
 
 	function write(ask, callback, error) {

@@ -278,8 +278,8 @@ div.ask__main {
 						</div>
 					</div>
 					<!-- 비밀글 ON 버튼 이동 -->
-					<button id="toggleButton" class="secretOn ml-2">비밀글 ON</button>
-					<form id="searchForm" class="d-flex" > <!-- action="/ask/main" method='get' -->
+					<button id="toggleButton" class="secretOn ml-2">비밀글 보기</button>
+					<form id="searchForm" class="d-flex"> <!-- action="/ask/main" method='get' -->
 						<select id="searchCategory" class="mr-2" name="type">
 							<option value="all" <c:out value="${pageMaker.cri.type == null || pageMaker.cri.type eq 'all'?'selected':''}"/>>전체</option>
 							<option value="title" <c:out value="${pageMaker.cri.type eq 'title'?'selected':''}"/>>제목</option>
@@ -450,23 +450,6 @@ div.ask__main {
 <script src="/resources/js/mixitup.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
-<script>
-	const toggleButton = document.getElementById("toggleButton"); // 비밀글 ON/OFF 버튼 태그를 가져온다.
-
-	toggleButton.addEventListener("click", function() { // 클릭 이벤트가 일어나면
-		if (toggleButton.textContent === "비밀글 ON") { // 버튼 태그의 글자가 비밀글 ON이면
-			toggleButton.textContent = "비밀글 OFF"; // 비밀글 OFF로 바꾸고
-			toggleButton.classList.remove("secretOn"); // secretOn css를 지우고
-			toggleButton.classList.add("secretOff"); // secretOff css를 추가한다.	
-		} else { // 버튼 태그의 글자가 비밀글 OFF면
-			toggleButton.textContent = "비밀글 ON";
-			toggleButton.classList.remove("secretOff");
-			toggleButton.classList.add("secretOn");
-		}
-	});
-	
-</script>
-
 <script type="text/javascript">
 	//$(document).ready( function() {
 						/* var result = '<c:out value="${result}"/>';
@@ -521,29 +504,38 @@ div.ask__main {
 <script type="text/javascript">
 $(document).ready(function () {
 	
-	var ask_list_tbody = $(".ask_list_tbody");
-	var searchForm = $("#searchForm"); 
-	var searchType = $("#searchCategory");
-	var searchKeyword = $("#searchInput");
-	showList(1, searchType, searchKeyword); // 기본 페이지는 1페이지
+	var ask_list_tbody = $(".ask_list_tbody"); // ask_list가 출력될 곳
+	//var searchForm = $("#searchForm"); 
+	var secret = true; // 기본값은 비밀글 보기
+	showList(1, secret); // 기본 페이지는 1페이지 , searchType, searchKeyword
 	
-	function showList(page, type, keyword){ // 리스트에 값이 있는지 검사하고 출력한다.
-		console.log("show list " + page);
+	function showList(page, secret){ // 리스트에 값이 있는지 검사하고 출력한다. , type, keyword
 	
-		askListService.getListWithPaging({page: page|| 1, type: type, keyword: keyword}, function(askListCnt, list){
-			
+		var type = $("#searchCategory").val(); // 검색타입 값을 가져온다.
+		var keyword = $("#searchInput").val(); // 검색 키워드 값을 가져온다.
+		
+		console.log("page : " + page);
+		console.log("type : " + type);
+		console.log("keyword : " + keyword);
+		console.log("secret : " + secret);
+		
+		// 현재페이지, 검색타입, 검색키워드를 가지고 페이지를 출력한다. || 뒤의 값은 기본값
+		askListService.getListWithPaging({page: page||1, type: type, keyword: keyword, secret: secret}, function(askListCnt, list){
 			console.log("askListCnt: "+ askListCnt ); 
 	        console.log("list: " + list);
+	        console.log("secret : " + secret);
 			
-			
-			if(page == -1){
+			/* if(page == -1){
 		          pageNum = Math.ceil(askListCnt/10.0);
-		          showList(pageNum);
+		          showList(pageNum, type, keyword);
 		          return;
-		    }
+		    } */
 			var str = "";
 			if(list == null || list.length == 0){
-		          return;
+				alert("검색결과가 없습니다.");
+				str += "<tr style='text-align: center;'><th colspan='6'>검색결과가 없습니다.</th></tr>";
+				ask_list_tbody.html(str); // 리스트 출력
+		        return;
 		    }
 			// ask_list_tbody.empty(); // 이전 목록 삭제
 			// 위 두개가 검증되었으면
@@ -560,21 +552,20 @@ $(document).ready(function () {
 			    	str += ' <i class="fa-solid fa-lock" style="color: #cd0000;"></i>';
 			    }
 			    /* 나중에 첨부파일도 하기! if */
-			    '</a></td>';
+			    str += '</a></td>';
 			    str += '<td>' + list[i].ask_list_writer + '</td>';
 			    var regDate = new Date(list[i].ask_list_regdate);
 			    var formattedDate = regDate.toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 			    str += '<td>' + formattedDate + '</td></tr>';
          }
 		ask_list_tbody.html(str); // 리스트 출력
-		showAskListPage(askListCnt);
-			
+		showAskListPage(askListCnt); // 페이징 출력
 		}); // 익명함수 종료
+		
 	} // showList
 	
 	var pageNum = 1;
 	var paginationContainer = $(".pagination-container"); // 페이징이 출력될 곳(div)
-	
 	function showAskListPage(askListCnt){ // 페이징을 계산해서 페이지번호를 출력
 	      
 	      var endNum = Math.ceil(pageNum / 10.0) * 10;	// 마지막 페이지
@@ -597,8 +588,6 @@ $(document).ready(function () {
 	        str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>이전</a></li>";
 	      }
 	      
-	       
-	      
 	      for(var i = startNum ; i <= endNum; i++){
 	        
 	        var active = pageNum == i? "active":"";
@@ -612,6 +601,7 @@ $(document).ready(function () {
 	      
 	      str += "</ul>";
 	      
+	      console.log("pageNum : " + pageNum);
 	      console.log(str);
 	      paginationContainer.html(str);
 	      
@@ -620,32 +610,50 @@ $(document).ready(function () {
 	// 페이지 번호를 클릭했을 때 해당 페이지 번호를 showList로 보내 리스트를 출력
 	paginationContainer.on("click","li a", function(e){
         e.preventDefault(); // 기존 동작 무시
+        console.log("page click");
         
         var targetPageNum = $(this).attr("href");
         
-        console.log("targetPageNum: " + targetPageNum);
+        console.log("targetPageNum : " + targetPageNum);
+        //console.log("type : " + type);
+        //console.log("keyword : " + keyword);
         
-        pageNum = targetPageNum;
+        //pageNum = targetPageNum; // 검색하면 1페이지부터 출력하기 위해 주석처리
         
-        showList(pageNum);
+        showList(targetPageNum, secret); // , type, keyword
     }); // 익명함수종료
     
+	// 검색버튼을 클릭했을 때
 	$("#searchForm button").on("click", function(e) {
-				if (!searchForm.find("option:selected").val()) {
-					alert("검색종류를 선택하세요");
-					return false;
-				}
+		
+		//var searchType = $("#searchCategory").val();
+		//var searchKeyword = $("#searchInput").val();		
 
-				if (!searchForm.find("input[name='keyword']").val()) {
-					alert("키워드를 입력하세요");
-					return false;
-				}
-
-				showList(1, searchType, searchKeyword); // 기본 페이지는 1페이지
+		//console.log(searchType, searchKeyword);
+		e.preventDefault(); // 기존 동작 무시
+		showList(1, secret); // 기본 페이지는 1페이지 , searchType, searchKeyword
 
 	});
+    
+    // 비밀글 보기/ 비밀글 끄기 클릭했을 때
+	const toggleButton = document.getElementById("toggleButton"); // 비밀글 ON/OFF 버튼 태그를 가져온다.
 
-});
+	toggleButton.addEventListener("click", function() { // 클릭 이벤트가 일어나면
+		if (toggleButton.textContent === "비밀글 보기") { // 버튼 태그의 글자가 비밀글 보기이면
+			toggleButton.textContent = "비밀글 끄기"; // 비밀글 끄기로 바꾸고
+			toggleButton.classList.remove("secretOn"); // secretOn css를 지우고
+			toggleButton.classList.add("secretOff"); // secretOff css를 추가한다.
+			secret = false; // 비밀글 끄기
+		} else { // 버튼 태그의 글자가 비밀글 OFF면
+			toggleButton.textContent = "비밀글 보기";
+			toggleButton.classList.remove("secretOff");
+			toggleButton.classList.add("secretOn");
+			secret = true; // 비밀글 켜기
+		}
+		showList(1, secret);
+	});
+	
+}); // document.ready
     
     
 	
