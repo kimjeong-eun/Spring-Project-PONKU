@@ -4,18 +4,74 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.zerock.mapper.CustomOrderMapper">
 
+	<resultMap type="org.zerock.domain.ShopGoodsVO" id="goodsMap">
+	
+		<result property="gno"  column="GNO"/>
+		<result property="gname"  column="GNAME"/>
+		<result property="price"  column="PRICE"/>
+		<result property="information"  column="INFORMATION"/>
+		<result property="title_img"  column="TITLE_IMG"/>
+		<result property="info_img"  column="INFO_IMG"/>
+		<result property="upload_date"  column="UPLOAD_DATE"/>
+		<result property="update_date"  column="UPDATE_DATE"/>
+		<result property="max_size"  column="MAX_SIZE"/>
+		<result property="custom"  column="CUSTOM"/>
+	</resultMap>
+
+	<resultMap type="org.zerock.domain.ShoppingCartVO" id="cartMap">
+	
+		<id property="member_seq"  column="MEMBER_SEQ"  />
+		<result property="cart_no"   column="CART_NO"  />
+		<result property="member_seq"   column="MEMBER_SEQ"  />
+		<result property="gno"   column="GNO"  />
+		<result property="enroll_date"   column="ENROLL_DATE"  />
+		<result property="image"   column="IMAGE"  />
+		<result property="quantity"   column="QUANTITY"  />
+		<result property="model"   column="MODEL"  />
+		
+	</resultMap>
+
+	
+
+
 	<insert id="insertOrder" >
 	
-		insert into Custom_goods_order(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address)
-			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image} ,#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address})
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address,caseimgurl,username)
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image} ,#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{caseimgurl},#{username})
 	
 	</insert>
 
 	<insert id="insertOrderNomember">
 
-		insert into Custom_goods_order(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address, orderpw )
-			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image},#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{orderpw})
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address, orderpw,caseimgurl,username )
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image},#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{orderpw},#{caseimgurl},#{username})
 	</insert>
+
+
+	<select id="selectGoods" resultMap="goodsMap">
+	
+		select * from Shop_goods where gno = #{gno}
+
+	</select>
+	
+	<select id="selectShoppingCartCount" resultType="int">
+	
+		select count(*) elements from shopping_cart where member_seq = #{member_seq}
+	
+	</select>
+	
+	<insert id="insertShoppingCart" >
+	
+		insert into shopping_cart(cart_no,gno,member_seq,enroll_date,image ,model,quantity) values(#{cart_no},#{vo.gno},#{vo.member_seq},sysdate,#{vo.image},#{vo.model},#{vo.quantity})
+	
+	</insert>
+	
+	<select id="selectCartList" resultMap="cartMap">
+	
+		select cart.* ,goods.price,goods.gname from shopping_cart cart, Shop_goods goods where cart.member_seq = #{member_seq} and cart.gno = goods.gno
+
+	</select>
+	
 
 
 </mapper>

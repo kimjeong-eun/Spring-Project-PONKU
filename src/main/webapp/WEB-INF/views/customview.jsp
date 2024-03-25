@@ -161,7 +161,7 @@ p{
 
 }
 
-#purchase{
+#purchase, #cart{
 	margin-bottom:30px;
 	width: 80%;
 	height: 35px;
@@ -282,7 +282,20 @@ p{
 			<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1"/><br/>
 			<strong style="font-size: 20px; text-align: center;">가격</strong><input type="text" value="" readonly="readonly" name="totalprice" id="totalprice"/>
 			<button type="button" name="purchase" id="purchase">구매하기</button>
+			<button type="button" name="cart" id="cart">쇼핑 카트 담기</button>
 		</form>
+		
+		<form action="/putShoppingCart" name="cartForm" id="cartForm" method="post">
+	
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->	
+			<input type="hidden" name="member_seq" value="${pinfo.member.member_seq }" /> <!--선택한 케이스 이미지 url  -->
+			<input type="hidden" name="caseimgurl" value="" /> <!--선택한 케이스 이미지 url  -->
+	 			<input type="hidden" name="cquantity" value=""> <!--수량  -->
+			<input type="hidden" name="modelinput" value=""/> <!--선택기종  -->
+			<input type="hidden" name="codeinput" value=""/> <!--상품코드  -->				
+			
+		</form>
+	
 	</div>
 </div>
 <script type="text/javascript">
@@ -504,11 +517,7 @@ p{
 				//수량 (460줄에서 따로 입력됨)	
 				//최종가격(460줄에서 따로 입력됨)
 				//이미지 저장위치는 ajax를 통해 처리
-				
-				
-				
-				
-				
+
 				//이미지 파일 변환
 				var imgDataUrl = canvas[0].toDataURL('image/png');
 				/*  console.log(imgDataUrl);  */
@@ -559,6 +568,35 @@ p{
 				    });
 
 			});
+			
+			//쇼핑카트 동작
+			$("button[name='cart']").on("click",function(e){
+				
+				e.preventDefault();
+				
+				if(confirm("쇼핑카트 추가시 커스텀 문구는 사라집니다. 쇼핑카트에 담으시겠습니까?")){
+					
+					$("input[name='cquantity']").val($("input[name='quantity']").val());
+					
+					$("input[name='modelinput']").val(model); //모델
+					$("input[name='codeinput']").val(code); // 상품코드
+					
+					var cartForm = $("form[name='cartForm']");
+					
+					cartForm.submit();
+					
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+			});
+			
 
 		});
 		

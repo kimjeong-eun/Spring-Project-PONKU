@@ -3,10 +3,13 @@ package org.zerock.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.CustomImgDTO;
 import org.zerock.domain.CustomOrderDTO;
+import org.zerock.domain.ShopGoodsVO;
+import org.zerock.domain.ShoppingCartVO;
 import org.zerock.service.CustomOrderService;
 
 import lombok.Setter;
@@ -28,7 +33,7 @@ public class CustomOrderController {
 	
 	@Setter(onMethod_ = @Autowired )
 	CustomOrderService service;
-	
+
 	
 	
 	@PreAuthorize("permitAll")
@@ -85,8 +90,7 @@ public class CustomOrderController {
 		ResponseEntity<byte[]> result = null;
 
 		try {
-			HttpHeaders header = new HttpHeaders(); 
-
+			HttpHeaders header = new HttpHeaders();
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		} catch (IOException e) {
@@ -116,7 +120,7 @@ public class CustomOrderController {
 
 		if(resultStr.equals("success")) {
 			
-			return "/index";
+			return "/completeOrder";
 			
 		}else{
 			
@@ -126,7 +130,49 @@ public class CustomOrderController {
 
 	}
 	
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/putShoppingCart")
+	public String putShoppingCart(Long member_seq , String caseimgurl , String cquantity , String codeinput, String modelinput, Model model) {
+		//쇼핑카트에 추가하는 컨트롤러
+		
+		ShoppingCartVO cartVo = new ShoppingCartVO();
+		List<ShoppingCartVO> cartLists ;
+		ShopGoodsVO goodsVo = service.getGoddsInfo(codeinput); //케이스정보
+		
+		cartVo.setMember_seq(member_seq);
+		cartVo.setGno(codeinput);
+		cartVo.setImage(caseimgurl);		
+		cartVo.setQuantity(cquantity);
+		cartVo.setModel(modelinput);
+
+		int cartElements  = service.CountCartElements(member_seq);
+		
+		String nextElemets = cartElements+1+"";
+		
+		cartVo.setCart_no(nextElemets);
+		
+		String result = service.putShoppingCart(cartVo, nextElemets);
+		
+		
+		
+		if(result.equals("success")) {
+			
+			cartLists = service.getCartList(member_seq);
+			
+			model.addAttribute("cartList", cartLists);
+		
+	
+			return "/shoppingCart";
+			
+		}else {
+			
+			return "/orderCustom";
+		}
+
+	}
 	
 	
+		
 	
 }

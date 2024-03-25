@@ -112,7 +112,7 @@ ${dto.caseimgurl}
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
-                             <p>커스텀 문구<span style="color: red;">*</span></p>
+                             <p>커스텀 문구<span style="color: red;">(변경불가)*</span></p>
          					<input type="text" name="custom_content" readonly="readonly" value="${dto.custom_content }" style="margin-bottom: 1rem;">
                             
                             <sec:authorize access="isAuthenticated()"> <!--로그인 사용자일때  -->
@@ -236,12 +236,12 @@ ${dto.caseimgurl}
 
 									$("input[name='re-orderpw']").blur(function () {
 										
-										if(!($(this).val()=="" )||!( $(this).val == null)){
+										if(!($("input[name='re-orderpw']").val() === "" )||!( $("input[name='re-orderpw']").val() === null)||!( $("input[name='re-orderpw']").val().length == 0)){
+											
 											if(!(nomemberpw == $(this).val())){
 												
 												$("p[name='correctpw']").hide();	
 												$("p[name='wrongpw']").show();
-				
 											}
 											if(nomemberpw == $(this).val()){
 												
@@ -252,10 +252,8 @@ ${dto.caseimgurl}
 										}
 								
 									});
-						
-
 								</script>
-			
+	
                             </sec:authorize>
                           <!--   <div class="checkout__input__checkbox">
                                 <label for="diff-acc">
@@ -279,10 +277,8 @@ ${dto.caseimgurl}
                                 		<option>도착후 전화해주세요.</option>
                                      </optgroup>
                                 </select>
-                                <input type="text"
-                                    placeholder="배송 요청사항을 기입해주세요. (직접입력)" name="delivery_request" value="">
-                            </div>
-                            
+                                <input type="text" placeholder="배송 요청사항을 기입해주세요. (직접입력)" name="delivery_request" value="">
+                            </div>                            
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -327,8 +323,10 @@ ${dto.caseimgurl}
                                 <input type="hidden" name="price" value="${dto.price }" />
                                 <input type="hidden" name="totalprice" value="${dto.totalprice }" />
 								<input type="hidden" name="delivery_address" value=""/>
-                               	<input type="hidden" name="payment" value="card">
+                               	<input type="hidden" name="payment" value="card" />
+                               	<input type="hidden" name="caseimgurl" value="" />
                                 <button type="button" class="site-btn" name="decideorder">주문하기</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -344,8 +342,10 @@ ${dto.caseimgurl}
 	$(document).ready(function() {
 		
 		//커스텀 케이스 이미지 적용 
-		var caserul = "${dto.caseimgurl}"; //]
+		var caserul = "${dto.caseimgurl}"; //
 		$(".uploadResult").css("background-image","url('"+caserul+"')");
+		$("input[name='caseimgurl']").val(caserul);
+		
 		
 		 var fileCallPath = encodeURIComponent( "${imgdto.uploadPath}"+ "/"+"${imgdto.uuid}"+"_"+"${imgdto.fileName}");
 		 $("input[name='custom_image']").val(fileCallPath);
@@ -358,10 +358,8 @@ ${dto.caseimgurl}
 	     str += "<img src='/display?fileName="+fileCallPath+"'/>";
 	     str += "</div>";
 	     str +"</li>";
-
 	     $(".uploadResult ul").html(str); 
 	     
-	    
 	     $("select[name='delivery_request_select']").change(function() {
 			//배송메세지 셀렉박스에 변화가 있다면 
 	    	 	/* console.log($("select[name='delevery_request_select'] option:selected").text()); */
@@ -373,14 +371,40 @@ ${dto.caseimgurl}
 		    	
 		    	e.preventDefault();
 		    	
+		    	/* console.log("버튼 눌림"); */
 		    	
-		    	console.log("버튼 눌림");
-		    	
+		    	if($("input[name='username']").val()==''|| $("input[name='username']").val()==null){
+		    		
+		    		alert("이름을 입력해주세요");
+		    		$("input[name='username']").focus();
+		    		return;
+		    		
+		    	}
+		    	if($("input[name='address2']").val()==''|| $("input[name='address2']").val()==null){
+		    		alert("주소를 입력해주세요");
+		    		$("input[name='address2']").focus();
+		    		return;
+		    	}
+		    	if($("input[name='phone']").val()==''|| $("input[name='phone']").val()==null){
+		    		
+		    		alert("휴대폰 번호를 입력해주세요");
+		    		$("input[name='phone']").focus();
+		    		return;
+		    		
+		    	}
+		    	if(!($("input[name='orderpw']").val()==$("input[name='re-orderpw']").val())){
+		    		
+		    		alert("비밀번호를 확인해주세요");
+		    		$("input[name='re-orderpw']").focus();
+		    		return;
+		    		
+		    	}
+	
 		    	var date = new Date();
 		    	var month = date.getMonth()+1 < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1);
 		    	var today = date.getFullYear()+""+month+""+date.getDate();
 			
-		    	var orderno = today+""+"custom"+"${imgdto.uuid}"; //주문번호
+		    	var orderno = today+""+"custom"+"${imgdto.uuid}"; //주문번호 날짜 + custom + imgdtouuid
 		    	
 		    	$("input[name='orderno']").val(orderno);
 		    	
@@ -388,18 +412,9 @@ ${dto.caseimgurl}
 		    	var address3 = $("input[name='address3']").val();
 		    	
 		    	$("input[name='delivery_address']").val(address2+"/"+address3);
-
-		    	
 		    	$("form[name='formObj']").submit();
 		    	
-
 		    });
-	     
-	  
-
-	     
-	     
-
 	});
 	
 </script>
