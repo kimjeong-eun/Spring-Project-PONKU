@@ -59,13 +59,15 @@
                 <legend>비밀번호 수정</legend>
                 <div class="wrap">
                     <label for="pwd" class="label">비밀번호</label>
-                    <input type="password" id="pwd" name="pwd" title="비밀번호" value="" class="input_text small" style="width: 270px" maxlength="20">
+                    <input type="password" id="pwd" name="password" title="비밀번호" value="" class="input_text small" style="width: 270px" maxlength="20">
                     <span class="error_txt small warning" id="pwdMsg"></span>
+                    <input type="hidden" name="mode" value="2" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="wrap">
                     <label for="newPwd" class="label">비밀번호 확인</label>
-                    <input type="password" id="newPwd" name="newPwd" title="비밀번호" value="" class="input_text small" style="width: 270px" maxlength="20">
-                    <span class="error_txt small warning" id="newPwdMsg"></span>
+                    <input type="password" id="newPwd" name="rePwd" title="비밀번호" value="" class="input_text small" style="width: 270px" maxlength="20">
+                    <span class="error_txt small warning" id="rePwdMsg"></span>
                 </div>
             </fieldset>
 
@@ -83,4 +85,33 @@
     </div>
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+
+	
+	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
+	$("#submitBtn").on("click", function(e) {
+		//비밀번호 유효성 검사
+		const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/
+		if(pwRegExp.test($("#pwd").val)) {
+			alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하여야 합니다.");
+		    return;
+		}
+					
+		//비밀번호 재입력 일치 여부 확인
+		if($("#pwd").val === $("#rePwd").val) {
+			alert("비밀번호가 일치하지 않습니다.");
+			return;
+		}
+		
+		var form = $("#submitForm"); //id를 사용하여 폼 요소 선택
+		form.submit();
+	});
+});
+</script>
+
+
 <jsp:include page="../includes/footer.jsp"></jsp:include>

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
-import org.zerock.mapper.LoginMapper;
+import org.zerock.mapper.MemberMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service //서비스 계층
-public class LoginServiceImpl implements LoginService {
+public class MemberServiceImpl implements MemberService {
 
 	@Setter(onMethod_ = @Autowired )
-	private LoginMapper loginMapper ;
+	private MemberMapper memberMapper ;
 	
 	@Setter(onMethod_= @Autowired )
 	private DataSource ds; 
@@ -27,22 +27,23 @@ public class LoginServiceImpl implements LoginService {
 	@Setter(onMethod_ =@Autowired )
 	private PasswordEncoder pwencoder; //스프링 시큐리티에서 제공하는 인코더
 	
+	
 	@Override
 	public boolean isMember(String userid) {
 	//멤버이면 true 반환
-		return loginMapper.selectMember(userid) == null ? false : true;
+		return memberMapper.selectMember(userid) == null ? false : true;
 	}
 
 	@Override
 	public MemberVO findId(String email , String name) {
 		// 이름과 이메일로 정보를 찾는다
-		return loginMapper.getIdByNameAndEmail(email ,name);
+		return memberMapper.getIdByNameAndEmail(email ,name);
 	}
 
 	@Override
 	public MemberVO findPw(String email, String id) {
 		// 아이디와 이메일로 정보를 찾는다
-		return loginMapper.getPwByIdAndEmail(email, id);
+		return memberMapper.getPwByIdAndEmail(email, id);
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public class LoginServiceImpl implements LoginService {
 		  
 		  member.setPassword(pwencoder.encode(member.getPassword()));
 		  
-		  result = loginMapper.insertMember(member);
+		  result = memberMapper.insertMember(member);
 	  
 		  if(result == 0) {
 			  log.info(message);
@@ -107,4 +108,38 @@ public class LoginServiceImpl implements LoginService {
 		  return result; 
 	  }
 	  
+	//회원정보 업데이트  
+	@Override
+	public int updateMember(MemberVO member, String mode) {
+		int result = 0;
+		String message = "member update 예외 발생";	
+		
+		if(result == 1) { //회원정보 변경
+			result = memberMapper.updateMember(member);
+			return result; 
+		} else if(result == 2) { //비밀번호 변경
+			member.setPassword(pwencoder.encode(member.getPassword()));
+			result = memberMapper.updatePw(member);
+			return result; 
+		} else if(result == 3) { //배송지관리
+			result = memberMapper.updateAdress(member);
+			return result; 
+		} 
+		return result; //실패 시 0 반환 (마이페이지로 이동)
+	}	  
+	
+	//회원탈퇴
+	public int deleteMember(MemberVO member) {
+		int result = 0;
+		String message = "member update 예외 발생";	
+		
+		result = memberMapper.deleteMember(member);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		}
+		return result;
+	}
+	
 }

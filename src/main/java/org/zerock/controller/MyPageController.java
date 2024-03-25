@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
-import org.zerock.service.LoginService;
+import org.zerock.service.MemberService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -28,31 +28,46 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
-	private LoginService service;
+	private MemberService service;
 	
-	@Setter(onMethod_ = @Autowired )
-	private LoginService loginService ; //로그인을 위한 매퍼 서비스 객체
-	
-	//마이페이지 + 회원정보변경
+	//마이페이지(기본페이지 - 현재는 회원정보 변경 페이지)
 	@GetMapping("/myPage")
 	public String myPage() {
 		
 		return "./myPage/myPage";
 	}
 	
-	//회원탈퇴
-	@GetMapping("/deleteMember")
-	public String deleteMember() {
-			
-		return "./myPage/deleteMember";
-	}
-		
-	//비밀번호 변경
 	@GetMapping("/updatePw")
-	public String updatePw() {
+	public String update() {
 		
 		return "./myPage/updatePw";
 	}
+	
+	//회원정보 변경
+	@PostMapping("/update")
+	public String updateMember(MemberVO member, String mode) {
+		
+		int result = service.updateMember(member, mode);
+		log.info("===================================================================");
+		log.info(mode);
+		
+		if(mode == "1") {
+			return "./myPage/myPage"; //회원정보 변경
+		} else if(mode == "2") {
+			return "./myPage/updatePw"; //비밀번호 변경
+		} else if(mode == "3") {
+			return "./myPage/updateAdress"; //배송지 변경
+		} else {
+			return "./myPage/myPage"; //실패 시 마이페이지로 이동
+		}
+	}
+	
+	//회원탈퇴
+		@GetMapping("/deleteMember")
+		public String deleteMember() {
+				
+			return "./myPage/deleteMember";
+		}
 	
 	//나의 주문관리
 	@GetMapping("/myOrder")
@@ -67,6 +82,4 @@ public class MyPageController {
 		
 		return "./myPage/myPlay";
 	}
-	
-	
 }

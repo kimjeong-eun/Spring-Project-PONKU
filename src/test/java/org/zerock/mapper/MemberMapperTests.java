@@ -20,10 +20,10 @@ import lombok.extern.log4j.Log4j2;
 	  "file:src/main/webapp/WEB-INF/spring/security-context.xml"
 	  })
 @Log4j2
-public class LoginMapperTests {
+public class MemberMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private LoginMapper mapper;
+	private MemberMapper mapper;
 	
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder pwencoder;

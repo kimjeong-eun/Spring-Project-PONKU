@@ -15,18 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.MemberVO;
-import org.zerock.service.LoginService;
+import org.zerock.service.MemberService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
 @Log4j2
-public class LoginRestController {
+public class MemberRestController {
 		//로그인/회원 관련 rest컨트롤러
 	
 	@Setter(onMethod_ = @Autowired )
-	LoginService loginService;
+	MemberService loginService;
+
+	@Setter(onMethod_ = @Autowired )
+	MemberService memberService;
+	
 	
 	@PostMapping(value = "/validEmailName",
 		produces = {MediaType.APPLICATION_JSON_UTF8_VALUE} )
@@ -77,10 +81,16 @@ public class LoginRestController {
 		return new ResponseEntity<String>(result, HttpStatus.OK);  //화면으로 결과값 전송
 	}
 	
+	@PreAuthorize("isAnonymous()")
+	@PostMapping(value = "/successJoin", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> join(MemberVO member) {
+		String result = "false";
+		int success = memberService.join(member);
+		if(success == 1) {
+			result = "true";
+		}
+		
+		return new ResponseEntity<String>(result, HttpStatus.OK); 
+	}
 }
-
-
-
-
-
 

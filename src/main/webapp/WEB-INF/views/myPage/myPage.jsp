@@ -81,20 +81,6 @@
 						<span id="mbrNm">${pinfo.member.username}</span>
 					</div>
 				</div>
-				<div class="field">
-					<label for="mbrCntsELno" class="label">휴대폰번호 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-					<input type="hidden" name="cntsTypeCd" value="20">
-					<input type="hidden" name="mbrCntsno" id="mbrCntsno">
-					<div class="insert">
-						<div>
-							<select id="mbrCntsano" name="mbrCntsano" title="식별번호 선택" class="select small" style="width: 102px;">
-								<option value="010" addtoptnval1="" addtoptnval2="" selected="selected">010</option><option value="011" addtoptnval1="" addtoptnval2="">011</option><option value="016" addtoptnval1="" addtoptnval2="">016</option><option value="017" addtoptnval1="" addtoptnval2="">017</option><option value="018" addtoptnval1="" addtoptnval2="">018</option><option value="019" addtoptnval1="" addtoptnval2="">019</option>
-							</select>
-							<span>-</span>
-							<input type="tel" id="mbrCntsELno" title="휴대폰 번호 뒷자리" placeholder="- 없이 뒷자리를 입력해주세요." value="22796331" class="input_text small translated" style="width:136px;ime-mode:disabled;" maxlength="8" numberonly=""><span class="trans_placeholder blind" data-default-txt="- 없이 뒷자리를 입력해주세요.">- 없이 뒷자리를 입력해주세요.</span>
-						</div>
-					</div>
-				</div>
 				<div class="field" id="emailChg01">
 					<label for="email" class="label">이메일주소 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 					<div class="insert">
@@ -105,7 +91,7 @@
 		</div>
 		<div class="form_btn_area">
 			<p id="alertArea" class="desc"></p>
-			<a href="javascript:void(0);" onclick="modify.update();" id="submitBtn" class="cs_btn large black">변경하기</a>
+			<button name="btn-update" id="submitBtn" type="button">가입하기</button>
 		</div>
 		<div class="cs_info_box">
 			<h3 class="cs_info_subtit">회원정보변경 안내</h3>
@@ -114,8 +100,26 @@
 				<li>주문 정보는 회원 정보에 등록된 휴대폰번호 및 이메일주소로 안내됩니다.</li>
 			</ul>
 		</div>
-	      </form>
-	 </div>
+	  </form>
+	</div>
   </div>
   </div>
+  
+  <script>
+  /*** 전송 버튼 클릭 시 alert창 띄우고 정상입력 시 폼값 전송 ***/
+  
+  
+  </script>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+  
 <jsp:include page="../includes/footer.jsp"></jsp:include>

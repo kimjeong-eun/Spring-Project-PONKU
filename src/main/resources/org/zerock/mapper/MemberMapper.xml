@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.zerock.mapper.LoginMapper">
+<mapper namespace="org.zerock.mapper.MemberMapper">
   
   	<resultMap type="org.zerock.domain.MemberVO" id="loginMap">
   	
@@ -79,5 +79,33 @@
 			#{phone}
 		)
 	</insert>
-    
+	
+	<!-- 마이페이지 (회원정보 업데이트) -->
+	<!-- 회원정보 변경 -->
+	<update id="updateMember" parameterType="org.zerock.domain.MemberVO">
+		UPDATE FROM SHOP_MEMBER
+		SET EMAIL= #{EMAIL=}, LAST_UPDATE = SYSDATE
+		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="org.zerock.domain.MemberVO">
+		UPDATE FROM SHOP_MEMBER
+		SET PASSWORD = #{PASSWORD}, LAST_UPDATE = SYSDATE
+		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+	</update>
+	
+	<!-- 배송지 변경 -->
+	<update id="updateAdress" parameterType="org.zerock.domain.MemberVO">
+		UPDATE FROM SHOP_MEMBER
+		SET ADDRESS1 = #{ADDRESS1}, ADDRESS2 = #{ADDRESS2}, ADDRESS3 = #{ADDRESS3}, LAST_UPDATE = SYSDATE
+		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+	</update>
+	
+	<!-- 마이페이지 (회원탈퇴) -->
+	<update id="deleteMember" parameterType="org.zerock.domain.MemberVO">
+		DELETE FROM SHOP_MEMBER 
+		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+	</update>
+	
   </mapper>

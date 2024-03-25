@@ -411,12 +411,35 @@ $(document).ready(function() {
 	        return;
 	    }
 	    
-	    var form = $("form[name='joinForm']"); // ID를 사용하여 폼 요소를 선택
-		form.submit();
-	    
-	});
+	 	//serialize 가 form요소를 하나씩 읽어옴
+	 	var formData = $("#joinForm").serialize(); 
+	 	
+		// Ajax로 전송
+        $.ajax({
+            url: '/successJoin', // 회원가입 성공여부를 처리하는 스크립트의 경로
+            type: 'POST',
+            data: formData,            
+            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+            success: function(result) {
+                if (result == "true") {
+                	alert("환영합니다. PONKUU 가입을 완료하였습니다.");
+                	location.href = "/customLogin";//성공 시 이동할 페이지
+                } else {
+                	alert("회원가입을 실패하였습니다. 관리자 문의 바람.");
+                }
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alertCheckId = false; //실패 시 false
+                console.error('AJAX request failed:', error);
+            }
+        }); // End Ajax
+	});    
 });
-
+	
 </script>
 	
 

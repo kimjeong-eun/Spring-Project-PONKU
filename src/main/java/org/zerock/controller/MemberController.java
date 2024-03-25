@@ -19,19 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
-import org.zerock.service.LoginService;
+import org.zerock.service.MemberService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
 @Log4j2
-public class LoginController {
+public class MemberController {
 	@Setter(onMethod_ = @Autowired)
-	private LoginService service;
+	private MemberService service;
 	
 	@Setter(onMethod_ = @Autowired )
-	private LoginService loginService ; //로그인을 위한 매퍼 서비스 객체
+	private MemberService memberService ; //로그인을 위한 매퍼 서비스 객체
 	
 	
 	@GetMapping("/customLogin")
@@ -81,5 +81,6 @@ public class LoginController {
 		return "/customLogin";
 		
 	}
+	
 	
 }

@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.zerock.mapper.LoginMapperTests;
+import org.zerock.mapper.MemberMapperTests;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
