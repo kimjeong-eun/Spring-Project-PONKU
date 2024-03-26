@@ -73,10 +73,10 @@ public class CustomOrderImpl implements CustomOrderService {
 	}
 
 	@Override
-	public String putShoppingCart(ShoppingCartVO vo, String cart_no) {
+	public String putShoppingCart(ShoppingCartVO vo) {
 		// 쇼핑카트에 넣기
 	String resultStr ="";	
-	int result = mapper.insertShoppingCart(vo, cart_no);
+	int result = mapper.insertShoppingCart(vo);
 	
 	if(result>0) {
 		
@@ -94,6 +94,15 @@ public class CustomOrderImpl implements CustomOrderService {
 		// 멤버시퀀스로 쇼핑카트리스트 가져옴
 		
 		return mapper.selectCartList(member_seq);
+	}
+
+	@Override
+	public int removeCartElement(long member_seq, String cart_no) {
+		// 멤버시퀀스와 카트넘버로 쇼핑카트 객체 삭제
+		
+		
+		return mapper.deleteCartElement(member_seq, cart_no);
+		
 	}
 
 

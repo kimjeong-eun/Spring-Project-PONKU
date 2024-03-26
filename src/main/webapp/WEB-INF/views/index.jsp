@@ -64,13 +64,13 @@
 				<!-- col-lg-6 -->
 				
 				<div class="col-lg-3">
-				<div class="hero__cart">
+<!-- 				<div class="hero__cart">
 						<ul>
 							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</ul>
-						<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
-					</div>
+						  <div class="header__cart__price">item: <span>$150.00</span></div>
+					</div> -->
 				</div>
 			</div>
 			<!-- .row -->
@@ -96,12 +96,12 @@
 
 <!-- Categories Section Begin -->
 <section class="categories" style="max-width: 1400px; margin: 0 auto;">
-	<div class="container">
+	<div class="container" style="">
 		<div class="row">
 			<div class="categories__slider owl-carousel">
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-1.jpg">
+						data-setbg="/resources/img/phonecase/case1.png">
 						<h5>
 							<a href="#">Fresh Fruit</a>
 						</h5>
@@ -109,7 +109,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-2.jpg">
+						data-setbg="/resources/img/phonecase/case2.png">
 						<h5>
 							<a href="#">Dried Fruit</a>
 						</h5>
@@ -117,7 +117,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-3.jpg">
+						data-setbg="/resources/img/phonecase/case3.png">
 						<h5>
 							<a href="#">Vegetables</a>
 						</h5>
@@ -125,7 +125,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-4.jpg">
+						data-setbg="/resources/img/phonecase/case4.png">
 						<h5>
 							<a href="#">drink fruits</a>
 						</h5>
@@ -133,7 +133,7 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-5.jpg">
+						data-setbg="/resources/img/phonecase/case5.png">
 						<h5>
 							<a href="#">drink fruits</a>
 						</h5>

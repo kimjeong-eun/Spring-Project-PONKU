@@ -16,8 +16,9 @@ public interface CustomOrderService {
 	public ShopGoodsVO getGoddsInfo(String dno); //상품코드로 정보가져오기
 	
 	public int CountCartElements (long member_seq); //멤버 시퀀스로 쇼핑카트 제품수 가져오기
-	public String putShoppingCart (ShoppingCartVO vo,String cart_no) ; //쇼핑카트 넣기
-
+	public String putShoppingCart (ShoppingCartVO vo); //쇼핑카트 넣기
 	public List<ShoppingCartVO> getCartList(long member_seq); //멤버시퀀스로 쇼핑카트리스트 가져오기
+	
+	public int removeCartElement(long member_seq,String cart_no); //해당멤버의 쇼핑카트 제품 삭제
 	
 }

@@ -15,8 +15,9 @@ public interface CustomOrderMapper {
 	public ShopGoodsVO selectGoods(String gno); //상품코드로 상품정보 가져오기
 	
 	public int selectShoppingCartCount(long member_seq);// 유저시퀀스로 쇼핑카트 제품수 가져오기
-	public int insertShoppingCart( @Param("vo") ShoppingCartVO vo , @Param("cart_no") String cart_no   ); //쇼핑카드에 상품 넣기
+	public int insertShoppingCart( @Param("vo") ShoppingCartVO vo); //쇼핑카드에 상품 넣기
 	
 	public List<ShoppingCartVO> selectCartList(long member_seq); //유저시퀀스로 쇼핑카트 리스트 가져오기 
+	public int deleteCartElement(@Param("member_seq") long member_seq , @Param("cart_no") String cart_no ); //쇼핑카트 리스트 삭제 
 
 }

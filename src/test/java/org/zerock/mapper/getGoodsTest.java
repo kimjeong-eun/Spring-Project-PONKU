@@ -61,5 +61,21 @@ public class getGoodsTest {
 		
 	}
 	
+	@Test
+	public void deleteElement() {
+	
+		mapper.deleteCartElement(64, "1");
+		
+		log.info("==============================");
+
+		
+		log.info("==============================");
+		
+		
+		
+	}
+	
+	
+	
 
 }

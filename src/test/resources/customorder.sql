@@ -78,8 +78,11 @@ drop table  Custom_goods_order;
 
 alter table Custom_goods_order add CASEIMGURL VARCHAR2(150);
 
+
+--쇼핑카트 시퀀스 
+CREATE SEQUENCE SHOPPING_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
+
 alter table shopping_cart add quantity VARCHAR2(50) default '1';
-alter table shopping_cart add model VARCHAR2(100);
 alter table shopping_cart add model VARCHAR2(100);
 
 select * from shopping_cart;

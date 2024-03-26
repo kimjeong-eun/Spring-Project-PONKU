@@ -62,7 +62,7 @@
 	
 	<insert id="insertShoppingCart" >
 	
-		insert into shopping_cart(cart_no,gno,member_seq,enroll_date,image ,model,quantity) values(#{cart_no},#{vo.gno},#{vo.member_seq},sysdate,#{vo.image},#{vo.model},#{vo.quantity})
+		insert into shopping_cart(cart_no,gno,member_seq,enroll_date,image ,model,quantity) values(to_char(shopping_seq.nextval),#{vo.gno},#{vo.member_seq},sysdate,#{vo.image},#{vo.model},#{vo.quantity})
 	
 	</insert>
 	
@@ -72,6 +72,12 @@
 
 	</select>
 	
-
+	<delete id="deleteCartElement">
+	
+		delete from shopping_cart where member_seq = #{member_seq} and cart_no = #{cart_no}
+	
+	
+	
+	</delete>
 
 </mapper>

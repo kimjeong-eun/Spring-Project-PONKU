@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.domain.CustomImgDTO;
@@ -107,24 +108,27 @@ public class CustomOrderController {
 		
 		String resultStr = "";
 		
-		log.info("==================주문 컨트롤러===================");
+		/*
+		 * log.info("==================주문 컨트롤러===================");
+		 * 
+		 * log.info(dto.getCasename());
+		 * 
+		 * log.info("==================주문 컨트롤러===================");
+		 */
 		
-		log.info(dto.getCasename());
-		
-		log.info("==================주문 컨트롤러===================");
 		if(dto.getOrderpw() == "" || dto.getOrderpw()==null) {
-			resultStr = service.memberCustomOrder(dto);
+			resultStr = service.memberCustomOrder(dto); //주문확인비밀번호가 없다면(회원)
 		}else {
-			resultStr = service.noMemberCustomOrder(dto);
+			resultStr = service.noMemberCustomOrder(dto); //비회원주문
 		}
 
 		if(resultStr.equals("success")) {
 			
-			return "/completeOrder";
+			return "/completeOrder"; //주문완료 페이지로 이동
 			
 		}else{
 			
-			return "/index";
+			return "/index"; //실패시 홈으로 
 			
 		}
 
@@ -145,29 +149,41 @@ public class CustomOrderController {
 		cartVo.setImage(caseimgurl);		
 		cartVo.setQuantity(cquantity);
 		cartVo.setModel(modelinput);
+				
+		String result = service.putShoppingCart(cartVo);
 
-		int cartElements  = service.CountCartElements(member_seq);
-		
-		String nextElemets = cartElements+1+"";
-		
-		cartVo.setCart_no(nextElemets);
-		
-		String result = service.putShoppingCart(cartVo, nextElemets);
-		
-		
-		
-		if(result.equals("success")) {
+		if(result.equals("success")) { //쇼핑카트에 넣기 성공했다면
 			
-			cartLists = service.getCartList(member_seq);
-			
-			model.addAttribute("cartList", cartLists);
+			cartLists = service.getCartList(member_seq); //쇼핑카트 리스트
+			int cartElemets = service.CountCartElements(member_seq); //카트에 담긴 상품 수 
 		
+			model.addAttribute("cartList", cartLists); //쇼핑카트 리스트
+			model.addAttribute("cartElemets", cartElemets); //카트에 담긴 상품 수 
 	
 			return "/shoppingCart";
 			
 		}else {
+			//실패했을시
 			
-			return "/orderCustom";
+			return "/index";
+		}
+
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/deleteCartElement")
+	public ResponseEntity<String> deleteCartElement(String memberSeq , String cart_no){
+		
+		long member_seq = Long.parseLong(memberSeq);
+		
+		int result = service.removeCartElement(member_seq, cart_no);
+		
+		if(result>0) {
+			
+			return new ResponseEntity<String>("1" , HttpStatus.OK);
+			
+		}else {
+			return new ResponseEntity<String>("0", HttpStatus.OK);
 		}
 
 	}
