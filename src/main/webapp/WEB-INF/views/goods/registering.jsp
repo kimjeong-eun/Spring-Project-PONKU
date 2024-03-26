@@ -166,11 +166,15 @@ input[type=file]::file-selector-button {
 					<!-- 예쁜 레이아웃 쀼쀼 -->
 					<div class="product__details__text">
 
-						<div class="checkout__input">
-							<p>
-								상품번호<span>삭제 예정</span>
-							</p>
-							<input name="gno" type="text">
+						<div class="checkout__input row">
+							<div class="col">
+								<p>
+									상품번호<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input name="gno" type="text">
+							</div>
 						</div>
 
 						<div class="checkout__input row"
@@ -189,10 +193,14 @@ input[type=file]::file-selector-button {
 							<div class="col">
 								<p>판매가</p>
 							</div>
-							<div class="col">
-								<input name="price" type="text"
-									class="checkout__input__add product__details__price w-50">
-								<span class="product__details__price">원</span>
+							<div class="col row">
+								<div class="col-9" style="padding: 0;">
+									<input name="price" type="text"
+										class="checkout__input__add product__details__price">
+								</div>
+								<div class="col-3">
+									<span class="product__details__price">원</span>
+								</div>
 							</div>
 						</div>
 

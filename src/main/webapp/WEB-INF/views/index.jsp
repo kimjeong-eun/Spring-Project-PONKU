@@ -18,7 +18,6 @@
 <section class="hero">
 
 	<div class="container">
-
 		<!-- margin: 0 auto; -->
 		<div style="height: 80px;">
 			<div class="row">

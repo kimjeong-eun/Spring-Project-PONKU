@@ -319,7 +319,7 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.8</version>
 		</dependency>
-				
+
 		<!-- 메일발송 -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -372,12 +372,12 @@
 			<!--첫줄 오류 해결 -->
 			<!-- sts에서 작업시 밑에 코드 주석 풀어서 사용하세요-->
 
-			<!--<plugin> 
+			 <plugin> 
 				  <groupId>org.apache.maven.plugins</groupId>
 				  <artifactId>maven-war-plugin</artifactId>
 				  <version>3.3.2</version> 
 				  
-				</plugin> -->
+				</plugin>
 
 		</plugins>
 	</build>
