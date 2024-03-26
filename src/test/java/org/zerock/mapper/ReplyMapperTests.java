@@ -35,7 +35,7 @@ public class ReplyMapperTests {
 		log.info(mapper);
 	}
 	// 부모 객체 bno값 확인하여 반복 더미데이터를 삽입하는 용도
-		private Long[] bnoArr = { 1L, 2L, 3L, 4L, 5L };
+		private Long[] bnoArr = { 42L, 43L, 44L, 45L, 46L };
 		
 		@Test
 		public void testCreate() { // bno가 있는 값을 확인하여 반복 더미데이터를 삽입
@@ -61,6 +61,17 @@ public class ReplyMapperTests {
 			
 			log.info("------------------------------------------------");
 			replies.forEach(reply -> log.info(reply));
+		}
+		
+		@Test
+		public void testList2() {
+			
+			Criteria cri = new Criteria(2, 10);
+			
+			List<ReplyVO> replies = mapper.getListWithPaging(cri, 44L);
+			
+			replies.forEach(reply -> log.info(reply));
+			
 		}
 		
 		
@@ -98,23 +109,7 @@ public class ReplyMapperTests {
 			mapper.delete(targetid);
 			
 		}
-		private Long[] idArr = { 5L, 6L, 7L, 8L, 9L };
-		
-		@Test
-		public void testInsertComment() {
-			
-			IntStream.rangeClosed(1, 10).forEach(i -> {
-			ReplyVO cvo = new ReplyVO();
-			
-				cvo.setId(idArr[i % 5]);
-				cvo.setContent("댓글 내용 : " + i);
-				
-				
-				
-				
-			});
-			
-		}
+	
 		
 }
 		

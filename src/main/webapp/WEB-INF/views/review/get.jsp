@@ -358,23 +358,39 @@ $(document).ready(function () {
     var modalRemoveBtn = $("#modalRemoveBtn");
     var modalRegisterBtn = $("#modalRegisterBtn");
     
-    $("#modalCloseBtn").on("click", function(e){
+  	$("#modalCloseBtn").on("click", function(e){
     	
     	modal.modal('hide');
     });
     
-    $("#addReplyBtn").on("click", function(e){
-        
-        modal.find("input").val("");
-        modal.find("input[name='replyer']").val(replyer);
-        modalInputReplyDate.closest("div").hide();
-        modal.find("button[id !='modalCloseBtn']").hide();
-        
-        modalRegisterBtn.show();
-        
-        $(".modal").modal("show");
-        
-      });
+    var replyer = null;
+	
+	<sec:authorize access ="isAuthenticated()"> 
+	
+		replyer = '<sec:authentication property="principal.username"/>';
+	
+	</sec:authorize>
+	
+	var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+	var csrfTokenValue = "${_csrf.token}";	
+    
+    
+	$("#addReplyBtn").on("click",function(e){
+		
+		modal.find("input").val("");
+		modal.find("input[name='replyer']").val(replyer);
+		modalInputReplyDate.closest("div").hide(); 
+		// 등록 날짜 안보이게 비활성화 
+		
+		modal.find("button[id != 'modalCloseBtn']").hide(); //클로즈 버튼 말고 다 비활
+
+		modalRegisterBtn.show(); //등록 버튼은 활성화 
+
+		$(".modal").modal("show");
+	
+	});
+	
+	
 
     
     $(document).ajaxSend(function(e, xhr, options) { 
@@ -398,7 +414,7 @@ $(document).ready(function () {
         modal.modal("hide");
         
         //showList(1);
-        showList(-1);
+        showList(1);
         
       });
       
@@ -408,15 +424,15 @@ $(document).ready(function () {
   //댓글 조회 클릭 이벤트 처리 
     $(".chat").on("click", "li", function(e){
       
-      var rno = $(this).data("rno");
+      var rno = $(this).data("bno");
       
       replyService.get(rno, function(reply){
       
-        modalInputReply.val(reply.reply);
-        modalInputReplyer.val(reply.replyer);
-        modalInputReplyDate.val(replyService.displayTime( reply.replyDate))
+        modalInputReply.val(comments.id);
+        modalInputReplyer.val(comments.replyer);
+        modalInputReplyDate.val(replyService.displayTime( comments.replyDate))
         .attr("readonly","readonly");
-        modal.data("rno", reply.rno);
+        modal.data("id", comments.id);
         
         modal.find("button[id !='modalCloseBtn']").hide();
         modalModBtn.show();
@@ -433,7 +449,7 @@ modalModBtn.on("click", function(e){
   var originalReplyer = modalInputReplyer.val();
 	
   var reply = {
-		      rno:modal.data("rno"), 
+		      rno:modal.data("id"), 
 		      reply: modalInputReply.val(),
 		      replyer: originalReplyer};
   
@@ -443,7 +459,7 @@ modalModBtn.on("click", function(e){
 		 return;
 	}
 
-	console.log("Original Replyer: " + originalReplyer);
+	console.log("작성자 : " + originalReplyer);
 	
 	if(replyer  != originalReplyer){
 	 
@@ -466,10 +482,10 @@ modalModBtn.on("click", function(e){
    	
    	modalRemoveBtn.on("click", function (e){
    	  
-   	  var rno = modal.data("rno");
+   	  var rno = modal.data("id");
 
-   	  console.log("RNO: " + rno);
-   	  console.log("REPLYER: " + replyer);
+   	  console.log("id : " + id);
+   	  console.log("작성자 : " + replyer);
    	  
    	  if(!replyer){
    		  alert("로그인후 삭제가 가능합니다.");
@@ -479,7 +495,7 @@ modalModBtn.on("click", function(e){
    	  
    	  var originalReplyer = modalInputReplyer.val();
    	  
-   	  console.log("Original Replyer: " + originalReplyer);
+   	  console.log("댓글 : " + originalReplyer);
    	  
    	  if(replyer  != originalReplyer){
    		  
@@ -526,7 +542,7 @@ $(document).ready(function() {
   
   $("button[data-oper='modify']").on("click", function(e){
     
-    operForm.attr("action","/board/modify").submit();
+    operForm.attr("action","/review/modify").submit();
     
   });
   
@@ -534,7 +550,7 @@ $(document).ready(function() {
   $("button[data-oper='list']").on("click", function(e){
     
     operForm.find("#bno").remove();
-    operForm.attr("action","/board/list")
+    operForm.attr("action","/review/list")
     operForm.submit();
     
   });  

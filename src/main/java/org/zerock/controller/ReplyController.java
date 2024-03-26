@@ -29,18 +29,19 @@ public class ReplyController {
 	
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping(value = "/new", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
-	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
-
-		log.info("commentVO: " + vo);
-
+	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE} )
+	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
+		
+		log.info("ReplyVO:" + vo);
+		
 		int insertCount = service.register(vo);
-
-		log.info("댓글 수 : " + insertCount);
-
-		return insertCount == 1 
-				? new ResponseEntity<>("success", HttpStatus.OK)
+		
+		log.info("Reply Insert Count :" + insertCount);
+	
+		return insertCount == 1
+				? new ResponseEntity<>("success",HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		//삼항연산자로 처리
 	}
 	
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })

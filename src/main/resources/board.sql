@@ -7,13 +7,17 @@ create table board (
   updatedate date default sysdate
 );
 
-create table comments(					-- 댓글 테이블
-	id number(10, 0) primary key,		-- 사용자 id
-	replyer varchar2(50) not null,		-- 사용자명
-	content nvarchar2(1000) not null,	-- 내용
-	replyDate date default sysdate,		-- 작성일
-	updateDate date default sysdate		-- 수정일
+create table comments(
+    id number(10, 0) primary key,
+   	rno number(10, 0),
+    replyer varchar2(50) not null,
+    content nvarchar2(1000) not null,
+    replyDate date default sysdate,
+    updateDate date default sysdate,
+    constraint fk_comments_users
+        foreign key (rno) references board(bno) -- 외래 키 제약 조건 추가
 );
+
 
 
 
@@ -21,20 +25,26 @@ create sequence id_num;
 
 create sequence bno_seq;
 
-INSERT INTO comments (id, replyer, content) 
-VALUES (id_num.nextval, '사용자1', '댓글 내용1');
+-- 첫 번째 댓글 더미 데이터 삽입
+INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
+VALUES (bno_seq.nextval, 1, 'user1', '첫 번째 댓글입니다.', SYSDATE, SYSDATE);
 
-INSERT INTO comments (id, replyer, content) 
-VALUES (id_num.nextval, '사용자2', '댓글 내용2');
+-- 두 번째 댓글 더미 데이터 삽입
+INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
+VALUES (bno_seq.nextval, 4, 'user2', '두 번째 댓글입니다.', SYSDATE, SYSDATE);
 
-INSERT INTO comments (id, replyer, content) 
-VALUES (id_num.nextval, '사용자3', '댓글 내용3');
+-- 세 번째 댓글 더미 데이터 삽입
+INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
+VALUES (bno_seq.nextval, 6, 'user3', '세 번째 댓글입니다.', SYSDATE, SYSDATE);
 
-INSERT INTO comments (id, replyer, content) 
-VALUES (id_num.nextval, '사용자4', '댓글 내용4');
+-- 네 번째 댓글 더미 데이터 삽입
+INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
+VALUES (bno_seq.nextval, 7, 'user4', '네 번째 댓글입니다.', SYSDATE, SYSDATE);
 
-INSERT INTO comments (id, replyer, content) 
-VALUES (id_num.nextval, '사용자5', '댓글 내용5');
+-- 다섯 번째 댓글 더미 데이터 삽입
+INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
+VALUES (bno_seq.nextval, 8, 'user5', '다섯 번째 댓글입니다.', SYSDATE, SYSDATE);
+
 
 
 

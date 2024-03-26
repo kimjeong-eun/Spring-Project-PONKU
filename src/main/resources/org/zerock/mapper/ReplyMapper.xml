@@ -6,8 +6,8 @@
 
 	<insert id="insert">
 
-		insert into comments (id, replyer, content)
-		values (id_num.nextval, #{replyer}, #{content})
+		insert into comments (id, rno, replyer, content)
+		values (id_num.nextval, #{rno}, #{replyer}, #{content})
 
 	</insert>
 
@@ -32,10 +32,10 @@
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
 		<![CDATA[
- 			select  id, replyer, content, replyDate, updateDate
+ 			select  id, rno, replyer, content, replyDate, updateDate
  		from (
    		 select /*+INDEX(comments id) */ 
-      		rownum rn, id, replyer, content, replyDate, updateDate
+      		rownum rn, id, rno, replyer, content, replyDate, updateDate
     from comments
     where id =  #{id}
     and id > 0
