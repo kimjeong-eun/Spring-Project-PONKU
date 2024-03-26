@@ -19,7 +19,11 @@ var fileSelect = document.getElementById('file-selectinput'); // 파일을 선�
 const dataTranster = new DataTransfer(); // 데이터 전송 객체 생성
 
 const inputFile = $("input[name='file-selectinput']"); // input file의 값 가져옴
+var preview = document.getElementById("Preview"); // 파일 미리보기가 나올 div
 
 function onClickFunction() {	//필드 클릭시 파일선택 이벤트 등록
 	fileInput.click();
 }
+
+
+
