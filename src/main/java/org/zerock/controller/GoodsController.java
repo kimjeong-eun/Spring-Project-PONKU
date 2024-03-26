@@ -21,20 +21,30 @@ import lombok.extern.log4j.Log4j2;
 public class GoodsController {
 
 	private GoodsService service;
+	
+	@GetMapping("/get")
+	// 보다 명시적 처리
+	public void get(@RequestParam("gno") String gno, Model model) {
+		
+		log.info("/get");
+		model.addAttribute("goods", service.get(gno)); // 모델에 번호 추가
+	}
 
-	@GetMapping("goodsList")
+	@GetMapping("/goodsList")
 	public void list(Model model) {
 		log.info("list");
 		model.addAttribute("list", service.getList());
 	}
 
-	@GetMapping("/register")
-	@PreAuthorize("permitAll")
+	@GetMapping("/registering")
 	public void register() {
 	}
+	
+	/*
+	 * @GetMapping("/registering") public void register2() { }
+	 */
 
-	@PostMapping("/register")
-	@PreAuthorize("permitAll")
+	@PostMapping("/registering")
 	public String register(GoodsVO goods, RedirectAttributes rttr) {
 
 		log.info("register: " + goods);
@@ -42,14 +52,6 @@ public class GoodsController {
 		rttr.addFlashAttribute("result", goods.getGno()); // 게시물 번호를 일회성 저장
 
 		return "redirect:/goods/goodsList"; // 목록 화면 이동
-	}
-
-	@GetMapping("/get")
-	// 보다 명시적 처리
-	public void get(@RequestParam("gno") Long gno, Model model) {
-
-		log.info("/get");
-		model.addAttribute("goods", service.get(gno)); // 모델에 번호 추가
 	}
 
 	@PostMapping("/modify")
@@ -63,8 +65,8 @@ public class GoodsController {
 	}
 
 	@PostMapping("/remove")
-	public String remove(@RequestParam("gno") Long gno, RedirectAttributes rttr) {
-		log.info("remove..." + gno);
+	public String remove(@RequestParam("gno") String gno, RedirectAttributes rttr) {
+		log.info("remove......" + gno);
 
 		if (service.remove(gno)) {
 			rttr.addFlashAttribute("result", "success");

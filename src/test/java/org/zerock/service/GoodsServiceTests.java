@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -30,22 +31,8 @@ public class GoodsServiceTests {
 	}
 	
 	@Test
-	public void testRegister() {
-		GoodsVO goods = new GoodsVO();
-		goods.setGno(3L);
-		goods.setGname("테스트 상품D");
-		goods.setPrice(30000);
-		goods.setQuantity(3);
-		goods.setInformation("테스트 상품D에 대한 설명입니다.");
-		
-		service.register(goods);
-		
-		log.info("생성된 게시물의 번호: " + goods.getGno());
-	}
-	
-	@Test
 	public void testGet() {
-		log.info(service.get(1L));
+		log.info(service.get("99"));
 	}
 	
 	@Test
@@ -54,13 +41,25 @@ public class GoodsServiceTests {
 	}
 	
 	@Test
+	public void testRegister() {
+		GoodsVO goods = new GoodsVO();
+		goods.setGno("100");
+		goods.setGname("테스트 상품100");
+		goods.setPrice("100");
+		
+		service.register(goods);
+		
+		log.info("생성된 게시물의 번호: " + goods.getGno());
+	}
+	
+	@Test
 	public void testDelete() {
-		log.info("REMOVE RESULT: " + service.remove(2L));
+		log.info("REMOVE RESULT: " + service.remove("100"));
 	}
 	
 	@Test
 	public void testUpdate() {
-		GoodsVO goods = service.get(1L);
+		GoodsVO goods = service.get("100");
 		
 		if (goods == null) {
 			return;

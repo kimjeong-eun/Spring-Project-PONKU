@@ -413,8 +413,6 @@
                         </div> <!-- col-lg-4 -->
                         </c:forEach>
                         
-                        
-                        
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-2.jpg">
@@ -431,7 +429,6 @@
                             </div>
                         </div>
                         
-                        
                     </div> <!-- row -->
                     
                     <div class="product__pagination">
@@ -446,6 +443,122 @@
         </div> <!-- product -->
     </section>
     <!-- Product Section End -->
+    
+    <!-- Modal  추가 -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+						</div>
+						<div class="modal-body">처리가 완료되었습니다.</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save
+								changes</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+    
+    <!-- 모달창 띄우는 스크립트 -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	var result = '<c:out value="${result}"/>'
+    	
+    		var result = '<c:out value="${result}"/>';
+
+		checkModal(result);
+
+		history.replaceState({}, null, null);
+
+		function checkModal(result) {
+
+			if (result === '' || history.state) {
+				return;
+			}
+
+			if (parseInt(result) > 0) {
+				$(".modal-body").html(
+						"게시글 " + parseInt(result)
+								+ " 번이 등록되었습니다.");
+			}
+
+			$("#myModal").modal("show");
+		}
+
+		$("#regBtn").on("click", function() {
+
+			self.location = "/board/register";
+
+		});
+
+		var actionForm = $("#actionForm");
+
+		$(".paginate_button a").on(
+				"click",
+				function(e) {
+
+					e.preventDefault();
+
+					console.log('click');
+
+					actionForm.find("input[name='pageNum']")
+							.val($(this).attr("href"));
+					actionForm.submit();
+				});
+
+		$(".move")
+				.on(
+						"click",
+						function(e) {
+
+							e.preventDefault();
+							actionForm
+									.append("<input type='hidden' name='bno' value='"
+											+ $(this).attr(
+													"href")
+											+ "'>");
+							actionForm.attr("action",
+									"/board/get");
+							actionForm.submit();
+
+						});
+
+		var searchForm = $("#searchForm");
+
+		$("#searchForm button").on(
+				"click",
+				function(e) {
+
+					if (!searchForm.find("option:selected")
+							.val()) {
+						alert("검색종류를 선택하세요");
+						return false;
+					}
+
+					if (!searchForm.find(
+							"input[name='keyword']").val()) {
+						alert("키워드를 입력하세요");
+						return false;
+					}
+
+					searchForm.find("input[name='pageNum']")
+							.val("1");
+					e.preventDefault();
+
+					searchForm.submit();
+
+				});
+    });
+    </script>
 
 <!-- Footer Section Begin -->
 

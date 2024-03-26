@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -38,7 +39,7 @@ public class GoodsControllerTests {
 	public void testList() throws Exception {
 		
 		log.info(
-			mockMvc.perform(MockMvcRequestBuilders.get("/goods/list"))
+			mockMvc.perform(MockMvcRequestBuilders.get("/goods/goodsList"))
 			.andReturn()
 			.getModelAndView()
 			.getModelMap());
@@ -49,12 +50,10 @@ public class GoodsControllerTests {
 		
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders
 										.post("/goods/register")
-											.param("gno", "10")
+											.param("gno", "11")
 											.param("gname", "테스트 새글 제목")
-											.param("price", "3000")
-											.param("quantity", "10"))
+											.param("price", "3000"))
 											.andReturn().getModelAndView().getViewName();
-		
 		log.info(resultPage);
 	}
 	
@@ -63,17 +62,16 @@ public class GoodsControllerTests {
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders
 				.get("/goods/get")
-				.param("gno", "1"))
+				.param("gno", "11"))
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
 	@Test
 	public void testModify() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/goods/modify")
-										.param("gno", "1")
+										.param("gno", "15")
 										.param("gname", " 수정된 테스트 새 글 제목")
-										.param("content", "수정된 테스트 새 글 내용")
-										.param("writer", "user00"))
+										.param("information", "수정된 테스트 새 글 내용"))
 										.andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);
@@ -82,7 +80,7 @@ public class GoodsControllerTests {
 	@Test
 	public void testRemove() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/goods/remove")
-										.param("gno", "25"))
+										.param("gno", "99"))
 										.andReturn().getModelAndView().getViewName();
 		
 		log.info(resultPage);

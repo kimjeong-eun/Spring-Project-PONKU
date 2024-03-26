@@ -88,9 +88,7 @@ input[type=file]::file-selector-button {
 <div class="container">
 	<div class="checkout__form">
 		<h4>관리자 추가 모드</h4>
-		<!-- uploadAjaxAction/${_csrf.parameterName}=${_csrf.token} -->
-		<form method="post" enctype="multipart/form-data"
-			action="uploadAjaxAction">
+		<form action="register" method="post">
 			<div class="row">
 				<div class="col-lg-4 col-md-6">
 
@@ -124,7 +122,7 @@ input[type=file]::file-selector-button {
 							</label>
 						</div> -->
 
-					</div>
+					</div> <!-- checkout__order -->
 
 				</div>
 				<!-- col-lg-4 -->
@@ -164,6 +162,7 @@ input[type=file]::file-selector-button {
 						</div>
 					</div>
 
+
 					<div class="checkout__input">
 						<p>
 							상품번호<span>삭제 예정</span>
@@ -201,19 +200,21 @@ input[type=file]::file-selector-button {
 							</p>
 						</div>
 						<div class="row">
+							<%-- <form method="post" enctype="multipart/form-data"
+								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
+								<div class="col-10">
+									<input type='file' name='uploadFile' multiple
+										style="border: 0; padding: 0;">
+								</div>
+								<div class="col-2">
+									<button id='uploadBtn' class="btn btn-light"
+										style="width: 100%;">Upload</button>
+								</div>
 
-							<div class="col-10">
-								<input type='file' name='uploadFile' multiple
-									style="border: 0; padding: 0;">
-							</div>
-							<div class="col-2">
-								<button id='uploadBtn' class="btn btn-light"
-									style="width: 100%;">Upload</button>
-							</div>
-
-							<%-- <input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" /> <input type="hidden" name="_csrf"> --%>
-							<!-- post방식 시 토큰 필수 -->
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
+								<!-- post방식 시 토큰 필수 -->
+							</form> --%>
 						</div>
 					</div>
 
@@ -245,6 +246,10 @@ input[type=file]::file-selector-button {
 	<!-- .container -->
 </section>
 <!-- Checkout Section End -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 
 <script>
 	$(function() {
@@ -303,32 +308,32 @@ input[type=file]::file-selector-button {
 			return true; //반복을 위함 (문제 없을 시 true)
 		}
 
-		$("#uploadBtn").on("click", function(e) {
-			e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+		/* 		$("#uploadBtn").on("click", function(e) {
+		 e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
+		 var formData = new FormData();
+		 var inputFile = $("input[name='uploadFile']");
+		 var files = inputFile[0].files;
 
-			// 파일 업로드 처리
-			for (var i = 0; i < files.length; i++) {
-				formData.append("uploadFile", files[i]);
-			}
+		 // 파일 업로드 처리
+		 for (var i = 0; i < files.length; i++) {
+		 formData.append("uploadFile", files[i]);
+		 }
 
-			$.ajax({
-				url : 'uploadAjaxAction',
-				processData : false,
-				contentType : false,
-				data : formData,
-				type : 'POST',
-				success : function(result) {
-					alert("Uploaded");
-				},
-				error : function(xhr, status, error) {
-					console.error(xhr.responseText);
-				}
-			});
-		});
+		 $.ajax({
+		 url : 'uploadAjaxAction',
+		 processData : false,
+		 contentType : false,
+		 data : formData,
+		 type : 'POST',
+		 success : function(result) {
+		 alert("Uploaded");
+		 },
+		 error : function(xhr, status, error) {
+		 console.error(xhr.responseText);
+		 }
+		 });
+		 }); */
 	});
 </script>
 <!-- Footer Section Begin -->

@@ -24,10 +24,9 @@ public class GoodsMapperTests {
 	@Test
 	public void testInsert() {
 		GoodsVO goods = new GoodsVO();
-		goods.setGno(3);
-		goods.setGname("테스트 상품	B");
-		goods.setPrice(9999);
-		goods.setQuantity(99);
+		goods.setGno("99");
+		goods.setGname("테스트 상품 99");
+		goods.setPrice("9999");
 
 		mapper.insert(goods);
 
@@ -37,12 +36,11 @@ public class GoodsMapperTests {
 	@Test
 	public void testinsertWithOption() {
 		GoodsVO goods = new GoodsVO();
-		goods.setGno(9);
-		goods.setGname("테스트 상품B");
-		goods.setPrice(6666);
-		goods.setQuantity(666);
+		goods.setGno("100");
+		goods.setGname("테스트 상품 100");
+		goods.setPrice("100");
 		
-		goods.setInformation("테스트 상품 F에 대한 설명");
+		goods.setInformation("테스트 상품 100에 대한 설명");
 		
 		mapper.insertWithOption(goods);
 		
@@ -51,35 +49,34 @@ public class GoodsMapperTests {
 	
 	@Test
 	public void testRead() {
-		GoodsVO goods = mapper.read(1L);
+		GoodsVO goods = mapper.read("100");
 		
 		log.info(goods);
 	}
 	
 	@Test
-	public void testDelete() {
-		log.info("DELETED COUNT: " + mapper.delete(5L));
+	public void testGetList() {
+		mapper.getList().forEach(goods -> log.info(goods));
 	}
 	
 	@Test
 	public void testUpdate() {
 		GoodsVO goods = new GoodsVO();
-		//실행 전 번호 존재 여부 확인
-		goods.setGno(1L);
+		//실행 전 번호 존재 여부 확인할 것
+		goods.setGno("99");
 		goods.setGname("수정된 상품A");
-		goods.setPrice(5000000);
-		goods.setQuantity(55);
+		goods.setPrice("990000");
 		
-		goods.setInformation("asdf"); // title_img가 null 또는 빈 문자열인 경우 null로 설정
-        goods.setTitle_img(null); // title_img가 null 또는 빈 문자열인 경우 null로 설정
-        goods.setInfo_img(null); // info_img가 null 또는 빈 문자열인 경우 null로 설정
+		goods.setInformation("수정되었다99999"); // title_img가 null 또는 빈 문자열인 경우 null로 설정
+        //goods.setTitle_img(null); // title_img가 null 또는 빈 문자열인 경우 null로 설정
+        //goods.setInfo_img(null); // info_img가 null 또는 빈 문자열인 경우 null로 설정
 		
 		int count = mapper.update(goods);
 		log.info("UPDATED COUNT: " + count);
 	}
 	
 	@Test
-	public void testGetList() {
-		mapper.getList().forEach(goods -> log.info(goods));
+	public void testDelete() {
+		log.info("DELETED COUNT: " + mapper.delete("100"));
 	}
 }

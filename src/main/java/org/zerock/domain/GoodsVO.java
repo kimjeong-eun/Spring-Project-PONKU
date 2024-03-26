@@ -6,15 +6,16 @@ import lombok.Data;
 
 @Data
 public class GoodsVO {
-	private long gno;
+	private String gno;
 	private String gname;
-	private int price;
-	private int quantity;
+	private String price;
 	private String information;
 	private String title_img;
 	private String info_img;
 	private Date upload_date;
 	private Date update_date;
+	private String max_size;
+	private String custom; //커스텀 여부
 
-	//private List<GoodsVO> goods_list;
+	private List<GoodsVO> goods_list;
 }
