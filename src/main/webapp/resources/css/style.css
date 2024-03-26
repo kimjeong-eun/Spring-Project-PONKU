@@ -1767,8 +1767,7 @@ ul, ol {
 }
 
 .product__details__tab .nav-tabs li {
-	margin-bottom: 0;
-	margin-right: 65px;
+	margin-bottom: 100px;
 }
 
 .product__details__tab .nav-tabs li:last-child {
@@ -1779,7 +1778,6 @@ ul, ol {
 	font-size: 16px;
 	color: #999999;
 	font-weight: 700;
-	border: none;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 	padding: 0;
@@ -2047,7 +2045,7 @@ ul, ol {
 }
 
 .checkout__input {
-	margin-bottom: 24px;
+	margin-bottom: 100px;
 }
 
 .checkout__input p {

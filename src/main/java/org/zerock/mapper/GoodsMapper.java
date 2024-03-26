@@ -1,12 +1,15 @@
 package org.zerock.mapper;
 
 import java.util.List;
+
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
 
 public interface GoodsMapper {
 	
 	public GoodsVO read(String gno); //파라미터 gno, 반환 VO
 	public List<GoodsVO> getList();
+	public List<GoodsVO> getListWithPaging(Criteria cri);
 	
 	public void insert(GoodsVO goods); //파라미터 VO
 	public void insertWithOption(GoodsVO goods);

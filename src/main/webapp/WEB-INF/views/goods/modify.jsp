@@ -136,17 +136,19 @@ input[type=file]::file-selector-button {
 
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
-	<div class="container">
-		<form action="registering" method="post">
+	<div class="container" style="max-width: 1370px;">
+		<form action="/goods/modify" method="post">
 			<div class="row">
 
-				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
+				<div class="col-lg-6 col-md-6">
 					<div class="product__details__pic">
+
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
 								src="/resources/img/product/details/product-details-1.jpg"
 								alt="">
 						</div>
+
 						<div class="product__details__pic__slider owl-carousel">
 							<img
 								data-imgbigurl="/resources/img/product/details/product-details-2.jpg"
@@ -158,7 +160,9 @@ input[type=file]::file-selector-button {
 								data-imgbigurl="/resources/img/product/details/product-details-4.jpg"
 								src="/resources/img/product/details/thumb-4.jpg" alt="">
 						</div>
+
 					</div>
+					<!-- product__details__pic__item -->
 				</div>
 
 				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
@@ -173,7 +177,7 @@ input[type=file]::file-selector-button {
 								</p>
 							</div>
 							<div class="col">
-								<input name="gno" type="text">
+								<input name="gno" type="text" value='${goods.gno}'>
 							</div>
 						</div>
 
@@ -185,7 +189,7 @@ input[type=file]::file-selector-button {
 								</p>
 							</div>
 							<div class="col">
-								<input name="gname" type="text">
+								<input name="gname" type="text" value='${goods.gname}'>
 							</div>
 						</div>
 
@@ -195,8 +199,8 @@ input[type=file]::file-selector-button {
 							</div>
 							<div class="col row">
 								<div class="col-9" style="padding: 0;">
-									<input name="price" type="text"
-										class="checkout__input__add product__details__price">
+									<input name="price" type="text"	class="checkout__input__add product__details__price" 
+									value='${goods.price}'>
 								</div>
 								<div class="col-3">
 									<span class="product__details__price">원</span>
@@ -210,7 +214,7 @@ input[type=file]::file-selector-button {
 							</p>
 							<textarea name="information" type="text" rows="5"
 								style="width: 100%; font-size: 16px; font-family:"Cairo", sans-serif;
-							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;"></textarea>
+							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;">${goods.information}</textarea>
 						</div>
 
 						<div class="checkout__input row" style="height: 80px">
@@ -307,197 +311,23 @@ input[type=file]::file-selector-button {
 			<!-- row -->
 
 			<div class="checkout__input" style="text-align: center;">
-				<button type="reset" class="btn btn-default"
-					style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">초기화</button>
-				<button type="submit" class="btn-default site-btn"
-					style="margin-top: 160px; padding: 15px 60px; font-size: 1rem;">상품
-					등록</button>
-			</div>
+				<button type="submit" class="btn-default site-btn" data-oper='modify'
+					style="margin-top: 40px; padding: 15px 60px; font-size: 1rem;">수정</button>
+
+				<button type="submit" class="btn btn-danger" data-oper='remove'
+					style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">삭제</button>
+					
+				<button type="submit" data-oper='list' class="btn btn-info">목록</button>
+			</div> <!-- checkout__input -->
 		</form>
 
 
 	</div>
 	<!-- container -->
 
-	<div class="col-lg-12">
-		<div class="product__details__tab">
-			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item"><a class="nav-link active"
-					data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Description</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#tabs-2" role="tab" aria-selected="false">Information</a></li>
-				<li class="nav-item"><a class="nav-link" data-toggle="tab"
-					href="#tabs-3" role="tab" aria-selected="false">Reviews <span>(1)</span></a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active" id="tabs-1" role="tabpanel">
-					<div class="product__details__tab__desc">
-						<h6>Products Infomation</h6>
-						<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit
-							amet dui. Pellentesque in ipsum id orci porta dapibus. Proin eget
-							tortor risus. Vivamus suscipit tortor eget felis porttitor
-							volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed
-							sit amet dui. Donec rutrum congue leo eget malesuada. Vivamus
-							suscipit tortor eget felis porttitor volutpat. Curabitur arcu
-							erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien
-							massa, convallis a pellentesque nec, egestas non nisi. Vestibulum
-							ac diam sit amet quam vehicula elementum sed sit amet dui.
-							Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-							vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-						<p>Praesent sapien massa, convallis a pellentesque nec,
-							egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh
-							pulvinar a. Cras ultricies ligula sed magna dictum porta. Cras
-							ultricies ligula sed magna dictum porta. Sed porttitor lectus
-							nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar
-							a. Vestibulum ac diam sit amet quam vehicula elementum sed sit
-							amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-							quam vehicula elementum sed sit amet dui. Proin eget tortor
-							risus.</p>
-					</div>
-				</div>
-				<div class="tab-pane" id="tabs-2" role="tabpanel">
-					<div class="product__details__tab__desc">
-						<h6>Products Infomation</h6>
-						<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit
-							amet dui. Pellentesque in ipsum id orci porta dapibus. Proin eget
-							tortor risus. Vivamus suscipit tortor eget felis porttitor
-							volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed
-							sit amet dui. Donec rutrum congue leo eget malesuada. Vivamus
-							suscipit tortor eget felis porttitor volutpat. Curabitur arcu
-							erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien
-							massa, convallis a pellentesque nec, egestas non nisi. Vestibulum
-							ac diam sit amet quam vehicula elementum sed sit amet dui.
-							Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-							vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-						<p>Praesent sapien massa, convallis a pellentesque nec,
-							egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-							adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh
-							pulvinar a. Cras ultricies ligula sed magna dictum porta. Cras
-							ultricies ligula sed magna dictum porta. Sed porttitor lectus
-							nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar
-							a.</p>
-					</div>
-				</div>
-				<div class="tab-pane" id="tabs-3" role="tabpanel">
-					<div class="product__details__tab__desc">
-						<h6>Products Infomation</h6>
-						<p>Vestibulum ac diam sit amet quam vehicula elementum sed sit
-							amet dui. Pellentesque in ipsum id orci porta dapibus. Proin eget
-							tortor risus. Vivamus suscipit tortor eget felis porttitor
-							volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed
-							sit amet dui. Donec rutrum congue leo eget malesuada. Vivamus
-							suscipit tortor eget felis porttitor volutpat. Curabitur arcu
-							erat, accumsan id imperdiet et, porttitor at sem. Praesent sapien
-							massa, convallis a pellentesque nec, egestas non nisi. Vestibulum
-							ac diam sit amet quam vehicula elementum sed sit amet dui.
-							Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-							posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-							vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-</section>
-<!-- Product Details Section End -->
-
-<!-- Related Product Section Begin -->
-<section class="related-product">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="section-title related__product__title">
-					<h2>Related Product</h2>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-4 col-sm-6">
-				<div class="product__item">
-					<div class="product__item__pic set-bg"
-						data-setbg="/resources/img/product/product-1.jpg">
-						<ul class="product__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
-					</div>
-					<div class="product__item__text">
-						<h6>
-							<a href="#">Crab Pool Security</a>
-						</h6>
-						<h5>$30.00</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6">
-				<div class="product__item">
-					<div class="product__item__pic set-bg"
-						data-setbg="/resources/img/product/product-2.jpg">
-						<ul class="product__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
-					</div>
-					<div class="product__item__text">
-						<h6>
-							<a href="#">Crab Pool Security</a>
-						</h6>
-						<h5>$30.00</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6">
-				<div class="product__item">
-					<div class="product__item__pic set-bg"
-						data-setbg="/resources/img/product/product-3.jpg">
-						<ul class="product__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
-					</div>
-					<div class="product__item__text">
-						<h6>
-							<a href="#">Crab Pool Security</a>
-						</h6>
-						<h5>$30.00</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6">
-				<div class="product__item">
-					<div class="product__item__pic set-bg"
-						data-setbg="/resources/img/product/product-7.jpg">
-						<ul class="product__item__pic__hover">
-							<li><a href="#"><i class="fa fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-							<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-						</ul>
-					</div>
-					<div class="product__item__text">
-						<h6>
-							<a href="#">Crab Pool Security</a>
-						</h6>
-						<h5>$30.00</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Related Product Section End -->
-
 <script>
 	$(function() {
+		/* 드롭다운 */
 		var toggleBtn = $(".brandBtn"); // 버튼 선택
 		var menu = $(".dropdown-menu");
 		var appleItem = $(".dropdown-menu-apple");
@@ -527,15 +357,13 @@ input[type=file]::file-selector-button {
 			appleItem.hide();
 			samItem.show();
 		});
-	});
 
-	//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
-	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-	});
+		//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		});
 
-	$(document).ready(function() {
-
+		/* 파일 업로드 */
 		//파일의 확장자와 크기 사전 처리
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz$)"); //정규표현식
 		var maxSize = 5242880; //5MB
@@ -579,11 +407,30 @@ input[type=file]::file-selector-button {
 				}
 			});
 		});
+		
+		/* 수정 삭제 버튼 */
+		var formObj = $("form");
+		
+		$('button').on("click", function(e) {
+			e.preventDefault(); //기본 동작 방지
+			
+			var operation = $(this).data("oper");
+			
+			console.log(operation);
+			
+			if (operation === 'remove') {
+				formObj.attr("action", "/goods/remove");
+			} else if (operation === 'list') {
+				self.location = "/goods/goodsList";
+				return;
+			}
+			formObj.submit();
+		})
 	});
 </script>
 
-<!-- Footer Section Begin -->
+	<!-- Footer Section Begin -->
 
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+	<jsp:include page="../includes/footer.jsp"></jsp:include>
 
-<!-- Footer Section End -->
+	<!-- Footer Section End -->

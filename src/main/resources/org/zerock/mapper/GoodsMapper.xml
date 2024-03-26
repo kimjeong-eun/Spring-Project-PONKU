@@ -15,6 +15,20 @@
 		select * from Shop_goods
 		]]>
 	</select>
+	
+	<select id="getListWithPaging" resultType="org.zerock.domain.GoodsVO">
+	<![CDATA[
+	select gno, gname, price, information, title_img, info_img, upload_date, update_date
+	from (
+			select /*+INDEX_DESC(Shop_goods gno) */
+				rownum rn, gno, gname, price, information, title_img, info_img, upload_date, update_date
+			from
+				Shop_goods
+			where rownum <= #{pageNum} * #{amount}
+		 )	
+			where rn > (#{pageNum} - 1) * #{amount}
+	]]>
+	</select>
 
 	<insert id="insert">
 		insert into Shop_goods (gno, gname, price) values

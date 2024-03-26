@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
-<title>Insert title here</title>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
+<html lang="kr">
+
 <style>
 body {
 	height: auto;
@@ -63,135 +62,213 @@ input[type=file]::file-selector-button {
 
 <!-- Header Section End -->
 
-<!-- Hero Section / index 에서 퍼오기 -->
-
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/bg1.png">
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12 text-center">
-			<div class="breadcrumb__text">
-				<h2>새 상품 추가</h2>
-				<div class="breadcrumb__option">
-					<a href="./index.html">Home</a> <span>Add New Product</span>
+<!-- Hero Section Begin -->
+<section class="hero-normal">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="hero__categories">
+					<div class="hero__categories__all">
+						<i class="fa fa-bars"></i> <span>All departments</span>
+					</div>
+					<ul>
+						<li><a href="#">Fresh Meat</a></li>
+						<li><a href="#">Vegetables</a></li>
+						<li><a href="#">Fruit & Nut Gifts</a></li>
+						<li><a href="#">Fresh Berries</a></li>
+						<li><a href="#">Ocean Foods</a></li>
+						<li><a href="#">Butter & Eggs</a></li>
+						<li><a href="#">Fastfood</a></li>
+						<li><a href="#">Fresh Onion</a></li>
+						<li><a href="#">Papayaya & Crisps</a></li>
+						<li><a href="#">Oatmeal</a></li>
+						<li><a href="#">Fresh Bananas</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-9">
+				<div class="hero__search">
+					<!-- <div class="hero__search__form">
+						<form action="#">
+							<div class="hero__search__categories">
+								All Categories <span class="arrow_carrot-down"></span>
+							</div>
+							<input type="text" placeholder="What do yo u need?">
+							<button type="submit" class="site-btn">SEARCH</button>
+						</form> -->
+				</div>
+				<div class="hero__search__phone">
+					<div class="hero__search__phone__icon">
+						<i class="fa fa-phone"></i>
+					</div>
+					<div class="hero__search__phone__text">
+						<h5>+65 11.188.888</h5>
+						<span>support 24/7 time</span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	</div>
+</section>
+<!-- Hero Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg"
+	data-setbg="/resources/img/bg1.png">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="breadcrumb__text">
+					<h2>상품 등록 페이지</h2>
+					<div class="breadcrumb__option">
+						<a href="./index.html">Home</a> <a href="./index.html">Vegetables</a>
+						<span>Vegetable’s Package</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- row -->
+
+	</div>
 </section>
 <!-- Breadcrumb Section End -->
 
-<!-- Checkout Section Begin -->
-<section class="checkout spad">
-<div class="container">
-	<div class="checkout__form">
-		<h4>관리자 추가 모드</h4>
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+	<div class="container" style="max-width: 1370px;">
 		<form action="register" method="post">
 			<div class="row">
-				<div class="col-lg-4 col-md-6">
 
-					<div class="checkout__order">
-						<div class="checkout__order__products"
-							style="border-bottom: 1px solid e5e5e5;">상품 관리</div>
-						<ul>
-							<li>상품 등록<span>아이콘1</span></li>
-							<li>상품 수정<span>아이콘2</span></li>
-							<li>상품 삭제<span>아이콘3</span></li>
-						</ul>
-						<div class="checkout__order__subtotal">
-							중분류<span>아이콘</span>
+				<div class="col-lg-6 col-md-6">
+					<div class="product__details__pic">
+					
+						<div class="product__details__pic__item">
+							<img class="product__details__pic__item--large"
+								src="/resources/img/product/details/product-details-1.jpg"
+								alt="">
 						</div>
-
-						<!-- <div class="checkout__input__checkbox">
-							<label for="acc-or"> Create an account? <input
-								type="checkbox" id="acc-or"> <span class="checkmark"></span>
-							</label>
+						
+						<div class="product__details__pic__slider owl-carousel">
+							<img
+								data-imgbigurl="/resources/img/product/details/product-details-2.jpg"
+								src="/resources/img/product/details/thumb-1.jpg" alt=""> <img
+								data-imgbigurl="/resources/img/product/details/product-details-3.jpg"
+								src="/resources/img/product/details/thumb-2.jpg" alt=""> <img
+								data-imgbigurl="/resources/img/product/details/product-details-5.jpg"
+								src="/resources/img/product/details/thumb-3.jpg" alt=""> <img
+								data-imgbigurl="/resources/img/product/details/product-details-4.jpg"
+								src="/resources/img/product/details/thumb-4.jpg" alt="">
 						</div>
-						<p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						<div class="checkout__input__checkbox">
-							<label for="payment"> Check Payment <input
-								type="checkbox" id="payment"> <span class="checkmark"></span>
-							</label>
-						</div>
-						<div class="checkout__input__checkbox">
-							<label for="paypal"> Paypal <input type="checkbox"
-								id="paypal"> <span class="checkmark"></span>
-							</label>
-						</div> -->
-
-					</div> <!-- checkout__order -->
-
+						
+					</div> <!-- product__details__pic__item -->
 				</div>
-				<!-- col-lg-4 -->
 
-				<div class="col-lg-1"></div>
+				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
 
-				<div class="col-lg-7 col-md-6" style="padding: 0; margin: 0;">
+					<!-- 예쁜 레이아웃 쀼쀼 -->
+					<div class="product__details__text">
 
-					<div class="checkout__input row" style="height: 80px">
-						<p>
-							기종 카테고리<span>*</span>
-						</p>
-						<!-- 대분류 -->
-						<div class="dropdown col">
-							<button class="btn btn-light dropdown-toggle brandBtn"
-								style="border-radius: 0;" type="button" aria-expanded="false">브랜드</button>
-							<ul class="dropdown-menu"
-								style="border-radius: 0; border: none; background-color: #f5f5f5;">
-								<li><a class="dropdown-item dropdown-brand1">애플</a></li>
-								<li><a class="dropdown-item dropdown-brand2">삼성</a></li>
-								<li><a class="dropdown-item dropdown-brand3">구글</a></li>
-							</ul>
+						<div class="checkout__input row">
+							<div class="col">
+								<p>
+									상품번호<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input name="gno" type="text">
+							</div>
 						</div>
-						<!-- 중분류 -->
-						<div class="dropdown col">
-							<button class="btn btn-light dropdown-toggle" type="button"
-								style="border-radius: 0;" aria-expanded="false">기기명</button>
 
-							<ul class="dropdown-menu dropdown-menu-apple"
-								style="border-radius: 0; border: none; background-color: #f5f5f5;">
-								<li><a class="dropdown-item">아이폰 S</a></li>
-							</ul>
-							<ul class="dropdown-menu dropdown-menu-sam"
-								style="border-radius: 0; border: none; background-color: #f5f5f5;">
-								<li><a class="dropdown-item" href="">갤럭시 S</a></li>
-							</ul>
+						<div class="checkout__input row"
+							style="margin-top: 50px; color: #252525; font-weight: 700; margin-bottom: 16px;">
+							<div class="col">
+								<p>
+									상품명<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input name="gname" type="text">
+							</div>
 						</div>
-					</div>
 
+						<div class="checkout__input row">
+							<div class="col">
+								<p>판매가</p>
+							</div>
+							<div class="col row">
+								<div class="col-9" style="padding: 0;">
+									<input name="price" type="text"
+										class="checkout__input__add product__details__price">
+								</div>
+								<div class="col-3">
+									<span class="product__details__price">원</span>
+								</div>
+							</div>
+						</div>
 
-					<div class="checkout__input">
-						<p>
-							상품번호<span>삭제 예정</span>
-						</p>
-						<input name="gno" type="text">
+						<div class="checkout__input">
+							<p>
+								상품 설명<span>*</span>
+							</p>
+							<textarea name="information" type="text" rows="5"
+								style="width: 100%; font-size: 16px; font-family:"Cairo", sans-serif;
+							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;"></textarea>
+						</div>
+
+						<div class="checkout__input row" style="height: 80px">
+							<p>
+								기종 카테고리<span>*</span>
+							</p>
+							<!-- 대분류 -->
+							<div class="dropdown col">
+								<button class="btn btn-light dropdown-toggle brandBtn"
+									style="border-radius: 0;" type="button" aria-expanded="false">브랜드</button>
+								<ul class="dropdown-menu"
+									style="border-radius: 0; border: none; background-color: #f5f5f5;">
+									<li><a class="dropdown-item dropdown-brand1">애플</a></li>
+									<li><a class="dropdown-item dropdown-brand2">삼성</a></li>
+									<li><a class="dropdown-item dropdown-brand3">구글</a></li>
+								</ul>
+							</div>
+							<!-- 중분류 -->
+							<div class="dropdown col">
+								<button class="btn btn-light dropdown-toggle" type="button"
+									style="border-radius: 0;" aria-expanded="false">기기명</button>
+
+								<ul class="dropdown-menu dropdown-menu-apple"
+									style="border-radius: 0; border: none; background-color: #f5f5f5;">
+									<li><a class="dropdown-item">아이폰 S</a></li>
+								</ul>
+								<ul class="dropdown-menu dropdown-menu-sam"
+									style="border-radius: 0; border: none; background-color: #f5f5f5;">
+									<li><a class="dropdown-item" href="">갤럭시 S</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<ul>
+							<li><b>Availability</b> <span>In Stock</span></li>
+							<li><b>Shipping</b> <span>01 day shipping. <samp>Free
+										pickup today</samp></span></li>
+							<li><b>Weight</b> <span>0.5 kg</span></li>
+							<li><b>Share on</b>
+								<div class="share">
+									<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+										class="fa fa-twitter"></i></a> <a href="#"><i
+										class="fa fa-instagram"></i></a> <a href="#"><i
+										class="fa fa-pinterest"></i></a>
+								</div></li>
+						</ul>
 					</div>
-					<div class="checkout__input cateMar" style="margin-top: 50px;">
-						<p>
-							상품명<span>*</span>
-						</p>
-						<input name="gname" type="text">
-					</div>
-					<div class="checkout__input">
-						<p>
-							판매가<span>*</span>
-						</p>
-						<input name="price" type="text" class="checkout__input__add">
-					</div>
-					<!-- 					<div class="checkout__input">
+					<!-- details -->
+
+					<!-- <div class="checkout__input">
 						<p>
 							재고수량<span>*</span>
 						</p>
 						<input type="text">
 					</div> -->
-					<div class="checkout__input">
-						<p>상세 설명</p>
-						<textarea name="information" type="text" rows="5"
-							style="width: 100%;"></textarea>
-					</div>
 
 					<div class="checkout__input">
 						<div class="row">
@@ -232,8 +309,6 @@ input[type=file]::file-selector-button {
 			</div>
 			<!-- row -->
 
-			<h4>주의사항 저장하시기 전에 한 번 더 확인</h4>
-
 			<div class="checkout__input" style="text-align: center;">
 				<button type="reset" class="btn btn-default"
 					style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">초기화</button>
@@ -242,17 +317,14 @@ input[type=file]::file-selector-button {
 					등록</button>
 			</div>
 		</form>
-	</div>
-	<!-- .container -->
-</section>
-<!-- Checkout Section End -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
+
+	</div>
+	<!-- container -->
 
 <script>
 	$(function() {
+		/* 드롭다운 */
 		var toggleBtn = $(".brandBtn"); // 버튼 선택
 		var menu = $(".dropdown-menu");
 		var appleItem = $(".dropdown-menu-apple");
@@ -282,15 +354,13 @@ input[type=file]::file-selector-button {
 			appleItem.hide();
 			samItem.show();
 		});
-	});
 
-	//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
-	$(document).ajaxSend(function(e, xhr, options) {
-		xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-	});
+		//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		});
 
-	$(document).ready(function() {
-
+		/* 파일 업로드 */
 		//파일의 확장자와 크기 사전 처리
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz$)"); //정규표현식
 		var maxSize = 5242880; //5MB
@@ -308,34 +378,35 @@ input[type=file]::file-selector-button {
 			return true; //반복을 위함 (문제 없을 시 true)
 		}
 
-		/* 		$("#uploadBtn").on("click", function(e) {
-		 e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+		$("#uploadBtn").on("click", function(e) {
+			e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
 
-		 var formData = new FormData();
-		 var inputFile = $("input[name='uploadFile']");
-		 var files = inputFile[0].files;
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
 
-		 // 파일 업로드 처리
-		 for (var i = 0; i < files.length; i++) {
-		 formData.append("uploadFile", files[i]);
-		 }
+			// 파일 업로드 처리
+			for (var i = 0; i < files.length; i++) {
+				formData.append("uploadFile", files[i]);
+			}
 
-		 $.ajax({
-		 url : 'uploadAjaxAction',
-		 processData : false,
-		 contentType : false,
-		 data : formData,
-		 type : 'POST',
-		 success : function(result) {
-		 alert("Uploaded");
-		 },
-		 error : function(xhr, status, error) {
-		 console.error(xhr.responseText);
-		 }
-		 });
-		 }); */
+			$.ajax({
+				url : 'uploadAjaxAction',
+				processData : false,
+				contentType : false,
+				data : formData,
+				type : 'POST',
+				success : function(result) {
+					alert("Uploaded");
+				},
+				error : function(xhr, status, error) {
+					console.error(xhr.responseText);
+				}
+			});
+		});
 	});
 </script>
+
 <!-- Footer Section Begin -->
 
 <jsp:include page="../includes/footer.jsp"></jsp:include>

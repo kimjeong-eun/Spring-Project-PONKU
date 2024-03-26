@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -13,14 +13,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import lombok.Data;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({
+  "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+  "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
+  })
+//"file:src/main/webapp/WEB-INF/spring/security-context.xml"
+@Log4j2
+@Data
 @WebAppConfiguration
-@ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 public class GoodsControllerTests {
 
 	//테스트 시 서버 실행하지 않기 위해 기존의 테스트 코드와 다르게 작성 
@@ -28,6 +33,9 @@ public class GoodsControllerTests {
 	private WebApplicationContext ctx;
 	
 	private MockMvc mockMvc; //가짜 MVC, URL과 파라미터 등을 브라우저에서 사용하는 것처럼 만들어 실행
+	
+	@Setter(onMethod_ = @Autowired)
+	private PasswordEncoder pwencoder;
 	
 	//서버 실행하지 않고 테스트 가능  
 	@Before
@@ -43,6 +51,15 @@ public class GoodsControllerTests {
 			.andReturn()
 			.getModelAndView()
 			.getModelMap());
+	}
+	
+	@Test
+	public void testListPaging() throws Exception {
+	    log.info(mockMvc.perform(
+	            MockMvcRequestBuilders.get("/goods/goodsList")
+	                    .param("pageNum", "1")
+	                    .param("amount", "10"))
+	            .andReturn().getModelAndView().getModelMap());
 	}
 	
 	@Test

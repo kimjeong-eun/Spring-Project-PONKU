@@ -388,8 +388,6 @@
                     </div>
                     <div class="row">
                     
-                    <h1><c:out value="${goods.gname}"/></h1>
-                    
                     <c:forEach items="${list}" var="goods">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
@@ -405,29 +403,13 @@
                                 </div>
                                 
                                 <div class="product__item__text">
-                                    <h6><a href="#"><c:out value="${goods.gname}"/></a></h6> <!-- gname -->
+                                    <h6><a href='/goods/get?gno=<c:out value="${goods.gno}"/>' target="_blank"><c:out value="${goods.gname}"/></a></h6> <!-- gname -->
                                     <h5><c:out value="${goods.price}"/> 원</h5> <!-- 가격 -->
                                 </div>
                                 
                             </div>
                         </div> <!-- col-lg-4 -->
                         </c:forEach>
-                        
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="/resources/img/product/product-2.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Crab Pool Security</a></h6>
-                                    <h5>$30.00</h5>
-                                </div>
-                            </div>
-                        </div>
                         
                     </div> <!-- row -->
                     

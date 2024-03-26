@@ -3,8 +3,8 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
 import org.zerock.mapper.GoodsMapper;
 
@@ -33,6 +33,13 @@ public class GoodsServiceImpl implements GoodsService {
 		log.info("getList......");
 		
 		return mapper.getList();
+	}
+	
+	@Override
+	public List<GoodsVO> getList(Criteria cri) {
+		log.info("getList with Criteria" + cri);
+		
+		return mapper.getListWithPaging(cri);
 	}
 
 	@Override

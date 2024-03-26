@@ -5,12 +5,28 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> <!-- 패스워드인코딩  -->
 	
+	<!-- 로그인 시 권한 실패에 대한 org.zerock.security.CustomAccessDeniedHandler.java 객체로 등록하여 사용 -->
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
 	
 	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	<!-- 스프링 시큐리티의 여러 정보들을 제한적으로 이용하는 단점을 해결
+	UserDetails 타입은 getAuthorities(), getPassword, getUserName()등의 추상 메서드를 가지고 있어, 개발 전에 이를 직접 구현할 것인지
+	UserDetails 인터페이스를 구현해 준 스프링 시큐리티의 여러 하위 클래스를 이용할 것인지 판단해야 된다
+	
+	현재 프로젝트는 UserDetailsService 인터페이스를 구현체로 이용하는 방식을 활용하므로
+	MyBatis를 이용하는 MemberMapper와 서비스를 작성하여 시큐리티를 연결해서 사용하는 방식으로 진행
+	=> org.zerock.domain.MemberVO.java, org.zerock.domain.AuthVO.java 생성
+	=> org.zerock.mapper.MemberMapper.java + MemberMapper.xml을 이용
+	=> org.zerock.security.CustomUserDetailsService.java의 loadUserByUserName(userName)메서드 작성
+	: userName을 받아 MemberVO 객체 생성
+	: 리턴은 new CustomUser(vo)
+	=> org.zerock.security.domain.CustomUser.java는 extends User 상속
+	: org.springframework.security.core.userdetails.user
+	 -->
 	
 	<security:http>
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>
@@ -32,5 +48,4 @@
 		</security:authentication-provider>
 		
 	</security:authentication-manager>
-
 </beans>

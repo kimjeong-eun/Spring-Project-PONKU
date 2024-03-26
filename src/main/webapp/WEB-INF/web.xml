@@ -43,7 +43,7 @@
 	</servlet-mapping>
 
 
-	<!-- 인코딩 필터 만듬 -->
+	<!-- 인코딩 필터 만듬, 한글 깨짐 처리 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -58,6 +58,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+<!-- security 주석 처리 -->
  	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

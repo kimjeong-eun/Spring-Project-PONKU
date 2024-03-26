@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
 
 import lombok.Setter;
@@ -37,7 +38,9 @@ public class GoodsServiceTests {
 	
 	@Test
 	public void testGetList() {
-		service.getList().forEach(goods -> log.info(goods));
+		//service.getList().forEach(goods -> log.info(goods));
+		
+		service.getList(new Criteria(2, 10)).forEach(goods -> log.info(goods));
 	}
 	
 	@Test

@@ -1,5 +1,6 @@
 package org.zerock.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,43 +9,52 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.GoodsService;
 
-import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @Controller
 @Log4j2
 @RequestMapping("/goods/*")
-@AllArgsConstructor // service에 대해 의존적
+@Data
 public class GoodsController {
 
+	@Setter(onMethod_ = { @Autowired })
 	private GoodsService service;
-	
-	@GetMapping("/get")
-	// 보다 명시적 처리
+
+	@GetMapping({ "/get", "/modify" }) // GetMapping, PostMapping은 URL을 배열로 처리할 수 있으므로, 하나의 메서드로 여러 URL 처리
 	public void get(@RequestParam("gno") String gno, Model model) {
-		
-		log.info("/get");
+
+		log.info("/get or /modify");
 		model.addAttribute("goods", service.get(gno)); // 모델에 번호 추가
 	}
 
+	/* 목록 불러오기 */
 	@GetMapping("/goodsList")
 	public void list(Model model) {
 		log.info("list");
 		model.addAttribute("list", service.getList());
 	}
 
-	@GetMapping("/registering")
+	/* 페이징 처리 후 목록 불러오기 */
+	//@GetMapping("/goodsList")
+	//@PreAuthorize("permitAll")
+	//public void list(Criteria cri, Model model) {
+	//	log.info("list" + cri);
+	//	model.addAttribute("list", service.getList(cri));
+	//	model.addAttribute("pageMaker", new PageDTO(cri, 123));
+	//}
+
+	@GetMapping("/register")
 	public void register() {
 	}
-	
-	/*
-	 * @GetMapping("/registering") public void register2() { }
-	 */
 
-	@PostMapping("/registering")
+	@PostMapping("/register")
 	public String register(GoodsVO goods, RedirectAttributes rttr) {
 
 		log.info("register: " + goods);

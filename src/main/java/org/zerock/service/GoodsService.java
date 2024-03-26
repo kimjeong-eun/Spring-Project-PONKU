@@ -2,12 +2,14 @@ package org.zerock.service;
 
 import java.util.List;
 
+import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
 
 public interface GoodsService {
 	
 	public GoodsVO get(String gno); //gno에 해당하는 열의 모든 값
 	public List<GoodsVO> getList(); //테이블의 모든 값
+	public List<GoodsVO> getList(Criteria cri);
 	
 	public void register(GoodsVO goods);
 	
