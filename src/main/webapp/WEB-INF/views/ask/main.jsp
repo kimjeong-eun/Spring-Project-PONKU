@@ -21,7 +21,7 @@
 }
 
 .faq-toggle {
-	background-color: #cd0000;
+	background-color: #000;
 	color: #ffffff;
 	padding: 10px 20px; /* 위아래 10px, 좌우 20px */
 	border: none;
@@ -81,7 +81,7 @@
 
 /* 비밀글 ON일 때 배경색 */
 #toggleButton.secretOn {
-	background-color: #cd0000; /* 빨간색 배경 */
+	background-color: #000; /* 빨간색 배경 */
 }
 
 /* 비밀글 OFF일 때 배경색 */
@@ -124,9 +124,9 @@
 
 /* 활성화된 페이지네이션 링크 스타일 */
 .pagination li.active a {
-	background-color: #cd0000;
+	background-color: #000;
 	color: #fff;
-	border-color: #cd0000;
+	border-color: #000;
 }
 
 #searchForm {
@@ -157,7 +157,7 @@
 }
 
 .button.active {
-	background-color: #cd0000; /* 클릭되었을 때 색상 변경 */
+	background-color: #000; /* 클릭되었을 때 색상 변경 */
 	color: #ffffff; /* 클릭되었을 때 텍스트 색상 변경 */
 }
 
@@ -191,11 +191,11 @@ div.ask__main {
 }
 
 .breadcrumb-section a:hover {
-	color: #cd0000;
+	color: #000;
 }
 </style>
 <!-- Hero Section Begin -->
-<section class="hero hero-normal">
+<section class="hero-normal">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -288,7 +288,7 @@ div.ask__main {
 						</select>
 						<input type="text" id="searchInput" class="mr-2" name="keyword" placeholder="검색어를 입력하세요">
 						<button type="submit" class="searchbutton">
-							<i class="fa-solid fa-magnifying-glass" style="color: #cd0000;"></i>
+							<i class="fa-solid fa-magnifying-glass" style="color: #000;"></i>
 						</button>
 					</form>
 				</div>
@@ -450,54 +450,6 @@ div.ask__main {
 <script src="/resources/js/mixitup.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
-<script type="text/javascript">
-	//$(document).ready( function() {
-						/* var result = '<c:out value="${result}"/>';
-						
-						checkModal(result);
-
-						history.replaceState({}, null, null);
-
-						function checkModal(result) {
-
-							if (result === '' || history.state) {
-								return;
-							}
-
-							if (parseInt(result) > 0) {
-								$(".modal-body").html(
-										"게시글 " + parseInt(result)
-												+ " 번이 등록되었습니다.");
-							}
-
-							$("#myModal").modal("show");
-						}
-
-						$("#regBtn").on("click", function() {
-
-							self.location = "/board/register";
-
-						});*/
-
-						
-						
-						// 페이징(숫자버튼)(그냥 컨트롤러를 이용하는 방법)
-						/* $(".paginate_button a").on("click", function(e) {
-							e.preventDefault();
-							console.log('click');
-
-							actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-							actionForm.submit();
-						}); 
-
-						$(".move").on("click", function(e) {
-							e.preventDefault(); // 기존동작무시
-							actionForm.append("<input type='hidden' name='ask_list_no' value='" + $(this).attr("href") + "'>");
-							actionForm.attr("action", "/board/get");
-							actionForm.submit();
-						}); */
-
-</script>
 
 <!-- cdn header.jsp에 추가 -->
 <script type="text/javascript" src="/resources/js/asklist.js"></script>
@@ -535,6 +487,7 @@ $(document).ready(function () {
 				alert("검색결과가 없습니다.");
 				str += "<tr style='text-align: center;'><th colspan='6'>검색결과가 없습니다.</th></tr>";
 				ask_list_tbody.html(str); // 리스트 출력
+				showAskListPage(askListCnt); // 페이지 번호 출력
 		        return;
 		    }
 			// ask_list_tbody.empty(); // 이전 목록 삭제
@@ -549,7 +502,7 @@ $(document).ready(function () {
 			    }
 			    str += '<td><a class="move" href="' + list[i].ask_list_no + '">' + list[i].ask_list_title;
 			    if(list[i].ask_list_lock == true || list[i].ask_list_lock == 1){
-			    	str += ' <i class="fa-solid fa-lock" style="color: #cd0000;"></i>';
+			    	str += ' <i class="fa-solid fa-lock" style="color: #000;"></i>';
 			    }
 			    /* 나중에 첨부파일도 하기! if */
 			    str += '</a></td>';
@@ -618,7 +571,7 @@ $(document).ready(function () {
         //console.log("type : " + type);
         //console.log("keyword : " + keyword);
         
-        //pageNum = targetPageNum; // 검색하면 1페이지부터 출력하기 위해 주석처리
+        pageNum = targetPageNum;
         
         showList(targetPageNum, secret); // , type, keyword
     }); // 익명함수종료
@@ -631,7 +584,8 @@ $(document).ready(function () {
 
 		//console.log(searchType, searchKeyword);
 		e.preventDefault(); // 기존 동작 무시
-		showList(1, secret); // 기본 페이지는 1페이지 , searchType, searchKeyword
+		pageNum = 1; // 검색했을 때 1페이지부터 보여준다.
+		showList(pageNum, secret); // 기본 페이지는 1페이지 , searchType, searchKeyword
 
 	});
     
