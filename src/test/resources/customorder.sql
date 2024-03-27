@@ -70,14 +70,15 @@ CREATE TABLE Order_custom_goods (
     DELIVERY_ADDRESS VARCHAR2(150), --배송주소 
     ORDERPW VARCHAR2(50) DEFAULT NULL, -- 구매비밀번호 
     CASEIMGURL VARCHAR2(150), --케이스 이미지 URL (이미지 불러올 때 필요...)
-    USERNAME VARCHAR2(10) -- 유저이름
+    USERNAME VARCHAR2(10) ,-- 유저이름
+    order_date DATE DEFAULT SYSDATE --주문일
 ); 
 
 select * from order_custom_goods;
 drop table  Custom_goods_order;
 
 alter table Custom_goods_order add CASEIMGURL VARCHAR2(150);
-
+alter table Order_custom_goods add order_date DATE DEFAULT SYSDATE;
 
 --쇼핑카트 시퀀스 
 CREATE SEQUENCE SHOPPING_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
@@ -89,4 +90,22 @@ select * from shopping_cart;
 
 delete from shopping_cart;
 select * from shop_member;
+
+
+----주문 상품 조회
+create table ordered_goods(
+ ORDERNO VARCHAR2(150) references Order_custom_goods(ORDERNO),
+ GNO VARCHAR2(50) references Shop_goods(GNO),
+ MODEL_NAME VARCHAR2(100), --기종
+ CASEIMGURL VARCHAR2(150), --케이스이미지 url
+ QUANTITY VARCHAR2(50) default '1' --상품수량
+);
+
+drop table ordered_goods;
+
+-------주문시퀀스
+CREATE SEQUENCE ORDER_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
+
+
+
 

@@ -9,12 +9,14 @@
 <title>구매 정보 입력</title>
 								<style>
 								.uploadResult {
-					    			width: 20rem;
-								    height: 14rem;
+					    			width: 10rem;
+								    height: 120px;
+								    background-position-x:1rem;
 								    /* background-color: gray; */
 								  
-								    background-size: cover;
+								    background-size: 130%;
 								    position: relative;
+								    border: 2px solid black;
 								}
 								.uploadResult ul{
 									width: 30rem;
@@ -102,18 +104,21 @@ ${dto.caseimgurl}
                <form action="/orderComplete" name="formObj" method="post">
                 
                 <p>주문 상품 이미지(예시)<span style="color: red;">*</span></p>
-              
-					<div class="uploadResult" ">
+                
+                <c:forEach  var="element" items="${cartList }" >
+                
+					<div class="uploadResult" style="display: inline-block;  background-image: url('${element.image}');">
 	         			<ul>
-	         					<!-- 여기에 커스텀 이미지 보임  -->
+	         					<!-- 여기에 이미지 보임  -->
 	         			</ul>
 	         		</div> 
+
+                </c:forEach>
+ 
 
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
-                             <p>커스텀 문구<span style="color: red;">(변경불가)*</span></p>
-         					<input type="text" name="custom_content" readonly="readonly" value="${dto.custom_content }" style="margin-bottom: 1rem;">
                             
                             <sec:authorize access="isAuthenticated()"> <!--로그인 사용자일때  -->
                             <div class="checkout__input__checkbox">
@@ -282,21 +287,34 @@ ${dto.caseimgurl}
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
+                            
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
+                                
                                 <ul>
-                                    <li>${dto.casename } (커스텀)&nbsp;( ${dto.model_name} ) <span> ${dto.price } </span></li>
-                                </ul>
-                                <div class="checkout__order__subtotal">Quantity <span> X ${dto.quantity }</span></div> 
-                                <div class="checkout__order__total">Total <span>${dto.totalprice }</span></div>
-<!--                                 <div class="checkout__input__checkbox">
+                                <c:forEach var="element" items="${cartList }" >
+                                
+                                
+                           
+                                    <li>${element.gname } &nbsp;( ${element.model} ) <span> ${element.price } X ${element.quantity }</span></li>
+                                
+
+                                </c:forEach>
+                                
+                
+                      			</ul>          
+                                
+                                
+                                <div class="checkout__order__subtotal">담긴상품 <span>  ${ cartElements }</span></div> 
+                                <div class="checkout__order__total">Total <span>${totalPrice }</span></div>
+						<!--<div class="checkout__input__checkbox">
                                     <label for="acc-or">
                                         Create an account?
                                         <input type="checkbox" id="acc-or">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div> -->
-                                <p>본 상품은 커스텀 제품으로 단순 변심으로 인한 환불 및 교환이 불가능하오니 이점 참고 부탁드립니다. 감사합니다.</p>
+                       
                                <!--  <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         Check Payment
@@ -311,21 +329,24 @@ ${dto.caseimgurl}
                                         <span class="checkmark"></span>
                                     </label>
                                 </div> -->
+                                
                                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
                                 <input type="hidden" name="orderno" value="" />
+                                
+                                
                                 <input type="hidden" name="gno" value="${dto.gno }" />
                                 <input type="hidden" name="userid" value="${dto.userid }" />
                                 <input type="hidden" name="model_name" value="${dto.model_name }" />
                                 <input type="hidden" name="casename" value="${dto.casename }" />
-                                <input type="hidden" name="custom_image" value="" / >
-                               
+   
                                 <input type="hidden" name="quantity" value="${dto.quantity }" />
                                 <input type="hidden" name="price" value="${dto.price }" />
                                 <input type="hidden" name="totalprice" value="${dto.totalprice }" />
 								<input type="hidden" name="delivery_address" value=""/>
                                	<input type="hidden" name="payment" value="card" />
                                	<input type="hidden" name="caseimgurl" value="" />
-                                <button type="button" class="site-btn" name="decideorder">주문하기</button>
+                                
+                                <button type="button" class="site-btn" name="decideorder" >주문하기</button>
                                 
                             </div>
                         </div>
@@ -341,80 +362,10 @@ ${dto.caseimgurl}
 	
 	$(document).ready(function() {
 		
-		//커스텀 케이스 이미지 적용 
-		var caserul = "${dto.caseimgurl}"; //
-		$(".uploadResult").css("background-image","url('"+caserul+"')");
-		$("input[name='caseimgurl']").val(caserul);
 		
 		
-		 var fileCallPath = encodeURIComponent( "${imgdto.uploadPath}"+ "/"+"${imgdto.uuid}"+"_"+"${imgdto.fileName}");
-		 $("input[name='custom_image']").val(fileCallPath);
-		 
-		 var str ="";
-		 console.log(fileCallPath);
-	/* 	 fileCallPath=fileCallPath.replace(/%/gi,"\\");  */
-		 console.log(fileCallPath);
-		 str += "<li data-path='${imgdto.uploadPath}' data-uuid='${imgdto.uuid}' data-filename='${imgdto.fileName}' ><div>";
-	     str += "<img src='/display?fileName="+fileCallPath+"'/>";
-	     str += "</div>";
-	     str +"</li>";
-	     $(".uploadResult ul").html(str); 
-	     
-	     $("select[name='delivery_request_select']").change(function() {
-			//배송메세지 셀렉박스에 변화가 있다면 
-	    	 	/* console.log($("select[name='delevery_request_select'] option:selected").text()); */
-	    	   $("input[name='delivery_request']").val($("select[name='delivery_request_select'] option:selected").text());
-	    	 
-		});
-	     
-	     $("button[name='decideorder']").on("click", function(e){
-		    	
-		    	e.preventDefault();
-		    	
-		    	/* console.log("버튼 눌림"); */
-		    	
-		    	if($("input[name='username']").val()==''|| $("input[name='username']").val()==null){
-		    		
-		    		alert("이름을 입력해주세요");
-		    		$("input[name='username']").focus();
-		    		return;
-		    		
-		    	}
-		    	if($("input[name='address2']").val()==''|| $("input[name='address2']").val()==null){
-		    		alert("주소를 입력해주세요");
-		    		$("input[name='address2']").focus();
-		    		return;
-		    	}
-		    	if($("input[name='phone']").val()==''|| $("input[name='phone']").val()==null){
-		    		
-		    		alert("휴대폰 번호를 입력해주세요");
-		    		$("input[name='phone']").focus();
-		    		return;
-		    		
-		    	}
-		    	if(!($("input[name='orderpw']").val()==$("input[name='re-orderpw']").val())){
-		    		
-		    		alert("비밀번호를 확인해주세요");
-		    		$("input[name='re-orderpw']").focus();
-		    		return;
-		    		
-		    	}
-	
-		    	var date = new Date();
-		    	var month = date.getMonth()+1 < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1);
-		    	var today = date.getFullYear()+""+month+""+date.getDate();
-			
-		    	var orderno = today+""+"custom"+"${imgdto.uuid}"; //주문번호 날짜 + custom + imgdtouuid
-		    	
-		    	$("input[name='orderno']").val(orderno);
-		    	
-		    	var address2 = $("input[name='address2']").val();
-		    	var address3 = $("input[name='address3']").val();
-		    	
-		    	$("input[name='delivery_address']").val(address2+"/"+address3);
-		    	$("form[name='formObj']").submit();
-		    	
-		    });
+		
+
 	});
 	
 </script>

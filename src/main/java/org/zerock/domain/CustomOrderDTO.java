@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomOrderDTO {
-		//뭐가 필요할지 몰라서 다 넣기....
+		
 	
 	private String orderno; //주문번호
 	private String gno; //상품번호

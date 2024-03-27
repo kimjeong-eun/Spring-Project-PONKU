@@ -19,9 +19,9 @@ public class CustomOrderImpl implements CustomOrderService {
 
 	@Override
 	public String memberCustomOrder(CustomOrderDTO dto) {
-		// 회원주문 
+		// 회원주문 (커스텀)
 		
-		int insertResult = mapper.insertOrder(dto);
+		int insertResult = mapper.insertOrder_cus(dto);
 		String resultStr;
 		
 		if(insertResult<=0) {
@@ -39,9 +39,9 @@ public class CustomOrderImpl implements CustomOrderService {
 
 	@Override
 	public String noMemberCustomOrder(CustomOrderDTO dto) {
-		// 비회원주문 
+		// 비회원주문 (커스텀)
 		
-		int insertResult = mapper.insertOrderNomember(dto);
+		int insertResult = mapper.insertOrderNomember_cus(dto);
 		String resultStr;
 		
 		if(insertResult<=0) {

@@ -18,12 +18,17 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.CustomImgDTO;
 import org.zerock.domain.CustomOrderDTO;
 import org.zerock.domain.ShopGoodsVO;
 import org.zerock.domain.ShoppingCartVO;
 import org.zerock.service.CustomOrderService;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -105,7 +110,7 @@ public class CustomOrderController {
 	@PreAuthorize("permitAll")
 	@PostMapping("/orderComplete")
 	public String decideOrder(CustomOrderDTO dto) {
-		
+		//커스텀케이스용 
 		String resultStr = "";
 		
 		/*
@@ -189,6 +194,79 @@ public class CustomOrderController {
 	}
 	
 	
+	/*
+	 * @PreAuthorize("isAuthenticated()")
+	 * 
+	 * @PostMapping(value = "/orderGoods", produces =
+	 * {MediaType.APPLICATION_JSON_UTF8_VALUE,MediaType.APPLICATION_JSON_VALUE})
+	 * 
+	 * @ResponseBody public ResponseEntity<List<ShoppingCartVO>>
+	 * orderGoods(@RequestParam(value="cart_no[]") String[]
+	 * cart_no, @RequestParam(value="image[]") String[]
+	 * image,@RequestParam(value="gno[]") String[]
+	 * gno,@RequestParam(value="gname[]") String[]
+	 * gname, @RequestParam(value="model[]") String[] model,
+	 * 
+	 * @RequestParam(value="price[]") String[]
+	 * price, @RequestParam(value="quantity[]") String[] quantity, String totalPrice
+	 * , String member_seq ) {
+	 * 
+	 * List<ShoppingCartVO> lists = new ArrayList<ShoppingCartVO>();
+	 * 
+	 * 
+	 * 
+	 * for(int i=0;i<cart_no.length;i++) {
+	 * 
+	 * ShoppingCartVO vo =new ShoppingCartVO(); vo.setCart_no(cart_no[i]);
+	 * vo.setImage(image[i]); vo.setGno(gno[i]); vo.setGname(gname[i]);
+	 * vo.setModel(model[i]); vo.setPrice(price[i]); vo.setQuantity(quantity[i]);
+	 * vo.setMember_seq(Long.parseLong(member_seq));
+	 * 
+	 * lists.add(vo);
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * log.info("===============주문컨트롤러===========================");
+	 * log.info(lists); log.info("==========================================");
+	 * 
+	 * return new ResponseEntity<List<ShoppingCartVO>>(lists,HttpStatus.OK); }
+	 */
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/orderGoods")
+	public String orderGoods2(Model model,String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
+			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , String cartElments ) {
 		
+		List<ShoppingCartVO> lists = new ArrayList<ShoppingCartVO>();
+		
+		
+		
+		  for(int i=0;i<cart_no.length;i++) {
+		  
+		  ShoppingCartVO vo =new ShoppingCartVO();
+		  vo.setCart_no(cart_no[i]);
+		  vo.setImage(image[i]);
+		  vo.setGno(gno[i]);
+		  vo.setGname(gname[i]);
+		  vo.setModel(modelname[i]);
+		  vo.setPrice(price[i]);
+		  vo.setQuantity(quantity[i]);
+		  vo.setMember_seq(Long.parseLong(member_seq));
+		  
+		  lists.add(vo);
+
+		  }
+ 
+		model.addAttribute("cartList", lists);
+		model.addAttribute("cartElements", cartElments);
+		model.addAttribute("totalPrice", totalPrice);
+	
+		
+		return "/order";
+	}
+	
 	
 }

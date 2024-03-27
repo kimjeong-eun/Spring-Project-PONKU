@@ -31,29 +31,50 @@
 		
 	</resultMap>
 
+	<!--커스텀용 주문넣기  -->
+	<insert id="insertOrder_cus" >
 	
-
-
-	<insert id="insertOrder" >
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address,caseimgurl,username,order_date)
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image} ,#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{caseimgurl},#{username},sysdate)
 	
-		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address,caseimgurl,username)
-			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image} ,#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{caseimgurl},#{username})
+	</insert>
+	<!-- 커스텀용 주문넣기 비회원용  -->
+	<insert id="insertOrderNomember_cus">
+
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address, orderpw,caseimgurl,username,order_date )
+			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image},#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{orderpw},#{caseimgurl},#{username},sysdate)
 	
 	</insert>
 
+	<!--일반상품 주문넣기  -->
+	<insert id="insertOrder">
+	
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,quantity,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date)
+			 values(ORDER_SEQ.nextval,'주문상품목록확인필요',#{userid},#{email},#{phone},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate)
+	</insert>
+	
+	<!--일반상품 주문넣기(비회원)  -->
 	<insert id="insertOrderNomember">
+		insert into Order_custom_goods(orderno, gno , userid , email,phone,quantity,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date,orderpw)
+			 values(ORDER_SEQ.nextval,'주문상품목록확인필요',#{userid},#{email},#{phone},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate,#{orderpw})
+	</insert>
 
-		insert into Order_custom_goods(orderno, gno , userid , email,phone,model_name,casename,price,custom_image,custom_content,quantity,totalprice,payment,order_request,delivery_request,delivery_address, orderpw,caseimgurl,username )
-			 values(#{orderno},#{gno},#{userid},#{email},#{phone},#{model_name},#{casename},#{price},#{custom_image},#{custom_content},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{orderpw},#{caseimgurl},#{username})
+	<!-- 주문 상품넣기 -->
+	<insert id="insertOrderd_goods">
+	
+		insert into ordered_goods(orderno,gno,model_name,caseimgurl,quantity) values(#{orderno},#{vo.gno},#{model_name},#{vo.title_img}#{quantity})
+	
 	</insert>
 
 
+	<!-- 상품번호로 상품정보 가져오기 -->
 	<select id="selectGoods" resultMap="goodsMap">
 	
 		select * from Shop_goods where gno = #{gno}
 
 	</select>
 	
+	<!-- 쇼핑카트 카운트  -->
 	<select id="selectShoppingCartCount" resultType="int">
 	
 		select count(*) elements from shopping_cart where member_seq = #{member_seq}

@@ -54,16 +54,26 @@
                             </thead>
                             <tbody>	   							
                             <c:forEach var="element" items="${cartList }">
+                            	
                             	  <tr>
-                            	  	<td><input type="checkbox" value="${element.gname }" name="checkElement"></td>
+                            	  	<td><input type="checkbox" value="${element.gno }" name="checkElement"></td>
+                            	  	<input type="hidden" name="gno" value="${element.gno }">
+                            	  	
                                     <td class="shoping__cart__item">
                                         <img src="${element.image }"  style="width: 10rem;">
+                                        <input type="hidden" name="image" value="${element.image }">
+                                        
                                         <h5 style="font-weight: 800;">${element.gname }</h5>
+                                        <input type="hidden" name="gname" value="${element.gname }">
                                     </td>
                                     <td class="quantity"> <!-- 사실은 기종임  -->
                                    		${element.model }
                                     </td>
-                                    <td class="shoping__cart__price" name="price">${element.price }</td>
+                                    <input type="hidden" name="model" value="${element.model }">
+                                    
+                                    <td class="shoping__cart__price" name="price">${element.price }</td>                                   
+                                    <input type="hidden" name="price" value="${element.price }">
+                                    
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
@@ -78,6 +88,7 @@
                                        <fmt:parseNumber var="price_" value="${element.price }"/>	                                      
                                       	${quantity_ * price_}                      	                       	
                                     </td>
+                                   
                                     <sec:authentication property="principal" var="pinfo"/>
                                     
                                     <td class="shoping__cart__item__close">
@@ -135,13 +146,24 @@
                              </c:forEach>
      
                             <li>총 가격 <span  name="totalPrice">${totalPrice }</span></li>
-                        </ul>
+                        </ul>   
                          <a href="#" class="primary-btn" name="selectOrder" style="margin-bottom: 1rem; display: none;">선택상품 주문하기</a>
                         <a href="#" class="primary-btn" name="wholeOrder">전체상품 주문하기</a>
+                    	<form action="/orderGoods" method="post" name="orderForm">
+                    		
+                    	<!--여기에 폼요소 넘어감  -->
+                    	 
+                    	
+                    	</form>
+
                     </div>
                 </div>
             </div>
         </div>
+        
+        <form action="/order"></form>
+        
+        
     </section>
     <!-- Shoping Cart Section End -->
 
@@ -149,6 +171,9 @@
 <script type="text/javascript">
 		
 	$(document).ready(function() {
+		var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+		var csrfTokenValue = "${_csrf.token}";
+		
 	
 		 $("input:checkbox[name='checkElement']").change(function() {
 			// 선택된 상품이 있다면
@@ -190,7 +215,7 @@
 				//수량 줄이기 버튼을 눌렀을 때
 			var quanval = parseInt($(this).siblings("input[name='quantity']").val())-1; //뺀 수량
 			
-			 var price = parseInt($(this).parent().parent().parent().prev("td[name='price']").text()); //가격
+			 var price = parseInt($(this).parent().parent().parent().prev().prev("td[name='price']").text()); //가격
 			 
 			/* alert(quanval*price); */
 			
@@ -222,7 +247,7 @@
 		$("span[name='plus']").on("click", function() {
 			//수량 더하기 버튼을 눌렀을 때
 			var quanval = parseInt($(this).siblings("input[name='quantity']").val())+1; //더한 수량
-			 var price = parseInt($(this).parent().parent().parent().prev("td[name='price']").text()); //가격 
+			 var price = parseInt($(this).parent().parent().parent().prev().prev("td[name='price']").text()); //가격 
 			 
 			/* alert(quanval*price); */
 			
@@ -249,6 +274,119 @@
 			}
 
 		});
+		
+		
+		$("a[name='wholeOrder'").on("click",function(e){
+			
+
+			  
+			e.preventDefault(); 
+			
+			var length = $("input[name='image']").length;
+		
+			var cart_nos = new Array(length);
+			var images = new Array(length);
+			var gnos = new Array(length);
+			var gnames=  new Array(length);
+			var models=  new Array(length);
+			var prices=  new Array(length);
+			var quantities=  new Array(length);
+		
+			var member_seq = $("input[name='member_seq']").val();
+			var totalprice = $("span[name='totalPrice']").text();
+			
+			
+			var str="<input type='hidden' name='${_csrf.parameterName }' value='${_csrf.token}' />";
+
+			for(var i=0;i<length;i++){
+				
+			
+				cart_nos[i]=$("input[name='cart_no']").eq(i).val();
+				images[i]=$("input[name='image']").eq(i).val();
+				gnos[i]=$("input[name='gno']").eq(i).val();
+				gnames[i]=$("input[name='gname']").eq(i).val();
+				models[i]=$("input[name='model']").eq(i).val();
+				prices[i]=$("input[name='price']").eq(i).val();
+				quantities[i]=$("input[name='quantity']").eq(i).val();
+
+				
+				str+="<input type='hidden' name='cart_no' value='"+cart_nos[i]+"'>";
+				str+="<input type='hidden' name='image' value='"+images[i]+"'>";
+				str+="<input type='hidden' name='gno' value='"+gnos[i]+"'>";
+				str+="<input type='hidden' name='gname' value='"+gnames[i]+"'>";
+				str+="<input type='hidden' name='modelname' value='"+models[i]+"'>";
+				str+="<input type='hidden' name='price' value='"+prices[i]+"'>";
+				str+="<input type='hidden' name='quantity' value='"+quantities[i]+"'>";
+				
+
+			}
+			
+			str +="<input type='hidden' name='member_seq' value='"+member_seq+"'>";
+			str +="<input type='hidden' name='totalPrice' value='"+totalprice+"'>";
+			str+="<input type='hidden' name='cartElments' value='${cartElemets }'>";
+			
+			
+			  alert(str);   
+
+			  
+			  var orderForm = $("form[name='orderForm']");
+			  
+			  orderForm.html(str);
+			  
+			  orderForm.submit();
+			  
+			/* var orderForm =  new FormData(); */
+			
+			/* member_seqs.forEach((member_seq)=>orderForm.append("member_seq",member_seq)); */
+/* 			
+			cart_nos.forEach((cart_no)=>orderForm.append("cart_no",cart_no));
+			images.forEach((image)=>orderForm.append("image",image));
+			gnos.forEach((gno)=>orderForm.append("gno",gno));
+			gnames.forEach((gname)=>orderForm.append("gname",gname));
+			models.forEach((model)=>orderForm.append("model",model));
+			prices.forEach((price)=>orderForm.append("price",price));
+			quantities.forEach((quantity)=>orderForm.append("quantity",quantity));
+			
+			orderForm.append("totalPrice",totalprice);
+			orderForm.append("member_seq",member_seq); */
+			
+/* 			$.ajax({
+				
+				url:'/orderGoods',
+				type:'POST',
+				data : {
+						cart_no:cart_nos,
+						image:images,
+						gno:gnos,
+						gname:gnames,
+						model:models,
+						price:prices,
+						quantity:quantities,
+						totalPrice:totalprice,
+						member_seq,member_seq
+						},
+		        beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				dataType:'json',
+				success:function(result){
+					
+					alert(result[0].gno);
+					alert(result.length);
+
+				}
+				
+			}); */
+			
+			
+			
+			
+			
+
+		});
+		
+		
+		
 
 	});
 

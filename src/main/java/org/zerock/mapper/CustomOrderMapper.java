@@ -9,8 +9,15 @@ import org.zerock.domain.ShoppingCartVO;
 
 public interface CustomOrderMapper {
 
-	public int insertOrder(CustomOrderDTO dto); //회원용 주문넣기
-	public int insertOrderNomember(CustomOrderDTO dto); //비회원용 주문넣기 
+	public int insertOrder_cus(CustomOrderDTO dto); //회원용 주문넣기(커스텀)
+	public int insertOrderNomember_cus(CustomOrderDTO dto); //비회원용 주문넣기 (커스텀)
+	
+	
+	public int insertOrder(CustomOrderDTO dto); //회원용 주문넣기(일반)
+	public int insertOrderd_goods(@Param("orderno") String orderno, @Param("vo") ShopGoodsVO vo,@Param("model_name") String model_name , @Param("quantity") String quantity ); //회원용 주문 상품넣기(일반)
+	public int insertOrderNomember(CustomOrderDTO dto);//비회원용 주문 넣기(일반)
+
+	
 	
 	public ShopGoodsVO selectGoods(String gno); //상품코드로 상품정보 가져오기
 	

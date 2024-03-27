@@ -105,7 +105,7 @@
                             	
                             	<div class="hero__cart" style="display: inline-block;">
 									<ul>
-										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+										<li><a href="#"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
 										<li><a href="/shoppingcart?member=${pinfo.member.member_seq }"><i class="fa fa-shopping-bag"></i><span id="cart-elements"> </span></a></li>
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
@@ -153,8 +153,9 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="/"><img src="/resources/img/logo.png"
-							alt=""></a>
+						<a href="/">
+						<img src="/resources/img/logo/ponku_logo1.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
+						</a>		
 					</div>
 				</div>
 				<div class="col-lg-6">
