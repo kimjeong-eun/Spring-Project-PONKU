@@ -96,7 +96,7 @@
 	</update>
 	
 	<!-- 배송지 변경 -->
-	<update id="updateAdress" parameterType="org.zerock.domain.MemberVO">
+	<update id="updateAddress" parameterType="org.zerock.domain.MemberVO">
 		UPDATE SHOP_MEMBER
 		SET address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, last_update = SYSDATE
 		WHERE member_seq = #{member_seq}

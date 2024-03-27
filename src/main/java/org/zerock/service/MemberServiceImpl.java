@@ -145,7 +145,6 @@ public class MemberServiceImpl implements MemberService {
 	public int updateAddress(MemberVO member) {
 		int result = 0;
 		String message = "member update 예외 발생";	
-		member.setPassword(pwencoder.encode(member.getPassword()));
 		result = memberMapper.updateAddress(member);
 		
 		if(result == 0) {
