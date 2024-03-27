@@ -1,7 +1,11 @@
 package org.zerock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsVO;
-import org.zerock.domain.PageDTO;
 import org.zerock.service.GoodsService;
 
 import lombok.Data;
@@ -34,8 +36,21 @@ public class GoodsController {
 		model.addAttribute("goods", service.get(gno)); // 모델에 번호 추가
 	}
 
+	//방화벽 코드 인터넷에서 퍼옴
+		/*
+		@Bean
+		public HttpFirewall defaultHttpFirewall() {
+			return new DefaultHttpFirewall();
+		}
+		
+		public void configure(WebSecurity web) throws Exception {
+			web.httpFirewall(defaultHttpFirewall());
+		}
+		*/
+	
 	/* 목록 불러오기 */
 	@GetMapping("/goodsList")
+	@PreAuthorize("permitAll")
 	public void list(Model model) {
 		log.info("list");
 		model.addAttribute("list", service.getList());
@@ -51,10 +66,12 @@ public class GoodsController {
 	//}
 
 	@GetMapping("/register")
+	@PreAuthorize("permitAll")
 	public void register() {
 	}
 
 	@PostMapping("/register")
+	@PreAuthorize("permitAll")
 	public String register(GoodsVO goods, RedirectAttributes rttr) {
 
 		log.info("register: " + goods);

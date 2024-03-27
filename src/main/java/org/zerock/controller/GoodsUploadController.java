@@ -3,6 +3,8 @@ package org.zerock.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,11 +12,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +35,18 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class GoodsUploadController {
 
 	private GoodsService service;
+	
+	//방화벽 코드 인터넷에서 퍼옴
+	/*
+	@Bean
+	public HttpFirewall defaultHttpFirewall() {
+		return new DefaultHttpFirewall();
+	}
+	
+	public void configure(WebSecurity web) throws Exception {
+		web.httpFirewall(defaultHttpFirewall());
+	}
+	*/
 	
 	// 오늘 날짜 경로를 문자열로 생성
 	private String getFolder() {
@@ -121,4 +136,55 @@ public class GoodsUploadController {
 			// return new ResponseEntity<>(list, HttpStatus.OK);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	} // uploadAjaxPost()
+	
+	@GetMapping("/display")
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(String fileName) {
+		
+		log.info("fileName" + fileName);
+		
+		File file = new File("c:\\upload\\" + fileName); //경로가 포함된 문자열
+		
+		log.info("file: " + file);
+		
+		ResponseEntity<byte[]> result = null; //byte[]로 이미지 파일의 데이터 전송
+		
+		try {
+			HttpHeaders header = new HttpHeaders(); //framework로 import
+			
+			header.add("Content-Type", Files.probeContentType(file.toPath())); //파일 종류에 따라 달라지는 MIME 타입 데이터를 적절하게 
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK); //헤더 메시지 추가
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type) {
+		log.info("deleteFile: " + fileName);
+		
+		File file;
+		
+		try {
+			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			
+			file.delete();
+			
+			//if (type.equals("image")) {
+				String largeFileName = file.getAbsolutePath().replace("s_", "");
+				
+				log.info("largeFileName: " + largeFileName);
+				
+				file = new File(largeFileName);
+				
+				file.delete();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
 }// GoodsUploadController

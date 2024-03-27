@@ -2,6 +2,7 @@ package org.zerock.domain;
 
 import java.util.Date;
 import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -18,4 +19,8 @@ public class GoodsVO {
 	private String custom; //커스텀 여부
 
 	private List<GoodsVO> goods_list;
+	
+	
+	//게시물-첨부파일 연동 관리
+	private List<GoodsAttachVO> attachList;
 }

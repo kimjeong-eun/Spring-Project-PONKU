@@ -42,8 +42,7 @@
 	crossorigin="anonymous"></script>
 
 <!-- 폰트 어썸 -->
-<script src="https://kit.fontawesome.com/c96d31bca3.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c96d31bca3.js"	crossorigin="anonymous"></script>
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"

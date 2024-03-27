@@ -36,6 +36,18 @@ input[type=file]::file-selector-button {
 
 }
 
+.attLi {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.attDel {
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	margin-left: 5px;
+}
+
 /* 기본 크기 */
 .checkout.spad {
 	min-height: 1160px; /* 기본 최소 높이 */
@@ -137,18 +149,21 @@ input[type=file]::file-selector-button {
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
 	<div class="container" style="max-width: 1370px;">
-		<form action="register" method="post">
+
+		<!--  action="register" -->
+		<form method="post" enctype="multipart/form-data"
+			action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
 			<div class="row">
 
 				<div class="col-lg-6 col-md-6">
 					<div class="product__details__pic">
-					
+
 						<div class="product__details__pic__item">
 							<img class="product__details__pic__item--large"
 								src="/resources/img/product/details/product-details-1.jpg"
 								alt="">
 						</div>
-						
+
 						<div class="product__details__pic__slider owl-carousel">
 							<img
 								data-imgbigurl="/resources/img/product/details/product-details-2.jpg"
@@ -160,8 +175,9 @@ input[type=file]::file-selector-button {
 								data-imgbigurl="/resources/img/product/details/product-details-4.jpg"
 								src="/resources/img/product/details/thumb-4.jpg" alt="">
 						</div>
-						
-					</div> <!-- product__details__pic__item -->
+
+					</div>
+					<!-- product__details__pic__item -->
 				</div>
 
 				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
@@ -216,6 +232,37 @@ input[type=file]::file-selector-button {
 							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;"></textarea>
 						</div>
 
+ 						<div class="checkout__input">
+							<div class="row">
+								<p>
+									상품 이미지<span>*</span>
+								</p>
+							</div>
+							<div class="row">
+
+								<div class="uploadDiv col-10">
+									<input type='file' name='uploadFile' multiple
+										style="border: 0; padding: 0;">
+								</div>
+								<div class="col-2">
+									<button id='uploadBtn' class="btn btn-light"
+										style="width: 100%;">Upload</button>
+								</div>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
+								<!-- post방식 시 토큰 필수 -->
+							</div>
+
+							<div class="uploadResult">
+								<ul>
+
+								</ul>
+							</div>
+
+						</div>
+						<!-- checkout__input -->
+
 						<div class="checkout__input row" style="height: 80px">
 							<p>
 								기종 카테고리<span>*</span>
@@ -245,7 +292,7 @@ input[type=file]::file-selector-button {
 									<li><a class="dropdown-item" href="">갤럭시 S</a></li>
 								</ul>
 							</div>
-						</div>
+						</div> <!-- checkout__input -->
 
 						<ul>
 							<li><b>Availability</b> <span>In Stock</span></li>
@@ -270,31 +317,6 @@ input[type=file]::file-selector-button {
 						<input type="text">
 					</div> -->
 
-					<div class="checkout__input">
-						<div class="row">
-							<p>
-								상품 이미지<span>*</span>
-							</p>
-						</div>
-						<div class="row">
-							<%-- <form method="post" enctype="multipart/form-data"
-								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
-								<div class="col-10">
-									<input type='file' name='uploadFile' multiple
-										style="border: 0; padding: 0;">
-								</div>
-								<div class="col-2">
-									<button id='uploadBtn' class="btn btn-light"
-										style="width: 100%;">Upload</button>
-								</div>
-
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
-								<!-- post방식 시 토큰 필수 -->
-							</form> --%>
-						</div>
-					</div>
-
 					<!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
@@ -317,98 +339,173 @@ input[type=file]::file-selector-button {
 					등록</button>
 			</div>
 		</form>
-
-
 	</div>
 	<!-- container -->
 
-<script>
+	<script>
 	$(function() {
-		/* 드롭다운 */
-		var toggleBtn = $(".brandBtn"); // 버튼 선택
-		var menu = $(".dropdown-menu");
-		var appleItem = $(".dropdown-menu-apple");
-		var samItem = $(".dropdown-menu-sam");
+	    /* 드롭다운 */
+	    var toggleBtn = $(".brandBtn"); // 버튼 선택
+	    var menu = $(".dropdown-menu");
+	    var appleItem = $(".dropdown-menu-apple");
+	    var samItem = $(".dropdown-menu-sam");
 
-		// 버튼을 클릭하면 드롭다운 메뉴 항목 보이기
-		toggleBtn.click(function() {
-			menu.toggle(); // 대분류 드롭다운 메뉴 항목 보이거나 숨기기
-			appleItem.hide(); // 애플 메뉴 항목 숨기기
-			samItem.hide(); // 삼성 메뉴 항목 숨기기
+	    // 버튼을 클릭하면 드롭다운 메뉴 항목 보이기
+	    toggleBtn.click(function() {
+	        menu.toggle(); // 대분류 드롭다운 메뉴 항목 보이거나 숨기기
+	        appleItem.hide(); // 애플 메뉴 항목 숨기기
+	        samItem.hide(); // 삼성 메뉴 항목 숨기기
 
-			if ($(".dropdown-menu").css("display") === "block") {
-				$(".cateMar").css("margin-top", "140px");
-			} else {
-				$(".cateMar").css("margin-top", "50px");
-			}
-		});
+	        if ($(".dropdown-menu").css("display") === "block") {
+	            $(".cateMar").css("margin-top", "140px");
+	        } else {
+	            $(".cateMar").css("margin-top", "50px");
+	        }
+	    });
 
-		// 애플 브랜드를 클릭하면 애플 메뉴 항목 보이기
-		$(".dropdown-brand1").click(function() {
-			appleItem.show();
-			samItem.hide();
-		});
+	    // 애플 브랜드를 클릭하면 애플 메뉴 항목 보이기
+	    $(".dropdown-brand1").click(function() {
+	        appleItem.show();
+	        samItem.hide();
+	    });
 
-		// 삼성 브랜드를 클릭하면 삼성 메뉴 항목 보이기
-		$(".dropdown-brand2").click(function() {
-			appleItem.hide();
-			samItem.show();
-		});
+	    // 삼성 브랜드를 클릭하면 삼성 메뉴 항목 보이기
+	    $(".dropdown-brand2").click(function() {
+	        appleItem.hide();
+	        samItem.show();
+	    });
 
-		//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		});
+	    //헤더 토큰 정보 설정, 명시적 함수 먼저 실행
+	    $(document).ajaxSend(function(e, xhr, options) {
+	        xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	    });
 
-		/* 파일 업로드 */
-		//파일의 확장자와 크기 사전 처리
-		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz$)"); //정규표현식
-		var maxSize = 5242880; //5MB
+	    /* 파일 업로드 */
+	    /* 파일의 확장자와 크기 사전 처리 */
+	    var regexp = new RegExp("(.*?)\\.(exe|sh|zip|alz$)"); //정규표현식
+	    var maxSize = 5242880; //5MB
 
-		function checkExtension(fileName, fileSize) {
-			if (fileSize >= maxSize) {
-				alert("파일 사이즈 초과");
-				return false;
-			}
+	    function checkExtension(fileName, fileSize) {
+	        if (fileSize >= maxSize) {
+	            alert("파일 사이즈 초과");
+	            return false;
+	        }
 
-			if (regex.test(fileName)) { //.test(): 표현식 만족 시
-				alert("해당 종류의 파일은 업로드할 수 없습니다");
-				return false;
-			}
-			return true; //반복을 위함 (문제 없을 시 true)
-		}
+	        if (regexp.test(fileName)) { //.test(): 표현식 만족 시
+	            alert("해당 종류의 파일은 업로드할 수 없습니다");
+	            return false;
+	        }
+	        return true; //반복을 위함 (문제 없을 시 true)
+	    }
 
-		$("#uploadBtn").on("click", function(e) {
-			e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+	    /* 여러 file 추가 위한 <input tye='file'>초기화 */
+	    var cloneObj = $(".uploadDiv").clone(); //아무 내용 없는 div clone
 
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
+	    var uploadResult = $(".uploadResult ul");
 
-			// 파일 업로드 처리
-			for (var i = 0; i < files.length; i++) {
-				formData.append("uploadFile", files[i]);
-			}
+	    /* 파일 업로드 후 파일 미리보기 */
+	    function ShowUploadFile(uploadResultArr) { // JSON 데이터를 받아 해당 파일명 추가하는 함수
 
+	        var str = ""; // 결과를 저장할 변수 선언 및 초기화
+
+	        // 업로드 결과 배열을 순회하면서 처리
+	        $(uploadResultArr).each(function(i, obj) {
+	        	
+    if (!obj.image) { // 만약 이미지가 아니라면
+        // 첨부 파일 아이콘과 파일명을 추가
+        str += "<li class='attLi'><i class='fa-solid fa-paperclip'/></i>" + obj.fileName +
+               "<div data-file=\'" + fileCallPath + "\' class='attDel'><i class='fa-solid fa-rectangle-xmark'></i></div>" + "</li>";
+               
+    	} else { // 이미지라면
+        // 이미지의 경로를 인코딩하여 변수에 저장
+        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+    	
+        // 원본 이미지 경로를 변수에 저장
+        var originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
+        
+        // 원본 이미지 경로의 역슬래시(\)를 슬래시(/)로 변경
+        originPath = originPath.replace(new RegExp(/\\/g), "/");
+        
+        // 이미지 미리보기를 위한 HTML을 생성하여 결과 문자열에 추가
+        str += "<li class='attLi'><p>" + obj.fileName + 
+               "<i class='fa-solid fa-rectangle-xmark attDel'></i></p><a href=\"javascript:showImage(\'" + originPath + "\')\">" + // 원본 이미지 경로를 사용하여 이미지 미리보기 함수 호출 링크 생성
+               "<img src='display?fileName=" + fileCallPath + "'></a>" + // 썸네일 이미지를 표시하기 위한 이미지 태그 생성
+               "<div data-file=\'" + fileCallPath + "\' data-type='image' class=''></div>" + // 이미지 삭제를 위한 삭제 버튼 생성
+               "</li>";
+    	}
+    
+	});
+	        // 결과를 보여줄 엘리먼트에 결과 문자열을 추가
+	        uploadResult.append(str);
+	}
+
+		/* 업로드 버튼 클릭 */
+	    $("#uploadBtn").on("click", function(e) {
+	        e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+
+	        var formData = new FormData();
+	        var inputFile = $("input[name='uploadFile']");
+	        var files = inputFile[0].files;
+
+	        // 파일 업로드 처리
+	         for (var i = 0; i < files.length; i++) {
+	            
+	        	if(!checkExtension(files[i].name, files[i].size)) {
+	        		return false;
+	        	}
+	        	formData.append("uploadFile", files[i]);
+	        }
+
+	        $.ajax({
+	            url: 'uploadAjaxAction',
+	            processData: false,
+	            contentType: false,
+	            data: formData,
+	            type: 'POST',
+	            dataType: 'json',
+	            success: function(result) {
+	                console.log(result);
+	                //모달 창으로 등록할 것 예정
+					alert("n개의 파일이 등록되었습니다.");
+	                
+	                ShowUploadFile(result);
+
+	                $(".uploadDiv").html(cloneObj.html()); //업로드 후 복사된 객체를 div 내에 다시 추가하여 초기화
+	            },
+	            error: function(xhr, status, error) {
+	                console.error(xhr.responseText);
+	            }
+	        }); //JSON 데이터 반환
+	    });
+		
+		/* 삭제 버튼 클릭 */
+		$(".uploadResult").on("click", "span", function(e) { //이벤트 위임 (업로드 후 span 생성)
+			var targetFile = $(this).data("file");
+			var type = $(this).data("type");
+			var $targetElement = $(this).closest("li"); // 클릭된 삭제 버튼이 속한 리스트 아이템 요소 선택
+			
+			console.log("delete......" + targetFile);
+			
 			$.ajax({
-				url : 'uploadAjaxAction',
-				processData : false,
-				contentType : false,
-				data : formData,
-				type : 'POST',
-				success : function(result) {
-					alert("Uploaded");
+				url: '/goods/deleteFile',
+				data: {fileName: targetFile, type:type},
+				dataType: 'text',
+				type: 'POST',
+				success: function(result) {
+					alert(result);
+					$targetElement.remove();
 				},
-				error : function(xhr, status, error) {
-					console.error(xhr.responseText);
-				}
+		        error: function(xhr, status, error) {
+		            console.error(xhr.responseText);
+		        }		
 			});
 		});
 	});
-</script>
 
-<!-- Footer Section Begin -->
+	</script>
 
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+	<!-- Footer Section Begin -->
 
-<!-- Footer Section End -->
+	<jsp:include page="../includes/footer.jsp"></jsp:include>
+
+	<!-- Footer Section End -->

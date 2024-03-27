@@ -27,7 +27,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 		
-		<!-- 나연 상품 이미지 파일 업로드 -->
+		<!-- 상품 이미지 파일 업로드 -->
 		<multipart-config>
 			<location>C:\\upload\\tmp</location>
 			<max-file-size>20971520</max-file-size> <!--1MB * 20 -->

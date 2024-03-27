@@ -1,3 +1,17 @@
+--------------------------------------------------------------------------------첨부파일 테이블
+CREATE TABLE Attach_goods (
+	UUID VARCHAR2(100) NOT NULL, --첨부파일 난수명(pk)
+	UPLOADPATH VARCHAR2(200) NOT NULL, --업로드 경로
+	FILENAME VARCHAR2(100) NOT NULL, --?
+	FILETYPE CHAR(1) DEFAULT 'I', --확장자
+	GNO VARCHAR2(50) --게시글과 연결 
+);
+
+ALTER TABLE Attach_goods add constraint pk_attach primary key(uuid);
+ALTER TABLE Attach_goods add constraint fk_goods_attach foreign key (gno) references Shop_goods (gno);
+
+DROP TABLE Attach_goods;
+--------------------------------------------------------------------------------상품 테이블
 CREATE TABLE Shop_goods (
     GNO VARCHAR2(50) PRIMARY KEY, --일련번호
     GNAME VARCHAR2(50), --상품명
@@ -12,46 +26,31 @@ CREATE TABLE Shop_goods (
 );
 
 DROP TABLE Shop_goods;
-
-INSERT INTO Shop_Goods (GNO, GNAME, PRICE, INFORMATION) VALUES ('20', '테스트20', '20', '테스트20 상품 설명입니다');
-INSERT INTO Shop_Goods (GNO, GNAME, PRICE, INFORMATION) VALUES ('3', '테스트3', '30000', '테스트3 상품 설명입니다');
-INSERT INTO Shop_Goods (GNO, GNAME, PRICE, INFORMATION) VALUES ('4', '테스트4', '40000', '테스트4 상품 설명입니다');
-INSERT INTO Shop_Goods (GNO, GNAME, PRICE, INFORMATION) VALUES ('5', '테스트5', '550000', '테스트5 상품 설명입니다');
+SELECT * FROM Shop_goods;
 
 insert into Shop_goods (gno, gname, price) values ('11', '테스트11', '1100');
 
-SELECT * FROM Shop_goods;
+
+--페이징 확인용으로 약 100개씩 insert 많이 했어용
+insert into Shop_goods (gno, gname, price) select goods_seque.nextval, gname, price from Shop_goods;
 
 create sequence goods_seq increment by 1 start with 100;
 create sequence goods_sequ increment by 1 start with 200;
 create sequence goods_seque increment by 1 start with 300;
 
 
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
-
-
-
-insert into Shop_goods (gno, gname, price) select goods_seque.nextval, gname, price from Shop_goods;
-
-
-select * from user_tables;
-select * from SHOP_MEMBER;
-
-select gno, gname, price, information, title_img, info_img, upload_date, update_date
-	from (
-			select /*+INDEX_DESC(Shop_goods gno) */
-				rownum rn, gno, gname, price, information, title_img, info_img, upload_date, update_date
-			from
-				Shop_goods
-			where rownum <= 2 * 10
+SELECT GNO, GNAME, PRICE, INFORMATION, TITLE_IMG, INFO_IMG, UPLOAD_DATE, UPDATE_DATE
+	FROM (
+			SELECT /*+INDEX_DESC(SHOP_GOODS GNO) */
+				ROWNUM RN, GNO, GNAME, PRICE, INFORMATION, TITLE_IMG, INFO_IMG, UPLOAD_DATE, UPDATE_DATE
+			FROM
+				SHOP_GOODS
+			WHERE ROWNUM <= 2 * 10
 		 )	
-			where rn > (2 - 1) * 10;
+			WHERE RN > (2 - 1) * 10;
+			
+
+--------------------------------------------------------------------------------
+SELECT * FROM USER_TABLES;
+SELECT * FROM SHOP_MEMBER;
+			
