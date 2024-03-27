@@ -133,14 +133,6 @@ button.rite:hover {
 	background-color: #f0f8ff; /* 매우 연한 파란색 배경 */
 	color: #ccc;
 }
-
-label[for="file-selectinput"] {
-	color: #808080;
-}
-
-label[for="file-selectinput"]:hover {
-	color: #000; /* 호버 했을 때 변경할 색상 설정 */
-}
 </style>
 <!-- Hero Section Begin -->
 <section class="hero-normal">
@@ -251,16 +243,22 @@ label[for="file-selectinput"]:hover {
 					name="ask_list_writer" required>
 				<!-- 로그인쪽에서 끌어올 예정 -->
 			</div>
-			<div class="form-group">
-				<label for="attachment">첨부 파일</label>
-				<div id="file-draganddrop">여기에 파일을 드래그하세요.
-					<div id="Preview" > <!-- style="visibility: hidden;" 숨기기 -->
+			<div class="form-group" id="attachmentUploadDiv">
+				<label>첨부 파일</label>
+				<div id="file-draganddrop">
+					여기에 파일을 드래그하거나, 클릭하여 업로드
+					<div id="Preview">
+						<!-- style="visibility: hidden;" 숨기기 -->
 						<!-- 숨겨진 div의 내용 -->
+						<!-- <button id="uploadfile" >파일선택</button>
+						<button id="deletefile" >삭제</button> -->
 					</div>
 				</div>
-				<input type="file" id="file-selectinput" multiple style="display: none;" />
+				<input type="file" id="file-selectinput" multiple
+					style="display: none;" />
 				<!-- <input type="file" id="attachment" name="ask_list_attach" multiple> -->
 				<!-- 파일 여러개 선택 가능 -->
+
 			</div>
 			<div class="form-group">
 				<label for="secret" class="checkbox-label">비밀글</label> <input
@@ -303,22 +301,12 @@ label[for="file-selectinput"]:hover {
 </script>
 <!-- cdn header.jsp에 추가 -->
 <script type="text/javascript" src="/resources/js/asklist.js"></script>
+<script type="text/javascript" src="/resources/js/file.js"></script>
 <script>
-	$(document).ready(function(e) {
+	/* $(document).ready(function(e) {
 
 		var writeForm = $("#writeForm"); // 폼 in 문의종류, 상품정보, 제목, 내용, 작성자, 첨부파일(1,0), 비밀글(1,0), 비밀번호(선택)
 		var files; // 사용자가 선택한 파일들
-
-		// 사용자가 파일을 드래그하여 영역 위에 올렸을 때의 동작
-		dropZone.addEventListener('dragover', function(e) {
-			e.preventDefault(); // 파일이 드롭될 수 있도록 기본 이벤트 무시
-			dropZone.classList.add('dragover'); // 드래그 중 스타일 변경
-		});
-
-		// 사용자가 드래그한 항목을 드롭 영역 바깥으로 이동시켰을 때의 동작
-		dropZone.addEventListener('dragleave', function(e) {
-			dropZone.classList.remove('dragover'); // 드래그 떠날 때 스타일 복원
-		});
 
 		// 사용자가 드래그한 파일을 드롭 영역 안에 놓았을 때의 동작(파일선택)
 		dropZone.addEventListener('drop', function(e) {
@@ -337,10 +325,9 @@ label[for="file-selectinput"]:hover {
 			//파일처리함수 js파일의 함수 예정 .. (files); // 파일 처리 함수 (서버로 업로드하는 로직 등)
 		});
 
-		/* $("button[type='submit']").on("click", function(e){
+		$("button[type='submit']").on("click", function(e){
 		  e.preventDefault();
-		  console.log("글쓰기 버튼 클릭----------------------------");
-		  
+		  		  
 		  var str = "";
 		  $(".uploadResult ul li").each(function(i, obj){
 		    
@@ -487,9 +474,9 @@ label[for="file-selectinput"]:hover {
 		         targetLi.remove();												// 파일명, 삭제버튼, 이미지가 있는 li를 삭제한다.
 		       }
 		  }); //$.ajax
-		 }); */
+		 });
 
-	});
+	}); */
 </script>
 </body>
 </html>
