@@ -37,37 +37,61 @@ public class MyPageController {
 		return "./myPage/myPage";
 	}
 	
+	//회원정보 변경
+	@GetMapping("/updateMember")
+	public String updateMember() {
+		
+		return "./myPage/myPage";
+	}
+	//회원정보 변경
+	@PostMapping("/updateMember")
+	public String updateMember(MemberVO member) {
+		
+		int result = service.updateMember(member);
+		return "./myPage/myPage"; //회원정보 변경
+	}
+	
+	//비밀번호 변경
 	@GetMapping("/updatePw")
-	public String update() {
+	public String updatePw() {
 		
 		return "./myPage/updatePw";
 	}
+	//비밀번호 변경
+	@PostMapping("/updatePw")
+	public String updatePw(MemberVO member) {
+		
+		int result = service.updatePw(member);
+		return "./myPage/myPage"; //회원정보 변경
+	}
 	
-	//회원정보 변경
-	@PostMapping("/update")
-	public String updateMember(MemberVO member, String mode) {
+	//배송지 변경
+	@GetMapping("/updateAddress")
+	public String updateAddress() {
 		
-		int result = service.updateMember(member, mode);
-		log.info("===================================================================");
-		log.info(mode);
+		return "./myPage/updateAddress";
+	}
+	//배송지 변경
+	@PostMapping("/updateAddress")
+	public String updateAddress(MemberVO member) {
 		
-		if(mode == "1") {
-			return "./myPage/myPage"; //회원정보 변경
-		} else if(mode == "2") {
-			return "./myPage/updatePw"; //비밀번호 변경
-		} else if(mode == "3") {
-			return "./myPage/updateAdress"; //배송지 변경
-		} else {
-			return "./myPage/myPage"; //실패 시 마이페이지로 이동
-		}
+		int result = service.updateAddress(member);
+		return "./myPage/myPage"; //회원정보 변경
 	}
 	
 	//회원탈퇴
-		@GetMapping("/deleteMember")
-		public String deleteMember() {
-				
-			return "./myPage/deleteMember";
-		}
+	@GetMapping("/deleteMember")
+	public String deleteMember() {
+			
+		return "./myPage/deleteMember";
+	}
+	//회원탈퇴
+	@PostMapping("/deleteMember")
+	public String deleteMember(MemberVO member) {
+		
+		int result = service.deleteMember(member);
+		return "./myPage/myPage"; //회원정보 변경
+	}
 	
 	//나의 주문관리
 	@GetMapping("/myOrder")

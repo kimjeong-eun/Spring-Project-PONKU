@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
@@ -61,7 +62,7 @@
                     <label for="pwd" class="label">비밀번호</label>
                     <input type="password" id="pwd" name="password" title="비밀번호" value="" class="input_text small" style="width: 270px" maxlength="20">
                     <span class="error_txt small warning" id="pwdMsg"></span>
-                    <input type="hidden" name="mode" value="2" />
+                    <input type="hidden" name="member_seq" value="${pinfo.member.member_seq}"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </div>
                 <div class="wrap">
@@ -90,25 +91,87 @@
 $(document).ready(function() {
 	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
 	let csrfTokenValue = "${_csrf.token}";
+	let isPwValid = false; //비밀번호 유효성 검사 통과여부
+	//비밀번호 유효성 검사는 사용자 입력을 받기 전에 미리 처리되어야함(비밀번호 입력란에서 포커스를 벗어날 때 또는 제출하기 전에 수행)
+	function checkPwValid() {
+		const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+		
+		if(pwRegExp.test($("#pwd").val())) { //유효성 검사 성공
+			$("#pwdMsg").text("사용가능한 비밀번호 입니다.").css("color", "black"); //jQuery를 이용한 텍스트 설정
+			isPwValid = true;
+			return true;
+		} else { //유효성 검사 실패
+			$("#pwdMsg").text("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하여야 합니다.").css("color", "red");
+			return false;
+		} 
+	}		
+	
+	//비밀번호 입력란에서 포커스 벗어났을 때 비밀번호 유효성 검사 수행
+	$("#pwd").change(function() {
+		checkPwValid();
+		
+	});
 
+	$("#newPwd").change(function() {
+		checkPwValid();
+		if(isPwValid) { //비밀번호 유효성 검사 통과
+			if($("#newPwd").val() === "") { //미입력
+				$("#rePwdMsg").text("");
+				return;
+			} 
+			if($("#pwd").val() === $("#newPwd").val()) { //비밀번호 재입력 일치
+				$("#rePwdMsg").text("비밀번호가 일치합니다.").css("color", "black"); //jQuery를 이용한 텍스트 설정
+				return;
+			} else if($("#pwd").val() !== $("#newPwd").val()) {
+				$("#rePwdMsg").text("비밀번호가 일치하지 않습니다.").css("color", "red"); //jQuery를 이용한 텍스트 설정
+				return;
+			}
+		}
+	});
+	
+	
 	
 	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
 	$("#submitBtn").on("click", function(e) {
-		//비밀번호 유효성 검사
-		const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/
-		if(pwRegExp.test($("#pwd").val)) {
+		e.preventDefault();
+		if(!checkPwValid()) {
 			alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하여야 합니다.");
-		    return;
-		}
-					
-		//비밀번호 재입력 일치 여부 확인
-		if($("#pwd").val === $("#rePwd").val) {
-			alert("비밀번호가 일치하지 않습니다.");
-			return;
+			return false;
 		}
 		
-		var form = $("#submitForm"); //id를 사용하여 폼 요소 선택
-		form.submit();
+	 	// 비밀번호 재입력 일치 여부 확인
+	    if ($("#pwd").val() !== $("#newPwd").val()) {
+	        alert("비밀번호가 일치하지 않습니다.");
+	        return false;
+	    }
+		
+	  	//serialize 가 form요소를 하나씩 읽어옴
+	 	let formData = $("#submitForm").serialize(); 
+		
+		// Ajax로 전송
+		$.ajax({
+			url: '/successUpdatePw', // 회원가입 성공여부를 처리하는 스크립트의 경로
+            type: 'POST',
+            data: formData,            
+            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+            success: function(result) {
+                if (result == "true") {
+                	alert("비밀번호 변경을 완료하였습니다.");
+                	location.href = "/myPage";//성공 시 이동할 페이지
+                } else {
+                	alert("비밀번호 변경 실패");
+                	location.href = "/myPage";//실패 시 이동할 페이지                	
+                }
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alertCheckId = false; //실패 시 false
+                alert("비밀번호 변경 실패(서버요청실패)");
+            }
+		});
 	});
 });
 </script>

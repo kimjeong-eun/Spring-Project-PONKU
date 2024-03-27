@@ -110,28 +110,56 @@ public class MemberServiceImpl implements MemberService {
 	  
 	//회원정보 업데이트  
 	@Override
-	public int updateMember(MemberVO member, String mode) {
+	public int updateMember(MemberVO member) {
 		int result = 0;
 		String message = "member update 예외 발생";	
 		
-		if(result == 1) { //회원정보 변경
-			result = memberMapper.updateMember(member);
-			return result; 
-		} else if(result == 2) { //비밀번호 변경
-			member.setPassword(pwencoder.encode(member.getPassword()));
-			result = memberMapper.updatePw(member);
-			return result; 
-		} else if(result == 3) { //배송지관리
-			result = memberMapper.updateAdress(member);
-			return result; 
+		result = memberMapper.updateMember(member);
+		
+		if(result == 0) {
+			  log.info(message);
+			  throw new RuntimeException(message);
 		} 
-		return result; //실패 시 0 반환 (마이페이지로 이동)
-	}	  
+		
+		return result;
+	}
+
+	//비밀번호 변경  
+	@Override
+	public int updatePw(MemberVO member) {
+		int result = 0;
+		String message = "member update 예외 발생";	
+		member.setPassword(pwencoder.encode(member.getPassword()));
+		result = memberMapper.updatePw(member);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+		
+		return result;
+	}
+	
+	//배송지 변경
+	@Override
+	public int updateAddress(MemberVO member) {
+		int result = 0;
+		String message = "member update 예외 발생";	
+		member.setPassword(pwencoder.encode(member.getPassword()));
+		result = memberMapper.updateAddress(member);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+		
+		return result;
+	}
 	
 	//회원탈퇴
 	public int deleteMember(MemberVO member) {
 		int result = 0;
-		String message = "member update 예외 발생";	
+		String message = "member delete 예외 발생";	
 		
 		result = memberMapper.deleteMember(member);
 		

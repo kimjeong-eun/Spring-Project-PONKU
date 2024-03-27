@@ -45,5 +45,6 @@ public class MemberMapperTests {
 		log.info("================");
 		log.info(member.getMember_seq());
 	}
-
+	
+	
 }

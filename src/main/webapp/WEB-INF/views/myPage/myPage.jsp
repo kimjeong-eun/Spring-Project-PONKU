@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
@@ -84,14 +85,16 @@
 				<div class="field" id="emailChg01">
 					<label for="email" class="label">이메일주소 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 					<div class="insert">
-						<input type="text" id="email" name="email" placeholder="자주 사용하시는 이메일 주소를 입력해주세요." value="ktndud2@naver.com" class="input_text small translated" style="width:250px" maxlength="50"><span class="trans_placeholder blind" data-default-txt="자주 사용하시는 이메일 주소를 입력해주세요.">자주 사용하시는 이메일 주소를 입력해주세요.</span>
+						<input type="text" id="email" name="email" placeholder="자주 사용하시는 이메일 주소를 입력해주세요." value="${pinfo.member.email}" class="input_text small translated" style="width:250px" maxlength="50"><span class="trans_placeholder blind" data-default-txt="자주 사용하시는 이메일 주소를 입력해주세요.">자주 사용하시는 이메일 주소를 입력해주세요.</span>
 					</div>
 				</div>
 			</fieldset>
 		</div>
 		<div class="form_btn_area">
 			<p id="alertArea" class="desc"></p>
-			<button name="btn-update" id="submitBtn" type="button">가입하기</button>
+			<input type="hidden" name="member_seq" value="${pinfo.member.member_seq}"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<button type="submit" id="submitBtn" class="cs_btn large black">확인</button>
 		</div>
 		<div class="cs_info_box">
 			<h3 class="cs_info_subtit">회원정보변경 안내</h3>
@@ -103,23 +106,47 @@
 	  </form>
 	</div>
   </div>
-  </div>
-  
-  <script>
-  /*** 전송 버튼 클릭 시 alert창 띄우고 정상입력 시 폼값 전송 ***/
-  
-  
-  </script>
+ 
+<script>
+$(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	
+	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
+	$("#submitBtn").on("click", function(e) {
+		e.preventDefault();
+		
+	  	//serialize 가 form요소를 하나씩 읽어옴
+	 	let formData = $("#submitForm").serialize(); 
+		
+		// Ajax로 전송
+		$.ajax({
+			url: '/successUpdateMember', // 성공여부를 처리하는 스크립트의 경로
+            type: 'POST',
+            data: formData,            
+            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+            success: function(result) {
+                if (result == "true") {
+                	alert("회원정보 변경을 완료하였습니다.");
+                	location.href = "/myPage";//성공 시 이동할 페이지
+                } else {
+                	alert("회원정보 변경 실패");
+                	location.href = "/myPage";//실패 시 이동할 페이지   
+                }
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alert("회원정보 변경 실패(서버요청실패)");
+            }
+		});
+	});
+});
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </script>
-  
+
+
+</script>
+
 <jsp:include page="../includes/footer.jsp"></jsp:include>

@@ -83,29 +83,29 @@
 	<!-- 마이페이지 (회원정보 업데이트) -->
 	<!-- 회원정보 변경 -->
 	<update id="updateMember" parameterType="org.zerock.domain.MemberVO">
-		UPDATE FROM SHOP_MEMBER
-		SET EMAIL= #{EMAIL=}, LAST_UPDATE = SYSDATE
-		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+		UPDATE SHOP_MEMBER
+		SET email= #{email}, last_update = SYSDATE
+		WHERE member_seq = #{member_seq}
 	</update>
 	
 	<!-- 비밀번호 변경 -->
 	<update id="updatePw" parameterType="org.zerock.domain.MemberVO">
-		UPDATE FROM SHOP_MEMBER
-		SET PASSWORD = #{PASSWORD}, LAST_UPDATE = SYSDATE
-		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+		UPDATE SHOP_MEMBER
+		SET password = #{password}, last_update = SYSDATE
+		WHERE member_seq = #{member_seq}
 	</update>
 	
 	<!-- 배송지 변경 -->
 	<update id="updateAdress" parameterType="org.zerock.domain.MemberVO">
-		UPDATE FROM SHOP_MEMBER
-		SET ADDRESS1 = #{ADDRESS1}, ADDRESS2 = #{ADDRESS2}, ADDRESS3 = #{ADDRESS3}, LAST_UPDATE = SYSDATE
-		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+		UPDATE SHOP_MEMBER
+		SET address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, last_update = SYSDATE
+		WHERE member_seq = #{member_seq}
 	</update>
 	
 	<!-- 마이페이지 (회원탈퇴) -->
 	<update id="deleteMember" parameterType="org.zerock.domain.MemberVO">
-		DELETE FROM SHOP_MEMBER 
-		WHERE MEMBER_SEQ = #{MEMBER_SEQ};
+		DELETE SHOP_MEMBER 
+		WHERE member_seq = #{member_seq}
 	</update>
 	
   </mapper>

@@ -22,7 +22,7 @@ public interface MemberMapper {
 	//회원정보 업데이트
 	public int updateMember(MemberVO member);
 	public int updatePw(MemberVO member);
-	public int updateAdress(MemberVO member);
+	public int updateAddress(MemberVO member);
 	
 	//멤버 정보 삭제
 	public int deleteMember(MemberVO member);

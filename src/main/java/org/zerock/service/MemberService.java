@@ -22,7 +22,9 @@ public interface MemberService {
 	public int join(MemberVO member); 
 
 	//회원정보 업데이트 
-	public int updateMember(MemberVO member, String mode); //mode : 1(회원정보 변경), 2(비밀번호 변경), 3(배송지 변경)
+	public int updateMember(MemberVO member); 
+	public int updatePw(MemberVO member);
+	public int updateAddress(MemberVO member); 
 	
 	//회원정보 삭제
 	public int deleteMember(MemberVO member);

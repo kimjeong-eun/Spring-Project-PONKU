@@ -92,5 +92,46 @@ public class MemberRestController {
 		
 		return new ResponseEntity<String>(result, HttpStatus.OK); 
 	}
+	
+	@PostMapping(value = "/successUpdateMember", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateMember(MemberVO member) {
+		String result = "false";
+		int success = memberService.updateMember(member);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/successUpdatePw", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updatePw(MemberVO member) {
+		String result = "false";
+		int success = memberService.updatePw(member);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateAddress(MemberVO member) {
+		String result = "false";
+		int success = memberService.updateAddress(member);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/successDeleteMember", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteMember(MemberVO member) {
+		String result = "false";
+		int success = memberService.deleteMember(member);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
 }
 
