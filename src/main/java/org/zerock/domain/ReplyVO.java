@@ -8,6 +8,7 @@ import lombok.Data;
 public class ReplyVO {
 	
 	private Long id;
+	private Long rno;
 	
 	private String content;
 	private String replyer;

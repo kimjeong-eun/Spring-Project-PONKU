@@ -6,8 +6,8 @@
 
 	<insert id="insert">
 
-		insert into comments (id, rno, replyer, content)
-		values (id_num.nextval, #{rno}, #{replyer}, #{content})
+		insert into comments (id, replyer, content)
+		values (id_num.nextval, #{replyer}, #{content})
 
 	</insert>
 

@@ -164,15 +164,6 @@
 
     <!-- /.panel -->
     <div class="panel panel-default">
-<!--       <div class="panel-heading">
-        <i class="fa fa-comments fa-fw"></i> Reply
-      </div> -->
-      
-<!--       <div class="panel-heading">
-        <i class="fa fa-comments fa-fw"></i> Reply
-        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New Reply</button>
-      </div>      -->
-      
       <div class="panel-heading">
         <i class="fa fa-comments fa-fw"></i> 댓글
         <sec:authorize access="isAuthenticated()">
@@ -232,7 +223,8 @@
         <button id='modalRemoveBtn' type="button" class="btn btn-danger">삭제</button>
         <button id='modalRegisterBtn' type="button" class="btn btn-primary">등록</button>
         <button id='modalCloseBtn' type="button" class="btn btn-default">닫기</button>
-      </div>          </div>
+      </div>         
+       </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
@@ -350,9 +342,12 @@ $(document).ready(function () {
 
    
     var modal = $(".modal");
-    var modalInputReply = modal.find("input[name='reply']");
+    var modalInputContent = modal.find("input[name='content']");
     var modalInputReplyer = modal.find("input[name='replyer']");
     var modalInputReplyDate = modal.find("input[name='replyDate']");
+    
+    
+    
     
     var modalModBtn = $("#modalModBtn");
     var modalRemoveBtn = $("#modalRemoveBtn");
@@ -392,33 +387,36 @@ $(document).ready(function () {
 	
 	
 
-    
-    $(document).ajaxSend(function(e, xhr, options) { 
-        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue); 
-      }); 
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
 
-    
+	modalRegisterBtn.on("click", function(e) {
+	    var reply = {
+	        reply: modalInputContent.val(),
+	        replyer: modalInputReplyer.val()
+	    };
 
-    modalRegisterBtn.on("click",function(e){
-      
-      var reply = {
-            reply: modalInputReply.val(),
-            replyer:modalInputReplyer.val(),
-            bno:bnoValue
-          };
-      replyService.add(reply, function(result){
-        
-        alert(result);
-        
-        modal.find("input").val("");
-        modal.modal("hide");
-        
-        //showList(1);
-        showList(1);
-        
-      });
-      
-    });
+
+	    $.ajax({
+	        type: 'post',
+	        url: '/replies/new',
+	        data: JSON.stringify(reply),
+	        contentType: "application/json; charset=utf-8",
+	        beforeSend: function(xhr) {
+	            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+	        },
+	        success: function(result) {
+	            alert(result);
+	            modal.find("input").val("");
+	            modal.modal("hide");
+	            showList(-1);
+	        },
+	        error: function(xhr, status, error) {
+	            console.error("댓글 추가 실패:", error);
+	        }
+	    });
+	});
+
 
 
   //댓글 조회 클릭 이벤트 처리 

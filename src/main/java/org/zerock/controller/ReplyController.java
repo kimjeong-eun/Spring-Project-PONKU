@@ -36,7 +36,7 @@ public class ReplyController {
 		
 		int insertCount = service.register(vo);
 		
-		log.info("Reply Insert Count :" + insertCount);
+		log.info("댓글 수 :" + insertCount);
 	
 		return insertCount == 1
 				? new ResponseEntity<>("success",HttpStatus.OK)
@@ -44,8 +44,8 @@ public class ReplyController {
 		//삼항연산자로 처리
 	}
 	
-	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long id) {
+	@GetMapping(value = "/{id}/{rno}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public ResponseEntity<ReplyVO> get(@PathVariable("id") Long id) {
 
 		log.info("조회 : " + id);
 

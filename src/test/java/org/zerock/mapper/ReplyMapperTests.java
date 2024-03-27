@@ -78,7 +78,7 @@ public class ReplyMapperTests {
 		@Test
 		public void testRead() {
 			
-			Long targetRno = 22L;
+			Long targetRno = 47L;
 			
 			ReplyVO cvo = mapper.read(targetRno);
 			
@@ -90,9 +90,9 @@ public class ReplyMapperTests {
 		@Test
 		public void testUpdate() {
 			
-			Long targetRno = 5L;
+			Long targetid = 47L;
 			
-			ReplyVO vo = mapper.read(targetRno);
+			ReplyVO vo = mapper.read(targetid);
 			
 			vo.setContent("댓글 수정");
 			

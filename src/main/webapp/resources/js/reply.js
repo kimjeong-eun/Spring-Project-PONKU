@@ -2,34 +2,28 @@ console.log("댓글 모듈 : ");
 
 var replyService = (function() {
 
-	function add(content, callback, error) {
-		console.log("댓글 추가");
-	 var csrfHeaderName = "${_csrf.headerName}";  
-	 //"X-CSRF-TOKEN"
-	 var csrfTokenValue = "${_csrf.token}";
-	
-		$.ajax({
-		
-	beforeSend: function(xhr){   // 헤더에 csrf 값 추가
-    xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);},
-			
-			type : 'post',
-			url : '/replies/new',
-			data : JSON.stringify(content),
-			contentType : "application/json; charset=utf-8",
-			success : function(result, status, xhr) {
-				if (callback) {
-					callback(result);
-				}
-			},
-			error : function(xhr, status, er) {
-				if (error) {
-					error(er);
-				}
-			}
-		})
-	}
-	
+function add(content, csrfHeaderName, csrfTokenValue) {
+    console.log("댓글 추가");
+
+    $.ajax({
+        type: 'post',
+        url: '/replies/new',
+        data: JSON.stringify(content),
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function(xhr) { // 헤더에 csrf 값 추가
+        xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+        },
+        success: function(response) {
+            // 성공 시 실행할 코드를 여기에 작성
+            console.log("댓글 추가 성공:", response);
+        },
+        error: function(xhr, status, error) {
+            // 실패 시 실행할 코드를 여기에 작성
+            console.error("댓글 추가 실패:", error);
+        }
+    });
+}
+
 	function get(id, callback, error){
 		$.get("/replies/" + id + ".json", function(result){
 			

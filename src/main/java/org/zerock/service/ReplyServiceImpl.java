@@ -3,6 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyPageDTO;
@@ -65,8 +66,9 @@ public class ReplyServiceImpl implements ReplyService{
 		
 		log.info("댓글 삽입 :" + comment);
 		
-		return mapper.insertComment(comment) ;
+		return mapper.insertComment(comment);
 	}
+	
 
 	@Override
 	public ReplyPageDTO getListPage(Criteria cri, Long id) {

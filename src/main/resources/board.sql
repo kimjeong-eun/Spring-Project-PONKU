@@ -11,14 +11,14 @@ create table comments(
     id number(10, 0) primary key,
    	rno number(10, 0),
     replyer varchar2(50) not null,
-    content nvarchar2(1000) not null,
+    content varchar2(1000) not null,
     replyDate date default sysdate,
     updateDate date default sysdate,
     constraint fk_comments_users
         foreign key (rno) references board(bno) -- 외래 키 제약 조건 추가
 );
 
-
+ALTER TABLE comments MODIFY (content VARCHAR2(1000));
 
 
 create sequence id_num;
