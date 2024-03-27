@@ -22,5 +22,36 @@ insert into Shop_goods (gno, gname, price) values ('11', '테스트11', '1100');
 
 SELECT * FROM Shop_goods;
 
+create sequence goods_seq increment by 1 start with 100;
+create sequence goods_sequ increment by 1 start with 200;
+create sequence goods_seque increment by 1 start with 300;
+
+
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+insert into Shop_goods (gno, gname, price) values (goods_seq.nextval, '테스트 백', '100');
+
+
+
+insert into Shop_goods (gno, gname, price) select goods_seque.nextval, gname, price from Shop_goods;
+
+
 select * from user_tables;
 select * from SHOP_MEMBER;
+
+select gno, gname, price, information, title_img, info_img, upload_date, update_date
+	from (
+			select /*+INDEX_DESC(Shop_goods gno) */
+				rownum rn, gno, gname, price, information, title_img, info_img, upload_date, update_date
+			from
+				Shop_goods
+			where rownum <= 2 * 10
+		 )	
+			where rn > (2 - 1) * 10;
