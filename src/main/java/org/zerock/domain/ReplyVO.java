@@ -10,8 +10,8 @@ public class ReplyVO {
 	private Long id;
 	private Long rno;
 	
-	private String content;
 	private String replyer;
+	private String content;
 	
 	private Date replyDate;		
 	private Date updateDate;

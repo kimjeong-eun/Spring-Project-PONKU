@@ -18,8 +18,11 @@ create table comments(
         foreign key (rno) references board(bno) -- 외래 키 제약 조건 추가
 );
 
-ALTER TABLE comments MODIFY (content VARCHAR2(1000));
+create index idx_cm on comments (id desc, rno asc);
 
+ALTER TABLE comments MODIFY (content null);
+
+select * from board order by bno asc;
 
 create sequence id_num;
 

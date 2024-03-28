@@ -73,7 +73,9 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public ReplyPageDTO getListPage(Criteria cri, Long id) {
 		
-		return new ReplyPageDTO(mapper.getCountByid(id), mapper.getListWithPaging(cri, id));
+		return new ReplyPageDTO(
+				mapper.getCountByid(id), 
+				mapper.getListWithPaging(cri, id));
 	}
 
 }

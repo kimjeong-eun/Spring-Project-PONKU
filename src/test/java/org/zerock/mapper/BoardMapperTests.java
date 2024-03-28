@@ -75,7 +75,7 @@ public class BoardMapperTests {
 	@Test
 	public void testDelete() {
 		
-		log.info("삭제 요청 :" + mapper.delete(3L));
+		log.info("삭제 요청 :" + mapper.delete(73L));
 		
 	}
 	
