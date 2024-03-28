@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MemberVO;
+import org.zerock.security.domain.CustomUser;
 import org.zerock.service.MemberService;
 
 import lombok.Setter;
@@ -45,9 +48,11 @@ public class MyPageController {
 	}
 	
 	@PostMapping("/updateMember")
-	public String updateMember(MemberVO member) {
+	public String updateMember(MemberVO member, @AuthenticationPrincipal CustomUser customUser) {
 		
 		int result = service.updateMember(member);
+		log.debug(customUser.getUsername());
+//		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 		return "./myPage/myPage"; //회원정보 변경
 	}
 	

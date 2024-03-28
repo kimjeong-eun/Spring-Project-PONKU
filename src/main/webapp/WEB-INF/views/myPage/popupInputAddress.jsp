@@ -13,19 +13,6 @@
 <body style="position: relative; min-height: 100%; top: 0px;">
 <div id="pop_wrap">
     
-
-
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/jquery.form.js"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/ui/ui.flicking.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/ui/ui.flip.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/lib/jquery.cookie.js"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/lib/jquery.menu-aim.js"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/ui/ui.ssg.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/ui/ui-base.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/commonUtil.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/member/js/common/ssgGnb.js?v=20240327"></script>
-<script type="text/javascript" src="//sui.ssgcdn.com/ui/member/js/common/commJs.js?v=20240327"></script>
-
 <script type="text/javascript" src="/comm/js/memberJs.ssg"></script>
 <script type="text/javascript" src="//translate.google.co.kr/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script type="text/javascript" src="//sui.ssgcdn.com/ui/ssg/js/ui/ssg.view.translate.js?v=20240327"></script>
@@ -110,30 +97,27 @@
 			</div>
 		</div>
 
-		<!-- 상세주소 입력 -->
-		<div class="srchaddr_sec srchaddr_sec_detail" style="display:none">
-			<h2 class="blind">상세주소 입력</h2>
-			<div class="srchaddr_final">
-				<dl class="srchaddr_info">
-					<dt class="info_tit notranslate">
-						<span class="tx_ko">우편번호</span>
-						<span class="tx_gl">Zip Code</span>
-					</dt>
-					<dd name="zipcd" class="info_cont notranslate"><span class="num"></span></dd>
-					<dt class="info_tit notranslate">
-						<span class="tx_ko">도로명 주소</span>
-						<span class="tx_gl">Road Name</span>
-					</dt>
-					<dd name="roadNmAddr" class="info_cont notranslate"></dd>
-					<dt class="info_tit notranslate">
-						<span class="tx_ko">지번 주소</span>
-						<span class="tx_gl">Land-Lot</span>
-					</dt>
-					<dd name="lotnoAddr" class="info_cont notranslate"></dd>
-				</dl>
-			</div>
-			<div class="srchaddr_detail">
-				<span class="srchaddr_input"><input name="dtlAddr" type="text" title="상세주소 입력" class="input_txt translated" placeholder="상세주소를 입력해주세요." maxlength="40"><span class="trans_placeholder blind" data-default-txt="상세주소를 입력해주세요.">상세주소를 입력해주세요.</span></span>
+		<p>
+      <input type="text" id="zip-code" placeholder="우편번호">
+      <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+    <p>
+    </p>
+      <input type="text" id="address-1" placeholder="도로명주소" style="width: 500px">
+    <p>
+    </p>
+      <input type="text" id="address-2" placeholder="상세주소" style="width: 500px">
+    </p>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+      function execDaumPostcode() {
+        new daum.Postcode( {
+          oncomplete: function( data ) {
+            document.getElementById( 'zip-code' ).value = data.zonecode;
+            document.getElementById( 'address-1' ).value = data.address;
+          }
+        } ).open();
+      }
+    </script>
 				<div class="pop_btn_area">
 					<a href="javascript:void(0);" onclick="Zipcd.inputDtlAddr()" class="color3" style="min-width:128px">확인</a>
 				</div>
