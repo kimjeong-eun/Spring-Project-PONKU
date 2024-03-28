@@ -18,6 +18,7 @@
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<sec:csrfMetaTags/>
 <title>Show Your Colors | Ponku</title>
 
 <!-- Google Font -->
@@ -135,7 +136,7 @@
 							<li class="active"><a href="/">상품구매</a></li>
 							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
-							<li><a href="./contact.html">문의게시판</a></li>
+							<li><a href="/ask/main">문의게시판</a></li>
 							
  							<sec:authorize access="isAuthenticated()">
                             

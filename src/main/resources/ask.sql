@@ -42,6 +42,22 @@ select * from ASK_LIST order by ask_list_no desc;
 -- 더미데이터 삭제용
 delete from ask_list;
 
+-- 첨부파일테이블
+-- 실제 첨부파일이 등록되는 테이블(브라우저가 비정상적으로 종료되었을 때 실제 결과와 서버에 업로드된 파일목록의 차이를 해결하기 위함)
+-- 게시물을 등록할 때 첨부파일이 있다면 첨부파일 테이블도 같이 insert 작업이 진행되어야 한다.(트랜젝션 처리 필요)
+create table ask_list_attach (
+    uuid varchar2(100) not null,
+    uploadPath varchar2(200) not null,
+    fileName varchar2(100) not null,     
+    filetype char(1) default 'I',        
+    ano number(10,0),
+    constraint ask_list_attach_pk primary key (uuid),
+    constraint ask_list_attach_fk foreign key (ano) references ask_list(ask_list_no)                    
+);
+
+-- ask_list_attach 조회용
+select * from ask_list_attach;
+
 -- 테스트
 select * from ask_list where ask_list_no > 0 and rownum <= 100;
 select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
