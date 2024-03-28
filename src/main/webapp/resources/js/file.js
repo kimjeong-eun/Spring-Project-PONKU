@@ -87,10 +87,12 @@ function uploadFiles(files) {
 		},
 		data: formData,											// formData 자체를 보낸다
 		type: 'POST',												// post 방식으로 보낸다.
-		/*dataType: formData,*/											// json방식으로 보낸다.
+		dataType: 'json',											// json방식으로 보낸다
 		success: function(result) {								// 성공 시 
 			console.log(result);
-			showFiles(result);								// 업로드 결과를 화면에 출력하도록 한다.	
+			let files = [];
+			files = result;
+			showFiles(files);								// 업로드 결과를 화면에 출력하도록 한다.	
 		}, error: function(result) {
 			console.log(result);
 		}
@@ -118,6 +120,9 @@ function checkExtension(fileName, fileSize) {					// 파일명과, 파일크기�
 
 function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 	console.log("showFiles 함수 호출!!!!!!!!");
+	for(let i = 0; i < files.length; i++){
+		console.log("----------------------------" + files[i]); // 각 요소를 개별적으로 출력
+	}
 	$(files).each(function(i, file) {
 		console.log(file); // 각 요소를 개별적으로 출력
 	});
@@ -133,28 +138,31 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 		preview.innerHTML = ''; // preview 내부 요소 모두 삭제
 	}
 
-	const fileList = document.createElement('ul');
+	let fileList = document.createElement('ul');
 	fileList.id = 'fileList'; // <ul id="fileList">
 	if (!(fileList == null)) {
 		console.log("ul 생성 성공");
 	}
 
 	$(files).each(function(i, file) {
-		const listItem = document.createElement('li');
+		let listItem = document.createElement('li');
 		listItem.className = 'fileItem'; // <li class="fileItem">
 		var img = document.createElement('img');
+		var src = "/resources/img/shopProjectFile"; // 상대 경로 대신 절대 경로 사용
 		if (file.image) { // 파일이 이미지라면
 			console.log("이미지다!");
-			img.src = encodeURIComponent(file.uploadPath + "/s_" + file.uuid + "_" + file.fileName);
+			src += "/" + encodeURIComponent(file.uploadPath + "/s_" + file.uuid + "_" + file.fileName);
 		} else { // 일반파일이라면
 			console.log("이미지 아니다!");
-			img.src = encodeURIComponent(file.uploadPath + "/" + file.uuid + "_" + file.fileName);
+			var fileLink = file.uploadPath.replace(new RegExp(/\\/g),"/"); // 역슬레쉬 변환
+			src += "/" + encodeURIComponent(fileLink + "/" + file.uuid + "_" + file.fileName);
 		}
+		img.src = src;
 		listItem.appendChild(img);
-		const span = document.createElement('span');
+		let span = document.createElement('span');
 		span.textContent = `${file.fileName} (${file.size} bytes)`; // 사이즈 추가
 		listItem.appendChild(span);
-		const deleteButton = document.createElement('button');
+		let deleteButton = document.createElement('button');
 		deleteButton.className = 'deleteButton'; // <button class="deleteButton">
 		deleteButton.textContent = '삭제';
 
