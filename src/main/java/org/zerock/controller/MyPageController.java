@@ -43,7 +43,7 @@ public class MyPageController {
 		
 		return "./myPage/myPage";
 	}
-	//회원정보 변경
+	
 	@PostMapping("/updateMember")
 	public String updateMember(MemberVO member) {
 		
@@ -57,7 +57,7 @@ public class MyPageController {
 		
 		return "./myPage/updatePw";
 	}
-	//비밀번호 변경
+	
 	@PostMapping("/updatePw")
 	public String updatePw(MemberVO member) {
 		
@@ -71,13 +71,32 @@ public class MyPageController {
 		
 		return "./myPage/updateAddress";
 	}
-	//배송지 변경
-	@PostMapping("/updateAddress")
-	public String updateAddress(MemberVO member) {
+	
+	//배송지 변경 팝업
+	@GetMapping("/popupAddress")
+	public String popupAddress() {
+		
+		return "./myPage/popupAddress";
+	}
+	
+	@PostMapping("/popupAddress")
+	public String popupAddress(MemberVO member) {
 		
 		int result = service.updateAddress(member);
-		return "./myPage/myPage"; //회원정보 변경
+		return "./myPage/updateAddress"; 	}
+	
+	//배송지 우편번호 찾기
+	@GetMapping("/popupInputAddress")
+	public String popupInputAddress() {
+		
+		return "./myPage/popupInputAddress";
 	}
+	
+	@PostMapping("/popupInputAddress")
+	public String popupInputAddress(MemberVO member) {
+		
+		int result = service.updateAddress(member);
+		return "./myPage/updateAddress"; 	}
 	
 	//회원탈퇴
 	@GetMapping("/deleteMember")
