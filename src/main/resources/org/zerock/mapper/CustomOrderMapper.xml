@@ -46,23 +46,31 @@
 	
 	</insert>
 
+	<!--주문번호 받아오기  -->
+	<select id="seletOrderNo" resultType="int">
+		
+		select ORDER_SEQ.nextval from dual
+	
+	</select>
+
+
 	<!--일반상품 주문넣기  -->
 	<insert id="insertOrder">
 	
-		insert into Order_custom_goods(orderno, gno , userid , email,phone,quantity,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date)
-			 values(ORDER_SEQ.nextval,'주문상품목록확인필요',#{userid},#{email},#{phone},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate)
+		insert into Order_custom_goods(orderno, userid , email,phone,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date)
+			 values(#{orderno},#{userid},#{email},#{phone},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate)
 	</insert>
 	
 	<!--일반상품 주문넣기(비회원)  -->
 	<insert id="insertOrderNomember">
-		insert into Order_custom_goods(orderno, gno , userid , email,phone,quantity,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date,orderpw)
-			 values(ORDER_SEQ.nextval,'주문상품목록확인필요',#{userid},#{email},#{phone},#{quantity},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate,#{orderpw})
+		insert into Order_custom_goods(orderno, userid , email,phone,totalprice,payment,order_request,delivery_request,delivery_address,username,order_date,orderpw)
+			 values(#{orderno},#{userid},#{email},#{phone},#{totalprice},#{payment},#{order_request},#{delivery_request},#{delivery_address},#{username},sysdate,#{orderpw})
 	</insert>
 
 	<!-- 주문 상품넣기 -->
 	<insert id="insertOrderd_goods">
 	
-		insert into ordered_goods(orderno,gno,model_name,caseimgurl,quantity) values(#{orderno},#{vo.gno},#{model_name},#{vo.title_img}#{quantity})
+		insert into ordered_goods(orderno,gno,model_name,caseimgurl,quantity) values(#{orderno},#{vo.gno},#{vo.model},#{vo.image},#{vo.quantity})
 	
 	</insert>
 
@@ -96,8 +104,6 @@
 	<delete id="deleteCartElement">
 	
 		delete from shopping_cart where member_seq = #{member_seq} and cart_no = #{cart_no}
-	
-	
 	
 	</delete>
 

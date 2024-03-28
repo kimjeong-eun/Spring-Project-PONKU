@@ -19,7 +19,9 @@ alter table Shop_goods rename column MAXSIZE to MAX_SIZE;
 
 select * from shop_goods;
 
-insert into Shop_goods values('ip0327','글라스 범퍼 케이스','16000','글라스 범퍼 케이스 재주문률 best!','/resources/img/iphone.png','',sysdate,sysdate,'90','true');
+delete from Shop_goods where GNO = '주문상품목록확인필요';
+insert into Shop_goods values('주문상품목록확인필요','','','','','',sysdate,sysdate,'90','true');
+insert into Shop_goods values('ip0327','글라스 범퍼 케이스','16000','글라스 범퍼 케이스 재주문률 best!','/resources/img/iphone.png','',sysdate,sysdate,'','');
 insert into Shop_goods values('ip0328','맥세이프 투명젤 케이스','20000','맥세이프 호환 가능!!','/resources/img/iphonemacsafe.png','',sysdate,sysdate,'120','true');
 insert into Shop_goods values('ip0329','비누 젤','15000','기분전환용 케이스로 추천 !','/resources/img/iphonesoap.png','',sysdate,sysdate,'90','true');
 
@@ -36,7 +38,7 @@ CREATE TABLE Custom_Shop_goods_stock(
 );
 
 select * from Custom_Shop_goods_stock;
-
+-------수량 테이블----------
 create or replace trigger Custom_stock_trigger
 after
 insert on Custom_Shop_goods
@@ -44,6 +46,21 @@ for each row
 begin
 if inserting then
     insert into Custom_Shop_goods_stock(GNO,QUANTITY) values(:new.GNO,50);
+    end if;
+end;
+
+---------------------------------
+---권한 트리거
+
+create or replace trigger auth_tigger
+after
+insert on shop_member
+for each row
+begin
+
+if inserting then
+    insert into Shop_Authority(MEMBER_SEQ ,authority) values(:new.member_seq , 'ROLE_MEMBER');
+   
     end if;
 end;
 
@@ -101,11 +118,26 @@ create table ordered_goods(
  QUANTITY VARCHAR2(50) default '1' --상품수량
 );
 
+select * from ordered_goods;
 drop table ordered_goods;
 
--------주문시퀀스
+-------주문시퀀스-------
 CREATE SEQUENCE ORDER_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
 
 
+-----트리거-------
+create or replace trigger auth_trigger
+after
+insert on SHOP_MANAGER
+for each row
+begin
+if inserting THEN
+    insert into Shop_Authority(MANAGER_SEQ ,authority) values(:new.manager_seq , 'ROLE_ADMIN');
+   
+    end if;
+end;
+/
 
+
+select * from shop_manager;
 

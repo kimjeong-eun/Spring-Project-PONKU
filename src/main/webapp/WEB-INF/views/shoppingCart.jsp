@@ -52,11 +52,13 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>	   							
+                            <tbody >	   							
                             <c:forEach var="element" items="${cartList }">
                             	
                             	  <tr>
-                            	  	<td><input type="checkbox" value="${element.gno }" name="checkElement"></td>
+                            	  	<td>
+                            	  		<input type="checkbox" value="${element.gno }" name="checkElement">
+                            	  	</td>
                             	  	<input type="hidden" name="gno" value="${element.gno }">
                             	  	
                                     <td class="shoping__cart__item">
@@ -112,7 +114,7 @@
 				</div>
 
 			</c:if>	
-
+			<p name='selecetdMsg' style="display: none;"> </p>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
@@ -180,7 +182,8 @@
 			
 			 if( $("input:checkbox[name='checkElement']").is(':checked') === true){ //체크된것이 있다면 
 				 
-				 $("a[name='selectOrder']").show();		//선택상품 주문버튼 보여짐	 
+				 $("a[name='selectOrder']").show();		//선택상품 주문버튼 보여짐
+		 
 			 }
 			 if( $("input:checkbox[name='checkElement']").is(':checked') === false){
 				 
@@ -188,6 +191,70 @@
 			 }
 		 });
 		
+		 $("a[name='selectOrder']").on("click",function(e){
+			 
+			 e.preventDefault();
+			 
+			 //체크된 항목 수
+			 var length = $("input:checkbox[name='checkElement']:checked").length;
+			 
+			 var cart_nos = new Array(length);
+			 var images = new Array(length);
+			 var gnos = new Array(length);
+			 var gnames=  new Array(length);
+			 var models=  new Array(length);
+			 var prices=  new Array(length);
+			 var quantities=  new Array(length);
+			 var member_seq = $("input[name='member_seq']").val();
+			 var cartElements = length+"";
+			 var totalprice=0;
+			 var member_seq = $("input[name='member_seq']").val();
+			 
+			 var str="<input type='hidden' name='${_csrf.parameterName }' value='${_csrf.token}' />";
+			 
+			 
+			 for(var i=0;i<length;i++){
+
+				 	
+				 cart_nos[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next()
+				 						.next().next().next().next().children("input[name='cart_no']").val();
+
+				 images[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().children("input[name='image']").val();
+				 gnos[i]=$("input:checkbox[name='checkElement']:checked").eq(i).val();
+				 gnames[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().children("input[name='gname']").val();
+				 models[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next("input[name='model']").val();
+				 prices[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next().next("input[name='price']").val();
+				 quantities[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next().next().next().children().children().children("input[name='quantity']").val();
+				 
+
+				str+="<input type='hidden' name='cart_no' value='"+cart_nos[i]+"'>";
+				str+="<input type='hidden' name='image' value='"+images[i]+"'>";
+				str+="<input type='hidden' name='gno' value='"+gnos[i]+"'>";
+				str+="<input type='hidden' name='gname' value='"+gnames[i]+"'>";
+				str+="<input type='hidden' name='modelname' value='"+models[i]+"'>";
+				str+="<input type='hidden' name='price' value='"+prices[i]+"'>";
+				str+="<input type='hidden' name='quantity' value='"+quantities[i]+"'>";
+
+				 
+				 totalprice += parseInt(prices[i])*parseInt(quantities[i]) ; 
+			 }
+			 
+			 str +="<input type='hidden' name='member_seq' value='"+member_seq+"'>";
+			 str +="<input type='hidden' name='totalPrice' value='"+totalprice+"'>";
+			 str+="<input type='hidden' name='cartElments' value='"+cartElements+"'>";
+			 
+ 			 alert(length+"개의 상품을 선택하셨습니다. 구매페이지로 이동합니다.");
+			 var orderForm = $("form[name='orderForm']");
+			  
+			 orderForm.html(str);
+			  
+			 orderForm.submit();
+
+
+		 });
+		 
+		 
+		 
 			
 		$(".shoping__cart__item__close").on("click", function() {
 				//제외 버튼을 누른다면
@@ -277,13 +344,10 @@
 		
 		
 		$("a[name='wholeOrder'").on("click",function(e){
-			
-
-			  
+ 
 			e.preventDefault(); 
 			
 			var length = $("input[name='image']").length;
-		
 			var cart_nos = new Array(length);
 			var images = new Array(length);
 			var gnos = new Array(length);
@@ -294,6 +358,7 @@
 		
 			var member_seq = $("input[name='member_seq']").val();
 			var totalprice = $("span[name='totalPrice']").text();
+			var cartElements = '${cartElemets }';
 			
 			
 			var str="<input type='hidden' name='${_csrf.parameterName }' value='${_csrf.token}' />";
@@ -308,7 +373,6 @@
 				models[i]=$("input[name='model']").eq(i).val();
 				prices[i]=$("input[name='price']").eq(i).val();
 				quantities[i]=$("input[name='quantity']").eq(i).val();
-
 				
 				str+="<input type='hidden' name='cart_no' value='"+cart_nos[i]+"'>";
 				str+="<input type='hidden' name='image' value='"+images[i]+"'>";
@@ -317,7 +381,6 @@
 				str+="<input type='hidden' name='modelname' value='"+models[i]+"'>";
 				str+="<input type='hidden' name='price' value='"+prices[i]+"'>";
 				str+="<input type='hidden' name='quantity' value='"+quantities[i]+"'>";
-				
 
 			}
 			
@@ -326,7 +389,7 @@
 			str+="<input type='hidden' name='cartElments' value='${cartElemets }'>";
 			
 			
-			  alert(str);   
+			  alert(cartElements+"개의 상품을 선택하셨습니다. 구매페이지로 이동합니다.");   
 
 			  
 			  var orderForm = $("form[name='orderForm']");
@@ -377,17 +440,9 @@
 				}
 				
 			}); */
-			
-			
-			
-			
-			
 
 		});
 		
-		
-		
-
 	});
 
 

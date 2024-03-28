@@ -99,7 +99,7 @@ ${dto.caseimgurl}
             		<h4>주문 정보(비회원)</h4>
             	</sec:authorize>
 
-               <form action="/orderComplete" name="formObj" method="post">
+               <form action="/orderCompleteCustom" name="formObj" method="post">
                 
                 <p>주문 상품 이미지(예시)<span style="color: red;">*</span></p>
               

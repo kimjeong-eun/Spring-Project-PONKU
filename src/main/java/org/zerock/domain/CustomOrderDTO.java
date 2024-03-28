@@ -21,7 +21,7 @@ public class CustomOrderDTO {
 	private String orderno; //주문번호
 	private String gno; //상품번호
 	private String userid; //유저아이디
-	private String username; // 주문이름
+	private String username; //주문이름
     private String email; //이메일
     private String phone; //핸드폰 번호
     

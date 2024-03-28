@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ = {@Autowired})
-	private LoginMapper loginMapper;
+	private LoginMapper loginMapper; 
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

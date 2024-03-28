@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.CustomOrderDTO;
+import org.zerock.domain.OrderDTO;
 import org.zerock.domain.ShopGoodsVO;
 import org.zerock.domain.ShoppingCartVO;
 import org.zerock.mapper.CustomOrderMapper;
@@ -103,6 +105,58 @@ public class CustomOrderImpl implements CustomOrderService {
 		
 		return mapper.deleteCartElement(member_seq, cart_no);
 		
+	}
+
+	@Transactional
+	@Override
+	public String memberOrder(OrderDTO dto, List<ShoppingCartVO> cartList) {
+		// 회원주문 (일반)
+		
+		
+		int orderno = mapper.seletOrderNo(); //주문번호 세팅
+		
+		if (orderno>0) {
+			
+			dto.setOrderno(""+orderno);
+			int insertResult = mapper.insertOrder(dto);
+			
+			if(insertResult>0) {
+				
+				for(ShoppingCartVO element : cartList) {
+
+					int result = mapper.insertOrderd_goods(""+orderno, element);
+					mapper.deleteCartElement(element.getMember_seq(), element.getCart_no()); //장바구니 항목없애기
+					
+						
+				}	
+			}	
+		}
+		return "success";
+	}
+
+	@Transactional
+	@Override
+	public String noMemberOrder(OrderDTO dto, List<ShoppingCartVO> cartList) {
+		// 회원주문(비회원)
+		
+		int orderno = mapper.seletOrderNo(); //주문번호 세팅
+		
+		if (orderno>0) {
+			
+			dto.setOrderno(""+orderno);
+			int insertResult = mapper.insertOrderNomember(null);
+			
+			if(insertResult>0) {
+				
+				for(ShoppingCartVO element : cartList) {
+
+					int result = mapper.insertOrderd_goods(""+orderno, element);
+									
+				}	
+			}	
+		}
+		return "success";
+
 	}
 
 

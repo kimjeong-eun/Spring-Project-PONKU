@@ -21,7 +21,6 @@
   		<result property="last_update" column="last_update"/>  
   		
   		<collection property="authList" resultMap="authMap"></collection>
-  		
   	</resultMap>
   	
   	<resultMap type="org.zerock.domain.AuthVO" id="authMap">

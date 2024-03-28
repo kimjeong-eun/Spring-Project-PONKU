@@ -17,6 +17,7 @@
 								    background-size: 130%;
 								    position: relative;
 								    border: 2px solid black;
+								    
 								}
 								.uploadResult ul{
 									width: 30rem;
@@ -95,6 +96,7 @@ ${dto.caseimgurl}
             <div class="checkout__form" style="margin-top:120px;">
             	<sec:authorize access="isAuthenticated()">	
             		<h4>주문 정보</h4>
+
             	</sec:authorize>
             	
 				<sec:authorize access="isAnonymous()">	
@@ -146,7 +148,7 @@ ${dto.caseimgurl}
 	                        	    	 $("input[name='email']").val(email);
 	                        	    	 $("input[name='address2']").val(address2);
 	                        	    	 $("input[name='address3']").val(address3);
-	
+											
 	
 	                        	     }
 	                         		if( $("input:checkbox[name='orderinfo']").is(':checked') === false){
@@ -331,21 +333,32 @@ ${dto.caseimgurl}
                                 </div> -->
                                 
                                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->
-                                <input type="hidden" name="orderno" value="" />
-                                
-                                
-                                <input type="hidden" name="gno" value="${dto.gno }" />
-                                <input type="hidden" name="userid" value="${dto.userid }" />
-                                <input type="hidden" name="model_name" value="${dto.model_name }" />
-                                <input type="hidden" name="casename" value="${dto.casename }" />
-   
-                                <input type="hidden" name="quantity" value="${dto.quantity }" />
-                                <input type="hidden" name="price" value="${dto.price }" />
-                                <input type="hidden" name="totalprice" value="${dto.totalprice }" />
+								
 								<input type="hidden" name="delivery_address" value=""/>
                                	<input type="hidden" name="payment" value="card" />
-                               	<input type="hidden" name="caseimgurl" value="" />
-                                
+                              	<input type="hidden" name="totalprice" value="${totalPrice }">
+                              	
+                               <sec:authorize access="isAuthenticated()">
+	                               	<input type="hidden" name="userid" value="${pinfo.username }" />
+	            					<input type="hidden" name="member_seq" value="${pinfo.member.member_seq}" />
+                               </sec:authorize>
+                               
+                               <sec:authorize access="isAnonymous()">
+                               	<input type="hidden" name="userid" value="nomember" />
+                                </sec:authorize>
+                          
+                                <div name="goodsInfo">
+                                	<c:forEach var="element" items="${cartList }">
+	                               	 	<input type="hidden" name="cart_no" value="${element.cart_no }">
+                                	 	<input type="hidden" name="gno" value="${element.gno }">
+                                	 	<input type="hidden" name="image" value="${element.image }">
+                                	 	<input type="hidden" name="quantity" value="${element.quantity }">
+                                	 	<input type="hidden" name="modelname" value="${element.model }">
+                                	 	<input type="hidden" name="price" value="${element.price }">
+                                	 	<input type="hidden" name="gname" value="${element.gname }">
+                                	</c:forEach>
+                                </div>
+
                                 <button type="button" class="site-btn" name="decideorder" >주문하기</button>
                                 
                             </div>
@@ -361,6 +374,59 @@ ${dto.caseimgurl}
 <script type="text/javascript">
 	
 	$(document).ready(function() {
+		
+		
+	     $("select[name='delivery_request_select']").change(function() {
+				//배송메세지 셀렉박스에 변화가 있다면 
+		    	 	/* console.log($("select[name='delevery_request_select'] option:selected").text()); */
+		    	   $("input[name='delivery_request']").val($("select[name='delivery_request_select'] option:selected").text());
+		    	 
+			});
+		     
+		
+		$("button[name='decideorder']").on("click",function(e){
+			e.preventDefault();
+			
+			if($("input[name='username']").val()==''|| $("input[name='username']").val()==null){
+	    		
+	    		alert("이름을 입력해주세요");
+	    		$("input[name='username']").focus();
+	    		return;
+	    		
+	    	}
+	    	if($("input[name='address2']").val()==''|| $("input[name='address2']").val()==null){
+	    		alert("주소를 입력해주세요");
+	    		$("input[name='address2']").focus();
+	    		return;
+	    	}
+	    	if($("input[name='phone']").val()==''|| $("input[name='phone']").val()==null){
+	    		
+	    		alert("휴대폰 번호를 입력해주세요");
+	    		$("input[name='phone']").focus();
+	    		return;
+	    		
+	    	}
+	    	if(!($("input[name='orderpw']").val()==$("input[name='re-orderpw']").val())){
+	    		
+	    		alert("비밀번호를 확인해주세요");
+	    		$("input[name='re-orderpw']").focus();
+	    		return;
+	    		
+	    	}
+			
+	    	
+	    	var address2 = $("input[name='address2']").val();
+	    	var address3 = $("input[name='address3']").val();
+	    	
+	    	$("input[name='delivery_address']").val(address2+"/"+address3);
+	    	
+	    	$("form[name='formObj']").submit();
+	    	
+	    	
+
+	    			
+		});
+		
 		
 		
 		

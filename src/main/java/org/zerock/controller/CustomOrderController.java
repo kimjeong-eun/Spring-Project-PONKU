@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.CustomImgDTO;
 import org.zerock.domain.CustomOrderDTO;
+import org.zerock.domain.OrderDTO;
 import org.zerock.domain.ShopGoodsVO;
 import org.zerock.domain.ShoppingCartVO;
 import org.zerock.service.CustomOrderService;
@@ -108,9 +109,10 @@ public class CustomOrderController {
 	
 	
 	@PreAuthorize("permitAll")
-	@PostMapping("/orderComplete")
-	public String decideOrder(CustomOrderDTO dto) {
-		//커스텀케이스용 
+	@PostMapping("/orderCompleteCustom")
+	public String decideOrderCustom(CustomOrderDTO dto) {
+		//커스텀주문용
+		
 		String resultStr = "";
 		
 		/*
@@ -123,6 +125,7 @@ public class CustomOrderController {
 		
 		if(dto.getOrderpw() == "" || dto.getOrderpw()==null) {
 			resultStr = service.memberCustomOrder(dto); //주문확인비밀번호가 없다면(회원)
+			
 		}else {
 			resultStr = service.noMemberCustomOrder(dto); //비회원주문
 		}
@@ -135,6 +138,51 @@ public class CustomOrderController {
 			
 			return "/index"; //실패시 홈으로 
 			
+		}
+
+	}
+	
+	
+	@PreAuthorize("permitAll")
+	@PostMapping("/orderComplete")
+	public String decideOrder(OrderDTO orderDto ,long member_seq,@RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
+			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname ) {
+		//일반 주문용
+		
+		List<ShoppingCartVO> lists = new ArrayList<ShoppingCartVO>();
+
+		  for(int i=0;i<cart_no.length;i++) {
+		  
+		  ShoppingCartVO vo =new ShoppingCartVO();
+		  vo.setCart_no(cart_no[i]);
+		  vo.setImage(image[i]);
+		  vo.setGno(gno[i]);
+		  vo.setGname(gname[i]);
+		  vo.setModel(modelname[i]);
+		  vo.setPrice(price[i]);
+		  vo.setQuantity(quantity[i]);
+		  vo.setMember_seq(member_seq);
+		  
+		  lists.add(vo);
+		  } 
+		  
+		String resultStr = "";
+		if(orderDto.getOrderpw() == "" || orderDto.getOrderpw()==null) {
+			//회원주문			
+			resultStr = service.memberOrder(orderDto, lists);
+
+		}else {
+			//비회원주문
+			resultStr = service.noMemberOrder(orderDto, lists);
+		}
+
+		if(resultStr.equals("success")) {
+			
+			return "/completeOrder"; //주문완료 페이지로 이동
+			
+		}else{
+			
+			return "/index"; //실패시 홈으로 
 		}
 
 	}
@@ -240,9 +288,9 @@ public class CustomOrderController {
 	public String orderGoods2(Model model,String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
 			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , String cartElments ) {
 		
+		//쇼핑카트에서 주문페이지로 넘어가는 컨트롤러
+		
 		List<ShoppingCartVO> lists = new ArrayList<ShoppingCartVO>();
-		
-		
 		
 		  for(int i=0;i<cart_no.length;i++) {
 		  
