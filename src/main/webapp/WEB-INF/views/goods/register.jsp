@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html lang="kr">
 
 <style>
@@ -151,8 +151,11 @@ input[type=file]::file-selector-button {
 	<div class="container" style="max-width: 1370px;">
 
 		<!--  action="register" -->
-		<form method="post" enctype="multipart/form-data"
-			action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
+		<!-- action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}" -->
+		<form method="post" enctype="multipart/form-data" role="form" action="/goods/register">
+		
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			
 			<div class="row">
 
 				<div class="col-lg-6 col-md-6">
@@ -182,9 +185,20 @@ input[type=file]::file-selector-button {
 
 				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
 
-					<!-- 예쁜 레이아웃 쀼쀼 -->
 					<div class="product__details__text">
 
+						<!-- 회의 후 삭제? 예정 -->
+						<div class="checkout__input row">
+							<div class="col">
+								<p>
+									담당자<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input value='<sec:authentication property="principal.username"/>' readonly="readonly">
+							</div>
+						</div>
+						
 						<div class="checkout__input row">
 							<div class="col">
 								<p>
@@ -232,6 +246,7 @@ input[type=file]::file-selector-button {
 							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;"></textarea>
 						</div>
 
+ 
  						<div class="checkout__input">
 							<div class="row">
 								<p>
@@ -248,10 +263,6 @@ input[type=file]::file-selector-button {
 									<button id='uploadBtn' class="btn btn-light"
 										style="width: 100%;">Upload</button>
 								</div>
-
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
-								<!-- post방식 시 토큰 필수 -->
 							</div>
 
 							<div class="uploadResult">
@@ -381,6 +392,27 @@ input[type=file]::file-selector-button {
 	    });
 
 	    /* 파일 업로드 */
+	    /* 게시물 등록 시 첨부파일 정보 hidden으로 전송 */
+	      var formObj = $("form[role='form']");
+  
+	      /* Submit 버튼 클릭 */
+	      $("button[type='submit']").on("click", function(e){
+	          e.preventDefault();
+
+	          var str = "";
+
+	          $(".uploadResult ul li").each(function(i, obj){
+	              var jobj = $(obj);
+
+	              str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+	              str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+	              str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+	              str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
+	          });
+
+	          formObj.append(str).submit();
+	      });
+	    
 	    /* 파일의 확장자와 크기 사전 처리 */
 	    var regexp = new RegExp("(.*?)\\.(exe|sh|zip|alz$)"); //정규표현식
 	    var maxSize = 5242880; //5MB
@@ -404,40 +436,32 @@ input[type=file]::file-selector-button {
 	    var uploadResult = $(".uploadResult ul");
 
 	    /* 파일 업로드 후 파일 미리보기 */
-	    function ShowUploadFile(uploadResultArr) { // JSON 데이터를 받아 해당 파일명 추가하는 함수
+	    function ShowUploadFile(uploadResultArr) { //JSON 데이터를 받아 해당 파일명 추가
 
-	        var str = ""; // 결과를 저장할 변수 선언 및 초기화
+	        var str = "";
 
-	        // 업로드 결과 배열을 순회하면서 처리
 	        $(uploadResultArr).each(function(i, obj) {
-	        	
-    if (!obj.image) { // 만약 이미지가 아니라면
-        // 첨부 파일 아이콘과 파일명을 추가
-        str += "<li class='attLi'><i class='fa-solid fa-paperclip'/></i>" + obj.fileName +
-               "<div data-file=\'" + fileCallPath + "\' class='attDel'><i class='fa-solid fa-rectangle-xmark'></i></div>" + "</li>";
-               
-    	} else { // 이미지라면
-        // 이미지의 경로를 인코딩하여 변수에 저장
-        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-    	
-        // 원본 이미지 경로를 변수에 저장
-        var originPath = obj.uploadPath + "\\" + obj.uuid + "_" + obj.fileName;
-        
-        // 원본 이미지 경로의 역슬래시(\)를 슬래시(/)로 변경
-        originPath = originPath.replace(new RegExp(/\\/g), "/");
-        
-        // 이미지 미리보기를 위한 HTML을 생성하여 결과 문자열에 추가
-        str += "<li class='attLi'><p>" + obj.fileName + 
-               "<i class='fa-solid fa-rectangle-xmark attDel'></i></p><a href=\"javascript:showImage(\'" + originPath + "\')\">" + // 원본 이미지 경로를 사용하여 이미지 미리보기 함수 호출 링크 생성
-               "<img src='display?fileName=" + fileCallPath + "'></a>" + // 썸네일 이미지를 표시하기 위한 이미지 태그 생성
-               "<div data-file=\'" + fileCallPath + "\' data-type='image' class=''></div>" + // 이미지 삭제를 위한 삭제 버튼 생성
-               "</li>";
-    	}
-    
-	});
-	        // 결과를 보여줄 엘리먼트에 결과 문자열을 추가
+	            var fileCallPath = ""; // fileCallPath 변수 초기화
+
+	            if(!obj.image) { //이미지가 아닐 경우
+	                str += "<li>&nbsp;<i class='fa-solid fa-paperclip'/>" + obj.fileName + "<span data-file=\'"+fileCallPath+"\'><i class='fa-solid fa-rectangle-xmark'></i></span>"+
+	                    "</li>"; //첨부파일 아이콘 + 파일명
+	            } else {
+	                fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName); 
+	                    
+	                var originPath = obj.uploadPath+ "\\"+obj.uuid +"_"+obj.fileName;
+	                    
+	                originPath = originPath.replace(new RegExp(/\\/g),"/");
+	                    
+	                str += "<li><p>" + obj.fileName + "</p><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
+	                       "<img src='display?fileName="+fileCallPath+"'></a>"+
+	                       "<span data-file=\'"+fileCallPath+"\' data-type='image'><i class='fa-solid fa-rectangle-xmark'></i></span>"+
+	                       "</li>";
+	            }
+	        });
+
 	        uploadResult.append(str);
-	}
+	    }
 
 		/* 업로드 버튼 클릭 */
 	    $("#uploadBtn").on("click", function(e) {

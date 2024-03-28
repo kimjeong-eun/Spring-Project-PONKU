@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
-import org.zerock.mapper.LoginMapper;
+import org.zerock.mapper.MemberMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
 public class LoginServiceImpl implements LoginService {
 
 	@Setter(onMethod_ = @Autowired )
-	private LoginMapper loginMapper ;
+	private MemberMapper loginMapper ;
 	
 	@Setter(onMethod_= @Autowired )
 	private DataSource ds; 

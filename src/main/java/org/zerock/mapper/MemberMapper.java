@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 
-public interface LoginMapper {
+public interface MemberMapper {
 	//userid로 회원정보를 읽어오는 메서드 (프로그램 내부용)
 	public MemberVO selectMember (String userid); 
 	

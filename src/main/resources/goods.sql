@@ -1,3 +1,9 @@
+--------------------------------------------------------------------------------관리자 테이블
+CREATE TABLE SHOP_MANAGER (
+	
+);
+
+SELECT * FROM SHOP_MANAGER;
 --------------------------------------------------------------------------------첨부파일 테이블
 CREATE TABLE Attach_goods (
 	UUID VARCHAR2(100) NOT NULL, --첨부파일 난수명(pk)
@@ -53,4 +59,5 @@ SELECT GNO, GNAME, PRICE, INFORMATION, TITLE_IMG, INFO_IMG, UPLOAD_DATE, UPDATE_
 --------------------------------------------------------------------------------
 SELECT * FROM USER_TABLES;
 SELECT * FROM SHOP_MEMBER;
+SELECT * FROM SHOP_AUTHORITY;
 			

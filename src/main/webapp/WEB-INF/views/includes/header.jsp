@@ -101,6 +101,7 @@
 									<ul>
 										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
 										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+										<li><a href="#">관리자 모드</a></li>
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
 								</div>
@@ -131,7 +132,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
-							<li class="active"><a href="/">상품구매</a></li>
+							<li class="active"><a href="/goods/goodsList">NEW</a></li>
 							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="./contact.html">문의게시판</a></li>

@@ -5,7 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	
 	<bean id="bcryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> <!-- 패스워드인코딩  -->
 	
@@ -29,6 +28,13 @@
 	 -->
 	
 	<security:http>
+	
+			<!-- 나연 시큐리티 여는 P618 -->
+			<!-- <security:intercept-url pattern="/goods/*" access="permitAll"/> -->
+			
+			<!-- 나연 시큐리티 여는 P618 -->
+<!-- 			<security:intercept-url pattern="/goods/register" access="hasRole('ROLE_MANAGER')"/>
+ -->	
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>
 			
 			<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>

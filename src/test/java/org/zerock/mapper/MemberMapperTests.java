@@ -8,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
-import org.zerock.mail.MailTests;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -20,10 +19,10 @@ import lombok.extern.log4j.Log4j2;
 	  "file:src/main/webapp/WEB-INF/spring/security-context.xml"
 	  })
 @Log4j2
-public class LoginMapperTests {
+public class MemberMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private LoginMapper mapper;
+	private MemberMapper mapper;
 	
 	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder pwencoder;
@@ -44,6 +43,15 @@ public class LoginMapperTests {
 		
 		log.info("================");
 		log.info(member.getMember_seq());
+	}
+	
+	@Test
+	public void testRead() {
+		MemberVO vo = mapper.selectMember("jeongeun2");
+		
+		log.info(vo);
+		
+		vo.getAuthList().forEach(authVO -> log.info(authVO));
 	}
 
 }

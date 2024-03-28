@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.zerock.mapper.LoginMapper">
+<mapper namespace="org.zerock.mapper.MemberMapper">
   
-  	<resultMap type="org.zerock.domain.MemberVO" id="loginMap">
+  	<resultMap type="org.zerock.domain.MemberVO" id="MemberMap">
   	
-  		<id property="member_seq" column="member_seq"/>
+  		<id property="member_seq" column="member_seq"/> <!-- PK -->
   		<result property="member_seq" column="member_seq"/>
   		<result  property="userid" column="userid"/>
   		<result property="password" column="password"/> 
@@ -21,7 +21,6 @@
   		<result property="last_update" column="last_update"/>  
   		
   		<collection property="authList" resultMap="authMap"></collection>
-  		
   	</resultMap>
   	
   	<resultMap type="org.zerock.domain.AuthVO" id="authMap">
@@ -36,10 +35,9 @@
   		<result property="enroll_date" column="enroll_date"/>
   	</resultMap>
   	
+   <select id="selectMember" resultMap="MemberMap">
   
-   <select id="selectMember" resultMap="loginMap">
-  
-  	select mem.member_seq ,userid , password , username, birth, phone, email, address1, address2, address3
+  	select mem.member_seq ,userid, password, username, birth, phone, email, address1, address2, address3
   		 enroll_date,last_update, auth.authority from shop_member mem left outer join shop_authority auth
   		 on mem.member_seq = auth.member_seq where mem.userid = #{userid}
   		 
@@ -59,7 +57,7 @@
    </select>
    
    <!-- 회원가입용 -->
-   <!-- loginmapper 반영된 레코드 수 반환 -->
+   <!-- MemberMapper 반영된 레코드 수 반환 -->
    <insert id="insertMember" parameterType="org.zerock.domain.MemberVO">
 		insert into shop_member (
 			member_seq, 

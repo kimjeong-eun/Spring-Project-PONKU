@@ -74,7 +74,7 @@
 
     <!-- Product Section Begin -->
     <section class="product spad">
-        <div class="container">
+        <div class="container" style="max-width: 1400px; margin: 0 auto;">
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">

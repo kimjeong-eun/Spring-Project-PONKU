@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.GoodsAttachVO;
 import org.zerock.domain.GoodsVO;
+import org.zerock.mapper.GoodsAttachMapper;
 import org.zerock.mapper.GoodsMapper;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +22,9 @@ public class GoodsServiceImpl implements GoodsService {
 	//mapper의 context 자동 주입
 	@Setter(onMethod_ = @Autowired)
 	private GoodsMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private GoodsAttachMapper attachMapper;
 	
 	@Override
 	public GoodsVO get(String gno) { //gno에 해당하는 모든 값 출력 
@@ -40,6 +45,13 @@ public class GoodsServiceImpl implements GoodsService {
 		log.info("getList with Criteria" + cri);
 		
 		return mapper.getListWithPaging(cri);
+	}
+	
+	@Override
+	public List<GoodsAttachVO> getAttachList(String gno) { 
+		log.info("get Attach List by gno " + gno);
+		
+		return attachMapper.findByGno(gno);
 	}
 
 	@Override
