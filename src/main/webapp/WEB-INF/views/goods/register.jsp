@@ -75,56 +75,13 @@ input[type=file]::file-selector-button {
 <!-- Header Section End -->
 
 <!-- Hero Section Begin -->
-<section class="hero-normal">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="hero__categories">
-					<div class="hero__categories__all">
-						<i class="fa fa-bars"></i> <span>All departments</span>
-					</div>
-					<ul>
-						<li><a href="#">Fresh Meat</a></li>
-						<li><a href="#">Vegetables</a></li>
-						<li><a href="#">Fruit & Nut Gifts</a></li>
-						<li><a href="#">Fresh Berries</a></li>
-						<li><a href="#">Ocean Foods</a></li>
-						<li><a href="#">Butter & Eggs</a></li>
-						<li><a href="#">Fastfood</a></li>
-						<li><a href="#">Fresh Onion</a></li>
-						<li><a href="#">Papayaya & Crisps</a></li>
-						<li><a href="#">Oatmeal</a></li>
-						<li><a href="#">Fresh Bananas</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-9">
-				<div class="hero__search">
-					<!-- <div class="hero__search__form">
-						<form action="#">
-							<div class="hero__search__categories">
-								All Categories <span class="arrow_carrot-down"></span>
-							</div>
-							<input type="text" placeholder="What do yo u need?">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form> -->
-				</div>
-				<div class="hero__search__phone">
-					<div class="hero__search__phone__icon">
-						<i class="fa fa-phone"></i>
-					</div>
-					<div class="hero__search__phone__text">
-						<h5>+65 11.188.888</h5>
-						<span>support 24/7 time</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-</section>
-<!-- Hero Section End -->
 
+<%-- <p>principal : <sec:authentication property="principal"/></p> <!-- principal: UserDetailsService에서 반환된 객체 -->
+<p>MemverVO : <sec:authentication property="principal.member"/></p>
+<p>사용자 이름 : <sec:authentication property="principal.member.username"/></p>
+<p>사용자 아이디 : <sec:authentication property="principal.username"/></p>
+<p>사용자 권한 리스트 : <sec:authentication property="principal.member.authList"/></p>
+ --%>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
 	data-setbg="/resources/img/bg1.png">
@@ -441,13 +398,16 @@ input[type=file]::file-selector-button {
 	        var str = "";
 
 	        $(uploadResultArr).each(function(i, obj) {
-	            var fileCallPath = ""; // fileCallPath 변수 초기화
+	            var fileCallPath = ""; // fileCallPath 변수 초기화 및 showImage 시 전역 변수로 사용
 
 	            if(!obj.image) { //이미지가 아닐 경우
+	            	
+	            	var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+	            
 	                str += "<li>&nbsp;<i class='fa-solid fa-paperclip'/>" + obj.fileName + "<span data-file=\'"+fileCallPath+"\'><i class='fa-solid fa-rectangle-xmark'></i></span>"+
 	                    "</li>"; //첨부파일 아이콘 + 파일명
 	            } else {
-	                fileCallPath = encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName); 
+	                var fileCallPath = encodeURIComponent(obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName); 
 	                    
 	                var originPath = obj.uploadPath+ "\\"+obj.uuid +"_"+obj.fileName;
 	                    
@@ -459,7 +419,6 @@ input[type=file]::file-selector-button {
 	                       "</li>";
 	            }
 	        });
-
 	        uploadResult.append(str);
 	    }
 
@@ -524,8 +483,22 @@ input[type=file]::file-selector-button {
 		        }		
 			});
 		});
-	});
+		
+	}); //function
 
+	//$(document).ready()의 바깥쪽에 작성
+	function showImage(fileCallPath) {
+
+		var str = "";
+		
+		$(uploadResultArr).each(function(i, obj){
+			
+			if(!obj.image) {
+				
+				var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid +"_" + fileName);
+			}
+		});
+	}
 	</script>
 
 	<!-- Footer Section Begin -->

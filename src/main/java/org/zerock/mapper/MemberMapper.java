@@ -2,6 +2,7 @@ package org.zerock.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.AuthVO;
+import org.zerock.domain.ManagerVO;
 import org.zerock.domain.MemberVO;
 
 public interface MemberMapper {
@@ -23,5 +24,4 @@ public interface MemberMapper {
 	
 	//멤버 정보 삭제
 	public int deleteMember(String userid);
-
 }

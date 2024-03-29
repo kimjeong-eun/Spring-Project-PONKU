@@ -1,9 +1,26 @@
+--------------------------------------------------------------------------------권한 테이블
+CREATE TABLE SHOP_AUTHORITY (
+
+);
+
+INSERT INTO SHOP_AUTHORITY (AUTHORITY, MANAGER_SEQ) values ('ROLE_ADMIN', '997');
+INSERT INTO SHOP_AUTHORITY (MEMBER_SEQ, AUTHORITY) values ('999', 'ROLE_MEMBER');
+
+DELETE FROM SHOP_AUTHORITY WHERE MEMBER_SEQ = '999';
+
+SELECT * FROM SHOP_AUTHORITY;
+--ALTER TABLE SHOP_AUTHORITY add constraint fk_goods_attach foreign key (gno) references Shop_goods (gno);
+UPDATE SHOP_AUTHORITY SET MANAGER_SEQ = '999' WHERE MANAGER_SEQ = '5';
+
+UPDATE SHOP_AUTHORITY SET AUTHORITY = 'ROLE_ADMIN' WHERE MEMBER_SEQ = '64';
 --------------------------------------------------------------------------------관리자 테이블
 CREATE TABLE SHOP_MANAGER (
 	
 );
 
 SELECT * FROM SHOP_MANAGER;
+DELETE FROM SHOP_MANAGER WHERE MANAGER_SEQ = '999';
+UPDATE SHOP_MANAGER SET MANAGER_SEQ = '998' WHERE MANAGER_SEQ = '5';
 --------------------------------------------------------------------------------첨부파일 테이블
 CREATE TABLE Attach_goods (
 	UUID VARCHAR2(100) NOT NULL, --첨부파일 난수명(pk)
@@ -58,6 +75,7 @@ SELECT GNO, GNAME, PRICE, INFORMATION, TITLE_IMG, INFO_IMG, UPLOAD_DATE, UPDATE_
 
 --------------------------------------------------------------------------------
 SELECT * FROM USER_TABLES;
+
 SELECT * FROM SHOP_MEMBER;
-SELECT * FROM SHOP_AUTHORITY;
-			
+
+delete from SHOP_MEMBER where member_seq ='73';

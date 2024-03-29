@@ -101,7 +101,9 @@
 									<ul>
 										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
 										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-										<li><a href="#">관리자 모드</a></li>
+										<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<li><a href="/admin">관리자 모드</a></li>
+										</sec:authorize>   
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
 								</div>

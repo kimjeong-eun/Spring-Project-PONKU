@@ -6,4 +6,5 @@ import lombok.Data;
 public class AuthVO {
 	private long member_seq;
 	private String auth;
+	private long manager_seq;
 }

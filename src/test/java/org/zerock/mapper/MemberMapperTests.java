@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.AuthVO;
+import org.zerock.domain.ManagerVO;
 import org.zerock.domain.MemberVO;
 
 import lombok.Setter;
@@ -32,12 +33,12 @@ public class MemberMapperTests {
 		
 		MemberVO member = new MemberVO();
 		AuthVO auth = new AuthVO();
-		member.setUserid("ksy0417");
+		member.setUserid("superAdmin");
 		member.setPassword(pwencoder.encode("1234"));
-		member.setUsername("김수영");
-		member.setBirth("19970417");
-		member.setEmail("ksy0417@naver.com");
-		member.setPhone("01022796331");
+		member.setUsername("SA");
+		member.setBirth("20240329");
+		member.setEmail("ponkuu@naver.com");
+		member.setPhone("01012341234");
 		
 		int member_seq = mapper.insertMember(member); //insert 성공/실패여부
 		
@@ -47,11 +48,10 @@ public class MemberMapperTests {
 	
 	@Test
 	public void testRead() {
-		MemberVO vo = mapper.selectMember("jeongeun2");
+		MemberVO vo = mapper.selectMember("viceAdmin");
 		
 		log.info(vo);
 		
 		vo.getAuthList().forEach(authVO -> log.info(authVO));
 	}
-
 }

@@ -33,8 +33,7 @@
 			<!-- <security:intercept-url pattern="/goods/*" access="permitAll"/> -->
 			
 			<!-- 나연 시큐리티 여는 P618 -->
-<!-- 			<security:intercept-url pattern="/goods/register" access="hasRole('ROLE_MANAGER')"/>
- -->	
+	
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>
 			
 			<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>

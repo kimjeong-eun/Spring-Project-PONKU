@@ -32,6 +32,10 @@ public class GoodsController {
 	@Setter(onMethod_ = { @Autowired })
 	private GoodsService service;
 
+	@PostMapping("/admin")
+	public void admin() {
+	}
+	
 	@GetMapping({ "/get", "/modify" }) // GetMapping, PostMapping은 URL을 배열로 처리할 수 있으므로, 하나의 메서드로 여러 URL 처리
 	@PreAuthorize("permitAll")
 	public void get(@RequestParam("gno") String gno, Model model) {
@@ -80,12 +84,12 @@ public class GoodsController {
 
 	@GetMapping("/register")
 	//@PreAuthorize("isAuthenticated()") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
-	@PreAuthorize("hasRole('ROLE_MANAGER')") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
 	public void register() {
 	}
 
 	@PostMapping("/register")
-	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	//@PreAuthorize("isAuthenticated()") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
 	public String register(GoodsVO goods, RedirectAttributes rttr) {
 
