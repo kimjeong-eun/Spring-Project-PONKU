@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.service.LoginService;
+import org.zerock.service.MemberService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +26,7 @@ public class MailController {
 	JavaMailSenderImpl mailSender; // 메일보내는 bean 
 	
 	@Setter(onMethod_ =@Autowired )
-	LoginService loginService;
+	MemberService loginService;
 	
 	
 	@PostMapping(value ="/resetPw", produces = {MediaType.TEXT_PLAIN_VALUE} )

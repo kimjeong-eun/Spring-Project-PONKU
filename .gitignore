@@ -103,4 +103,8 @@ replay_pid*
 /src/main/webapp/META-INF/maven/org.zerock/controller/pom.properties
 
 # MANIFEST.MF
+<<<<<<< HEAD
 /src/main/webapp/META-INF/MANIFEST.MFpom.properties
+=======
+/src/main/webapp/META-INF/MANIFEST.MF
+>>>>>>> refs/heads/mypage

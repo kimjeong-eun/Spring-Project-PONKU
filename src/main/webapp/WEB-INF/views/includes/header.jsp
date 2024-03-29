@@ -170,10 +170,9 @@
                             
 								<li><a href="/myPage" name="myPage">마이페이지</a>
 	                                <ul class="header__menu__dropdown">
-	                                    <li><a href="./shop-details.html">Shop Details</a></li>
-	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-	                                    <li><a href="./checkout.html">Check Out</a></li>
-	                                    <li><a href="./blog-details.html">Blog Details</a></li>
+	                                    <li><a href="/myPage">나의 정보관리</a></li>
+	                                    <li><a href="/myOrder">나의 주문관리</a></li> <!-- 아직 미구현 -->
+	                                    <li><a href="/myPlace">나의 활동관리</a></li> <!-- 아직 미구현 -->
 	                                </ul>
 	                            </li>
                             </sec:authorize>
