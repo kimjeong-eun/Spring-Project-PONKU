@@ -1,6 +1,8 @@
 package org.zerock.domain;
 
 
+import java.util.Date;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,6 +43,6 @@ public class CustomOrderDTO {
 	private String delivery_address; //배송주소 
 	
 	private String orderpw; //주문 비밀번호 (비회원에 해당)
-	
+	private Date order_date;//주문일
 
 }

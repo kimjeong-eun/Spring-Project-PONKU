@@ -159,6 +159,27 @@ public class CustomOrderImpl implements CustomOrderService {
 
 	}
 
+	@Override
+	public List<OrderDTO> myOrderedList(String start_date, String end_date, String userid) {
+		// 유저의 (일반)주문목록 가져오기
+		
+		
+		List<OrderDTO> orderList = mapper.selectMyOrderList(start_date,end_date,userid);
+		
+		return orderList;
+	}
+
+	@Override
+	public List<CustomOrderDTO> myCustomOrderedList(String start_date, String end_date, String userid) {
+		// 유저의 (커스텀)주문목록 가져오기
+		
+		List<CustomOrderDTO> customOrderList = mapper.selectMyCustomOrderList(start_date, end_date, userid);
+		
+		return customOrderList;
+	}
+
+
+
 
 
 }

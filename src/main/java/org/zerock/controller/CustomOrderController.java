@@ -71,13 +71,6 @@ public class CustomOrderController {
 		model.addAttribute("imgdto",imgdto ); //이미지 정보 
 		
 		
-		log.info("================그냥컨트롤라====================");
-		log.info(userid);
-		log.info(imgdto.getUploadPath());
-		log.info(imgdto.getUploadPath());
-		
-		log.info("====================================");
-		
 		return "/orderCustom";
 	}
 	
@@ -314,6 +307,18 @@ public class CustomOrderController {
 	
 		
 		return "/order";
+	}
+	
+
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/myOrderList")
+	@ResponseBody
+	public ResponseEntity<List<OrderDTO>> myOrderList(String start_date, String end_date , String userid) {
+
+			
+		  List<OrderDTO> lists = service.myOrderedList(start_date, end_date, userid);
+
+		return new ResponseEntity<List<OrderDTO>>(lists ,HttpStatus.OK);
 	}
 	
 	

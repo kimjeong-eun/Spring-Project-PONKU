@@ -31,6 +31,32 @@
 		
 	</resultMap>
 
+	<resultMap type="org.zerock.domain.OrderDTO" id="myOrderMap">
+		<id  property="orderno" column="orderno"  />
+		<result property="orderno" column="orderno"/>
+		<result property="userid" column="userid"/>
+		<result property="username" column="username"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="totalprice" column="totalprice"/>
+		<result property="payment" column="payment"/>
+		<result property="order_request" column="order_request"/>
+		<result property="delivery_request" column="delivery_request"/>
+		<result property="delivery_request" column="delivery_request"/>
+		<result property="orderpw" column="orderpw"/>
+		<result property="order_date" column="order_date"/>
+		
+		<result property="gno" column="gno"/>
+		<result property="model_name" column="model_name"/>
+		<result property="caseimgurl" column="caseimgurl"/>
+		<result property="quantity" column="quantity"/>
+		<result property="casename" column="casename"/>
+		
+		
+	</resultMap>
+
+
+
 	<!--커스텀용 주문넣기  -->
 	<insert id="insertOrder_cus" >
 	
@@ -106,5 +132,19 @@
 		delete from shopping_cart where member_seq = #{member_seq} and cart_no = #{cart_no}
 	
 	</delete>
+	
+	<!--주문목록 가져오기  -->
+	<select id="selectMyOrderList" resultMap="myOrderMap">
+	
+	 select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
+		orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date, shop_goods.gname casename,
+			goods.gno,goods.model_name,goods.caseimgurl,goods.quantity from Order_custom_goods orders , ordered_goods goods , shop_goods where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date(#{start_date},'YYYY-MM-DD')) and TRUNC(to_date(#{end_date},'YYYY-MM-DD')) and orders.userid=#{userid} and shop_goods.gno=goods.gno  
+	</select>
+	
+	<select id="selectMyCustomOrderList" resultType="org.zerock.domain.CustomOrderDTO">
+	
+		select * from Order_custom_goods where userid=#{userid} and orderno like '%custom%' and TRUNC(order_date) between TRUNC(to_date(#{start_date},'YYYY-MM-DD')) and TRUNC(to_date(#{end_date},'YYYY-MM-DD'))
+	
+	</select>
 
 </mapper>

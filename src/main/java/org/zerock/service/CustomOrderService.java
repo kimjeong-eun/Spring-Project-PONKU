@@ -29,4 +29,7 @@ public interface CustomOrderService {
 	
 	
 	
+	public List<OrderDTO> myOrderedList(String start_date , String end_date, String userid);//해당 유저의 구매 목록을 가져옴
+	public List<CustomOrderDTO> myCustomOrderedList(String start_date , String end_date, String userid);//해당 유저의 커스텀 구매 목록을 가져옴
+	
 }

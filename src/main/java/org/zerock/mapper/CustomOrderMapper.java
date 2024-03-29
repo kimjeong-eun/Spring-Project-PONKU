@@ -28,4 +28,10 @@ public interface CustomOrderMapper {
 	public int deleteCartElement(@Param("member_seq") long member_seq , @Param("cart_no") String cart_no ); //쇼핑카트 리스트 삭제 
 
 	
+	
+	public List<OrderDTO> selectMyOrderList(@Param("start_date")String start_date ,@Param("end_date")String end_date,@Param("userid")String userid ); // 나의 주문목록 가져오기
+	public List<CustomOrderDTO> selectMyCustomOrderList(@Param("start_date")String start_date ,@Param("end_date")String end_date,@Param("userid")String userid ); //나의 커스텀 주문목록 가져오기
+	//비회원 주문목록 필요
+	
+	
 }

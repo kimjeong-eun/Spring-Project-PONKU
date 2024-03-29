@@ -94,6 +94,22 @@ CREATE TABLE Order_custom_goods (
 select * from order_custom_goods;
 drop table  Custom_goods_order;
 
+select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
+	orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date,
+	goods.gno,goods.model_name,goods.caseimgurl,goods.quantity from Order_custom_goods orders , ordered_goods goods where orders.ORDERNO = goods.ORDERNO and to_char(orders.order_date,'YYYY-MM-DD')='2024-03-28';
+	
+select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
+	orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date,
+	goods.gno,goods.model_name,goods.caseimgurl,goods.quantity from Order_custom_goods orders , ordered_goods goods where orders.ORDERNO = goods.ORDERNO and orders.order_date between TRUNC(to_date('2024-03-28','YYYY-MM-DD')) and sysdate;
+	
+select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
+	orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date,
+	goods.gno,goods.model_name,goods.caseimgurl,goods.quantity, shop.gname casename from Order_custom_goods orders , ordered_goods goods ,shop_goods shop where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-28','YYYY-MM-DD')) and orders.gno = shop.gno;
+
+select * from Order_custom_goods where userid='jeongeun587' and orderno like '%custom%' and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-27','YYYY-MM-DD'));
+	
+	select TRUNC(to_date('2024-03-27','YYYY-MM-DD')) from dual;
+
 alter table Custom_goods_order add CASEIMGURL VARCHAR2(150);
 alter table Order_custom_goods add order_date DATE DEFAULT SYSDATE;
 
@@ -140,4 +156,13 @@ end;
 
 
 select * from shop_manager;
+
+
+------
+
+select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
+		orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date, shop_goods.gname casename,
+			goods.gno,goods.model_name,goods.caseimgurl,goods.quantity from Order_custom_goods orders , ordered_goods goods , shop_goods where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-28','YYYY-MM-DD')) and orders.userid='jeongeun587' and shop_goods.gno=goods.gno ; 
+
+
 

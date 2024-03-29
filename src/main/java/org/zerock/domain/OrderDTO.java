@@ -1,5 +1,7 @@
 package org.zerock.domain;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,5 +26,13 @@ public class OrderDTO {
 	private String delivery_address; //배송주소 
 	
 	private String orderpw; //주문 비밀번호 (비회원에 해당)
+	private Date order_date; //주문일
+	
+	//
+	private String gno; //상품번호
+	private String casename; //케이스이름
+	private String model_name; //모델명
+	private String caseimgurl; //케이스 이미지 위치
+	private String quantity; //주문수량
 	
 }
