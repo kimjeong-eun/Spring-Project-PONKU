@@ -1,6 +1,7 @@
 package org.zerock.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -17,4 +18,6 @@ public class AskListVO { // 문의게시판
 	private boolean ask_list_attach;			// 첨부파일 여부
 	private boolean ask_list_lock;				// 비밀글 여부
 	private String ask_list_lock_password;		// 비밀번호(비밀글일때)
+	
+	private List<AskListAttachVO> attachList;	// 첨부파일 리스트
 }

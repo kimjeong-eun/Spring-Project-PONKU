@@ -92,7 +92,8 @@ function uploadFiles(files) {
 			console.log(result);
 			let files = [];
 			files = result;
-			showFiles(files);								// 업로드 결과를 화면에 출력하도록 한다.	
+			showFiles(files);	// 업로드 결과를 화면에 출력하도록 한다.	
+			addFormFileList(files);
 		}, error: function(result) {
 			console.log(result);
 		}
@@ -120,7 +121,7 @@ function checkExtension(fileName, fileSize) {					// 파일명과, 파일크기�
 
 function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 	console.log("showFiles 함수 호출!!!!!!!!");
-	for(let i = 0; i < files.length; i++){
+	for (let i = 0; i < files.length; i++) {
 		console.log("----------------------------" + files[i]); // 각 요소를 개별적으로 출력
 	}
 	$(files).each(function(i, file) {
@@ -138,49 +139,57 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 		preview.innerHTML = ''; // preview 내부 요소 모두 삭제
 	}
 
-	let fileList = document.createElement('ul');
-	fileList.id = 'fileList'; // <ul id="fileList">
-	if (!(fileList == null)) {
-		console.log("ul 생성 성공");
+	let fileList;
+	console.log("preview.innerHTML : " + preview.innerHTML);
+	if (!(preview.innerHTML == '' || preview.innerHTML == null)) { // 안에 뭐가 있으면
+		console.log("ul 이미 존재함");
+		fileList = preview.querySelector('ul');
+	} else {
+		fileList = document.createElement('ul');
+		fileList.id = 'fileList'; // <ul id="fileList">
+		console.log("ul 처음 새로 만든다");
 	}
 
 	$(files).each(function(i, file) {
 		let listItem = document.createElement('li');
 		listItem.className = 'fileItem'; // <li class="fileItem">
 		var img = document.createElement('img');
-		var src = "/resources/img/shopProjectFile"; // 상대 경로 대신 절대 경로 사용
+		var itag = document.createElement('i');
 		if (file.image) { // 파일이 이미지라면
 			console.log("이미지다!");
-			src += "/" + encodeURIComponent(file.uploadPath + "/s_" + file.uuid + "_" + file.fileName);
+			var fileCallPath = encodeURIComponent(file.uploadPath + "/s_" + file.uuid + "_" + file.fileName);
+			img.src = "/display?fileName=" + fileCallPath
+			listItem.appendChild(img);
 		} else { // 일반파일이라면
 			console.log("이미지 아니다!");
-			var fileLink = file.uploadPath.replace(new RegExp(/\\/g),"/"); // 역슬레쉬 변환
-			src += "/" + encodeURIComponent(fileLink + "/" + file.uuid + "_" + file.fileName);
+			itag.className = "fa-solid fa-file";
+			listItem.appendChild(itag);
 		}
-		img.src = src;
-		listItem.appendChild(img);
 		let span = document.createElement('span');
 		span.textContent = `${file.fileName} (${file.size} bytes)`; // 사이즈 추가
 		listItem.appendChild(span);
 		let deleteButton = document.createElement('button');
 		deleteButton.className = 'deleteButton'; // <button class="deleteButton">
+		deleteButton.style.float = 'right'; // 오른쪽으로 정렬
 		deleteButton.textContent = '삭제';
 
-		deleteButton.addEventListener('click', function() {
+		deleteButton.addEventListener('click', function(event) {
+			event.stopPropagation(); // 이벤트 전파 중단(클릭시 파일선택하는 이벤트 실행되지 않게한다.)
 			console.log("삭제할 파일:", file);
-
+			console.log("삭제할 파일명 : " + file.uploadPath + "\\s_" + file.uuid + "_" + file.fileName);
+			console.log("fileName : " + file.fileName);
 			$.ajax({ // ajax으로 전송
 				url: '/deleteFile', // 전송할 경로
-				data: { fileName: file.fileName, type: file.image }, // 경로를 포함한 파일명, 이미지여부를 fileName, type라는 이름으로 설정
+				data: { uploadPath: file.uploadPath, uuid: file.uuid, fileName: file.fileName, type: file.image }, // 경로를 포함한 파일명, 이미지여부를 fileName, type라는 이름으로 설정
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 				},
 				dataType: 'text', // text 타입으로
 				type: 'POST', // post 방식으로
 				success: function(result) { // 성공 시 결과를
-					alert(result); // alert
 					listItem.remove(); // 해당 파일 항목 삭제
-					event.stopPropagation(); // 이벤트 전파 중단(클릭시 파일선택하는 이벤트 실행되지 않게한다.)
+					console.log("삭제한 파일 : " + result);
+					removeFormFileList(result); // 삭제한 파일
 				}
 			}); //$.ajax
 		});
@@ -191,14 +200,109 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 	preview.appendChild(fileList); // preview에 파일 목록 추가
 }
 
-
 function hasChildLi() { // 자식 li 요소가 있는지 확인하는 함수
 	const childLi = preview.querySelector('li');
 	return !!childLi; // childLi가 존재하면 true, 없으면 false 반환
 }
 
+var writeForm = $("#writeForm");
+var formFileList = [];
+// input file 태그는 초기화가 필요하다고 한다 .. 아직 모르겠음 ㅜ
+
+function addFormFileList(files) { // attachFileDTO list
+	for (let i = 0; i < files.length; i++) {
+		formFileList.push(files[i]); // 그냥 파일을 push 하고
+		if (files[i].image == true) { // 이미지라면 썸네일 파일도 push 한다.
+			// 썸네일도 추가해야함(uuid 앞에 s_가 붙으면 된다 ㅍ.... )
+			files[i].uuid = "s_" + files[i].uuid;
+			console.log("addFormFileList 추가, 변경된 uuid : " + files[i].uuid);
+			formFileList.push(files[i]); // uuid가 바뀐 파일(썸네일) 저장 .. ?
+		}
+	}
+}
+
+function removeFormFileList(deleteFile) {
+	// 일반파일, 이미지파일의원본파일 삭제
+	var index = formFileList.findIndex(function(file) {
+		return file.uuid === deleteFile.uuid;
+	});
+	if (index !== -1) { // 파일을 찾았으면
+		formFileList.splice(index, 1); // 해당 인덱스의 요소를 1개 삭제
+		console.log("파일이 삭제되었습니다.");
+	} else {
+		console.log("해당 파일을 찾을 수 없습니다.");
+	} // 일반파일, 이미지파일의원본파일 삭제
+
+	// 썸네일 파일 삭제
+	if (deleteFile.image == true) { // 삭제할 파일이 이미지라면
+		deleteFile.uuid = "s_" + deleteFile.uuid;
+		var thumbnailIndex = formFileList.findIndex(function(file) {
+			console.log("formFileList의 uuid : " + file.uuid);
+			console.log("deleteFile의 uuid(s_) : " + deleteFile.uuid);
+			return file.uuid == deleteFile.uuid;
+		});
+		if (thumbnailIndex !== -1) { // 파일을 찾았으면
+			formFileList.splice(thumbnailIndex, 1); // 해당 인덱스의 요소를 1개 삭제
+			console.log("썸네일 파일이 삭제되었습니다.");
+		} else {
+			console.log("썸네일 파일을 찾을 수 없습니다.");
+		}
+	} // 썸네일 파일 삭제
+}
+
+$("button[id='submitwrite']").on("click", function(e) {
+	console.log("formFileList 출력시작--------------");
+	for (let i = 0; i < formFileList.length; i++) {
+		console.log(formFileList[i]);
+	}
+	console.log("formFileList 출력 끝 --------------");
+
+	e.preventDefault(); //기본 동작 막기
+	console.log("글쓰기 버튼 클릭, 폼 : " + writeForm);
+	let nodes = document.querySelector("#Preview").querySelector("ul").querySelectorAll("li");
+	$(nodes).each(function(file) {
+		console.log("파일명:", file);
+	});
+	let inputString = "";
+	$(nodes).each(function(i, file) { // 프론트의 file목록(li)
+	let img =
+		$(formFileList).each(function(ffl) { // 스크립트 파일목록
+			if (file.name == ffl.fileName) {
+				let inputFileUuid = document.createElement("input");
+				inputFileUuid.type = "hidden";
+				inputFileUuid.setAttribute('name', "attachList[" + i + "].uuid");
+				inputFileUuid.setAttribute('value', file.getAttribute("uuid"));
+				console.log("------------");
+				console.log(inputFileUuid);
+
+				let inputFilePath = document.createElement("input");
+				inputFilePath.type = "hidden";
+				inputFilePath.setAttribute('name', "attachList[" + i + "].uploadPath");
+				inputFilePath.setAttribute('value', file.getAttribute("uploadPath"));
+				console.log(inputFilePath);
+
+				let inputFileName = document.createElement("input");
+				inputFileName.type = "hidden";
+				inputFileName.setAttribute('name', "attachList[" + i + "].fileName");
+				inputFileName.setAttribute('value', file.getAttribute("fileName"));
+				console.log(inputFileName);
+
+				let inputFileType = document.createElement("input");
+				inputFileType.type = "hidden";
+				inputFileType.setAttribute('name', "attachList[" + i + "].fileType") // boolean
+				inputFileType.setAttribute('value', file.getAttribute("fileType"));
+				console.log(inputFileType);
+				console.log("------------");
+			}
+		});
 
 
+
+
+	});
+
+	formFileList = [];
+});
 
 
 

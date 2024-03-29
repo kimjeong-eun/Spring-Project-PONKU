@@ -142,7 +142,6 @@ button.rite:hover {
 .fileItem {
 	display: flex;
 	align-items: center;
-	justify-content: space-between; /* 아이템 내부 요소 사이의 간격을 최대로 설정 */
 	margin-bottom: 5px;
 	padding: 5px;
 	border: 1px solid #ccc;
@@ -164,6 +163,10 @@ button.rite:hover {
 
 .deleteButton:hover {
 	background-color: #808080;
+}
+
+i.fa-solid {
+	color: #000;
 }
 </style>
 
@@ -390,66 +393,6 @@ button.rite:hover {
 											formObj.append(str).submit();
 
 										});
-
-						// 이미지도 넣어야해서 좀 더 봐야함
-						function showUploadResult(uploadResultArr) { // 파일 추가 input 태그에 변화가 생기면 업로드 url으로 보내고 업로드 결과를 처리하는 함수를 호출하는데, 그게 나다
-
-
-							var uploadUL = $(".uploadResult ul"); // 파일 하나 당 결과를 보여주는 부분을 가져온다.
-
-							var str = "";
-
-							$(uploadResultArr)
-									.each(
-											function(i, obj) { // 파일 정보 객체(BoardAttachVO)를 반복하면서
-
-												if (obj.image) { // 이미지라면																						// 게시물이 등록될 때 첨부파일과 관련된 자려를 같이 전송하고 이를 db에 등록하기 위함
-													var fileCallPath = encodeURIComponent(obj.uploadPath
-															+ "/s_"
-															+ obj.uuid
-															+ "_"
-															+ obj.fileName); // 경로를 포함한 썸네일 이미지 파일명을 저장
-													str += "<li data-path='"+obj.uploadPath+"'";																	// data-path에 경로를 저장
-			str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"					// data-uuid에 uuid, data-filename에 파일명, data-type에 이미지여부를 저장
-			str +" ><div>";
-													str += "<span> "
-															+ obj.fileName
-															+ "</span>"; // 파일명 출력	
-													str += "<button type='button' data-file=\'"+fileCallPath+"\' "													// 삭제버튼(버튼을 클릭하면 data-file='경로를 포함한 썸네일파일명',
-			str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>"; // data-type='image'가 저장된다.
-													str += "<img src='/display?fileName="
-															+ fileCallPath
-															+ "'>"; // 
-													str += "</div>";
-													str + "</li>";
-												} else { // 일반 파일이라면
-													var fileCallPath = encodeURIComponent(obj.uploadPath
-															+ "/"
-															+ obj.uuid
-															+ "_"
-															+ obj.fileName);
-													var fileLink = fileCallPath
-															.replace(
-																	new RegExp(
-																			/\\/g),
-																	"/");
-
-													str += "<li "
-			str += "data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
-													str += "<span> "
-															+ obj.fileName
-															+ "</span>";
-													str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
-			str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-													str += "<img src='/resources/img/attach.png'></a>";
-													str += "</div>";
-													str + "</li>";
-												}
-
-											});
-
-							uploadUL.append(str);
-						}
 
 						 */
 </script>
