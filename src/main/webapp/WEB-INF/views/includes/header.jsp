@@ -64,6 +64,7 @@
 
 </head>
 
+				
 <body>
 	<!-- Page Preloder -->
 	<div id="preloder">
@@ -97,11 +98,15 @@
 						</div>
 						<div class="header__top__right__auth">
 								<sec:authentication property="principal" var="pinfo" />
+								
                             	<sec:authorize access="isAuthenticated()">
+                            	
+                            	<input type="hidden" value="${pinfo.member.member_seq }" name="memberSeq"> 
+                            	
                             	<div class="hero__cart" style="display: inline-block;">
 									<ul>
-										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+										<li><a href="#"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
+										<li><a href="/shoppingcart?member=${pinfo.member.member_seq }"><i class="fa fa-shopping-bag"></i><span id="cart-elements"> </span></a></li>
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
 								</div>
@@ -109,6 +114,29 @@
                             		<a href="#" name="logoutBtn" style="display: inline-block;"><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
                             		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             	</form>
+                            	
+                            	<script type="text/javascript">
+		                            	// 로그인시 쇼핑카트에 몇개가 담겼는지 정보 받아옴
+		                            	
+		            		    		var memberSeq = $("input[name='memberSeq']").val()+"";
+		            		    		
+		            		    		console.log(memberSeq);
+		            		    		
+		            			    	 $.ajax({
+		            			    		
+		            			    		 url:'/showCartElements',
+		            			    		 type:'GET',
+		            			    		 data:{member: memberSeq},
+		            			    		 contentType:'application/x-www-form-urlencoded; charset=utf-8',
+		            			    		 dataType:'text',
+		            			    		 success: function(result) {
+		            							
+		            			    			
+		            			    			 $("#cart-elements").text(result+"");
+		            						}
+		            			    		 
+		            			    	 });
+                            	</script>
                             	</sec:authorize>                    		   
                                 <sec:authorize access="isAnonymous()">
                                 	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
@@ -125,15 +153,16 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="/"><img src="/resources/img/logo.png"
-							alt=""></a>
+						<a href="/">
+						<img src="/resources/img/logo/ponku_logo1.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
+						</a>		
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
 							<li class="active"><a href="/">상품구매</a></li>
-							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
+							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="./contact.html">문의게시판</a></li>
 							
@@ -169,11 +198,12 @@
 		     $(document).ready(function(){
 		    	
 		    	 $("a[name='logoutBtn']").on("click",function(e){
-		    		
+		    		 
 		    		 e.preventDefault();
 		    		 var formObj = $("form[name='logoutForm']");
 		    		 formObj.submit();
 		    		 alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
+		    		 
 		    	 });
 		
 		    	 $("a[name='noMember']").on("click",function(e){
@@ -182,8 +212,11 @@
 		    		 alert("로그인 후 이용 가능합니다!!");
 		    	 });
 		    	 
-		     });
-     
+		    	
+			    	
+		   	    	 
+		    	 
+		  });
     </script>
 		
 

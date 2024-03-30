@@ -15,6 +15,8 @@ alter table shop_member modify password varchar2(150);
 select * from shop_member;
 select * from shop_authority;
 
+select * from shop_manager;
+
 insert into shop_authority values(998 ,'ROLE_ADMIN');
 insert into shop_member(member_seq, userid, password, username) values (999,'jeongeun','1234','김정은');
 

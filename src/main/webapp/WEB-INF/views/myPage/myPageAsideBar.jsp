@@ -10,8 +10,8 @@
         <li class="cmmyssg_snb_item">
             <strong class="cmmyssg_snb_tit">나의 주문관리</strong>
            <ul class="cmmyssg_snb_sublst">
-    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;주문/배송조회&quot;}]"><a href="?menu=orderList" class="clickable" data-react-tarea-dtl-cd="t00058">주문/배송조회</a></li>
-    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;구매내역&quot;}]"><a href="?menu=purchaseList" class="clickable" data-react-tarea-dtl-cd="t00058">구매 내역</a></li>
+    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;주문/배송조회&quot;}]"><a href="/myOrder" class="clickable" data-react-tarea-dtl-cd="t00058">주문/배송조회</a></li>
+    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;구매내역&quot;}]"><a href="/myOrder" class="clickable" data-react-tarea-dtl-cd="t00058">구매 내역</a></li>
 </ul>
 <li class="cmmyssg_snb_item">
 <strong class="cmmyssg_snb_tit">나의 활동관리</strong>

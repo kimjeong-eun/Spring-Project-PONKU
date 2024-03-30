@@ -14,6 +14,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    
+    <style type="text/css">
+    
+    #orderListTable{
+   		 width: 100%; margin-top: 1rem;
+    
+    }
+    
+     #orderListTable tbody tr {
+   		
+   			width:100%;
+   			height:6rem;
+   			margin-top: 20px;
+    
+    }
+    
+    </style>
 </head>
 
 <body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
@@ -51,71 +69,170 @@
 <jsp:include page="../myPage/myPageAsideBar.jsp"></jsp:include>
 
 <div id="content" class="content_myssg">
-		<form id="submitForm" name="submitForm" method="post">
 		<sec:authentication property="principal" var="pinfo"/>
-	    <h2 class="stit"><span>나의 주문정보</span></h2>
+	    <h2 class="stit"><span>구매내역</span></h2>
 	     <div class="form_section">
 			<div class="content_intro">
-				<h3>필수정보입력</h3>
+				<h3>나의 구매정보</h3>
 				<p class="join_txt">
-					<img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"> 표시는 필수입력 항목 이오니 반드시 입력해 주세요.
+					<img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"> 구매 내역은 최대 1년까지 확인 가능합니다.
 				</p>
 			</div>
-			<fieldset class="fieldset medium">
-				<legend>항목입력</legend>
-				<div class="field">
-					<span class="label">아이디 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
-					<div class="insert" id="idCheckDiv">
-							<span>${pinfo.member.userid}</span>
-					</div>
-				</div>
-				    <div class="field">
-				        <span class="label">비밀번호 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
-				        <div class="insert">
-				            <span id="mbrNm">*****</span>
-				        </div>
-				    </div>
-				<div class="field">
-					<span class="label">이름 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
-					<div class="insert">
-						<span id="mbrNm">${pinfo.member.username}</span>
-					</div>
-				</div>
-				<div class="field">
-					<label for="mbrCntsELno" class="label">휴대폰번호 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-					<input type="hidden" name="cntsTypeCd" value="20">
-					<input type="hidden" name="mbrCntsno" id="mbrCntsno">
-					<div class="insert">
-						<div>
-							<select id="mbrCntsano" name="mbrCntsano" title="식별번호 선택" class="select small" style="width: 102px;">
-								<option value="010" addtoptnval1="" addtoptnval2="" selected="selected">010</option><option value="011" addtoptnval1="" addtoptnval2="">011</option><option value="016" addtoptnval1="" addtoptnval2="">016</option><option value="017" addtoptnval1="" addtoptnval2="">017</option><option value="018" addtoptnval1="" addtoptnval2="">018</option><option value="019" addtoptnval1="" addtoptnval2="">019</option>
-							</select>
-							<span>-</span>
-							<input type="tel" id="mbrCntsELno" title="휴대폰 번호 뒷자리" placeholder="- 없이 뒷자리를 입력해주세요." value="22796331" class="input_text small translated" style="width:136px;ime-mode:disabled;" maxlength="8" numberonly=""><span class="trans_placeholder blind" data-default-txt="- 없이 뒷자리를 입력해주세요.">- 없이 뒷자리를 입력해주세요.</span>
-						</div>
-					</div>
-				</div>
-				<div class="field" id="emailChg01">
-					<label for="email" class="label">이메일주소 <img src="//sui.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-					<div class="insert">
-						<input type="text" id="email" name="email" placeholder="자주 사용하시는 이메일 주소를 입력해주세요." value="ktndud2@naver.com" class="input_text small translated" style="width:250px" maxlength="50"><span class="trans_placeholder blind" data-default-txt="자주 사용하시는 이메일 주소를 입력해주세요.">자주 사용하시는 이메일 주소를 입력해주세요.</span>
-					</div>
-				</div>
+			<p>조회 기간 선택</p>
+			<br/>
+		
+			<form name="dateForm"  action="/myOrderList"  method="post">
+				<label style="font-size: 15px;">시작일 &nbsp;&nbsp;&nbsp; </label> <input type="date" name="start_date" > <span style="font-size: 20px;">~</span>
+				<label style="font-size: 15px;">종료일 &nbsp;&nbsp;&nbsp; </label> <input type="date" name="end_date" >
+			<%-- 	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  --> --%>
+				<input type="hidden" name="userid" value="${pinfo.username }">
+				<button type="button" name="check_btn" style="margin-left: 1rem; font-size: 15px; font-weight: 800; width: 2rem;">조회</button>
+			</form>		
+		
+			<fieldset class="fieldset medium"  style="height: 30rem;">
+
+					<div name="helpMsg" style="width: 100%;height: 30rem; font-size: 20px; margin-left: 5%; text-align: center; margin-top: 10%;display: none;"> 조회 기간을 설정해주세요</div>
+					<div name="helpMsg2" style="width: 100%;height: 30rem; font-size: 20px; margin-left: 5%; text-align: center; margin-top: 10%; display: none;"> 조회된 데이터가 없습니다.</div>
+				
+				<table  name="orderListTable" id="orderListTable" >
+					<thead>	
+						<th>주문번호</th>
+						<th>주문일</th>
+						<th>주문 상태</th>
+						<th>상품 정보</th>
+						<th>수량</th>
+						<th>주문액</th>
+						<th>주문 취소</th>
+					</thead>
+					<tbody name="orderListBody"  >
+					<!--<tr >
+							<td name="order_no"></td>
+							<td name="order_date"></td>
+							<td name="order_status"></td>
+							<td name="order_info" ><img src="" style="width: 10rem;"></td>
+							<td name="order_quantity></td>
+							<td name="order_totalPrice"></td>
+							<td name="order_cancle" ></td>
+						</tr> -->
+
+					
+					
+					
+					</tbody>
+	
+				</table>
+			
+			
+			
+			
+			
 			</fieldset>
+			
+			
+			
+			
+			
+			
 		</div>
 		<div class="form_btn_area">
 			<p id="alertArea" class="desc"></p>
-			<a href="javascript:void(0);" onclick="modify.update();" id="submitBtn" class="cs_btn large black">변경하기</a>
 		</div>
 		<div class="cs_info_box">
-			<h3 class="cs_info_subtit">회원정보변경 안내</h3>
+			<h3 class="cs_info_subtit">배송정보 안내</h3>
 			<ul class="cs_info_lst">
 				<li>배송지 정보는 '나의 정보관리 &gt; 배송지 관리' 메뉴에서 추가/수정/삭제하실 수 있습니다.</li>
 				<li>주문 정보는 회원 정보에 등록된 휴대폰번호 및 이메일주소로 안내됩니다.</li>
 			</ul>
 		</div>
-	      </form>
+	  
 	 </div>
-  </div>
-  </div>
+
+  
+  
+  <script type="text/javascript">
+  
+  	$(document).ready(function() {
+  		var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+		var csrfTokenValue = "${_csrf.token}";
+  		
+  		$("button[name='check_btn']").on("click",function(e){
+  			//조회기간을 입력했다면 
+  			
+  			e.preventDefault();
+
+  			var start_date = $("input[name='start_date']").val().toString();
+  			var end_date = $("input[name='end_date']").val().toString();
+			var userid = $("input[name='userid']").val();
+
+  			/* $("form[name='dateForm']").submit(); */
+  			
+  			//조회기간 동안의 주문내역 받아옴
+  			$.ajax({
+  				url:'/myOrderList',
+  				type:'POST',
+  				data:{
+  					 start_date:start_date,
+  					  end_date:end_date,
+  					  userid:userid
+  					  },
+  				beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+  				dataType: 'json',
+  		        success: function (result) {
+  		            if (result){
+  		              
+  		            	/* console.log(result); */
+  		            	
+  		            	 showList(result); 
+  		            	
+  		            }
+  		        }
+  		    }); 
+
+  			
+  			
+  			
+  			  			
+  		});
+  		
+  		
+  	function showList(lists){
+  		
+  		var str ="";
+  		
+  		if(lists.length == 0 || lists == null){
+  			$("div[name='helpMsg']").hide();
+  			$("div[name='helpMsg2']").show();
+  			
+  			
+  		}else{
+  			$("div[name='helpMsg']").hide();
+  			$("div[name='helpMsg2']").hide();
+
+  			
+  			
+  			for(list of lists){
+  				
+  				
+  			 str+="<tr ><td name='order_no'>"+list.orderno+"</td><td name='order_date'>"+list.order_date +"</td> <td name='order_status'>"+"상품 준비중"+"</td> <td name='order_info' ><img src='"+list.caseimgurl +"' style='width: 10rem;'>"+list.casename +"</td><td name='order_quantity'>"+list.quantity+"</td></td> <td name='order_totalPrice'>"+ list.totalprice +"</td><td name='order_cancle' >"+"취소불가" +"</td></tr>";
+  			
+  			}
+  			
+  			$("tbody[name='orderListBody']").html(str);
+  		}
+  		
+  		
+  		
+  	};
+  		
+  		
+  		
+});
+  
+  
+  </script>
+  
+  
+  
 <jsp:include page="../includes/footer.jsp"></jsp:include>
