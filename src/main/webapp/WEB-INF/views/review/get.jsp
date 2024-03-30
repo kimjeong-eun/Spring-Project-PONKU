@@ -132,6 +132,18 @@
   width:600px;
 }
 
+#content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .post {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+
 </style>
 
 

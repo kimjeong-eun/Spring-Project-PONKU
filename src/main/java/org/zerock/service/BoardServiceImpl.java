@@ -80,6 +80,14 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getTotalCount(cri);
 	}
 
+	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri) {
+		
+		log.info("게시판 페이징");
+		
+		return mapper.getListWithPaging(cri);
+	}
+
 	
 
 

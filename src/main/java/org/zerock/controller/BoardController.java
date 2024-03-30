@@ -50,11 +50,13 @@ public class BoardController {
 	public void list(Criteria cri, Model model) {
 
 		log.info("list : " + cri);
-		model.addAttribute("list", service.getList(cri));
+		model.addAttribute("list", service.getListWithPaging(cri));
 
 		int total = service.getTotal(cri);
 
 		log.info("total: " + total);
+		
+		PageDTO pagedto = new PageDTO(cri, total);
 
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
