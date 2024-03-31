@@ -29,6 +29,11 @@ delete from Shop_goods;
 
 select * from Custom_Shop_goods;
 
+select * from shop_member;
+select * from shop_authority;
+select * from SHOP_ADDRESS;
+
+
 --커스텀 케이스 재고 테이블 
 CREATE TABLE Custom_Shop_goods_stock(
 
@@ -92,6 +97,8 @@ CREATE TABLE Order_custom_goods (
 ); 
 
 select * from order_custom_goods;
+
+
 drop table  Custom_goods_order;
 
 select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
@@ -123,7 +130,6 @@ select * from shopping_cart;
 
 delete from shopping_cart;
 select * from shop_member;
-
 
 ----주문 상품 조회
 create table ordered_goods(

@@ -325,8 +325,10 @@ p{
 			
 			/*  console.log(model);  */
 			
+			//기본값 설정 
 			$("input[name='totalprice']").val(price);
-		
+			$("input[name='caseimgurl']").val("/resources/img/iphone.png");
+			
 			// 기종선택박스에 변화가 있다면
 			$("#modelselect").change(function() {
 				
@@ -408,7 +410,7 @@ p{
 			
 				if(e.keyCode>90){
 					
-					$("p[name='msg']").show(); //한글입력
+					$("p[name='msg']").show(); //한글 미지원 메세지 출력
 					
 				}else{
 					
@@ -512,8 +514,14 @@ p{
 			//구매동작
 			$("button[name='purchase']").on("click",function(e){
 				var userid = $("input[name=userid]").val();
-				console.log(userid);
+				
 				e.preventDefault();
+				
+				if($("input[name='casename']").val()=="" || $("input[name='casename']")== null){
+					alert("케이스 종류를 선택해주세요!");
+					
+					return;
+				}
 				
 				$("input[name='modelinput']").val(model); //모델
 				$("input[name='codeinput']").val(code); // 상품코드
@@ -578,6 +586,13 @@ p{
 				
 				e.preventDefault();
 				
+				if($("input[name='casename']").val()=="" || $("input[name='casename']")== null){
+					alert("케이스 종류를 선택해주세요!");
+					
+					return;
+				}
+				
+				
 				if(confirm("쇼핑카트 추가시 커스텀 문구는 사라집니다. 쇼핑카트에 담으시겠습니까?")){
 					
 					$("input[name='cquantity']").val($("input[name='quantity']").val());
@@ -590,11 +605,9 @@ p{
 					cartForm.submit();				
 					
 				}
-
 				
 			});
 			
-
 		});
 		
 </script>

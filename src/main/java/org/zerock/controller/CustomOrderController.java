@@ -321,5 +321,15 @@ public class CustomOrderController {
 		return new ResponseEntity<List<OrderDTO>>(lists ,HttpStatus.OK);
 	}
 	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/myCustomOrderList")
+	@ResponseBody
+	public ResponseEntity<List<CustomOrderDTO>> myCustomOrderList(String start_date, String end_date , String userid) {
+
+			
+		  List<CustomOrderDTO> lists = service.myCustomOrderedList(start_date, end_date, userid);
+
+		return new ResponseEntity<List<CustomOrderDTO>>(lists ,HttpStatus.OK);
+	}
 	
 }

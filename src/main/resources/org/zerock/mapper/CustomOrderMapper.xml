@@ -51,6 +51,7 @@
 		<result property="caseimgurl" column="caseimgurl"/>
 		<result property="quantity" column="quantity"/>
 		<result property="casename" column="casename"/>
+		<result property="price" column="price"/>
 		
 		
 	</resultMap>
@@ -136,11 +137,16 @@
 	<!--주문목록 가져오기  -->
 	<select id="selectMyOrderList" resultMap="myOrderMap">
 	
-	 select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
-		orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date, shop_goods.gname casename,
-			goods.gno,goods.model_name,goods.caseimgurl,goods.quantity from Order_custom_goods orders , ordered_goods goods , shop_goods where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date(#{start_date},'YYYY-MM-DD')) and TRUNC(to_date(#{end_date},'YYYY-MM-DD')) and orders.userid=#{userid} and shop_goods.gno=goods.gno  
+	 select orders.orderno , orders.username, orders.userid, orders.email, orders.phone, orders.totalprice,
+			orders.payment, orders.order_request, orders.delivery_request, orders.delivery_address, orders.order_date,
+			shop_goods.gname casename, goods.gno, goods.model_name,goods.caseimgurl, goods.quantity, shop_goods.price price
+	 from Order_custom_goods orders , ordered_goods goods , shop_goods
+	 where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date(#{start_date},'YYYY-MM-DD'))
+	 	and TRUNC(to_date(#{end_date},'YYYY-MM-DD')) and orders.userid=#{userid} and shop_goods.gno=goods.gno  
+	
 	</select>
 	
+	<!-- 커스텀 주문목록 가져오기  -->
 	<select id="selectMyCustomOrderList" resultType="org.zerock.domain.CustomOrderDTO">
 	
 		select * from Order_custom_goods where userid=#{userid} and orderno like '%custom%' and TRUNC(order_date) between TRUNC(to_date(#{start_date},'YYYY-MM-DD')) and TRUNC(to_date(#{end_date},'YYYY-MM-DD'))

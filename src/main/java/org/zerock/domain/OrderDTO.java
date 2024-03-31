@@ -33,6 +33,7 @@ public class OrderDTO {
 	private String casename; //케이스이름
 	private String model_name; //모델명
 	private String caseimgurl; //케이스 이미지 위치
+	private String price; //케이스가격
 	private String quantity; //주문수량
 	
 }

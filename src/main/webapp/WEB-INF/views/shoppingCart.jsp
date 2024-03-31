@@ -344,7 +344,7 @@
 		
 		
 		$("a[name='wholeOrder'").on("click",function(e){
- 
+ 			//전체주문
 			e.preventDefault(); 
 			
 			var length = $("input[name='image']").length;

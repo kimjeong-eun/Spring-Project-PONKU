@@ -133,14 +133,12 @@ ${dto.caseimgurl}
 	                        	    	 var username ="${pinfo.member.username}";
 	                        	    	 var phone = "${pinfo.member.phone}";
 	                        	    	 var email = "${pinfo.member.email}";
-	                        	    	 var address2 = "${pinfo.member.address2}";
-	                        	    	 var address3 ="${pinfo.member.address3}";
+	  
 	                        	    	 
 	                        	    	 $("input[name='username']").val(username);
 	                        	    	 $("input[name='phone']").val(phone);
 	                        	    	 $("input[name='email']").val(email);
-	                        	    	 $("input[name='address2']").val(address2);
-	                        	    	 $("input[name='address3']").val(address3);
+	                   
 	
 	
 	                        	     }
@@ -149,8 +147,7 @@ ${dto.caseimgurl}
 	                        	    	 $("input[name='username']").val("");
 	                        	    	 $("input[name='phone']").val("");
 	                        	    	 $("input[name='email']").val("");
-	                        	    	 $("input[name='address2']").val("");
-	                        	    	 $("input[name='address3']").val("");
+	             
 	
 	                        	     }
 	                        	});

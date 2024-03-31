@@ -79,8 +79,8 @@ public class getGoodsTest {
 	@Test
 	public void getMyList() {
 		
-		/* mapper.selectMyOrderList("2024-03-27", "2024-03-28", "jeongeun587"); */
-		mapper.selectMyCustomOrderList("2024-03-21", "2024-03-28", "jeongeun587");
+		mapper.selectMyOrderList("2024-03-27", "2024-03-28", "jeongeun587"); 
+		/* mapper.selectMyCustomOrderList("2024-03-21", "2024-03-28", "jeongeun587"); */
 		
 		
 	}
