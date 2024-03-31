@@ -57,8 +57,8 @@
 					<a href="javascript:fn_modify('4234033');" id="internalBtn" class="btn_cs ty1"><span>수정</span></a>
 		</div>
 				<p class="notranslate">(16592)<br>
-					도로명 : 경기도 수원시 권선구 세류로 39, 2단지 204동 1205호 (세류동, 수원역센트럴타운)<br>
-					지번 : 경기도 수원시 권선구 세류동 1270 수원역센트럴타운 2단지 204동 1205호<br>
+					도로명 : <br>
+					지번 : <br>
 				</p>
 	</div>
 
@@ -101,8 +101,8 @@
 					<td class="notranslate">김수영</td>
 					<td class="subject address">
 						<p class="notranslate">(16592)<br>
-							도로명 : 경기도 수원시 권선구 세류로 39, 2단지 204동 1205호 (세류동, 수원역센트럴타운)<br>
-							지번 : 경기도 수원시 권선구 세류동 1270 수원역센트럴타운 2단지 204동 1205호
+							도로명 : <br>
+							지번 : 
 						</p>
 					</td>
 					<td>010-2279-6331</td>
@@ -129,8 +129,8 @@
 					<td class="notranslate">김수영</td>
 					<td class="subject address">
 						<p class="notranslate">(16202)<br>
-							도로명 : 경기도 수원시 장안구 수일로91번길 3, 나동 102호 (파장동, 대신빌라)<br>
-							지번 : 경기도 수원시 장안구 파장동 410-1 대신빌라 나동 102호
+							도로명 : <br>
+							지번 : 
 						</p>
 					</td>
 					<td>010-2279-6331</td>
