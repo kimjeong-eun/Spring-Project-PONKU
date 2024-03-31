@@ -21,14 +21,11 @@
     #orderListTable{
    		 width: 100%; margin-top: 1rem;
    		 background-color: white;
-    
     }
     
     #orderListTable th{
-   		 text-align: center;
-    	
-    }
-    
+   		 text-align: center;	
+    } 
      #orderListTable tbody tr {
    		
    			width:100%;
@@ -77,7 +74,7 @@
 
             padding:40px;  
 
-            text-align: center;
+            
 
             background-color: rgb(255,255,255); 
             border-radius:10px; 
@@ -88,7 +85,7 @@
         }
         #order_ul li{
         
-        font-size: 13px;
+        font-size: 12px;
         
     	text-align: left;
         
@@ -123,7 +120,7 @@
                 <div class="cmmyssg_user_info">
                     <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
                         <sec:authentication property="principal" var="pinfo"/>
-                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
+                        <a href=# class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
                     </h2>
                 </div>
             </div>     
@@ -179,8 +176,7 @@
 						<th>취소</th>
 					</thead>
 		</table>
-			
-			
+	
 			<fieldset class="fieldset medium" id="orderListSet" style="height: 30rem; overflow: auto; overflow-x: hidden;">
 
 					<div name="helpMsg" style="width: 100%; font-size: 20px; margin-left: 5%; text-align: center; margin-top: 10%;"> 조회 기간을 설정해주세요</div>
@@ -323,7 +319,7 @@
 								        <div class="checkout__order__total">Total <span> </span></div>
 	                            </div>
 	                        </div>
-	           			 </div>
+	           		</div>
 	            </div>
 			</div>            
         </div>

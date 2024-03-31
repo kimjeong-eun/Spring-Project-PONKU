@@ -76,7 +76,7 @@ public class CustomOrderController {
 	
 	//그냥 컨트롤러에서 rest방식 연습..!
 	@PreAuthorize("permitAll")
-	@GetMapping("/display")	
+	@GetMapping("/displayCustom")	
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
 		
@@ -278,7 +278,7 @@ public class CustomOrderController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/orderGoods")
-	public String orderGoods2(Model model,String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
+	public String orderGoods(Model model,String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
 			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , String cartElments ) {
 		
 		//쇼핑카트에서 주문페이지로 넘어가는 컨트롤러

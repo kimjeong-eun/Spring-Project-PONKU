@@ -352,7 +352,7 @@ ${dto.caseimgurl}
 	/* 	 fileCallPath=fileCallPath.replace(/%/gi,"\\");  */
 		 console.log(fileCallPath);
 		 str += "<li data-path='${imgdto.uploadPath}' data-uuid='${imgdto.uuid}' data-filename='${imgdto.fileName}' ><div>";
-	     str += "<img src='/display?fileName="+fileCallPath+"'/>";
+	     str += "<img src='/displayCustom?fileName="+fileCallPath+"'/>";
 	     str += "</div>";
 	     str +"</li>";
 	     $(".uploadResult ul").html(str); 

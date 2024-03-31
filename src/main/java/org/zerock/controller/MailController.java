@@ -28,7 +28,6 @@ public class MailController {
 	@Setter(onMethod_ =@Autowired )
 	MemberService loginService;
 	
-	
 	@PostMapping(value ="/resetPw", produces = {MediaType.TEXT_PLAIN_VALUE} )
 	public ResponseEntity<String> sendPwMail(String useremail, String userid){
 		//패스워드 리셋 메일 보내는 컨트롤러
