@@ -10,11 +10,14 @@ import org.springframework.security.core.userdetails.User;
 import org.zerock.domain.MemberVO;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class CustomUser extends User {
+	private static final long serialVersionUID = 3039605230580759659L;
+	
 	//스프링 시큐리티를 위한 UserDetails인터페이스를 구현한 user 클래스를 상속
-	private MemberVO member ; 
+	private MemberVO member ;
 	
 	public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);

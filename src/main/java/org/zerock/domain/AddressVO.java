@@ -18,4 +18,6 @@ public class AddressVO {
 	private String address3; //상세주소
 	private Timestamp enroll_date; //등록일
 	private Timestamp last_update; //업데이트일
+	
+	private String type;
 }

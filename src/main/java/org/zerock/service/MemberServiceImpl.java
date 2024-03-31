@@ -3,6 +3,9 @@ package org.zerock.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -172,16 +175,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//배송지 조회
 	@Override
-	public int selectAddress(AddressVO addr) {
-		int result = 0;
-		String message = "address select 예외 발생";	
-		result = memberMapper.selectAddress(addr);
+	public List<AddressVO> selectAddress(AddressVO addr) {
+		List<AddressVO> result = new ArrayList();
 		
-		if(result == 0) {
-			log.info(message);
-			throw new RuntimeException(message);
-		} 
-		
+		try {
+			result = memberMapper.selectAddress(addr);
+		} catch(Exception e) {
+			log.info(e.getMessage());
+		}
 		return result;
 	}
 	

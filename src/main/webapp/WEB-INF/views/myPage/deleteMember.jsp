@@ -135,8 +135,51 @@
         </div>
     </div>
     <div class="cmem_btn_area">
-        <a href="javascript:void(0)" id="submitBtn" class="cs_btn cmem_btn_orange">확인</a>
+    <input type="hidden" name="member_seq" value="${pinfo.member.member_seq}"/>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+       <button type="submit" id="submitBtn" class="cs_btn large black">확인</button>
     </div>
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	
+	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
+	$("#submitBtn").on("click", function(e) {
+		e.preventDefault();
+		
+	  	//serialize 가 form요소를 하나씩 읽어옴
+	 	let formData = $("#submitForm").serialize(); 
+		
+		// Ajax로 전송
+		$.ajax({
+			url: '/successDeleteMember', // 성공여부를 처리하는 스크립트의 경로
+            type: 'POST',
+            data: formData,            
+            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+            success: function(result) {
+                if (result == "true") {
+                	alert("회원탈퇴를 완료하였습니다.");
+                	location.href = "/customLogin";//성공 시 이동할 페이지
+                } else {
+                	alert("회원탈퇴 실패");
+                	location.href = "/myPage";//실패 시 이동할 페이지   
+                }
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alert("회원정보 변경 실패(서버요청실패)");
+            }
+		});
+	});
+});
+
+</script>
+
 <jsp:include page="../includes/footer.jsp"></jsp:include>

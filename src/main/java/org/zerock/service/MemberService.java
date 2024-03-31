@@ -1,5 +1,7 @@
 package org.zerock.service;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.AddressVO;
 import org.zerock.domain.MemberVO;
@@ -31,7 +33,7 @@ public interface MemberService {
 	
 	//배송지 CRUD
 	public int insertAddress(AddressVO addr); 
-	public int selectAddress(AddressVO addr); 
+	public List<AddressVO> selectAddress(AddressVO addr); 
 	public int updateAddress(AddressVO addr); 
 	public int deleteAddress(AddressVO addr); 
 

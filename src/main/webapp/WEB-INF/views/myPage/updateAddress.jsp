@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
-
 <jsp:include page="../includes/header.jsp"></jsp:include>
-<sec:authentication property="principal" var="pinfo"/>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +15,7 @@
 </head>
 
 <body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
+
 <noscript>
 	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWBFGRL"
 	        height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -29,14 +29,14 @@
 </div>
 
 <div id="wrap">
-<div id="category" class="category"></div>
 <div id="container" class="cmmyssg_wrap">
 
 <div class="cmmyssg_header ty_light react-area">
             <div class="cmmyssg_user" data-react-tarea-cd="00034_000000001">
+            
                 <div class="cmmyssg_user_info">
                     <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
-                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
+                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${user.username}님</span>의 마이페이지</a>
                     </h2>
                 </div>
             </div>
@@ -45,7 +45,7 @@
 <jsp:include page="../myPage/myPageAsideBar.jsp"></jsp:include>
 
 <div id="content" class="content_myssg myssg_delivery">
-	<input type="hidden" name="member_seq" value="${pinfo.member.member_seq}"/>
+	<input type="hidden" name="member_seq" value="${user.member_seq}"/>
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	<h2 class="stit">
 		<span>배송지 관리</span>
@@ -54,10 +54,14 @@
 		<div class="title">
 			<p>기본배송지</p>
 		</div>
-				<p class="notranslate">(${pinfo.member.address1})<br>
-					도로명 : ${pinfo.member.address2}<br>
-					지번 : ${pinfo.member.address3}<br>
-				</p>
+			<p class="notranslate">
+				(${defaultAddr.address1})
+				<br>
+				도로명 : ${defaultAddr.address2}
+				<br>
+				지번 : ${defaultAddr.address3}
+				<br>
+			</p>
 	</div>
 
 	<div id="del01" class="section data_tbl content active">
@@ -82,67 +86,39 @@
 			</tr>
 			</thead>
 			<tbody>
-			
+			<c:forEach var="item" items="${addrList}">
 				<tr>
 					<td>
-						<input type="radio" name="deliveryKr" class="radio" value="4234033" title="배송지 선택">
-						<input type="hidden" name="shpplocSeq" id="shpplocSeq" value="4234033">
+						<input type="radio" name="deliveryKr" class="radio" value="" title="배송지 선택">
+						<input type="hidden" name="shpplocSeq" id="shpplocSeq" value="">
 						<input type="hidden" name="bascShpplocYn" id="bascShpplocYn" value="Y">
 					</td>
 					<td>
-						<span class="sub_tit warning">
-							[기본배송지]
-							
-						</span>
-						<strong class="notranslate">${pinfo.member.addressName}</strong>
+						<c:if test="${item.isDefault eq Y}"> 
+							<span class="sub_tit warning">
+								[기본배송지]
+							</span>
+						</c:if>
+						<strong class="notranslate">${item.addrName}</strong>
 					</td>
-					<td class="notranslate">${pinfo.member.username}</td>
+					<td class="notranslate">${item.name}</td>
 					<td class="subject address">
-						<p class="notranslate">(${pinfo.member.address1})<br>
-							도로명 : ${pinfo.member.address2}<br>
-					지번 : ${pinfo.member.address3}<br>
+						<p class="notranslate">(${item.address1})<br>
+							도로명 : ${item.address2}<br>
+					지번 : ${item.address3}<br>
 						</p>
 					</td>
-					<td>${pinfo.member.phone}</td>
+					<td>${item.phone}</td>
 					<td>
 						<a href="javascript:fn_modify('4234033');" class="btn_cs ty4">
 							<span>수정</span>
 						</a>
-					</td>
-				</tr>
-			
-				<tr>
-					<td>
-						<input type="radio" name="deliveryKr" class="radio" value="1" title="배송지 선택">
-						<input type="hidden" name="shpplocSeq" id="shpplocSeq" value="1">
-						<input type="hidden" name="isDefault" id="isDefault" value="Y">
-					</td>
-					<td>
-						<span class="sub_tit warning">
-							
-							
-						</span>
-						<strong class="notranslate">김수영</strong>
-					</td>
-					<td class="notranslate">김수영</td>
-					<td class="subject address">
-						<p class="notranslate">(16202)<br>
-							<br>
-							
-						</p>
-					</td>
-					<td>010-2279-6331</td>
-					<td>
-						<a href="javascript:fn_modify('1');" class="btn_cs ty4">
-							<span>수정</span>
+						<a href="javascript:fn_shpplocDel('5315911');" class="btn_cs ty2">
+							<span>삭제</span>
 						</a>
-						
-							<a href="javascript:fn_shpplocDel('1');" class="btn_cs ty2">
-								<span>삭제</span>
-							</a>
-						
 					</td>
 				</tr>
+			</c:forEach>
 
 			</tbody>
 		</table>
@@ -151,16 +127,9 @@
 			<button onclick="window.open('/popupAddress','_blank','width=700, height=600, top=50, left=50, scrollbars=yes')" class="btn_cs ty3"><span>새 배송지 추가</span></button>
 		</div>
 
-		<div class="paginate notranslate">
-            <strong title="현재위치">1</strong>
-        
-
-		</div>
-
 		<div class="button_btm">
 			
 				<button class="btn_cs ty1"><span>기본 배송지 설정</span></button>
-				<button class="btn_cs ty4"><span>이번만 배송지 설정</span></button>
 			
 		</div>
 	</div>

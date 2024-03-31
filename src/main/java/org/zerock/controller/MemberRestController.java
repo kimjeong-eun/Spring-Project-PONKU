@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -151,16 +152,7 @@ public class MemberRestController {
 		}
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
-	//배송지조회
-	@PostMapping(value = "/successSelectAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> selectAddress(AddressVO addr) {
-		String result = "false";
-		int success = memberService.selectAddress(addr);
-		if(success == 1) {
-			result = "true";
-		}
-		return new ResponseEntity<String>(result, HttpStatus.OK);
-	}
+	
 	//배송지삭제
 	@PostMapping(value = "/successDeleteAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> deleteAddress(AddressVO addr) {

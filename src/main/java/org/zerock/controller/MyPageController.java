@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.security.domain.CustomUser;
 import org.zerock.service.MemberService;
@@ -31,7 +33,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
-	private MemberService service;
+	private MemberService memberService;
 	
 	//마이페이지(기본페이지 - 현재는 회원정보 변경 페이지)
 	@GetMapping("/myPage")
@@ -54,12 +56,26 @@ public class MyPageController {
 		return "./myPage/updatePw";
 	}
 	
-	//배송지 변경
+	//배송지 조회
 	@GetMapping("/updateAddress")
-	public String updateAddress() {
+	public String updateAddress(Model model) {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		AddressVO addrVO = new AddressVO();
+		addrVO.setMember_seq(user.getMember().getMember_seq());
+		List<AddressVO> addrList = memberService.selectAddress(addrVO);
+		
+		for(AddressVO vo : addrList) {
+			if(vo.getIsDefault() == 'Y') {
+				addrVO = vo;
+			}
+		}
+		model.addAttribute("defaultAddr", addrVO);
+ 		model.addAttribute("addrList", addrList); //model에 담아서 jsp로 보냄
+		model.addAttribute("user", user.getMember());
 		return "./myPage/updateAddress";
 	}
+	
 	
 	//배송지 변경 팝업
 	@GetMapping("/popupAddress")
