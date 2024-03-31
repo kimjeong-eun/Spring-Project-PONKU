@@ -47,27 +47,11 @@ public class MyPageController {
 		return "./myPage/myPage";
 	}
 	
-	@PostMapping("/updateMember")
-	public String updateMember(MemberVO member, @AuthenticationPrincipal CustomUser customUser) {
-		
-		int result = service.updateMember(member);
-		log.debug(customUser.getUsername());
-//		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
-		return "./myPage/myPage"; //회원정보 변경
-	}
-	
 	//비밀번호 변경
 	@GetMapping("/updatePw")
 	public String updatePw() {
 		
 		return "./myPage/updatePw";
-	}
-	
-	@PostMapping("/updatePw")
-	public String updatePw(MemberVO member) {
-		
-		int result = service.updatePw(member);
-		return "./myPage/myPage"; //회원정보 변경
 	}
 	
 	//배송지 변경
@@ -84,12 +68,6 @@ public class MyPageController {
 		return "./myPage/popupAddress";
 	}
 	
-	@PostMapping("/popupAddress")
-	public String popupAddress(MemberVO member) {
-		
-		int result = service.updateAddress(member);
-		return "./myPage/updateAddress"; 	}
-	
 	//배송지 우편번호 찾기
 	@GetMapping("/popupInputAddress")
 	public String popupInputAddress() {
@@ -97,24 +75,11 @@ public class MyPageController {
 		return "./myPage/popupInputAddress";
 	}
 	
-	@PostMapping("/popupInputAddress")
-	public String popupInputAddress(MemberVO member) {
-		
-		int result = service.updateAddress(member);
-		return "./myPage/updateAddress"; 	}
-	
 	//회원탈퇴
 	@GetMapping("/deleteMember")
 	public String deleteMember() {
 			
 		return "./myPage/deleteMember";
-	}
-	//회원탈퇴
-	@PostMapping("/deleteMember")
-	public String deleteMember(MemberVO member) {
-		
-		int result = service.deleteMember(member);
-		return "./myPage/myPage"; //회원정보 변경
 	}
 	
 	//나의 주문관리

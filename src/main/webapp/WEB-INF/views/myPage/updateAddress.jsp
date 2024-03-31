@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
 <jsp:include page="../includes/header.jsp"></jsp:include>
-
+<sec:authentication property="principal" var="pinfo"/>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
 </head>
 
 <body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
@@ -37,7 +36,6 @@
             <div class="cmmyssg_user" data-react-tarea-cd="00034_000000001">
                 <div class="cmmyssg_user_info">
                     <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
-                        <sec:authentication property="principal" var="pinfo"/>
                         <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
                     </h2>
                 </div>
@@ -55,11 +53,10 @@
 	<div class="my_order_info">
 		<div class="title">
 			<p>기본배송지</p>
-					<a href="javascript:fn_modify('4234033');" id="internalBtn" class="btn_cs ty1"><span>수정</span></a>
 		</div>
-				<p class="notranslate">(16592)<br>
-					도로명 : 경기도 수원시 권선구 세류로 39, 2단지 204동 1205호 (세류동, 수원역센트럴타운)<br>
-					지번 : 경기도 수원시 권선구 세류동 1270 수원역센트럴타운 2단지 204동 1205호<br>
+				<p class="notranslate">(${pinfo.member.address1})<br>
+					도로명 : ${pinfo.member.address2}<br>
+					지번 : ${pinfo.member.address3}<br>
 				</p>
 	</div>
 
@@ -97,16 +94,16 @@
 							[기본배송지]
 							
 						</span>
-						<strong class="notranslate">집</strong>
+						<strong class="notranslate">${pinfo.member.addressName}</strong>
 					</td>
-					<td class="notranslate">김수영</td>
+					<td class="notranslate">${pinfo.member.username}</td>
 					<td class="subject address">
-						<p class="notranslate">(16592)<br>
-							도로명 : 경기도 수원시 권선구 세류로 39, 2단지 204동 1205호 (세류동, 수원역센트럴타운)<br>
-							지번 : 경기도 수원시 권선구 세류동 1270 수원역센트럴타운 2단지 204동 1205호
+						<p class="notranslate">(${pinfo.member.address1})<br>
+							도로명 : ${pinfo.member.address2}<br>
+					지번 : ${pinfo.member.address3}<br>
 						</p>
 					</td>
-					<td>010-2279-6331</td>
+					<td>${pinfo.member.phone}</td>
 					<td>
 						<a href="javascript:fn_modify('4234033');" class="btn_cs ty4">
 							<span>수정</span>
@@ -118,7 +115,7 @@
 					<td>
 						<input type="radio" name="deliveryKr" class="radio" value="1" title="배송지 선택">
 						<input type="hidden" name="shpplocSeq" id="shpplocSeq" value="1">
-						<input type="hidden" name="bascShpplocYn" id="bascShpplocYn" value="N">
+						<input type="hidden" name="isDefault" id="isDefault" value="Y">
 					</td>
 					<td>
 						<span class="sub_tit warning">
@@ -130,8 +127,8 @@
 					<td class="notranslate">김수영</td>
 					<td class="subject address">
 						<p class="notranslate">(16202)<br>
-							도로명 : 경기도 수원시 장안구 수일로91번길 3, 나동 102호 (파장동, 대신빌라)<br>
-							지번 : 경기도 수원시 장안구 파장동 410-1 대신빌라 나동 102호
+							<br>
+							
 						</p>
 					</td>
 					<td>010-2279-6331</td>

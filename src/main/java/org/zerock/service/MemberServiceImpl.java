@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.mapper.MemberMapper;
@@ -140,21 +141,6 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
-	//배송지 변경
-	@Override
-	public int updateAddress(MemberVO member) {
-		int result = 0;
-		String message = "member update 예외 발생";	
-		result = memberMapper.updateAddress(member);
-		
-		if(result == 0) {
-			log.info(message);
-			throw new RuntimeException(message);
-		} 
-		
-		return result;
-	}
-	
 	//회원탈퇴
 	public int deleteMember(MemberVO member) {
 		int result = 0;
@@ -166,6 +152,66 @@ public class MemberServiceImpl implements MemberService {
 			log.info(message);
 			throw new RuntimeException(message);
 		}
+		return result;
+	}
+	
+	/*** 배송지 crud ***/
+	//배송지 추가
+	@Override
+	public int insertAddress(AddressVO addr) {
+		int result = 0;
+		String message = "address insert 예외 발생";	
+		result = memberMapper.insertAddress(addr);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+			
+		return result;
+	}
+	//배송지 조회
+	@Override
+	public int selectAddress(AddressVO addr) {
+		int result = 0;
+		String message = "address select 예외 발생";	
+		result = memberMapper.selectAddress(addr);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+		
+		return result;
+	}
+	
+	//배송지 변경
+	@Override
+	public int updateAddress(AddressVO addr) {
+		int result = 0;
+		String message = "address update 예외 발생";	
+		result = memberMapper.updateAddress(addr);
+			
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+			
+		return result;
+	}
+		
+	//배송지 삭제
+	@Override
+	public int deleteAddress(AddressVO addr) {
+		int result = 0;
+		String message = "address delete 예외 발생";	
+		result = memberMapper.deleteAddress(addr);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+		
 		return result;
 	}
 	

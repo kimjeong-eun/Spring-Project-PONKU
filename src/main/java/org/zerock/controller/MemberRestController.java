@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.MemberVO;
 import org.zerock.security.domain.CustomUser;
 import org.zerock.service.MemberService;
@@ -119,20 +120,52 @@ public class MemberRestController {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> updateAddress(MemberVO member) {
+	@PostMapping(value = "/successDeleteMember", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteMember(MemberVO member) {
 		String result = "false";
-		int success = memberService.updateAddress(member);
+		int success = memberService.deleteMember(member);
 		if(success == 1) {
 			result = "true";
 		}
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/successDeleteMember", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> deleteMember(MemberVO member) {
+	/*** 주소 CRUD ***/
+	//배송지추가
+	@PostMapping(value = "/successInsertAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> insertAddress(AddressVO addr) {
 		String result = "false";
-		int success = memberService.deleteMember(member);
+		int success = memberService.insertAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	//배송지변경
+	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.updateAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	//배송지조회
+	@PostMapping(value = "/successSelectAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> selectAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.selectAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	//배송지삭제
+	@PostMapping(value = "/successDeleteAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.deleteAddress(addr);
 		if(success == 1) {
 			result = "true";
 		}
