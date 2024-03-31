@@ -16,7 +16,7 @@ public interface AskListService {
 	public AskListPageDTO getListWithPaging(Criteria cri);
 
 	// 게시물 객체를 받아 insert 한다.
-	public int register(AskListVO askList);
+	public void register(AskListVO askList);
 
 	// 게시물 번호를 받아 게시물 객체를 찾아서 리턴한다.
 	public AskListVO get(Long ask_list_no);
@@ -26,11 +26,14 @@ public interface AskListService {
 
 	// (수정된)게시물 객체를 받아 게시물을 수정한다.
 	public boolean modify(AskListVO askList);
-	
+
 	// 게시물 번호를 매개값으로 해당 게시물의 첨부파일들을 받아온다.
 	public List<AskListAttachVO> getAttachList(Long ano);
-	
+
 	// 게시물이 삭제될 때 해당 게시물의 첨부파일들도 같이 삭제한다.
 	public void removeAttach(Long ano);
-	
+
+	// 게시물 번호를 받아 비밀글인지 확인한다.
+	public boolean checkLock(Long ask_list_no);
+
 }

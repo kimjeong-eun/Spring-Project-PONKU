@@ -246,7 +246,6 @@ i.fa-solid {
 		<h2>
 			문의하기&nbsp;<i class="fa-solid fa-comment-dots"></i>
 		</h2>
-		<form id="writeForm" action="#" method="POST">
 			<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
 			<!-- csrf 토큰 -->
 			<div id="type" class="form-group">
@@ -305,7 +304,6 @@ i.fa-solid {
 			<div class="ritediv">
 				<button type="submit" class="rite" id="submitwrite">글 작성</button>
 			</div>
-		</form>
 	</div>
 </section>
 

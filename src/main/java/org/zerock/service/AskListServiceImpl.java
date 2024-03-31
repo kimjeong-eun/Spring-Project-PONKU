@@ -40,16 +40,25 @@ public class AskListServiceImpl implements AskListService {
 	
 	@Transactional
 	@Override
-	public int register(AskListVO askList) {
+	public void register(AskListVO askList) {
 		log.info("service 영역에서 register 메서드 실행");
-		return mapper.insert(askList);
+		mapper.insertSelectKey(askList);
 		
+		if (askList.getAttachList() != null || askList.getAttachList().size() > 0) {
+			askList.getAttachList().forEach(attach -> {
+				attach.setAno(askList.getAsk_list_no());
+				attachMapper.insert(attach);
+			});
+		}
 	}
 
 	@Override
 	public AskListVO get(Long ask_list_no) {
 		log.info("service 영역에서 get 메서드 실행");
-		return mapper.read(ask_list_no);
+		AskListVO result = mapper.read(ask_list_no);
+		List<AskListAttachVO> attachList = attachMapper.findByAno(ask_list_no); 
+		result.setAttachList(attachList);
+		return result;
 	}
 	
 	@Transactional
@@ -76,6 +85,12 @@ public class AskListServiceImpl implements AskListService {
 	public void removeAttach(Long ano) {
 		log.info("service 영역에서 removeAttach 메서드 실행");
 		attachMapper.deleteAll(ano);
+	}
+
+	@Override
+	public boolean checkLock(Long ask_list_no) {
+		log.info("service 영역에서 checkLock 메서드 실행");
+		return mapper.checkLock(ask_list_no);
 	}
 
 

@@ -93,7 +93,7 @@ function uploadFiles(files) {
 			let files = [];
 			files = result;
 			showFiles(files);	// 업로드 결과를 화면에 출력하도록 한다.	
-			addFormFileList(files);
+			//addFormFileList(files); // 업로드 성공한 attachDTO List 추가 메서드
 		}, error: function(result) {
 			console.log(result);
 		}
@@ -153,6 +153,13 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 	$(files).each(function(i, file) {
 		let listItem = document.createElement('li');
 		listItem.className = 'fileItem'; // <li class="fileItem">
+
+		listItem.setAttribute('data-filename', file.fileName);
+		listItem.setAttribute('data-uploadpath', file.uploadPath);
+		listItem.setAttribute('data-uuid', file.uuid);
+		listItem.setAttribute('data-image', file.image);
+		console.log(listItem);
+
 		var img = document.createElement('img');
 		var itag = document.createElement('i');
 		if (file.image) { // 파일이 이미지라면
@@ -189,7 +196,7 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 				success: function(result) { // 성공 시 결과를
 					listItem.remove(); // 해당 파일 항목 삭제
 					console.log("삭제한 파일 : " + result);
-					removeFormFileList(result); // 삭제한 파일
+					//removeFormFileList(result); // 삭제한 파일 attachDTO List에서 삭제한다
 				}
 			}); //$.ajax
 		});
@@ -206,103 +213,95 @@ function hasChildLi() { // 자식 li 요소가 있는지 확인하는 함수
 }
 
 var writeForm = $("#writeForm");
-var formFileList = [];
-// input file 태그는 초기화가 필요하다고 한다 .. 아직 모르겠음 ㅜ
-
-function addFormFileList(files) { // attachFileDTO list
-	for (let i = 0; i < files.length; i++) {
-		formFileList.push(files[i]); // 그냥 파일을 push 하고
-		if (files[i].image == true) { // 이미지라면 썸네일 파일도 push 한다.
-			// 썸네일도 추가해야함(uuid 앞에 s_가 붙으면 된다 ㅍ.... )
-			files[i].uuid = "s_" + files[i].uuid;
-			console.log("addFormFileList 추가, 변경된 uuid : " + files[i].uuid);
-			formFileList.push(files[i]); // uuid가 바뀐 파일(썸네일) 저장 .. ?
-		}
-	}
-}
-
-function removeFormFileList(deleteFile) {
-	// 일반파일, 이미지파일의원본파일 삭제
-	var index = formFileList.findIndex(function(file) {
-		return file.uuid === deleteFile.uuid;
-	});
-	if (index !== -1) { // 파일을 찾았으면
-		formFileList.splice(index, 1); // 해당 인덱스의 요소를 1개 삭제
-		console.log("파일이 삭제되었습니다.");
-	} else {
-		console.log("해당 파일을 찾을 수 없습니다.");
-	} // 일반파일, 이미지파일의원본파일 삭제
-
-	// 썸네일 파일 삭제
-	if (deleteFile.image == true) { // 삭제할 파일이 이미지라면
-		deleteFile.uuid = "s_" + deleteFile.uuid;
-		var thumbnailIndex = formFileList.findIndex(function(file) {
-			console.log("formFileList의 uuid : " + file.uuid);
-			console.log("deleteFile의 uuid(s_) : " + deleteFile.uuid);
-			return file.uuid == deleteFile.uuid;
-		});
-		if (thumbnailIndex !== -1) { // 파일을 찾았으면
-			formFileList.splice(thumbnailIndex, 1); // 해당 인덱스의 요소를 1개 삭제
-			console.log("썸네일 파일이 삭제되었습니다.");
-		} else {
-			console.log("썸네일 파일을 찾을 수 없습니다.");
-		}
-	} // 썸네일 파일 삭제
-}
-
+/*
 $("button[id='submitwrite']").on("click", function(e) {
-	console.log("formFileList 출력시작--------------");
-	for (let i = 0; i < formFileList.length; i++) {
-		console.log(formFileList[i]);
-	}
-	console.log("formFileList 출력 끝 --------------");
-
 	e.preventDefault(); //기본 동작 막기
 	console.log("글쓰기 버튼 클릭, 폼 : " + writeForm);
 	let nodes = document.querySelector("#Preview").querySelector("ul").querySelectorAll("li");
-	$(nodes).each(function(file) {
-		console.log("파일명:", file);
+	$(nodes).each(function(li) {
+		console.log("li태그로 들어간 파일 :", li);
 	});
-	let inputString = "";
-	$(nodes).each(function(i, file) { // 프론트의 file목록(li)
-	let img =
-		$(formFileList).each(function(ffl) { // 스크립트 파일목록
-			if (file.name == ffl.fileName) {
-				let inputFileUuid = document.createElement("input");
-				inputFileUuid.type = "hidden";
-				inputFileUuid.setAttribute('name', "attachList[" + i + "].uuid");
-				inputFileUuid.setAttribute('value', file.getAttribute("uuid"));
-				console.log("------------");
-				console.log(inputFileUuid);
+	$(nodes).each(function(i, li) { // 프론트의 file목록(li)
+		console.log("nodes.each file의 이름 : " + li.name);
+		var attachList = [];
+		
+		
+		
+	});
 
-				let inputFilePath = document.createElement("input");
-				inputFilePath.type = "hidden";
-				inputFilePath.setAttribute('name', "attachList[" + i + "].uploadPath");
-				inputFilePath.setAttribute('value', file.getAttribute("uploadPath"));
-				console.log(inputFilePath);
 
-				let inputFileName = document.createElement("input");
-				inputFileName.type = "hidden";
-				inputFileName.setAttribute('name', "attachList[" + i + "].fileName");
-				inputFileName.setAttribute('value', file.getAttribute("fileName"));
-				console.log(inputFileName);
 
-				let inputFileType = document.createElement("input");
-				inputFileType.type = "hidden";
-				inputFileType.setAttribute('name', "attachList[" + i + "].fileType") // boolean
-				inputFileType.setAttribute('value', file.getAttribute("fileType"));
-				console.log(inputFileType);
-				console.log("------------");
+
+}); */
+
+$("button[id='submitwrite']").on("click", function(e) {
+	//e.prevenDefault();
+	let isFormValid = $("#title").val().trim() !== "" &&
+					  $("#content").val().trim() !== "" &&
+					  $("#author").val().trim() !== "";
+
+	if (!isFormValid) {
+		// 필수 입력 필드가 채워지지 않았으므로 사용자에게 알림
+		alert("제목, 내용, 작성자는 필수 입력 항목입니다.");
+		//e.preventDefault(); // 폼 제출 방지
+		return false; // 이벤트 처리기 종료
+	}
+	// 양식 데이터 수집
+	let formData = {
+		ask_list_inquirytype: $("#postType").val(),
+		ask_list_productno: $("#product").val(), // 실제 제품 정보를 가져오도록 수정해야 합니다.
+		ask_list_title: $("#title").val(),
+		ask_list_content: $("#content").val(),
+		ask_list_writer: $("#author").val(),
+		ask_list_lock: $("#secret").prop("checked"),
+		ask_list_lock_password: $("#password").val()
+	};
+
+	// 첨부된 파일 정보 수집
+	let attachList = [];
+	if (document.querySelector("#Preview").querySelector("ul") != null) {
+		let nodes = document.querySelector("#Preview").querySelector("ul").querySelectorAll("li");
+		$(nodes).each(function(i, li) {
+			let fileName = $(li).data("filename");
+			let uploadPath = $(li).data("uploadpath");
+			let uuid = $(li).data("uuid");
+			let fileType = $(li).data("image");
+			attachList.push({ fileName, uploadPath, uuid, fileType });
+			if (fileType == true) {
+				uuid = "s_" + $(li).data("uuid");
+				attachList.push({ fileName, uploadPath, uuid, fileType }); // 썸네일도 push
 			}
 		});
+	}
+	console.log(attachList);
+	// 첨부된 파일 정보를 formData에 추가
+	formData.attachList = attachList;
 
-
-
-
+	// 서버에 양식 데이터 보내기
+	$.ajax({
+		url: '/ask/write',
+		type: 'POST',
+		contentType: 'application/json',
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		},
+		data: JSON.stringify(formData),
+		success: function(response) {
+			console.log(response);
+			debugger;
+			alert(response);
+				window.location.href = '/ask/main'; // 성공 시 리디렉션
+			
+			// 성공적인 응답 처리
+		},
+		error: function(xhr, status, error) {
+			console.error(xhr.responseText);
+			// 오류 응답 처리
+		}
 	});
-
-	formFileList = [];
 });
+
+
 
 
 

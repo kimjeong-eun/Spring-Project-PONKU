@@ -45,7 +45,7 @@
   	<![CDATA[
 	select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
  	from 
-   	(select /*+INDEX(ask_list ask_list_no_pk) */ 
+   	(select /*+INDEX(ask_list idx_ask_list_no) */ 
     	rownum rn, ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
     from ask_list
     where
@@ -60,7 +60,9 @@
 
 	<insert id="insert" > <!-- ask_list_productno, #{ask_list_productno}, 보류 -->
 		insert into ask_list
-		(ask_list_inquirytype,
+		(ask_list_no,
+		ask_list_inquirytype,
+		ask_list_productno,
 		ask_list_title,
 		ask_list_content,
 		ask_list_writer,
@@ -68,7 +70,33 @@
 		ask_list_attach,
 		ask_list_lock,
 		ask_list_lock_password)
-		values(#{ask_list_inquirytype},
+		values(seq_ask_list_no.nextval,
+		#{ask_list_inquirytype},
+		#{ask_list_productno},
+		#{ask_list_title}, #{ask_list_content},
+		#{ask_list_writer}, sysdate,
+		#{ask_list_attach}, #{ask_list_lock}, #{ask_list_lock_password})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="ask_list_no" order="BEFORE"
+			resultType="long">
+			select seq_ask_list_no.nextval from dual
+		</selectKey>
+		insert into ask_list
+		(ask_list_no,
+		ask_list_inquirytype,
+		ask_list_productno,
+		ask_list_title,
+		ask_list_content,
+		ask_list_writer,
+		ask_list_updatedate,
+		ask_list_attach,
+		ask_list_lock,
+		ask_list_lock_password)
+		values(#{ask_list_no},
+		#{ask_list_inquirytype},
+		#{ask_list_productno},
 		#{ask_list_title}, #{ask_list_content},
 		#{ask_list_writer}, sysdate,
 		#{ask_list_attach}, #{ask_list_lock}, #{ask_list_lock_password})
@@ -105,7 +133,9 @@
 		ask_list_no > 0
 	</select>
 
-
+	<select id="checkLock" resultType="boolean">
+		select ask_list_lock from ask_list where ask_list_no = #{ask_list_no}
+	</select>
 
 
 

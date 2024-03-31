@@ -38,10 +38,13 @@ public class AskController { // 페이지의 분기를 담당한다.
 	
 	@PreAuthorize("permitAll")
 	@GetMapping({ "/get", "/modify" }) // 상세보기 또는 수정페이지로 이동..
-	public void get(@RequestParam("ask_list_no") Long ask_list_no, @ModelAttribute("cri") Criteria cri, Model model) {
-
+	public String get(@RequestParam("no") Long ask_list_no, Model model) { // @ModelAttribute("cri") Criteria cri,
 		log.info("get 또는 modify 경로 메서드 실행");
-		model.addAttribute("AskListVO", service.get(ask_list_no));
+		if(service.checkLock(ask_list_no) == true) {
+			return "ask/lock";
+		}
+		model.addAttribute("AskListVO", service.get(ask_list_no)); // 첨부파일 리스트도 같이있음
+		return "ask/get";
 	}
 	
 	@PreAuthorize("permitAll")

@@ -9,7 +9,7 @@ import lombok.Data;
 public class AskListVO { // 문의게시판
 	private Long ask_list_no;					// 게시물 번호(pk)
 	private String ask_list_inquirytype;		// 문의종류
-	private Long ask_list_productno;			// 상품정보(fk 예정)
+	private String ask_list_productno;			// 상품정보(fk 예정) string 타입으로 변경
 	private String ask_list_title;				// 제목
 	private String ask_list_content;			// 내용
 	private String ask_list_writer;				// 작성자(fk 예정)

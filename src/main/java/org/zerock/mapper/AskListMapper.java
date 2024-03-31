@@ -17,6 +17,9 @@ public interface AskListMapper {
 	// 게시물 객체를 받아 insert 한다.
 	public int insert(AskListVO askList);
 	
+	// insert 전에 시퀀스번호를 먼저 받아와서 번호를 미리 알수 있는 insert
+	public Integer insertSelectKey(AskListVO askList);
+	
 	// 게시물 번호를 받아 게시물 객체를 찾아서 리턴한다.
 	public AskListVO read(Long ask_list_no);
 	
@@ -31,4 +34,8 @@ public interface AskListMapper {
 	
 	// (나중에)게시물 번호를 받아 해당 게시물 번호의 파일 리스트를 가져온다
 	//public List<???> findByAskListNO(Long ask_list_no);
+	
+	// 게시물 번호를 받아 비밀글인지 확인한다.
+	public boolean checkLock(Long ask_list_no);
+	
 }

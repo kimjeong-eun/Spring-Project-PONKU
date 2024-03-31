@@ -24,7 +24,7 @@
 
 /* 확인 버튼 */
 button.botton {
-	background-color: #cd0000;
+	background-color: #000;
 	color: white;
 	padding: 12px 20px;
 	border: none;
@@ -36,7 +36,7 @@ button.botton {
 
 /* 확인 버튼에 마우스를 올렸을 때 */
 button.botton:hover {
-	background-color: #ad0000;
+	background-color: #808080;
 	color: white;
 }
 
@@ -69,7 +69,7 @@ h2, .explanation {
 	transition: color 0.3s;
 }
 .breadcrumb-section a:hover {
-	color: #cd0000;
+	color: #000;
 }
 </style>
 <!-- Hero Section Begin -->

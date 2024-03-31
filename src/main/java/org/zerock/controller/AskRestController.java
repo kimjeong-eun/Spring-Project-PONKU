@@ -35,7 +35,6 @@ public class AskRestController {
 	public ResponseEntity<AskListPageDTO> getListWithPaging(@PathVariable("page") int page, Criteria cri) {
 		
 		cri.setPageNum(page);
-		//cri.setAmount(10);
 		
 		log.info(cri);
 
@@ -44,12 +43,14 @@ public class AskRestController {
 
 	@PostMapping(value = "/write", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> write(@RequestBody AskListVO vo) {
+		log.info("attachList : " + vo.getAttachList());
+		if(vo.getAttachList().size() > 0) { // 첨부파일이 있으면
+			vo.setAsk_list_attach(true); // ask_list_attach = 1
+		}
 		log.info("AskListVO : " + vo);
-		int insertCount = service.register(vo);
-		log.info("insert 개수 : " + insertCount);
+		service.register(vo);
 
-		return insertCount == 1 ? new ResponseEntity<>("게시물 작성 성공", HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("게시물 작성 성공", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{ask_list_no}") // @RequestBody AskListVO vo,

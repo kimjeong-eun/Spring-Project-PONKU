@@ -16,6 +16,14 @@ create table ask_list(
 	ask_list_lock_password varchar2(100)								-- 비밀번호(비밀글(1)일 때)
 );
 
+-- 컬럼 데이터형식 변경
+ALTER TABLE ask_list MODIFY ask_list_productno varchar2(50);
+CREATE TABLE ask_list_list AS SELECT * FROM ask_list;
+delete from ASK_LIST;
+INSERT INTO ASK_LIST SELECT * FROM ask_list_list;  
+drop table ask_list_list;
+select * from ask_list_list;
+
 -- ask_list_no sequence(완료)
 create sequence seq_ask_list_no;
 
@@ -39,6 +47,9 @@ FROM
 -- ask_list_조회용
 select * from ASK_LIST order by ask_list_no desc;
 
+-- ask_list index 생성
+CREATE INDEX idx_ask_list_no ON ask_list (ask_list_no desc);
+
 -- 더미데이터 삭제용
 delete from ask_list;
 
@@ -57,6 +68,9 @@ create table ask_list_attach (
 
 -- ask_list_attach 조회용
 select * from ask_list_attach;
+
+-- ask_list_attach 데이터 삭제용
+delete from ask_list_attach;
 
 -- 테스트
 select * from ask_list where ask_list_no > 0 and rownum <= 100;

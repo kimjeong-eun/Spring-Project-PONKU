@@ -500,9 +500,12 @@ $(document).ready(function () {
 			    } else {
 			    	str += '<td></td>';
 			    }
-			    str += '<td><a class="move" href="' + list[i].ask_list_no + '">' + list[i].ask_list_title;
+			    str += '<td><a class="move" href="/ask/get?no=' + list[i].ask_list_no + '">' + list[i].ask_list_title;
 			    if(list[i].ask_list_lock == true || list[i].ask_list_lock == 1){
 			    	str += ' <i class="fa-solid fa-lock" style="color: #000;"></i>';
+			    }
+			    if(list[i].ask_list_attach == true || list[i].ask_list_attach == 1){
+			    	str += ' <i class="fa-solid fa-paperclip" style="color: #000;"></i>';
 			    }
 			    /* 나중에 첨부파일도 하기! if */
 			    str += '</a></td>';

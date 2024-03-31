@@ -56,7 +56,7 @@ h3 {
 }
 
 .askcontainer button {
-	background-color: #cd0000;
+	background-color: #000;
 	color: #fff;
 	border: none;
 	padding: 10px 20px;
@@ -67,7 +67,7 @@ h3 {
 }
 
 .askcontainer button:hover {
-	background-color: #b30000;
+	background-color: #808080;
 	transform: scale(1.05);
 }
 
@@ -82,7 +82,7 @@ h3 {
 }
 
 .breadcrumb-section a:hover {
-	color: #cd0000;
+	color: #000;
 }
 
 .button button {
@@ -144,7 +144,7 @@ h3 {
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/breadcrumb.jpg">
+	data-setbg="/resources/img/bannerimg.png">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -162,38 +162,51 @@ h3 {
 
 <div class="a-container">
 	<div class="askcontainer">
-		<h3>
-			<i class="fa-solid fa-question" style="color: #cd0000;"></i>&nbsp;&nbsp;&nbsp;상세보기&nbsp;&nbsp;&nbsp;<i
-				class="fa-solid fa-question" style="color: #cd0000;"></i>
-		</h3>
+		<h3>상세보기</h3>
 		<div>
-			<label for="bno">문의종류</label> <input class="form-control" id="bno"
-				name='bno' value='상품문의' readonly="readonly">
+			<label for="ask_list_inquirytype">문의종류</label> <input
+				class="form-control" id="ask_list_inquirytype"
+				name='ask_list_inquirytype'
+				value='${ AskListVO.ask_list_inquirytype }' readonly="readonly">
 		</div>
 		<div>
-			<label for="title">제목</label> <input class="form-control" id="title"
-				name='title' value='이 상품은 얼마인가요?' readonly="readonly">
+			<label for="ask_list_title">제목</label> <input class="form-control"
+				id="ask_list_title" name='ask_list_title'
+				value='${ AskListVO.ask_list_title }' readonly="readonly">
 		</div>
 		<div>
-			<label for="content">내용</label>
-			<textarea class="form-control" id="content" rows="3" name='content'
-				readonly="readonly">2개사면 얼마인가요 ?? 얼른 답해주세요.</textarea>
+			<label for="ask_list_content">내용</label>
+			<textarea class="form-control" id="ask_list_content" rows="3"
+				name='ask_list_content' readonly="readonly">${ AskListVO.ask_list_content }</textarea>
 		</div>
 		<div>
-			<label for="writer">작성자</label> <input class="form-control"
-				id="writer" name='writer' value='user1' readonly="readonly">
+			<label for="ask_list_writer">작성자</label> <input class="form-control"
+				id="ask_list_writer" name='ask_list_writer'
+				value='${ AskListVO.ask_list_writer }' readonly="readonly">
 		</div>
+		<%-- <c:set var="formattedRegDate" value="<fmt:formatDate value='${AskListVO.ask_list_regdate}' pattern='yyyy.MM.dd' />" /> --%>
+		<%-- <c:set var="formattedUpdateDate" value="<fmt:formatDate value='${AskListVO.ask_list_updatedate}' pattern='yyyy.MM.dd' />" /> --%>
+
 		<div>
-			<label for="writeDate">작성일</label> <input class="form-control"
-				id="writeDate" name='writeDate' value='2024-03-18'
-				readonly="readonly">
+		    <label for="ask_list_regdate">작성일</label>
+    		<input class="form-control" id="ask_list_regdate" name='ask_list_regdate' value="${AskListVO.ask_list_regdate}" readonly="readonly">
 		</div>
+		<c:choose>
+			<c:when test="${AskListVO.ask_list_regdate} == ${AskListVO.ask_list_updatedate}">
+				<c:set var="updateDate" value="" />
+			</c:when>
+			<c:when test="${AskListVO.ask_list_regdate} != ${AskListVO.ask_list_updatedate}">
+				<c:set var="updateDate" value="${AskListVO.ask_list_updatedate}" />
+			</c:when>
+		</c:choose>
 		<div>
-			<label for="modifyDate">수정일</label> <input class="form-control"
-				id="modifyDate" name='modifyDate' value='' readonly="readonly">
+    		<label for="ask_list_updatedate">수정일</label>
+    		<input class="form-control" id="ask_list_updatedate" name='ask_list_updatedate' value="${updateDate}" readonly="readonly">
 		</div>
+		
+
 		<div class="button">
-			<button type="button">목록보기</button>
+			<button type="button" onclick="location.href='/ask/main'">목록보기</button>
 			<button type="button">수정</button>
 			<button type="button">삭제</button>
 		</div>
@@ -211,6 +224,25 @@ h3 {
 <script src="/resources/js/mixitup.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
+<script>
+    // 작성일 날짜 형식화 함수
+    function formatDateReg(regDate) {
+        var date = new Date(regDate);
+        var year = date.getFullYear();
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        return year + "." + month + "." + day;
+    }
+
+    // 수정일 날짜 형식화 함수
+    function formatDateUpdate(updateDate) {
+        var date = new Date(updateDate);
+        var year = date.getFullYear();
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        return year + "." + month + "." + day;
+    }
+</script>
 
 </body>
 
