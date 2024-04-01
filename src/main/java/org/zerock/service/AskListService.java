@@ -35,5 +35,5 @@ public interface AskListService {
 
 	// 게시물 번호를 받아 비밀글인지 확인한다.
 	public boolean checkLock(Long ask_list_no);
-
+	
 }

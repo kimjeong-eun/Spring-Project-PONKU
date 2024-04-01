@@ -67,10 +67,13 @@ create table ask_list_attach (
 );
 
 -- ask_list_attach 조회용
-select * from ask_list_attach;
+select * from ask_list_attach order by ano desc;
 
 -- ask_list_attach 데이터 삭제용
 delete from ask_list_attach;
+
+-- 세션 확인용 ORA-12519 오류 시 세션 조회
+SELECT COUNT(*) FROM V$SESSION;
 
 -- 테스트
 select * from ask_list where ask_list_no > 0 and rownum <= 100;

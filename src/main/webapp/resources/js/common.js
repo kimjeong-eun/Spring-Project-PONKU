@@ -13,12 +13,7 @@
  *  prevAll()        : 선택한 요소의 이전의 요소들을 찾는다
  *  nextAll()        : 선택한 요소의 이후의 요소들을 찾는다
 */
-console.log("file.js 실행...");
 // file upload drag 
-const dropZone = document.getElementById('file-draganddrop'); // 파일을 드래그 앤 드롭할 div
-var fileSelect = document.getElementById('file-selectinput'); // 파일을 선택할 수 있는 input
-const dataTranster = new DataTransfer(); // 데이터 전송 객체 생성
-var preview = document.getElementById("Preview"); // 파일 미리보기가 나올 div
 
 //if (!(preview == null)) { // 파일이 있으면
 //	preview = preview.querySelector("div");	//이미지 드롭 필드 변경??????????
@@ -49,7 +44,7 @@ function createUploadFileInput(form) {
 		// 각 input 태그의 속성 설정
 		inputFileName.type = "hidden";
 		inputFileName.setAttribute('name', "imgList[" + i + "].fileName"); // imgList의 1번째 배열의 파일네임으로 name 속성지정
-		inputFileName.setAttribute('value', obj.getAttribute("fileName")); // 
+		inputFileName.setAttribute('value', obj.getAttribute("fileName")); // ?!
 
 		inputFilePath.type = "hidden";
 		inputFilePath.setAttribute('name', "imgList[" + i + "].uploadPath");

@@ -67,7 +67,7 @@ public class AskListMapperTests {
 		vo.setAsk_list_content("수정테스트");
 		vo.setAsk_list_attach(false);
 		vo.setAsk_list_lock(false);
-		vo.setAsk_list_productno(1L); // not null 아니여도 null 넣을 수 없음 set null 안된다 
+		vo.setAsk_list_productno("1"); // not null 아니여도 null 넣을 수 없음 set null 안된다 
 		vo.setAsk_list_lock_password("2345");
 		
 		log.info("수정된 개수 : " + mapper.update(vo));

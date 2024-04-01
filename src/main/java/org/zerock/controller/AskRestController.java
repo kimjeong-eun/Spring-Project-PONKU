@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.domain.AskListAttachVO;
 import org.zerock.domain.AskListPageDTO;
 import org.zerock.domain.AskListVO;
 import org.zerock.domain.Criteria;
@@ -76,5 +78,5 @@ public class AskRestController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
-
+	
 }

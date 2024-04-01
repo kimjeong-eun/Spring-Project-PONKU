@@ -64,8 +64,7 @@ public class AskFileUploadController {
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		List<AttachFileDTO> list = new ArrayList<>(); // 파일들의 정보를 저장할 List 객체 생성
-		String uploadFolder = "C:\\shopProjectFile"; // 업로드
-														// 경로
+		String uploadFolder = "C:\\shopProjectFile"; // 업로드 경로
 		String uploadFolderPath = getFolder(); // 2024\03\02 문자열 받음
 		// make folder --------
 		File uploadPath = new File(uploadFolder, uploadFolderPath); // C:\\upload\2024\03\02 파일 객체를 만든다
@@ -97,9 +96,9 @@ public class AskFileUploadController {
 				if (checkImageType(saveFile)) { // 최종 파일 객체가 이미지 타입인지 검사하고 이미지 파일이 맞으면
 					attachDTO.setImage(true); // 파일 정보를 가지고 있는 객체의 이미지여부를 true로 셋팅한다.
 					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName)); // 같은 경로에 s_가 붙은 새로운 파일 객체를 생성한다.
-																													
+
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 60, 60); // 썸네일을 생성한다.(inputStream, File객체, 너비, 높이)
-																									
+
 					thumbnail.close(); // FileOutputStream을 닫아준다.
 				}
 
@@ -150,70 +149,69 @@ public class AskFileUploadController {
 		}
 		return result;
 	}
-	
-	
-	
-	/*
-	 * @GetMapping(value = "/download", produces =
-	 * MediaType.APPLICATION_OCTET_STREAM_VALUE) // 다운로드는 미디어 타입이 고정되어
-	 * 있다.(APPLICATION_OCTET_STREAM_VALUE)
-	 * 
-	 * @ResponseBody public ResponseEntity<Resource>
-	 * downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName)
-	 * { // 파일 다운로드 메서드(브라우저 정보와, 경로가 포함된 파일이름을 받는다)
-	 * 
-	 * Resource resource = new FileSystemResource("c:\\upload\\" + fileName); // 파일을
-	 * 인식한다. byte를 이용할 수도 있지만 간단히 처리하기 위해 Resource를 사용했다.
-	 * 
-	 * if (resource.exists() == false) { // 파일이 인식되지 않으면 return new
-	 * ResponseEntity<>(HttpStatus.NOT_FOUND); // 못찾겠당 리턴 }
-	 * 
-	 * String resourceName = resource.getFilename(); // 파일이 인식되면 파일이름을 resourceName
-	 * 변수에 넣는다.
-	 * 
-	 * // remove UUID // uuid를 제거한 순수한 파일명으로 다운로드 할 수 있고 보이는것도 순수한 파일명으로 보이게 한다.
-	 * String resourceOriginalName =
-	 * resourceName.substring(resourceName.indexOf("_") + 1); // resourceName변수에서
-	 * uuid가 끝난 다음부터의 글자를 가져온다(uuid를 지운다)(원래 uuid_경로_파일명)
-	 * 
-	 * HttpHeaders headers = new HttpHeaders(); // 헤더객체를 이용해서 다운로드 파일 이름처리를
-	 * 한다.(한글깨짐방지) try {
-	 * 
-	 * boolean checkIE = (userAgent.indexOf("MSIE") > -1 ||
-	 * userAgent.indexOf("Trident") > -1); // IE인지 체크한다.
-	 * 
-	 * String downloadName = null;
-	 * 
-	 * if (checkIE) { // IE라면? downloadName =
-	 * URLEncoder.encode(resourceOriginalName, "UTF8").replaceAll("\\+", " "); // IE
-	 * 방식의 한글처리를 한다. } else { // 아니라면?(크롬이라면) downloadName = new
-	 * String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1"); // 크롬 방식의 한글처리를
-	 * 한다.(ISO-8859-1 : 인코딩 방식) }
-	 * 
-	 * headers.add("Content-Disposition", "attachment; filename=" + downloadName);
-	 * // 브라우저 별 인코딩된 다운로드파일명을 헤더에 추가해서 한글이 깨지지 않게 한다.
-	 * 
-	 * } catch (UnsupportedEncodingException e) { e.printStackTrace(); }
-	 * 
-	 * return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK); //
-	 * rewsource객체, headers객체와 함께 200코드(정상처리)를 리턴한다. }
-	 */
+
+	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE) // 다운로드는 미디어 타입이 고정되어있다.(APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) { // 파일 다운로드 메서드(브라우저 정보와, 경로가 포함된 파일이름을 받는다)
+		Resource resource = new FileSystemResource("c:\\shopProjectFile\\" + fileName); // 파일을 인식한다. byte를 이용할 수도 있지만 간단히 처리하기 위해 Resource를 사용했다.
+
+		if (resource.exists() == false) { // 파일이 인식되지 않으면
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 못찾겠당 리턴
+		}
+		String resourceName = resource.getFilename(); // 파일이 인식되면 파일이름을 resourceName 변수에 넣는다.
+		log.info(resourceName);
+		log.info(resourceName.indexOf("_") + 1);
+		log.info(resourceName.substring(resourceName.indexOf("_") + 1));
+
+		// remove UUID // uuid를 제거한 순수한 파일명으로 다운로드 할 수 있고 보이는것도 순수한 파일명으로 보이게 한다.
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1); // resourceName변수에서 가져온다(uuid를 지운다)(원래 uuid_경로_파일명)
+
+		HttpHeaders headers = new HttpHeaders(); // 헤더객체를 이용해서 다운로드 파일 이름처리를 한다.(한글깨짐방지)
+		try {
+			boolean checkIE = (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1); // IE인지 체크한다.
+			String downloadName = null;
+			if (checkIE) { // IE라면?
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF8").replaceAll("\\+", " "); // IE 방식의 한글처리를 한다.
+			} else { // 아니라면?(크롬이라면)
+				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1"); // 크롬 방식의 한글처리를 한다.(ISO-8859-1 : 인코딩 방식)
+			}
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+			// 브라우저 별 인코딩된 다운로드파일명을 헤더에 추가해서 한글이 깨지지 않게 한다.
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+		// rewsource객체, headers객체와 함께 200코드(정상처리)를 리턴한다.
+	}
 
 	// @PreAuthorize("isAuthenticated()")
 	@PreAuthorize("permitAll")
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public ResponseEntity<AttachFileDTO> deleteFile(String uploadPath, String uuid, String fileName, boolean type) { // 경로+uuid+파일명, image 여부를 받아 파일을 삭제하는 메서드
+	public ResponseEntity<AttachFileDTO> deleteFile(String uploadPath, String uuid, String fileName, boolean type) { // 경로+uuid+파일명,
+																														// image
+																														// 여부를
+																														// 받아
+																														// 파일을
+																														// 삭제하는
+																														// 메서드
 		AttachFileDTO dto = new AttachFileDTO();
 		dto.setUuid(uuid);
 		dto.setUploadPath(uploadPath);
 		dto.setFileName(fileName);
 		dto.setImage(type);
-		
+
 		log.info("deleteFile: " + fileName);
 		File file; // 빈 파일객체 .. ?
 		try {
-			file = new File("c:\\shopProjectFile\\" + uploadPath + "\\" + uuid + "_" + URLDecoder.decode(fileName, "UTF-8")); // 인코딩된 파일명을 디코딩하여 원래의 파일명으로 되돌려 파일
+			file = new File(
+					"c:\\shopProjectFile\\" + uploadPath + "\\" + uuid + "_" + URLDecoder.decode(fileName, "UTF-8")); // 인코딩된
+																														// 파일명을
+																														// 디코딩하여
+																														// 원래의
+																														// 파일명으로
+																														// 되돌려
+																														// 파일
 			log.info("삭제 원본파일 ============= " + file);
 			// 객체를 생성해 file 변수에 연결
 			file.delete(); // delete(file 객체에 내장된 메서드) 파일을 삭제한다(일반파일 : 파일만 삭제함, 이미지파일 : 썸네일을 여기서 삭제하고 밑에서
@@ -221,7 +219,7 @@ public class AskFileUploadController {
 			log.info("파일 삭제 이미지여부 : " + (type == true));
 			if (type == true) { // 파일의 타입이 이미지라면 썸네일도 삭제
 				String largeFileName = "c:\\shopProjectFile\\" + uploadPath + "\\s_" + fileName;
-																					// 없앤다
+				// 없앤다
 				// getAbsolutePath() : 현재 실행 중인 Workding directory에 File에 전달한 경로를 조합하여 절대 경로를 리턴
 				log.info("삭제파일 절대경로 : " + largeFileName);
 				file = new File(largeFileName); // 원본파일의 파일객체를 생성해 file 변수에 연결한다.

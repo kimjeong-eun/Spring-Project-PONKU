@@ -136,6 +136,8 @@
 	<select id="checkLock" resultType="boolean">
 		select ask_list_lock from ask_list where ask_list_no = #{ask_list_no}
 	</select>
+	
+	
 
 
 

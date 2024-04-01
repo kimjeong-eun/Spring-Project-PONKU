@@ -193,7 +193,7 @@ h3 {
 		</div>
 		<c:choose>
 			<c:when test="${AskListVO.ask_list_regdate} == ${AskListVO.ask_list_updatedate}">
-				<c:set var="updateDate" value="" />
+				<c:set var="updateDate" value='' />
 			</c:when>
 			<c:when test="${AskListVO.ask_list_regdate} != ${AskListVO.ask_list_updatedate}">
 				<c:set var="updateDate" value="${AskListVO.ask_list_updatedate}" />
@@ -204,6 +204,11 @@ h3 {
     		<input class="form-control" id="ask_list_updatedate" name='ask_list_updatedate' value="${updateDate}" readonly="readonly">
 		</div>
 		
+		<div>
+    		<label for="ask_list_updatedate">첨부파일</label>
+    		<ul id="attachFile">
+    		</ul>
+		</div>
 
 		<div class="button">
 			<button type="button" onclick="location.href='/ask/main'">목록보기</button>
@@ -225,23 +230,41 @@ h3 {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
-    // 작성일 날짜 형식화 함수
-    function formatDateReg(regDate) {
-        var date = new Date(regDate);
-        var year = date.getFullYear();
-        var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        var day = ("0" + date.getDate()).slice(-2);
-        return year + "." + month + "." + day;
-    }
-
-    // 수정일 날짜 형식화 함수
-    function formatDateUpdate(updateDate) {
-        var date = new Date(updateDate);
-        var year = date.getFullYear();
-        var month = ("0" + (date.getMonth() + 1)).slice(-2);
-        var day = ("0" + date.getDate()).slice(-2);
-        return year + "." + month + "." + day;
-    }
+debugger;
+var attachFile = $("#attachFile");
+var filesString = '${fileJson}';
+filesString = filesString.replace(/\\/g, "\\\\"); // 이스케이프 문자를 올바르게 처리하여
+// JavaScript에서 JSON을 파싱할 때 문자열 내의 이스케이프 문자가 올바르게 처리되지 않았을 때 발생하는 에러 해결
+// VM503:1 Uncaught SyntaxError: Bad escaped character in JSON at position 67 (line 1 column 68) at JSON.parse (<anonymous>) 
+var files = JSON.parse(filesString); // 파싱한다.
+console.log(files);
+showUploadFile(files);
+function showUploadFile(files){
+	debugger;
+	var str = "";
+	var fileCallPath ;
+	$(files).each(function(i, file){
+		if(!file.fileType){ // 일반파일
+			fileCallPath = encodeURIComponent(file.uploadPath + "\\" + file.uuid + "_" + file.fileName);
+			str += "<li><a href='/download?fileName=" + fileCallPath + "'>" + "<i class='fa-solid fa-file' style='color: #000;'></i>" + file.fileName + "</a></li>";
+		} else { // 이미지파일
+			if(!(file.uuid.startsWith("s_"))) { // uuid가 s_로 시작하지 않으면
+				return;
+			} else { // uuid가 s_로 시작하면
+				fileCallPath = encodeURIComponent(file.uploadPath + "\\" + file.uuid + "_" + file.fileName); // 썸네일 경로
+			} // 썸네일을 찾아서 썸네일 이미지를 출력
+			console.log("이미지파일인 경우 썸네일의 경로 : " + fileCallPath);
+			var index = fileCallPath.indexOf("s_"); // "s_"의 시작 인덱스를 찾음
+			var cleanedFileCallPath = fileCallPath; // s_가 없으면 파일경로 그대로
+			if (index !== -1) { // "s_"를 찾으면
+			    cleanedFileCallPath = fileCallPath.slice(0, index) + fileCallPath.slice(index + 2); // "s_"를 제외한 문자열을 합침
+			    console.log("다운로드시 파일 경로(s_제거) : " + cleanedFileCallPath); 
+			}
+			str += "<li><a href='/download?fileName=" + cleanedFileCallPath + "'>" + "<img src='/display?fileName=" + fileCallPath + "'>" + file.fileName + "</a></li>";
+		}
+	});
+	attachFile.append(str);
+}
 </script>
 
 </body>

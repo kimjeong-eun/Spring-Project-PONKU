@@ -125,7 +125,7 @@ h2, .explanation {
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/breadcrumb.jpg">
+	data-setbg="/resources/img/bannerimg.png">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12 text-center">
@@ -142,7 +142,7 @@ h2, .explanation {
 <!-- Breadcrumb Section End -->
 
 <div class="passwordcontainer">
-	<h2><i class="fa-solid fa-lock" style="color: #cd0000;"></i> 비밀글 보기 <i class="fa-solid fa-lock" style="color: #cd0000;"></i></h2>
+	<h2>비밀글 보기 <i class="fa-solid fa-lock" style="color: #000;"></i></h2>
 	<br>
 	<div class="explanation">
 	<span>이 글은 비밀글 입니다.</span>
