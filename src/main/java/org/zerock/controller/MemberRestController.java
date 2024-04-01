@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -144,7 +145,7 @@ public class MemberRestController {
 	}
 
 	//기본배송지 변경
-	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	@RequestMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> updateDefaultAddress(AddressVO addr) {
 		String result = "false";
 		int success = memberService.updateDefaultAddress(addr);
@@ -155,7 +156,7 @@ public class MemberRestController {
 	}
 	
 	//배송지변경
-	@PostMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
+	@PostMapping(value = "/successUpdateAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> updateAddress(AddressVO addr) {
 		String result = "false";
 		int success = memberService.updateAddress(addr);

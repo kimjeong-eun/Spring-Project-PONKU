@@ -67,6 +67,9 @@
 	</div>
 
 	<div id="del01" class="section data_tbl content active">
+		<form id="updateAddrForm" name="updateAddrForm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<input type="hidden" value="${defaultAddr.member_seq}" name="member_seq"/>
 		<table border="1" class="data_table">
 			<caption></caption>
 			<colgroup>
@@ -87,9 +90,7 @@
 				<th scope="col">관리</th>
 			</tr>
 			</thead>
-			<form id="updateAddrForm" name="updateAddrForm" method="post">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" value="${defaultAddr.member_seq}" name="member_seq"/>
+			
 				<tbody>
 				<c:forEach var="item" items="${addrList}">
 					<tr>
@@ -124,9 +125,9 @@
 				</c:forEach>
 	
 				</tbody>
-			</form>
+			
 		</table>
-
+		</form>
 		<div class="go_cancel">
 			<button onclick="window.open('/popupAddress','_blank','width=700, height=600, top=50, left=50, scrollbars=yes')" class="btn_cs ty3"><span>새 배송지 추가</span></button>
 		</div>
