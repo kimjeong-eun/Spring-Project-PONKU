@@ -112,6 +112,7 @@
     margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 /* 라벨 스타일 */
 .review-label {
     font-weight: bold;
@@ -163,6 +164,18 @@
     display: block; /* 이미지를 블록 요소로 표시하여 가로 중앙 정렬 */
     margin: 0 auto; /* 이미지를 가로로 중앙 정렬 */
 }
+=======
+#content {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .post {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+>>>>>>> branch 'review2' of https://github.com/kimjeong-eun/shopProject.git
 
 
 </style>

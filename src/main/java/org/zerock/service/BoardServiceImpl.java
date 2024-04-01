@@ -33,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	private PasswordEncoder pwencoder;
 	
 
+	
 	@Transactional
 	@Override
 	public void register(BoardVO board) {
@@ -120,6 +121,7 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getListWithPaging(cri);
 	}
 
+
 	@Override
 	public List<BoardAttachVO> getAttachList(Long bno) {
 		
@@ -127,6 +129,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		return attachMapper.findByBno(bno);
 	}
+
 
 	
 

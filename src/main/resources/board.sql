@@ -16,6 +16,7 @@ create table comments(
     updateDate date default sysdate
 );
 
+<<<<<<< HEAD
 
 CREATE TABLE attach_review (
   uuid VARCHAR2(100) PRIMARY KEY, -- 첨부파일 난수명(pk)
@@ -45,10 +46,14 @@ alter table board add (replycnt number default 0);
 update board set replycnt = (select count(rno) from comments where comments.rno = board.bno);
 
 
+=======
+select * from comments;
+>>>>>>> branch 'review2' of https://github.com/kimjeong-eun/shopProject.git
 
 create index idx_cm on comments (id desc, rno asc);
 
-ALTER TABLE comments MODIFY (content null);
+ALTER TABLE comments MODIFY (content VARCHAR2(1000) NULL);
+
 
 select * from board order by bno asc;
 
