@@ -200,6 +200,21 @@ public class MemberServiceImpl implements MemberService {
 			
 		return result;
 	}
+
+	//기본배송지 변경
+	@Override
+	public int updateDefaultAddress(AddressVO addr) {
+		int result = 0;
+		String message = "address update 예외 발생";	
+		result = memberMapper.updateDefaultAddress(addr);
+		
+		if(result == 0) {
+			log.info(message);
+			throw new RuntimeException(message);
+		} 
+		
+		return result;
+	}
 		
 	//배송지 삭제
 	@Override

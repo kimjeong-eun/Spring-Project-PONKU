@@ -35,6 +35,7 @@ public interface MemberService {
 	public int insertAddress(AddressVO addr); 
 	public List<AddressVO> selectAddress(AddressVO addr); 
 	public int updateAddress(AddressVO addr); 
+	public int updateDefaultAddress(AddressVO addr); //기본배송지 변경
 	public int deleteAddress(AddressVO addr); 
 
 }

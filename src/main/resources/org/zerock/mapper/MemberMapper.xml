@@ -16,6 +16,7 @@
   		<result property="email" column="email"/>
   		<result property="enroll_date" column="enroll_date"/>  
   		<result property="last_update" column="last_update"/>  
+  		<result property="isMember" column="isMember"/>  
   		
   		<collection property="authList" resultMap="authMap"></collection>
   		
@@ -36,7 +37,7 @@
   
    <select id="selectMember" resultMap="loginMap">
   
-  	select mem.member_seq ,userid , password , username, birth, phone, email,
+  	select mem.member_seq ,userid , password , username, birth, phone, email, isMember,
   		 enroll_date,last_update, auth.authority from shop_member mem left outer join shop_authority auth
   		 on mem.member_seq = auth.member_seq where mem.userid = #{userid}
   		 
@@ -93,10 +94,11 @@
 	</update>
 	
 	<!-- 마이페이지 (회원탈퇴) -->
-	<delete id="deleteMember" parameterType="org.zerock.domain.MemberVO">
-		DELETE SHOP_MEMBER 
+	<update id="deleteMember" parameterType="org.zerock.domain.MemberVO">
+		UPDATE SHOP_MEMBER 
+		SET ISMEMBER = 'N', DELETE_DATE = SYSDATE
 		WHERE member_seq = #{member_seq}
-	</delete>
+	</update>
 	
 	<!-- 배송지 CRUD -->
 	<!-- 배송지 추가 -->
@@ -141,6 +143,12 @@
 	<update id="updateAddress" parameterType="org.zerock.domain.AddressVO">
 		UPDATE SHOP_ADDRESS
 		SET MEMBER_SEQ=#{member_seq}, ISDEFAULT=#{isDefault}, ADDRNAME=#{addrName}, NAME=#{name}, PHONE=#{phone}, ADDRESS1=#{address1}, ADDRESS2=#{address2}, ADDRESS3=#{address3}, LAST_UPDATE=SYSDATE
+		WHERE ADDR_SEQ = #{addr_seq}
+	</update>
+
+	<update id="updateDefaultAddress" parameterType="org.zerock.domain.AddressVO">
+		UPDATE SHOP_ADDRESS
+		SET ISDEFAULT = 'Y', LAST_UPDATE = SYSDATE
 		WHERE ADDR_SEQ = #{addr_seq}
 	</update>
 	

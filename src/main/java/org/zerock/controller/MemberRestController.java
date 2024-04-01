@@ -142,8 +142,20 @@ public class MemberRestController {
 		}
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
-	//배송지변경
+
+	//기본배송지 변경
 	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateDefaultAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.updateDefaultAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	//배송지변경
+	@PostMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> updateAddress(AddressVO addr) {
 		String result = "false";
 		int success = memberService.updateAddress(addr);

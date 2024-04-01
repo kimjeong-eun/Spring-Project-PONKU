@@ -54,6 +54,7 @@
 		<div class="title">
 			<p>기본배송지</p>
 		</div>
+			<c:if test="${defaultAddr.isDefault eq 'Y'.charAt(0)}"> 
 			<p class="notranslate">
 				(${defaultAddr.address1})
 				<br>
@@ -62,6 +63,7 @@
 				지번 : ${defaultAddr.address3}
 				<br>
 			</p>
+			</c:if>
 	</div>
 
 	<div id="del01" class="section data_tbl content active">
@@ -85,42 +87,44 @@
 				<th scope="col">관리</th>
 			</tr>
 			</thead>
-			<tbody>
-			<c:forEach var="item" items="${addrList}">
-				<tr>
-					<td>
-						<input type="radio" name="deliveryKr" class="radio" value="" title="배송지 선택">
-						<input type="hidden" name="shpplocSeq" id="shpplocSeq" value="">
-						<input type="hidden" name="bascShpplocYn" id="bascShpplocYn" value="Y">
-					</td>
-					<td>
-						<c:if test="${item.isDefault eq Y}"> 
-							<span class="sub_tit warning">
-								[기본배송지]
-							</span>
-						</c:if>
-						<strong class="notranslate">${item.addrName}</strong>
-					</td>
-					<td class="notranslate">${item.name}</td>
-					<td class="subject address">
-						<p class="notranslate">(${item.address1})<br>
-							도로명 : ${item.address2}<br>
-					지번 : ${item.address3}<br>
-						</p>
-					</td>
-					<td>${item.phone}</td>
-					<td>
-						<a href="javascript:fn_modify('4234033');" class="btn_cs ty4">
-							<span>수정</span>
-						</a>
-						<a href="javascript:fn_shpplocDel('5315911');" class="btn_cs ty2">
-							<span>삭제</span>
-						</a>
-					</td>
-				</tr>
-			</c:forEach>
-
-			</tbody>
+			<form id="updateAddrForm" name="updateAddrForm" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" value="${defaultAddr.member_seq}" name="member_seq"/>
+				<tbody>
+				<c:forEach var="item" items="${addrList}">
+					<tr>
+						<td>
+							<input type="radio" name="deliveryKr" class="radio" value="${item}" title="배송지 선택">
+						</td>
+						<td>
+							<c:if test="${item.isDefault eq 'Y'.charAt(0)}"> 
+								<span class="sub_tit warning">
+									[기본배송지]
+								</span>
+							</c:if>
+							<strong class="notranslate">${item.addrName}</strong>
+						</td>
+						<td class="notranslate">${item.name}</td>
+						<td class="subject address">
+							<p class="notranslate">(${item.address1})<br>
+								도로명 : ${item.address2}<br>
+								지번 : ${item.address3}<br>
+							</p>
+						</td>
+						<td>${item.phone}</td>
+						<td>
+							<a href="javascript:fn_modify('4234033');" class="btn_cs ty4">
+								<span>수정</span>
+							</a>
+							<a href="javascript:fn_shpplocDel('5315911');" class="btn_cs ty2">
+								<span>삭제</span>
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+	
+				</tbody>
+			</form>
 		</table>
 
 		<div class="go_cancel">
@@ -129,7 +133,7 @@
 
 		<div class="button_btm">
 			
-				<button class="btn_cs ty1"><span>기본 배송지 설정</span></button>
+				<button id="defaultAddrBtn" class="btn_cs ty1"><span>기본 배송지 설정</span></button>
 			
 		</div>
 	</div>
@@ -139,6 +143,46 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	
+	$("#defaultAddrBtn").on("click", function(e) {
+		e.preventDefault();
+		
+		// 선택된 배송지의 form 데이터를 직렬화하여 변수에 저장
+		let addressVO = {
+			selectValue: $("input[name='deliveryKr']:checked").val()
+		};
+		
+		if(!$("input[name='deliveryKr']:checked").length) {
+			alert("배송지를 선택하여 주시기 바랍니다.");
+			return;
+		}
+		
+		$.ajax({ //선택된 값만 전송
+				url: '/successUpdateDefaultAddr', // 성공여부를 처리하는 스크립트의 경로
+		        type: 'POST',
+		        data: JSON.stringify(addressVO),          
+		        contentType: 'application/json',
+				beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+					xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+				},
+		        success: function(result) {
+		            if (result == "true") {
+		            	alert("기본배송지 설정을 완료하였습니다.");
+		            	location.href = "/updateAddress";//성공 시 이동할 페이지
+		            } else {
+		            	alert("기본배송지 설정 실패");
+		            }
+		        },
+		        error: function(xhr, status, error) {
+		            // 서버 요청 실패 시 실행할 코드
+		            alert("기본배송지 설정 실패(서버요청실패)");
+		        }
+		});
+	});
+	
+	
 	function openWindow () {
 		const options = 'width=700, height=600, top=50, left=50, scrollbars=yes'
 		window.open('/myPages','_blank',options)
@@ -150,7 +194,7 @@ jQuery(document).ready(function() { // jQuery 라이브러리 로드
     jQuery("#btnExecPostCode").on("click", function(event) { //우편번호 찾기 버튼 클릭 시 호출!
         openDaumZipAddress(); //daum 우편번호 api 이용하여 우편번호 검색 레이어 열기
     });
-});
+
 
 function openDaumZipAddress() { //daum 우편번호 api
 
@@ -200,21 +244,7 @@ function offDaumZipAddress() {
     jQuery("#wrap").slideUp();
 }
 
-
-
-
-<%-- 	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
-	let csrfTokenValue = "${_csrf.token}";
-	
-	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
-	$("#submitBtn").on("click", function(e) {
-		e.preventDefault();
-		
-	});
-}); --%>
-
-
-
+});
 </script>
 	
 <jsp:include page="../includes/footer.jsp"></jsp:include>
