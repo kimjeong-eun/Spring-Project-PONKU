@@ -59,6 +59,47 @@
 	<p style=" position: absolute; left: 40rem; top: 30rem;"> 구매해주셔서 감사합니다.&nbsp; &nbsp;출고는 주문접수 후 최대 2~3일 소요됩니다. </p>
 </div>
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		
+		var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
+		var csrfTokenValue = "${_csrf.token}";
+			
+		var useremail = "${useremail}";
+		var username = "${username}";
+		//구매완료 메일 보내기
+		$.ajax({
+				
+				url:'/sendOrderMail',
+				data:{useremail:useremail,username:username},
+				type:'POST',
+				dataType : 'text',
+				beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				success: function(result){
+				
+					console.log(result);
+				
+					
+				},
+				error : function(e){
+					alert("구매중 오류가 발생했습니다! 관리자에게 문의하세요");
+			  	  	console.log(e);
+			  	  	return;
+			  	}
+				
+			});
+
+	});
+
+</script>
+
+
+
+
 <jsp:include page="./includes/footer.jsp"></jsp:include>
 </body>
 </html>

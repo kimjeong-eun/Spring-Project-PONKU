@@ -317,6 +317,7 @@
 									
 									</ul>
 								        <div class="checkout__order__total">Total <span> </span></div>
+								        
 	                            </div>
 	                        </div>
 	           		</div>
@@ -500,9 +501,11 @@
     			}
     		}
 			$("#order_ul").html(order_list);
-    	}	
+    	}		
+    	
     });
     
+     
     $(document).on("click","span[name='modal_close_btn']",function(){
     	
     	$(".modal_").hide();

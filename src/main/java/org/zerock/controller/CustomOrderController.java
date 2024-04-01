@@ -103,7 +103,7 @@ public class CustomOrderController {
 	
 	@PreAuthorize("permitAll")
 	@PostMapping("/orderCompleteCustom")
-	public String decideOrderCustom(CustomOrderDTO dto) {
+	public String decideOrderCustom(CustomOrderDTO dto, Model model) {
 		//커스텀주문용
 		
 		String resultStr = "";
@@ -125,6 +125,10 @@ public class CustomOrderController {
 
 		if(resultStr.equals("success")) {
 			
+			
+			model.addAttribute("useremail", dto.getEmail());
+			model.addAttribute("username", dto.getUsername());
+			
 			return "/completeOrder"; //주문완료 페이지로 이동
 			
 		}else{
@@ -132,14 +136,12 @@ public class CustomOrderController {
 			return "/index"; //실패시 홈으로 
 			
 		}
-
 	}
-	
 	
 	@PreAuthorize("permitAll")
 	@PostMapping("/orderComplete")
 	public String decideOrder(OrderDTO orderDto ,long member_seq,@RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
-			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname ) {
+			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , Model model ) {
 		//일반 주문용
 		
 		List<ShoppingCartVO> lists = new ArrayList<ShoppingCartVO>();
@@ -170,6 +172,9 @@ public class CustomOrderController {
 		}
 
 		if(resultStr.equals("success")) {
+			
+			model.addAttribute("useremail", orderDto.getEmail());
+			model.addAttribute("username", orderDto.getUsername());
 			
 			return "/completeOrder"; //주문완료 페이지로 이동
 			

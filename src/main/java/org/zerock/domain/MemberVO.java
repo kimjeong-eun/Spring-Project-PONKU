@@ -24,7 +24,10 @@ public class MemberVO {
 	private Date enroll_date; //가입일
 	private Date last_update; //업데이트일
 	
+	private String isMember; //활성화 비활성화 여부
+	
 	private List<AuthVO> authList; //권한리스트
+	private List<AddressVO> addrList; // 배송지 리스트
 	
 }
 

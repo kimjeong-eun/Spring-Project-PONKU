@@ -52,6 +52,7 @@ public class MemberController {
 		//회원정보 찾기 페이지로 이동하는 컨트롤러
 		
 		return "/findId";
+		
 	}
 	
 	@GetMapping("/findPw")

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.zerock.mapper.MemberMapper;
 import org.zerock.mapper.MemberMapperTests;
 
 import lombok.Setter;
@@ -29,6 +30,9 @@ public class MemberTests {
 	
 	  @Setter(onMethod_ = @Autowired)
 	  private PasswordEncoder pwencoder; 
+	  
+	  @Setter(onMethod_ = @Autowired )
+	  private MemberMapper mapper;
 	  
 	  @Setter(onMethod_ = @Autowired)
 	  private DataSource ds;  //root-context.xml에 있는dataSource 매핑
@@ -92,6 +96,14 @@ public class MemberTests {
 		  
 		  
 		  
+		  
+	  }
+	  
+	  @Test
+	  public void getMember() {
+		  
+		  mapper.selectMember("jeongeun587");
+		 
 		  
 	  }
 	  

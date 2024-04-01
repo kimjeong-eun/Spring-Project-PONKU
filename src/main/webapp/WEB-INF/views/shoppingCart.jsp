@@ -16,10 +16,46 @@
 	position: absolute;
 	width: 100%;
 	height:20%;
-/* 	border: 1px solid green;  */
 	background-image: url("/resources/img/subheader.png");
 	background-size: cover;
 }
+
+
+    .modal_{
+      position:absolute;
+  	  display:none;  
+      
+      justify-content: center;
+      top:0;
+      left:0;
+      z-index:100;
+      width:100%;
+      height:130rem;
+	  background-color: rgba(0,0,0,0.4);
+
+      }
+      
+.modal_body{
+          position:absolute;
+          top:10%; /* 모달을 화면가운데 놓기위함.  */
+      
+
+          width:50rem;  /* 모달의 가로크기  */
+          height:50rem; /* 모달의 세로크기  */
+
+          padding:40px;  
+
+          
+
+          background-color: rgb(255,255,255); 
+          border-radius:10px; 
+          box-shadow:0 2px 3px 0 rgba(34,36,38,0.15); 
+
+         
+          transform:translateX(10%); 
+      }
+
+
 
 </style>
 
@@ -62,7 +98,7 @@
                             	  	<input type="hidden" name="gno" value="${element.gno }">
                             	  	
                                     <td class="shoping__cart__item">
-                                        <img src="${element.image }"  style="width: 10rem;">
+                                        <img src="${element.image }"  style="width: 10rem; cursor: pointer;" name="imgurl" >
                                         <input type="hidden" name="image" value="${element.image }">
                                         
                                         <h5 style="font-weight: 800;">${element.gname }</h5>
@@ -153,7 +189,7 @@
                         <a href="#" class="primary-btn" name="wholeOrder">전체상품 주문하기</a>
                     	<form action="/orderGoods" method="post" name="orderForm">
                     		
-                    	<!--여기에 폼요소 넘어감  -->
+                    		<!--여기에 폼요소 넘어감  -->
                     	 
                     	
                     	</form>
@@ -163,7 +199,19 @@
             </div>
         </div>
         
-        <form action="/order"></form>
+        <!-- 이미지를 눌렀을 때 노출되는 모달창 -->
+        <div class="modal_" >
+        	<div class="modal_body">
+        	 <h1 style="font-size: 30px;">상세 이미지</h1><br/>
+        		<span  name="modal_close_btn" style="width: 3rem; height: 3rem; font-size: 30px; float:right ; margin-bottom: 1rem; cursor: pointer;"> X </span>
+            <br/>
+	        	<div name="madal_body_content" style="width: 100%; height: 90%; margin-top: 1rem;">
+	        	
+	        	
+	        	</div>        	
+        	</div>
+        </div>
+        
         
         
     </section>
@@ -214,8 +262,7 @@
 			 
 			 
 			 for(var i=0;i<length;i++){
-
-				 	
+				 
 				 cart_nos[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next()
 				 						.next().next().next().next().children("input[name='cart_no']").val();
 
@@ -226,7 +273,6 @@
 				 prices[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next().next("input[name='price']").val();
 				 quantities[i]=$("input:checkbox[name='checkElement']:checked").eq(i).parent().next().next().next().next().next().next().next().children().children().children("input[name='quantity']").val();
 				 
-
 				str+="<input type='hidden' name='cart_no' value='"+cart_nos[i]+"'>";
 				str+="<input type='hidden' name='image' value='"+images[i]+"'>";
 				str+="<input type='hidden' name='gno' value='"+gnos[i]+"'>";
@@ -234,8 +280,7 @@
 				str+="<input type='hidden' name='modelname' value='"+models[i]+"'>";
 				str+="<input type='hidden' name='price' value='"+prices[i]+"'>";
 				str+="<input type='hidden' name='quantity' value='"+quantities[i]+"'>";
-
-				 
+	 
 				 totalprice += parseInt(prices[i])*parseInt(quantities[i]) ; 
 			 }
 			 
@@ -252,10 +297,7 @@
 
 
 		 });
-		 
-		 
-		 
-			
+
 		$(".shoping__cart__item__close").on("click", function() {
 				//제외 버튼을 누른다면
 				
@@ -442,6 +484,23 @@
 			}); */
 
 		});
+		
+		 $(document).on("click","img[name='imgurl']",function(){
+		    	//이미지 누르면 모달창 보여짐
+		    	
+		    	var image_url = $(this).attr("src");
+		    	
+		    	$(".modal_").show();
+		    	
+		    	$("div[name='madal_body_content']").css("background-image","url('"+image_url+"')"); 
+		    });
+		
+		
+	    $(document).on("click","span[name='modal_close_btn']",function(){
+	    	//모달창 닫기버튼 누르면 닫힘
+	    	$(".modal_").hide();
+
+	    });
 		
 	});
 

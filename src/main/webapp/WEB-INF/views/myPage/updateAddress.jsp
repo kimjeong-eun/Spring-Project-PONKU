@@ -84,7 +84,6 @@
 			</tr>
 			</thead>
 			<tbody>
-			
 				<tr>
 					<td>
 						<input type="radio" name="deliveryKr" class="radio" value="4234033" title="배송지 선택">
@@ -94,7 +93,7 @@
 					<td>
 						<span class="sub_tit warning">
 							[기본배송지]
-							
+														
 						</span>
 						<strong class="notranslate">집</strong>
 					</td>
@@ -142,7 +141,6 @@
 							<a href="javascript:fn_shpplocDel('1');" class="btn_cs ty2">
 								<span>삭제</span>
 							</a>
-						
 					</td>
 				</tr>
 
