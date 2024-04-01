@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.AskListAttachVO;
+import org.zerock.domain.AskListLockDTO;
 import org.zerock.domain.AskListPageDTO;
 import org.zerock.domain.AskListVO;
 import org.zerock.domain.Criteria;
@@ -77,6 +78,16 @@ public class AskRestController {
 		return service.modify(vo) ? new ResponseEntity<>("게시물 수정 성공", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
+	}
+	
+	@PostMapping(value = "/lock", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> passwordCheck(@RequestBody AskListLockDTO dto) {
+		log.info("passwordCheck 입력받은 pw : " + dto.getPassword());
+		log.info("lock.jsp에서 넘겨받은 no : " + dto.getAsk_list_no());
+		String ask_list_lock_password = service.askPassword(dto.getAsk_list_no());
+		log.info("DB에서 가져온 해당 글의 pw : " + ask_list_lock_password);
+		return ask_list_lock_password.equals(dto.getPassword()) ? new ResponseEntity<>("true", HttpStatus.OK)
+				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

@@ -38,4 +38,7 @@ public interface AskListMapper {
 	// 게시물 번호를 받아 비밀글인지 확인한다.
 	public boolean checkLock(Long ask_list_no);
 	
+	// 해당 게시물(비밀글)의 비밀번호를 반환한다.
+	public String askPassword(Long ask_list_no);
+	
 }

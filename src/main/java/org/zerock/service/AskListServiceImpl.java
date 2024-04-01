@@ -93,5 +93,11 @@ public class AskListServiceImpl implements AskListService {
 		return mapper.checkLock(ask_list_no);
 	}
 
+	@Override
+	public String askPassword(Long ask_list_no) {
+		log.info("service 영역에서 askPassword 메서드 실행");
+		return mapper.askPassword(ask_list_no);
+	}
+
 
 }

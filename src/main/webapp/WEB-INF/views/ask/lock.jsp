@@ -150,10 +150,11 @@ h2, .explanation {
 	<span>비밀번호를 입력하세요.</span>
 	</div>
 	<form id="passwordForm">
+	<input type="hidden" id="ano" name="ask_list_no" value="${ ask_list_no }" />
 		<input type="password" id="password" placeholder="비밀번호를 입력하세요">
 		<p id="message"></p>
 		<button class="botton" type="button" onclick="checkPassword()">확인</button>
-		<button class="botton" type="button">목록</button>
+		<button class="botton" type="button" onclick="location.href='/ask/main'">목록</button>
 	</form>
 	
 </div>
@@ -170,15 +171,46 @@ h2, .explanation {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
+var csrfHeaderName = $("meta[name='_csrf_header']").attr("content")//"${_csrf.headerName}";
+var csrfTokenValue = $("meta[name='_csrf']").attr("content")//"${_csrf.token}";
+console.log(csrfHeaderName);
+console.log(csrfTokenValue);
+
 	function checkPassword() {
-		var password = document.getElementById("password").value;
-		// 여기에 비밀번호 검증 로직을 작성하세요
-		// 예를 들어, 입력된 비밀번호가 "1234"일 때만 허용하도록 하겠습니다.
-		if (password === "1234") {
-			document.getElementById("message").innerText = "비밀번호가 일치합니다!";
-			// 비밀번호가 일치할 경우 다음 동작을 추가하세요
+		debugger;
+		var pw = document.getElementById("password").value;
+		var ano = document.getElementById("ano").value;
+		$.ajax({ // ajax으로 전송
+			url: '/ask/lock', // 전송할 경로
+			data: JSON.stringify({ password: pw, ask_list_no: ano }),
+			//async : true,
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
+			//dataType: 'text', // text 타입으로
+			contentType: 'application/json',
+			type: 'POST', // post 방식으로
+			success: function(result) { // 성공 시 결과를
+				debugger;
+				console.log("비밀번호 일치 : " + result);
+				message(result);
+			}, error: function(result) {
+				console.log("실패 : " + result);
+				message(result);
+				return;
+			}
+		}); //$.ajax
+		
+	}
+	
+	function message(result) {
+		if (result === "true") {
+			document.getElementById("message").innerText = "비밀번호가 일치합니다";
+			//window.location.href = '/ask/main';
 		} else {
 			document.getElementById("message").innerText = "비밀번호가 일치하지 않습니다.";
+			//location.reload();
+			return;
 		}
 	}
 </script>

@@ -41,8 +41,6 @@
 	<!-- <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"></security:global-method-security> -->
 
 	<!-- 추가할 bean객체는 아래에 써주세용 -->
-	<!-- 성은추가 !!! RestTemplate 빈 등록 : 컨트롤러에서 RestController를 통해 데이터를 받아오기 위함 -->
-	<beans:bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
 
 
 </beans:beans>
