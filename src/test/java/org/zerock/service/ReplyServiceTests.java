@@ -15,12 +15,18 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({
+	  "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+	  "file:src/main/webapp/WEB-INF/spring/security-context.xml"
+	  })
 @Log4j2
 public class ReplyServiceTests {
 	
 	@Setter(onMethod_ = {@Autowired })
 	private ReplyService service;
+	
+	@Setter(onMethod_ = {@Autowired })
+	private PasswordEncoder pwencoder;
 	
 	 
 	
@@ -36,7 +42,8 @@ public class ReplyServiceTests {
 		
 		ReplyVO vo = new ReplyVO();
 		vo.setId(29L);
-		vo.setContent("새 사용자");
+		vo.setRno(65L);
+		vo.setReplyer("새 사용자");
 		vo.setContent("새로운 내용");
 		
 		service.register(vo);

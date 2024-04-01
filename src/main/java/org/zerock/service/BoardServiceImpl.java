@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.mapper.BoardAttachMapper;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +27,9 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper mapper;
 	
 	@Setter(onMethod_ = @Autowired)
+	private BoardAttachMapper attachMapper;
+	
+	@Setter(onMethod_ = @Autowired)
 	private PasswordEncoder pwencoder;
 	
 
@@ -35,6 +40,16 @@ public class BoardServiceImpl implements BoardService {
 		log.info("등록 : " + board);
 
 		mapper.insertSelectKey(board);
+		
+		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
+			return;
+		}
+		
+		board.getAttachList().forEach(attach ->{ //첨부파일 리스트 첨부객체
+			
+			attach.setBno(board.getBno());
+			attachMapper.insert(attach);
+		});
 		
 	}
 
@@ -47,14 +62,31 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	@Transactional
 	@Override
 	public boolean modify(BoardVO board) {
 
 		log.info("수정 :" + board);
 
-		return mapper.update(board) == 1;
-	}
+		attachMapper.deleteAll(board.getBno());
 
+		boolean modifyResult = mapper.update(board) == 1;
+
+		if (modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0) {
+
+			board.getAttachList().forEach(attach -> {
+
+				attach.setBno(board.getBno());
+				attachMapper.insert(attach);
+
+			});
+
+		}
+
+		return modifyResult;
+	}
+	
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 
@@ -78,6 +110,22 @@ public class BoardServiceImpl implements BoardService {
 		log.info("전체 조회 수");
 		
 		return mapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<BoardVO> getListWithPaging(Criteria cri) {
+		
+		log.info("게시판 페이징");
+		
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public List<BoardAttachVO> getAttachList(Long bno) {
+		
+		log.info("파일 첨부" + bno);
+		
+		return attachMapper.findByBno(bno);
 	}
 
 	

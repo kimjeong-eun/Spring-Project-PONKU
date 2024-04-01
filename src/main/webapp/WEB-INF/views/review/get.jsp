@@ -15,33 +15,43 @@
 </div>
 <!-- /.row -->
 
-<div class="row">
+
   <div class="col-lg-12">
     <div class="panel panel-default">
 
       <!-- /.panel-heading -->
       <div class="panel-body">
 
-          <div class="form-group">
-          <label>리뷰번호</label> <input class="form-control" name='bno'
-            value='<c:out value="${board.bno }"/>' readonly="readonly">
-        </div>
+        <div class="review-form-container">
+    <div class="form-group review-form-group">
+        <label class="review-label">리뷰번호</label>
+        <input class="form-control review-input" name="bno" value="<c:out value='${board.bno }'/>" readonly="readonly">
+    </div>
 
-        <div class="form-group">
-          <label>제목</label> <input class="form-control" name='title'
-            value='<c:out value="${board.title }"/>' readonly="readonly">
-        </div>
+    <div class="form-group review-form-group">
+        <label class="review-label">제목</label>
+        <input class="form-control review-input" name="title" value="<c:out value='${board.title }'/>" readonly="readonly">
+    </div>
 
-        <div class="form-group">
-          <label>내용</label>
-          <textarea class="form-control" rows="3" name='content'
-            readonly="readonly"><c:out value="${board.content}" /></textarea>
-        </div>
+    <div class="form-group review-form-group">
+        <label class="review-label">내용</label>
+        <textarea class="form-control review-textarea" rows="3" name="content" readonly="readonly"><c:out value='${board.content}'/></textarea>
+    </div>
 
-        <div class="form-group">
-          <label>작성자</label> <input class="form-control" name='writer'
-            value='<c:out value="${board.writer }"/>' readonly="readonly">
-        </div>
+    <div class="form-group review-form-group">
+        <label class="review-label">작성자</label>
+        <input class="form-control review-input" name="writer" value="<c:out value='${board.writer }'/>" readonly="readonly">
+    </div>
+    
+    <div class="form-group review-form-group">
+    <label class="review-label">첨부된 이미지</label>
+    <div id="image-preview" class="review-image-preview" name="uploadResult" >
+        <!-- 기존에 등록한 이미지를 여기에 표시할 곳입니다. -->
+        <!-- 이미지가 없을 경우에는 아무것도 표시되지 않습니다. -->
+    </div>
+</div>
+
+    
 
         <sec:authentication property="principal" var="pinfo"/>
 
@@ -87,50 +97,73 @@
 
 
 <style>
-.uploadResult {
-  width:100%;
-  background-color: gray;
-}
-.uploadResult ul{
-  display:flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
-}
-.uploadResult ul li {
-  list-style: none;
-  padding: 10px;
-  align-content: center;
-  text-align: center;
-}
-.uploadResult ul li img{
-  width: 100px;
-}
-.uploadResult ul li span {
-  color:white;
-}
-.bigPictureWrapper {
-  position: absolute;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  top:0%;
-  width:100%;
-  height:100%;
-  background-color: gray; 
-  z-index: 100;
-  background:rgba(255,255,255,0.5);
-}
-.bigPicture {
-  position: relative;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+/* 리뷰 폼 컨테이너 스타일 */
+.review-form-container {
+    max-width: 500px;
+    margin: 0 auto; /* 중앙 정렬 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
-.bigPicture img {
-  width:600px;
+/* 리뷰 폼 그룹 스타일 */
+.review-form-group {
+    margin-bottom: 20px;
 }
+
+/* 라벨 스타일 */
+.review-label {
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일 */
+.review-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* 패딩과 테두리 포함하여 크기 조정 */
+}
+
+/* 텍스트 영역 스타일 */
+.review-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* 패딩과 테두리 포함하여 크기 조정 */
+    resize: vertical; /* 수직으로만 크기 조절 가능 */
+}
+.review-image-preview {
+    margin-top: 10px;
+}
+
+.preview-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.review-image-preview {
+    width: 200px; /* 이미지 미리보기 영역의 너비 */
+    height: 200px; /* 이미지 미리보기 영역의 높이 */
+    border: 1px solid #ccc; /* 테두리 스타일 */
+    margin-top: 10px; /* 위쪽 여백 */
+    padding: 5px; /* 내부 여백 */
+    display: flex; /* 내부 요소를 가로로 배치하기 위해 flex 사용 */
+    justify-content: center; /* 내부 요소를 수평 가운데 정렬 */
+    align-items: center; /* 내부 요소를 수직 가운데 정렬 */
+    background-color: #f9f9f9; /* 배경색 */
+}
+
+.review-image-preview img {
+    max-width: 100%; /* 이미지의 최대 너비 */
+    max-height: 100%; /* 이미지의 최대 높이 */
+    display: block; /* 이미지를 블록 요소로 표시하여 가로 중앙 정렬 */
+    margin: 0 auto; /* 이미지를 가로로 중앙 정렬 */
+}
+
 
 </style>
 
@@ -235,6 +268,20 @@
 
 <script>
 
+$(document).ready(function() {
+    $('#image-upload').on('change', function() {
+        var input = $(this)[0];
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#image-preview').html('<img src="' + e.target.result + '" class="preview-image" />');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+});
+
+
 $(document).ready(function () {
   
   var bnoValue = '<c:out value="${board.bno}"/>';
@@ -301,7 +348,7 @@ $(document).ready(function () {
         next = true;
       }
       
-      var str = "<ul class='pagination pull-right'>";
+      var str = "<ul class='pagination'>";
       
       if(prev){
         str+= "<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>";
@@ -551,8 +598,11 @@ $(document).ready(function() {
     operForm.attr("action","/review/list")
     operForm.submit();
     
-  });  
+  
+    });  
 });
+
+
 </script>
 
 
@@ -564,14 +614,10 @@ $(document).ready(function(){
   (function(){
   
     var bno = '<c:out value="${board.bno}"/>';
-    
-    /* $.getJSON("/board/getAttachList", {bno: bno}, function(arr){
-    
-      console.log(arr);
-      
-      
+       
     }); *///end getjson
-    $.getJSON("/board/getAttachList", {bno: bno}, function(arr){
+    
+    $.getJSON("/review/getAttachList", {bno: bno}, function(arr){
         
        console.log(arr);
        
@@ -584,7 +630,7 @@ $(document).ready(function(){
            var fileCallPath =  encodeURIComponent( attach.uploadPath+ "/s_"+attach.uuid +"_"+attach.fileName);
            
            str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-           str += "<img src='/display?fileName="+fileCallPath+"'>";
+           str += "<img src='display?fileName="+fileCallPath+"'>";
            str += "</div>";
            str +"</li>";
          }else{
@@ -597,7 +643,7 @@ $(document).ready(function(){
          }
        });
        
-       $(".uploadResult ul").html(str);
+       $("div[name='uploadResult']").html(str);
        
        
      });//end getjson

@@ -22,11 +22,11 @@
 <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
   <![CDATA[
   select 
-    bno, title, content, writer, regdate, updatedate
+    bno, title, content, writer, regdate, updatedate, replycnt
   from 
       (
       select /*+INDEX_DESC(board bno) */
-        rownum rn, bno, title, content, writer, regdate, updatedate
+        rownum rn, bno, title, content, writer, regdate, updatedate, replycnt
       from 
        	 board
       where 
@@ -48,7 +48,7 @@
 	</select>
 
 
-<select id="getList" resultType="org.zerock.domain.BoardVO">
+	<select id="getList" resultType="org.zerock.domain.BoardVO">
 	<![CDATA[
 		select * from board where bno > 0 
 		]]>
@@ -81,6 +81,7 @@
 		update board set title = #{title}, content = #{content}, writer = #{writer},
 		updateDate = sysdate where bno = #{bno}	
 		</update>
+	
 
 	
 </mapper>

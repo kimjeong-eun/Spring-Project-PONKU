@@ -13,10 +13,38 @@ create table comments(
     replyer varchar2(50) not null,
     content varchar2(1000) not null,
     replyDate date default sysdate,
-    updateDate date default sysdate,
-    constraint fk_comments_users
-        foreign key (rno) references board(bno) -- 외래 키 제약 조건 추가
+    updateDate date default sysdate
 );
+
+
+CREATE TABLE attach_review (
+  uuid VARCHAR2(100) PRIMARY KEY, -- 첨부파일 난수명(pk)
+  uploadpath VARCHAR2(200) NOT NULL, -- 업로드 경로
+  filename VARCHAR2(100) NOT NULL, -- 파일명
+  filetype CHAR(1) DEFAULT 'I', -- 확장자
+  bno NUMBER(10,0), -- 게시글과 연결
+  CONSTRAINT fk_board_attach FOREIGN KEY (bno) REFERENCES board (bno)
+);
+
+
+
+drop table Attach_review;
+
+select * from comments;
+select * from board;
+
+alter table comments drop foreign key fk_com;
+
+alter table comments add constraint fk_comments_board foreign key (rno) references board(bno) on delete cascade;
+
+ALTER TABLE comments ADD CONSTRAINT fk_com FOREIGN KEY (rno) REFERENCES board(bno);
+
+select comments, 
+
+alter table board add (replycnt number default 0);
+update board set replycnt = (select count(rno) from comments where comments.rno = board.bno);
+
+
 
 create index idx_cm on comments (id desc, rno asc);
 
@@ -89,8 +117,6 @@ VALUES (bno_seq.nextval, '제목11', '내용11', '작성자11', sysdate, sysdate
 
 
 
-select * from comments;
-select * from board;
 
 drop table comments;
 drop table board;

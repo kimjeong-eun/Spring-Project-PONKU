@@ -6,8 +6,8 @@
 
 	<insert id="insert">
 
-		insert into comments (id, replyer, content)
-		values (id_num.nextval, #{replyer}, #{content, jdbcType=VARCHAR})
+		insert into comments (id, rno, replyer, content)
+		values (id_num.nextval, #{rno}, #{replyer}, #{content, jdbcType=VARCHAR})
 
 	</insert>
 
@@ -49,8 +49,6 @@
 			select count(id) from comments where id = #{id}
 				]]>
 	</select>
-	
-	
 
 
 </mapper>

@@ -15,6 +15,9 @@
 	<!-- 로그인시 권한 실패에 대한 org.zerock.security.CustomAccessDeniedHandler.java 객체로 등록하여 사용 -->
 	
 	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	
+	<bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
+    <security:http-firewall ref="defaultHttpFirewall"/>
 	<!-- 스프링 시큐리티의 여러정보들을 제한적으로 이용하는 단점을 해결
 	org.zerock.security.CustomUserDetailsService.java 파일의 loadUserByUsername 메서드 재정의하여 사용함
 	UserDetails 타입은 getAuthorities(), getPassword(), getUserName()등의 추상 메서드를 가지고 있어, 개발전에 이를 직접 구현 할 것인지
@@ -29,6 +32,8 @@
 	  -> org.zerock.security.domain.CustomUser.java는 extends User를 상속 받음
 	  	: org.springframework.security.core.userdetails.User 
 	 -->
+	 
+	 
 		
 	<security:http>
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>

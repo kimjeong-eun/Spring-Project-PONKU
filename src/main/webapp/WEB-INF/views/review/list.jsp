@@ -13,11 +13,47 @@
 </div>
 <!-- /.row -->
 
+<style>
+/* 페이지네이션 컨테이너 스타일 */
+.pagination-container {
+   display: flex;
+   justify-content: center;
+   margin-top: 30px;
+   margin-bottom: 20px;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+   display: flex;
+   list-style: none;
+}
+
+/* 페이지네이션 아이템 스타일 */
+.pagination li {
+   margin-right: 5px;
+}
+
+/* 페이지네이션 링크 스타일 */
+.pagination li a {
+   padding: 5px 10px;
+   text-decoration: none;
+   border: 1px solid #ccc;
+   color: #333;
+}
+
+/* 활성화된 페이지네이션 링크 스타일 */
+.pagination li.active a {
+   background-color: #000;
+   color: #fff;
+   border-color: #000;
+}
+</style>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default" style="text-align: center; position: relative;">
-            <div class="panel-heading">리뷰 페이지
-           <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: 0; right: 0;">리뷰 등록</button>
+            <div class="panel-heading">
+           <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: -653; right: 0;">리뷰 등록</button>
             </div>
         </div>
     </div>
@@ -41,7 +77,7 @@
                <td>
                   <a class='move' href='<c:out value="${board.bno}"/>'>
                   <c:out value="${board.title}" />   <b>  
-                  [<c:out value="${board.replyCnt}" />  ]</b>
+                  [<c:out value="${board.replycnt}" />  ]</b>
                   </a>
               <td><c:out value="${board.writer}" /></td>
               <td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -76,27 +112,26 @@
 				</div>
 
 
-				<div class='pull-right'>
-					<ul class="pagination">
+	<div class="text-center">
+		<div class="pagination-container">
+			<ul class="pagination">
+				<c:if test="${pageMaker.prev}">
+					<li class="paginate_button previous"><a
+						href="${pageMaker.startPage -1}">Previous</a></li>
+				</c:if>
+				<c:forEach var="num" begin="${pageMaker.startPage}"
+					end="${pageMaker.endPage}">
+					<li class="paginate_button"><a href="${ num }">${num}</a></li>
+				</c:forEach>
+				<c:if test="${pageMaker.next}">
+					<li class="paginate_button next"><a
+						href="${pageMaker.endPage +1 }">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
+	</div>
 
-						<c:if test="${pageMaker.prev}">
-							<li class="paginate_button previous">
-							<a href="${pageMaker.startPage -1}">Previous</a></li>
-						</c:if>
-
-						<c:forEach var="num" begin="${pageMaker.startPage}"	end="${pageMaker.endPage}">
-						<li class="paginate_button"><a href="${ num }">${num}</a></li>
-						</c:forEach>
-
-						<c:if test="${pageMaker.next}">
-							<li class="paginate_button next">
-							<a href="${pageMaker.endPage +1 }">Next</a></li>
-						</c:if>
-
-
-					</ul>
-				</div>
-				<!--  end Pagination -->
+	<!--  end Pagination -->
 			</div>
 
 			<form id='actionForm' action="/review/list" method='get'>
