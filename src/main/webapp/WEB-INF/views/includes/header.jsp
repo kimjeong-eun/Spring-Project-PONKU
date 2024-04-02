@@ -10,6 +10,29 @@
 .container {
 	max-width: 1200px;
 }
+
+.quick_area {
+    position: fixed;
+    top: 171px;
+    right: 0;
+    width: 66px;
+    z-index: 100;
+    background-color: gray;
+}
+
+.to_top a {
+    display: block;
+    height: 43px;
+    transform: translateY(8px);
+    box-sizing: border-box;
+    text-indent: -9999px;
+    overflow: hidden;
+    /* border-left: 1px solid #a3a3a3; */
+    /* border-bottom: 1px solid #a3a3a3; */
+    background: url(/resources/icon/top.png) no-repeat center;
+    /* background-size: contain; */
+}
+
 </style>
 
 <head>
@@ -154,7 +177,7 @@
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="/">
-						<img src="/resources/img/logo/ponku_logo1.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
+						<img src="/resources/img/logo/ponku_logo2.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
 						</a>		
 					</div>
 				</div>

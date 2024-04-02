@@ -212,6 +212,11 @@
 </section>
 <!-- Blog Section End -->
 
+<!--우측 고정 메뉴  -->
+<div class="quick_area" >
+    <p class="to_top" ><a href="javascript:window.scrollTo(0,0);" class="s_point">TOP</a></p>
+</div>
+
 <script>
 	$(document).ready(function() {
 		$('.cateUl').hide(); //웹페이지 로딩 후 카테고리 숨김

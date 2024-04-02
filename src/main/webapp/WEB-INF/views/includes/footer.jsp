@@ -9,7 +9,7 @@
 				<div class="footer__about">
 					<div class="footer__about__logo">
 						<a href="./index.html"><img
-							src="/resources/img/logo.png" alt=""></a>
+							src="/resources/img/logo/ponku_logo2.png" alt="" style="width: 10rem;"></a>
 					</div>
 					<ul>
 						<li>Address: 경기도 수원시</li>
