@@ -124,9 +124,15 @@ public class CustomOrderImpl implements CustomOrderService {
 				
 				for(ShoppingCartVO element : cartList) {
 
-					int result = mapper.insertOrderd_goods(""+orderno, element);
-					mapper.deleteCartElement(element.getMember_seq(), element.getCart_no()); //장바구니 항목없애기
 					
+					int result = mapper.insertOrderd_goods(""+orderno, element);
+					if(element.getCart_no().equals("no_cart")) {
+						
+						
+					}else {
+						
+						mapper.deleteCartElement(element.getMember_seq(), element.getCart_no()); //장바구니 항목없애기
+					}
 						
 				}	
 			}	
@@ -144,13 +150,14 @@ public class CustomOrderImpl implements CustomOrderService {
 		if (orderno>0) {
 			
 			dto.setOrderno(""+orderno);
-			int insertResult = mapper.insertOrderNomember(null);
+			int insertResult = mapper.insertOrderNomember(dto);
 			
 			if(insertResult>0) {
 				
 				for(ShoppingCartVO element : cartList) {
 
 					int result = mapper.insertOrderd_goods(""+orderno, element);
+					
 									
 				}	
 			}	

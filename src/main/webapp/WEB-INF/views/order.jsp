@@ -109,7 +109,7 @@ ${dto.caseimgurl}
                 
                 <c:forEach  var="element" items="${cartList }" >
                 
-					<div class="uploadResult" style="display: inline-block;  background-image: url('${element.image}');">
+					<div class="uploadResult" style="display: inline-block;  background-image: url('${element.image}');     background-size: cover;">
 	         			<ul>
 	         					<!-- 여기에 이미지 보임  -->
 	         			</ul>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<html lang="kr">
+<html lang="kr"></html>
 
 <style>
 body {
@@ -106,17 +106,28 @@ input[type=file]::file-selector-button {
 .bigPicture img {
 	width: 600px;
 }
+
+.sub-header{
+
+	position: absolute;
+	width: 100%;
+	height:20%;
+/* 	border: 1px solid green;  */
+	background-image: url("/resources/img/subheader.png");
+	background-size: cover;
+}
 </style>
 
 <!-- Header Section Begin -->
 
 <jsp:include page="../includes/header.jsp"></jsp:include>
 
+<div class="sub-header" id="sub-header"></div>
 <!-- Header Section End -->
 
 <!-- Product Details Section Begin -->
-<section class="product-details spad">
-	<div class="container" style="max-width: 1370px; padding-top: 100px;">
+<section class="product-details spad" >
+	<div class="container" style="max-width: 1370px; padding-top: 100px; margin-top: 10rem;">
 		<div class="row">
 
 			<div class="col-lg-7 col-md-7">
@@ -150,7 +161,7 @@ input[type=file]::file-selector-button {
 
 					<div class="checkout__input"
 						style="margin-top: 50px; color: #252525; font-weight: 700; margin-bottom: 16px;">
-						<input name="gname" type="text" value='${goods.gname}' style="color: black; border: 0;" readonly="readonly">
+						<input name="gname" type="text" value='${goods.gname}' style="color: black; border: 0; font-size: 25px;" readonly="readonly">
 					</div>
 
 					<div class="checkout__input">
@@ -166,7 +177,7 @@ input[type=file]::file-selector-button {
 							기종 카테고리
 						</p>
 						<!-- 대분류 -->
-						<div class="dropdown col">
+		<!-- 				<div class="dropdown col">
 							<button class="btn btn-light dropdown-toggle brandBtn"
 								style="border-radius: 0;" type="button" aria-expanded="false">브랜드</button>
 							<ul class="dropdown-menu"
@@ -175,11 +186,31 @@ input[type=file]::file-selector-button {
 								<li><a class="dropdown-item dropdown-brand2">삼성</a></li>
 								<li><a class="dropdown-item dropdown-brand3">구글</a></li>
 							</ul>
-						</div>
-						<!-- 중분류 -->
+						</div> -->
+						<!-- 중분류 -->					
+							<select name="modelselect" id="modelselect" class="btn btn-light dropdown-toggle">
+							<optgroup label="아이폰">
+								<option name="model" value="iphone13">아이폰13</option>
+								<option name="model" value="iphone13Pro">아이폰13Pro</option>
+								<option name="model" value="iphone13Mini">아이폰13Mini</option>
+								<option name="model" value="iphone14">아이폰14</option>
+								<option name="model" value="iphone14Pro">아이폰14Pro</option>
+								<option name="model" value="iphone15">아이폰15</option>
+								<option name="model" value="iphone15Pro">아이폰15Pro</option>
+							</optgroup>
+							<optgroup label="갤럭시">
+								<option disabled="disabled">준비중입니다.</option>
+							</optgroup>
+							</select>
+						<div class="dropdown col" style="margin-top: 5rem;">
+							<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1" style="margin-bottom: 2rem; font-size: 25px;"><br/>
+							
+							<strong style="font-size: 20px; text-align: center; color: red;">TOTAL</strong><input type="text" value="${goods.price}" readonly="readonly" name="totalprice" id="totalprice" style="font-size: 25px;"/>
+						</div>	
+						
 						<div class="dropdown col">
-							<button class="btn btn-light dropdown-toggle" type="button"
-								style="border-radius: 0;" aria-expanded="false">기기명</button>
+							<!-- <button class="btn btn-light dropdown-toggle" type="button"
+								style="border-radius: 0;" aria-expanded="false">기종</button>
 
 							<ul class="dropdown-menu dropdown-menu-apple"
 								style="border-radius: 0; border: none; background-color: #f5f5f5;">
@@ -188,17 +219,23 @@ input[type=file]::file-selector-button {
 							<ul class="dropdown-menu dropdown-menu-sam"
 								style="border-radius: 0; border: none; background-color: #f5f5f5;">
 								<li><a class="dropdown-item" href="">갤럭시 S</a></li>
-							</ul>
+							</ul> -->
 						</div>
-
+							
+						
+						
+						<sec:authentication property="principal" var="pinfo"/>
 						<div class="row">
+						
+						<sec:authorize access="isAuthenticated()">
 							<div class="col">
-								<button type="submit" class="btn btn-info"
-									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%;">장바구니</button>
+								<button type="button" class="btn btn-info" name="cart" id="cart"
+									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">장바구니</button>
 							</div>
+					    </sec:authorize>
 							<div class="col">
-								<button type="submit" class="btn btn-info"
-									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%;">구매하기</button>
+								<button type="button" class="btn btn-info" name="order"
+									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">구매하기</button>
 							</div>
 						</div>
 
@@ -227,6 +264,37 @@ input[type=file]::file-selector-button {
 			<!-- col-lg-7 -->
 		</div>
 		<!-- row -->
+		
+		<!-- 장바구니 동작 폼 -->
+		<sec:authorize access="isAuthenticated()">
+		<form action="/putShoppingCart" name="cartForm" id="cartForm" method="post">
+
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->	
+			
+			<input type="hidden" name="member_seq" value="${pinfo.member.member_seq }" /> <!--선택한 케이스 이미지 url  -->
+			<input type="hidden" name="caseimgurl" value="/resources/img/${goods.title_img}" /> <!--선택한 케이스 이미지 url  -->
+	 			<input type="hidden" name="cquantity" value=""> <!--수량  -->
+			<input type="hidden" name="modelinput" value=""/> <!--선택기종  -->
+			<input type="hidden" name="codeinput" value="${goods.gno}"/> <!--상품코드  -->				
+	
+		</form>
+		</sec:authorize>
+		<!--구매 동작 폼  -->
+		<form action="/orderGoods" method="post" name="orderForm">
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}" /> <!-- 스프링시큐리티를 위한 토큰  -->	
+			<input type='hidden' name='cart_no' value="no_cart">
+			<input type='hidden' name='image' value="/resources/img/${goods.title_img}">
+			<input type="hidden" name="gno" value="${goods.gno}">
+			<input type="hidden" name="gname" value="${goods.gname}">
+			<input type="hidden" name="modelname" value="">
+			<input type="hidden" name="price" value="${goods.price}">
+			<input type="hidden" name="quantity" value="1">
+			<input type="hidden" name="totalPrice" value="">		
+			<sec:authorize access="isAuthenticated()">
+				<input type="hidden" name="member_seq" value="${pinfo.member.member_seq }" /> 
+			</sec:authorize>
+			<input type="hidden" name="cartElments" value="1">
+		</form>
 
 		<div class="checkout__input" style="text-align: center;">
 
@@ -425,6 +493,76 @@ input[type=file]::file-selector-button {
 	</div>
 </section>
 <!-- Related Product Section End --> --%>
+
+<script type="text/javascript">
+
+ $(document).ready(function(){
+	 
+	 var model =$("#modelselect option:selected").val(); //선택 기종
+	
+	 
+		// 기종선택박스에 변화가 있다면
+		$("#modelselect").change(function() {
+			
+			model = $("#modelselect option:selected").val();
+			console.log(model);
+		});
+	 
+		//수량항목이 변화가 있을때 수량만큼 전체가격 더해짐
+		$("input[name='quantity']").change(function() {
+			
+			var price = parseInt($("input[name='price']").val());
+			
+			if($(this).val() === '0' || !$(this).val()){
+				console.log($(this).val());
+				$("input[name='quantity']").val("1");
+
+			}else{
+				
+				var quantity = parseInt($(this).val()); //수량 정보를 가져옴
+				
+				$("input[name='cquantity']").val(quantity+"");
+				$("input[name='quantity']").val(quantity+"");
+				$("input[name='totalprice']").val(price*quantity+"");		
+				$("input[name='totalPrice']").val(price*quantity+"");		
+			}				
+		});
+	 
+		//쇼핑카트 동작
+		$("button[name='cart']").on("click",function(e){
+			
+			e.preventDefault();
+
+				$("input[name='cquantity']").val($("input[name='quantity']").val());
+				$("input[name='modelinput']").val(model); //모델
+			
+				var cartForm = $("form[name='cartForm']");
+				
+				cartForm.submit();				
+
+			
+		});	
+		
+		//구매버튼 동작
+		$("button[name='order']").on("click",function(){
+			
+			var orderForm = $("form[name='orderForm']");
+			
+			$("input[name='modelname']").val(model);
+			$("input[name='totalprice']").val();
+			
+			orderForm.submit();
+			
+			
+		});
+		
+		
+	 
+ });
+</script>
+
+
+
 
 <script>
 	$(document)

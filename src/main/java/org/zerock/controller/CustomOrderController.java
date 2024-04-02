@@ -140,7 +140,7 @@ public class CustomOrderController {
 	
 	@PreAuthorize("permitAll")
 	@PostMapping("/orderComplete")
-	public String decideOrder(OrderDTO orderDto ,long member_seq,@RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
+	public String decideOrder(OrderDTO orderDto , String member_seq, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
 			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , Model model ) {
 		//일반 주문용
 		
@@ -156,8 +156,11 @@ public class CustomOrderController {
 		  vo.setModel(modelname[i]);
 		  vo.setPrice(price[i]);
 		  vo.setQuantity(quantity[i]);
-		  vo.setMember_seq(member_seq);
-		  
+		  if(member_seq != null) {
+			  //회원 주문이라면 회원번호 넣음
+			  vo.setMember_seq(Long.parseLong(member_seq));
+		  }
+
 		  lists.add(vo);
 		  } 
 		  
@@ -281,9 +284,9 @@ public class CustomOrderController {
 	 */
 	
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("permitAll()")
 	@PostMapping("/orderGoods")
-	public String orderGoods(Model model,String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
+	public String orderGoods(Model model, @RequestParam(value = "member_seq", required = false ) String member_seq , String totalPrice, @RequestParam(value="cart_no") String[] cart_no, @RequestParam(value="image") String[] image,@RequestParam(value="gno") String[] gno,@RequestParam(value="gname") String[] gname,
 			@RequestParam(value="price") String[] price, @RequestParam(value="quantity") String[] quantity,@RequestParam(value="modelname") String[] modelname , String cartElments ) {
 		
 		//쇼핑카트에서 주문페이지로 넘어가는 컨트롤러
@@ -300,8 +303,9 @@ public class CustomOrderController {
 		  vo.setModel(modelname[i]);
 		  vo.setPrice(price[i]);
 		  vo.setQuantity(quantity[i]);
-		  vo.setMember_seq(Long.parseLong(member_seq));
-		  
+		  if(member_seq != null) {
+			  vo.setMember_seq(Long.parseLong(member_seq));
+		  }
 		  lists.add(vo);
 
 		  }
