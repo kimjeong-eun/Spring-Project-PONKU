@@ -42,12 +42,14 @@ public class BoardServiceImpl implements BoardService {
 
 		mapper.insertSelectKey(board);
 		
-		if(board.getAttachList() == null || board.getAttachList().size()<=0) {
+		if(board.getAttachList() == null || board.getAttachList().size() <=0) {
 			return;
 		}
 		
 		board.getAttachList().forEach(attach ->{ //첨부파일 리스트 첨부객체
 			
+			log.info("============================================");
+			log.info("-------------bno------------" + board.getBno());
 			attach.setBno(board.getBno());
 			attachMapper.insert(attach);
 		});

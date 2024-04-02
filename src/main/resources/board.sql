@@ -16,7 +16,6 @@ create table comments(
     updateDate date default sysdate
 );
 
-<<<<<<< HEAD
 
 CREATE TABLE attach_review (
   uuid VARCHAR2(100) PRIMARY KEY, -- 첨부파일 난수명(pk)
@@ -27,7 +26,7 @@ CREATE TABLE attach_review (
   CONSTRAINT fk_board_attach FOREIGN KEY (bno) REFERENCES board (bno)
 );
 
-
+select * from attach_review;
 
 drop table Attach_review;
 
@@ -40,7 +39,6 @@ alter table comments add constraint fk_comments_board foreign key (rno) referenc
 
 ALTER TABLE comments ADD CONSTRAINT fk_com FOREIGN KEY (rno) REFERENCES board(bno);
 
-select comments, 
 
 alter table board add (replycnt number default 0);
 update board set replycnt = (select count(rno) from comments where comments.rno = board.bno);

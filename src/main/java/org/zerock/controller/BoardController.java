@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardAttachVO;
 import org.zerock.domain.BoardVO;
@@ -45,6 +46,8 @@ public class BoardController {
 		if(board.getAttachList()!= null) {
 			board.getAttachList().forEach( attach -> log.info(attach));
 		}
+		
+		log.info("==============================");
 
 		service.register(board);
 
@@ -143,14 +146,14 @@ public class BoardController {
 			try {
 
 				Path file = Paths.get(
-						"c:\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
+						"c:\\upload\\" + attach.getUploadpath() + "\\" + attach.getUuid() + "_" + attach.getFilename());
 
 				Files.deleteIfExists(file); // 파일이 존재한다면 삭제!
 
 				if (Files.probeContentType(file).startsWith("image")) {
 
-					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_"
-							+ attach.getFileName());
+					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadpath() + "\\s_" + attach.getUuid() + "_"
+							+ attach.getFilename());
 					Files.delete(thumbNail);
 				}
 			} catch (Exception e) {

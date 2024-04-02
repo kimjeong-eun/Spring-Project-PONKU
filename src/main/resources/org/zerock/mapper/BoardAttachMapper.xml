@@ -5,24 +5,24 @@
 <mapper namespace="org.zerock.mapper.BoardAttachMapper">
 
 	<insert id="insert">
-	insert into Attach_review (uuid, uploadpath, filename, filetype, bno) values (#{uuid}, #{uploadpath}, #{filename}, #{filetype}, #{bno});
+	insert into attach_review (uuid, uploadpath, filename, filetype, bno) values (#{uuid}, #{uploadpath, jdbcType=VARCHAR}, #{filename=VARCHAR}, #{filetype}, #{bno});
 	</insert>
 	
 	<delete id="delete">
-	delete from Attach_review where uuid = #{uuid}
+	delete from attach_review where uuid = #{uuid}
 	</delete>
 	
 	<select id="findByBno" resultType="org.zerock.domain.BoardAttachVO">
-	select * from Attach_review where bno = #{bno}
+	select * from attach_review where bno = #{bno}
 	</select>
 	
 	<delete id="deleteAll">
-  		delete from Attach_review where bno = #{bno}
+  		delete from attach_review where bno = #{bno}
   	</delete>
   	
   	<select id="getOldFiles" resultType="org.zerock.domain.BoardAttachVO">
   
-  		select * from Attach_review where uploadpath = to_char(sysdate-1,'yyyy\mm\dd')	
+  		select * from attach_review where uploadpath = to_char(sysdate-1,'yyyy\mm\dd')	
   	
   	</select>
 

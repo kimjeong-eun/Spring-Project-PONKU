@@ -53,7 +53,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default" style="text-align: center; position: relative;">
             <div class="panel-heading">
-           <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: -653; right: 0;">리뷰 등록</button>
+           <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: 0; right: 0;">리뷰 등록</button>
             </div>
         </div>
     </div>

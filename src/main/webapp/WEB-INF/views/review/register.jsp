@@ -22,7 +22,7 @@
       <!-- /.panel-heading -->
       <div class="panel-body">
 
-       <form role="form" action="/review/register" method="post" class="review-form">
+     <form role="form" action="/review/register" method="post" class="review-form"  enctype="multipart/form-data">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
     
     <div class="form-group">
@@ -44,7 +44,12 @@
     <label for="file-upload">첨부 파일</label>
     <input id="file-upload" class="form-control file-input" type="file" name="file" accept=".jpg, .jpeg, .png, .gif">
     <small class="form-text text-muted">이미지 파일(.jpg, .jpeg, .png, .gif)만 업로드 가능합니다.</small>
-    <div id="image-preview"></div>
+    <div id="image-preview" class="uploadResult">
+    	<ul>	
+    	</ul>
+    
+    
+    </div>
 </div>
     
 
@@ -85,7 +90,7 @@
 .review-submit-btn {
     width: 100%;
 }
-.preview-image {
+.image-preview {
     max-width: 100%;
     height: auto;
     margin-top: 10px;
@@ -131,7 +136,7 @@
 				
 			});
 			
-			var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+			var regex = new RegExp("(.*?)\\.(exe|sh|zip|alz)$");
 			
 			var maxSize = 5242880 ; //5mb
 			
@@ -156,11 +161,13 @@
 			var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
 			var csrfTokenValue = "${_csrf.token}";		// 
 			
+			var formData = new FormData();
+			
 			$("input[type='file']").change(function(e){
 				
-				var formData = new FormData(); //가상의 폼데이타
+				var formData = new FormData(); //가상의 폼데이터
 				
-				var inputFile = $("input[name='uploadFile']");
+				var inputFile = $("input[id='file-upload']");
 				
 				var files = inputFile[0].files;
 				
@@ -185,8 +192,8 @@
 					type:'POST',
 					dataType:'json',
 					success: function(result){
-						console.log(result);
-						showUploadResult(result);
+					console.log(result);
+					showUploadResult(result);
 					}
 				});
 			});
@@ -205,7 +212,7 @@
 					if(obj.image){
 						var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
 						str += "<li data-path='"+obj.uploadPath+"'";
-						str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
+						str +=" data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"'"
 						str +" ><div>";
 						str += "<span> "+ obj.fileName+"</span>";
 						str += "<button type='button' data-file=\'"+fileCallPath+"\' "
@@ -228,12 +235,12 @@
 					}
 
 			    });
-			    
-			    uploadUL.append(str);
+			   
+			    $(".uploadResult ul").html(str);
 			  }
 			 
 			//이벤트 위임
-			$(".uploadResult").on("click","button",function(e){
+			$(".Result").on("click","button",function(e){
 				
 				console.log("delete file");
 				
@@ -252,9 +259,9 @@
 					},
 					dataType : 'text',
 					type:'POST',
-					 success: function(result){
-						alert(result);
-						targetLi.remove();
+					success: function(result){
+					alert(result);
+					targetLi.remove();
 					 }
 					
 				}); //end ajax

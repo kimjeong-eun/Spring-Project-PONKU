@@ -45,7 +45,7 @@
     
     <div class="form-group review-form-group">
     <label class="review-label">첨부된 이미지</label>
-    <div id="image-preview" class="review-image-preview" name="uploadResult" >
+    <div id="image-preview" class="review-image-preview" name="uploadResult" style="display: none;">
         <!-- 기존에 등록한 이미지를 여기에 표시할 곳입니다. -->
         <!-- 이미지가 없을 경우에는 아무것도 표시되지 않습니다. -->
     </div>
@@ -89,13 +89,6 @@
 
 
 
-<div class='bigPictureWrapper'>
-  <div class='bigPicture'>
-  </div>
-</div>
-
-
-
 <style>
 /* 리뷰 폼 컨테이너 스타일 */
 .review-form-container {
@@ -112,7 +105,6 @@
     margin-bottom: 20px;
 }
 
-<<<<<<< HEAD
 /* 라벨 스타일 */
 .review-label {
     font-weight: bold;
@@ -175,33 +167,9 @@
     margin-bottom: 20px;
     padding: 10px;
   }
->>>>>>> branch 'review2' of https://github.com/kimjeong-eun/shopProject.git
-
 
 </style>
 
-
-
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-
-      <div class="panel-heading">Files</div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-        
-        <div class='uploadResult'> 
-          <ul>
-          </ul>
-        </div>
-      </div>
-      <!--  end panel-body -->
-    </div>
-    <!--  end panel-body -->
-  </div>
-  <!-- end panel -->
-</div>
-<!-- /.row -->
 
 
 <div class='row'>
@@ -281,13 +249,91 @@
 
 <script>
 
+
+$(document).ready(function(){
+  
+  (function(){
+  
+    var bno = '<c:out value="${board.bno}"/>';
+        
+    $.getJSON("/review/getAttachList", {bno: bno}, function(arr){
+        console.log(arr);
+        var str = "";
+        $(arr).each(function(i, attach){
+            // image type
+            if(attach.filetype){
+                var fileCallPath = encodeURIComponent(attach.uploadpath + "/s_" + attach.uuid + "_" + attach.filename);
+                str += "<li data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
+                str += "<div>";
+                str += "<img src='display?filename="+fileCallPath+"'>";
+                str += "</div>";
+                str += "</li>";
+            } else {
+                str += "<li data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
+                str += "<div>";
+                str += "<span>"+attach.filename+"</span><br/>";
+                str += "<img src='/resources/img/attach.png'>";
+                str += "</div>";
+                str += "</li>";
+           	 }
+        	});
+       	  $("div[name='uploadResult']").html(str);
+      });
+     
+     });//end getjson
+
+    
+  })();//end function
+  
+  $(".uploadResult").on("click","li", function(e){
+      
+    console.log("이미지 보기");
+    
+    var liObj = $(this);
+    
+    var path = encodeURIComponent(liObj.data("path")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
+    
+    if(liObj.data("type")){
+      showImage(path.replace(new RegExp(/\\/g),"/"));
+    }else {
+      //download 
+      self.location ="/download?filename="+path
+    }
+    
+    
+  });
+  
+  function showImage(fileCallPath) {
+	    alert(fileCallPath);
+	    
+	    // 이미지 미리보기 영역을 보이도록 변경하고 이미지를 표시합니다.
+	    $(".review-image-preview").css("display", "flex").show().html("<img src='/display?filename=" + fileCallPath + "' >").animate({width:'100%', height: '100%'}, 1000);
+	}
+
+	// 이미지 미리보기 영역을 클릭했을 때 동작하는 이벤트 핸들러를 정의합니다.
+	$(".review-image-preview").on("click", function(e) {
+	    // 이미지를 축소시키고 이미지 미리보기 영역을 숨깁니다.
+	    $(".review-image").animate({width:'0%', height: '0%'}, 1000);
+	    setTimeout(function() {
+	        $('.review-image-preview').hide();
+	    }, 1000);
+	});
+
+
+</script>
+
+
+
+
+<script>
+
 $(document).ready(function() {
     $('#image-upload').on('change', function() {
         var input = $(this)[0];
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function(e) {
-                $('#image-preview').html('<img src="' + e.target.result + '" class="preview-image" />');
+                $('#image-preview').html('<img src="' + e.target.result + '" class="review-image-preview" />');
             };
             reader.readAsDataURL(input.files[0]);
         }
@@ -619,92 +665,6 @@ $(document).ready(function() {
 </script>
 
 
-<script>
-
-
-$(document).ready(function(){
-  
-  (function(){
-  
-    var bno = '<c:out value="${board.bno}"/>';
-       
-    }); *///end getjson
-    
-    $.getJSON("/review/getAttachList", {bno: bno}, function(arr){
-        
-       console.log(arr);
-       
-       var str = "";
-       
-       $(arr).each(function(i, attach){
-       
-         //image type
-         if(attach.fileType){
-           var fileCallPath =  encodeURIComponent( attach.uploadPath+ "/s_"+attach.uuid +"_"+attach.fileName);
-           
-           str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-           str += "<img src='display?fileName="+fileCallPath+"'>";
-           str += "</div>";
-           str +"</li>";
-         }else{
-             
-           str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-           str += "<span> "+ attach.fileName+"</span><br/>";
-           str += "<img src='/resources/img/attach.png'></a>";
-           str += "</div>";
-           str +"</li>";
-         }
-       });
-       
-       $("div[name='uploadResult']").html(str);
-       
-       
-     });//end getjson
-
-    
-  })();//end function
-  
-  $(".uploadResult").on("click","li", function(e){
-      
-    console.log("view image");
-    
-    var liObj = $(this);
-    
-    var path = encodeURIComponent(liObj.data("path")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
-    
-    if(liObj.data("type")){
-      showImage(path.replace(new RegExp(/\\/g),"/"));
-    }else {
-      //download 
-      self.location ="/download?fileName="+path
-    }
-    
-    
-  });
-  
-  function showImage(fileCallPath){
-	    
-    alert(fileCallPath);
-    
-    $(".bigPictureWrapper").css("display","flex").show();
-    
-    $(".bigPicture")
-    .html("<img src='/display?fileName="+fileCallPath+"' >")
-    .animate({width:'100%', height: '100%'}, 1000);
-    
-  }
-
-  $(".bigPictureWrapper").on("click", function(e){
-    $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
-    setTimeout(function(){
-      $('.bigPictureWrapper').hide();
-    }, 1000);
-  });
-
-  
-});
-
-</script>
 
 
 

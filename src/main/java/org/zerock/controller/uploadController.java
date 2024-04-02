@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.domain.AttachFileDTO;
 
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -40,6 +41,13 @@ public class uploadController {
 	public void uploadForm() {
 
 		log.info("upload form");
+	}
+	
+
+	@GetMapping("/uploadAjax")
+	public void uploadAjax() {
+
+		log.info("ajax 업로드");
 	}
 	
 	@PostMapping("/uploadFormAction")
@@ -64,11 +72,6 @@ public class uploadController {
 
 	}
 	
-	@GetMapping("/uploadAjax")
-	public void uploadAjax() {
-
-		log.info("ajax 업로드");
-	}
 	
 	private String getFolder() {
 

@@ -1,4 +1,4 @@
-package org.zerock.controller;
+package org.zerock.domain;
 
 import lombok.Data;
 
