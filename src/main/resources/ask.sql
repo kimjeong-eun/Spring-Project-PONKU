@@ -104,4 +104,4 @@ ask_list_attach, ask_list_lock, ask_list_lock_password from ask_list where ( ask
 like '%'||''||'%' or ask_list_content like '%'||''||'%' or ask_list_writer like '%'||''||'%' 
 ) AND (ask_list_lock = 0 ) AND ask_list_no > 0 and rownum <= 1 * 10) 
 where rn > (1 -1) * 10;
-select ask_list_lock_password from ask_list where ask_list_no = 466;
+select ask_list_lock_password from ask_list where ask_list_no = 467;

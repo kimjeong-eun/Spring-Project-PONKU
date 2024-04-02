@@ -246,7 +246,7 @@ function showUploadFile(files){
 	$(files).each(function(i, file){
 		if(!file.fileType){ // 일반파일
 			fileCallPath = encodeURIComponent(file.uploadPath + "\\" + file.uuid + "_" + file.fileName);
-			str += "<li><a href='/download?fileName=" + fileCallPath + "'>" + "<i class='fa-solid fa-file' style='color: #000;'></i>" + file.fileName + "</a></li>";
+			str += "<li><a href='/downloadAsk?fileName=" + fileCallPath + "'>" + "<i class='fa-solid fa-file' style='color: #000;'></i>" + file.fileName + "</a></li>";
 		} else { // 이미지파일
 			if(!(file.uuid.startsWith("s_"))) { // uuid가 s_로 시작하지 않으면
 				return;
@@ -260,7 +260,7 @@ function showUploadFile(files){
 			    cleanedFileCallPath = fileCallPath.slice(0, index) + fileCallPath.slice(index + 2); // "s_"를 제외한 문자열을 합침
 			    console.log("다운로드시 파일 경로(s_제거) : " + cleanedFileCallPath); 
 			}
-			str += "<li><a href='/download?fileName=" + cleanedFileCallPath + "'>" + "<img src='/display?fileName=" + fileCallPath + "'>" + file.fileName + "</a></li>";
+			str += "<li><a href='/downloadAsk?fileName=" + cleanedFileCallPath + "'>" + "<img src='/displayAsk?fileName=" + fileCallPath + "'>" + file.fileName + "</a></li>";
 		}
 	});
 	attachFile.append(str);

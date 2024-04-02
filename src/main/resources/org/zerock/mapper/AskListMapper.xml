@@ -137,7 +137,7 @@
 		select ask_list_lock from ask_list where ask_list_no = #{ask_list_no}
 	</select>
 	
-	<select id="askPassword"> <!-- 해당 게시물의 비밀번호를 반환 -->
+	<select id="askPassword" resultType="String"> <!-- 해당 게시물의 비밀번호를 반환 -->
 		select ask_list_lock_password from ask_list where ask_list_no = #{ask_list_no}
 	</select>
 

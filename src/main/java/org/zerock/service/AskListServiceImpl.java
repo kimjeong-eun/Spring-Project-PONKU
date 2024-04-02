@@ -94,9 +94,10 @@ public class AskListServiceImpl implements AskListService {
 	}
 
 	@Override
-	public String askPassword(Long ask_list_no) {
+	public boolean askPassword(Long ask_list_no, String pw) {
 		log.info("service 영역에서 askPassword 메서드 실행");
-		return mapper.askPassword(ask_list_no);
+		log.info("비밀번호 일치 여부 : " + mapper.askPassword(ask_list_no).equals(pw));
+		return mapper.askPassword(ask_list_no).equals(pw);
 	}
 
 

@@ -60,7 +60,7 @@ public class AskFileUploadController {
 	}
 
 	@PreAuthorize("permitAll")
-	@PostMapping(value = "/uploadAjaxAction")
+	@PostMapping(value = "/uploadAjaxActionAsk")
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		List<AttachFileDTO> list = new ArrayList<>(); // 파일들의 정보를 저장할 List 객체 생성
@@ -118,7 +118,7 @@ public class AskFileUploadController {
 		return new ResponseEntity<>(list, HttpStatus.OK); // 파일들의 정보를 가진 list와 200(정상) 코드를 리턴한다.
 	}
 
-	@GetMapping("/display") // 특정한 파일 이름을 받아서 이미지 데이터를 전송한다.
+	@GetMapping("/displayAsk") // 특정한 파일 이름을 받아서 이미지 데이터를 전송한다.
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) { // 파일의 경로가 포함된 파일명(2024/03/02/s_obj.uuid_파일명)
 
@@ -150,7 +150,7 @@ public class AskFileUploadController {
 		return result;
 	}
 
-	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE) // 다운로드는 미디어 타입이 고정되어있다.(APPLICATION_OCTET_STREAM_VALUE)
+	@GetMapping(value = "/downloadAsk", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE) // 다운로드는 미디어 타입이 고정되어있다.(APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) { // 파일 다운로드 메서드(브라우저 정보와, 경로가 포함된 파일이름을 받는다)
 		Resource resource = new FileSystemResource("c:\\shopProjectFile\\" + fileName); // 파일을 인식한다. byte를 이용할 수도 있지만 간단히 처리하기 위해 Resource를 사용했다.
@@ -186,7 +186,7 @@ public class AskFileUploadController {
 
 	// @PreAuthorize("isAuthenticated()")
 	@PreAuthorize("permitAll")
-	@PostMapping("/deleteFile")
+	@PostMapping("/deleteFileAsk")
 	@ResponseBody
 	public ResponseEntity<AttachFileDTO> deleteFile(String uploadPath, String uuid, String fileName, boolean type) { // 경로+uuid+파일명,
 																														// image

@@ -79,7 +79,7 @@ function uploadFiles(files) {
 	}
 
 	$.ajax({													// ajax으로 파일 업로드하기
-		url: '/uploadAjaxAction',									// 전송 경로
+		url: '/uploadAjaxActionAsk',									// 전송 경로
 		processData: false, 										// false여야만 전송된다.
 		contentType: false,										// false여야만 전송된다.
 		beforeSend: function(xhr) {
@@ -165,7 +165,7 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 		if (file.image) { // 파일이 이미지라면
 			console.log("이미지다!");
 			var fileCallPath = encodeURIComponent(file.uploadPath + "/s_" + file.uuid + "_" + file.fileName);
-			img.src = "/display?fileName=" + fileCallPath
+			img.src = "/displayAsk?fileName=" + fileCallPath
 			listItem.appendChild(img);
 		} else { // 일반파일이라면
 			console.log("이미지 아니다!");
@@ -186,7 +186,7 @@ function showFiles(files) { // AttachFileDTO 리스트로 전달된다.
 			console.log("삭제할 파일명 : " + file.uploadPath + "\\s_" + file.uuid + "_" + file.fileName);
 			console.log("fileName : " + file.fileName);
 			$.ajax({ // ajax으로 전송
-				url: '/deleteFile', // 전송할 경로
+				url: '/deleteFileAsk', // 전송할 경로
 				data: { uploadPath: file.uploadPath, uuid: file.uuid, fileName: file.fileName, type: file.image }, // 경로를 포함한 파일명, 이미지여부를 fileName, type라는 이름으로 설정
 				beforeSend: function(xhr) {
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);

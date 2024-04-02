@@ -500,7 +500,7 @@ $(document).ready(function () {
 			    } else {
 			    	str += '<td></td>';
 			    }
-			    str += '<td><a class="move" href="/ask/get?no=' + list[i].ask_list_no + '">' + list[i].ask_list_title;
+			    str += '<td><a class="move" href="/ask/get?no=' + list[i].ask_list_no + "&pw=" + '">' + list[i].ask_list_title;
 			    if(list[i].ask_list_lock == true || list[i].ask_list_lock == 1){
 			    	str += ' <i class="fa-solid fa-lock" style="color: #000;"></i>';
 			    }

@@ -171,15 +171,17 @@ h2, .explanation {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
-var csrfHeaderName = $("meta[name='_csrf_header']").attr("content")//"${_csrf.headerName}";
-var csrfTokenValue = $("meta[name='_csrf']").attr("content")//"${_csrf.token}";
-console.log(csrfHeaderName);
-console.log(csrfTokenValue);
 
 	function checkPassword() {
-		debugger;
-		var pw = document.getElementById("password").value;
+		var csrfHeaderName = $("meta[name='_csrf_header']").attr("content")//"${_csrf.headerName}";
+		var csrfTokenValue = $("meta[name='_csrf']").attr("content")//"${_csrf.token}";
+		console.log(csrfHeaderName);
+		console.log(csrfTokenValue);
+		var pw = document.getElementById("password").value; // 오류 ... 값을 못가져옴
 		var ano = document.getElementById("ano").value;
+		console.log(csrfHeaderName);
+		console.log(csrfTokenValue);
+		debugger;
 		$.ajax({ // ajax으로 전송
 			url: '/ask/lock', // 전송할 경로
 			data: JSON.stringify({ password: pw, ask_list_no: ano }),
@@ -195,6 +197,7 @@ console.log(csrfTokenValue);
 				console.log("비밀번호 일치 : " + result);
 				message(result);
 			}, error: function(result) {
+				debugger;
 				console.log("실패 : " + result);
 				message(result);
 				return;
@@ -206,13 +209,17 @@ console.log(csrfTokenValue);
 	function message(result) {
 		if (result === "true") {
 			document.getElementById("message").innerText = "비밀번호가 일치합니다";
-			//window.location.href = '/ask/main';
+			var pw = document.getElementById("password").value;
+			var ano = document.getElementById("ano").value;
+			window.location.href = '/ask/get?no=' + ano + '&pw=' + pw;
 		} else {
 			document.getElementById("message").innerText = "비밀번호가 일치하지 않습니다.";
-			//location.reload();
+			document.getElementById("password").value = ''; // 값 삭제
+			document.getElementById("password").focus(); // 커서이동
 			return;
 		}
 	}
+	
 </script>
 </body>
 

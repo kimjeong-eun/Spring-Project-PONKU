@@ -84,10 +84,10 @@ public class AskRestController {
 	public ResponseEntity<String> passwordCheck(@RequestBody AskListLockDTO dto) {
 		log.info("passwordCheck 입력받은 pw : " + dto.getPassword());
 		log.info("lock.jsp에서 넘겨받은 no : " + dto.getAsk_list_no());
-		String ask_list_lock_password = service.askPassword(dto.getAsk_list_no());
-		log.info("DB에서 가져온 해당 글의 pw : " + ask_list_lock_password);
-		return ask_list_lock_password.equals(dto.getPassword()) ? new ResponseEntity<>("true", HttpStatus.OK)
-				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		boolean ask_list_lock_password = service.askPassword(dto.getAsk_list_no(), dto.getPassword());
+		log.info("패스워드 일치 여부 : " + ask_list_lock_password);
+		return ask_list_lock_password ? new ResponseEntity<>("true", HttpStatus.OK)
+				: new ResponseEntity<>("false", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }
