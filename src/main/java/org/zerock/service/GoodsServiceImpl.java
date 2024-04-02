@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.GoodsAttachVO;
 import org.zerock.domain.GoodsVO;
@@ -54,12 +55,27 @@ public class GoodsServiceImpl implements GoodsService {
 		return attachMapper.findByGno(gno);
 	}
 
+	@Transactional
 	@Override
 	public void register(GoodsVO goods) {
-		log.info("register......" + goods);
-		
-		mapper.insert(goods);
+	    log.info("register......" + goods);
+	    
+	    mapper.insert(goods);
+	    
+	    // attachList가 null이거나 비어있는 경우 처리
+	    if (goods.getAttachList() == null || goods.getAttachList().isEmpty()) {
+	        return;
+	    }
+	    
+	    // attachList에 있는 각 attach에 gno 설정 후 삽입
+	    for (GoodsAttachVO attach : goods.getAttachList()) {
+	        if (attach != null) {
+	            attach.setGno(goods.getGno());
+	            attachMapper.insert(attach);
+	        }
+	    }
 	}
+
 
 	@Override
 	public boolean modify(GoodsVO goods) {
@@ -73,5 +89,11 @@ public class GoodsServiceImpl implements GoodsService {
 		log.info("remove......" + gno);
 		
 		return mapper.delete(gno) == 1; //delete() == 1(성공)이면 T
+	}
+
+	@Override
+	public boolean remove(long gno) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

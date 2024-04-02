@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <html lang="kr">
@@ -114,96 +114,24 @@ input[type=file]::file-selector-button {
 
 <!-- Header Section End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-normal">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="hero__categories">
-					<div class="hero__categories__all">
-						<i class="fa fa-bars"></i> <span>All departments</span>
-					</div>
-					<ul>
-						<li><a href="#">Fresh Meat</a></li>
-						<li><a href="#">Vegetables</a></li>
-						<li><a href="#">Fruit & Nut Gifts</a></li>
-						<li><a href="#">Fresh Berries</a></li>
-						<li><a href="#">Ocean Foods</a></li>
-						<li><a href="#">Butter & Eggs</a></li>
-						<li><a href="#">Fastfood</a></li>
-						<li><a href="#">Fresh Onion</a></li>
-						<li><a href="#">Papayaya & Crisps</a></li>
-						<li><a href="#">Oatmeal</a></li>
-						<li><a href="#">Fresh Bananas</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-9">
-				<div class="hero__search">
-					<!-- <div class="hero__search__form">
-						<form action="#">
-							<div class="hero__search__categories">
-								All Categories <span class="arrow_carrot-down"></span>
-							</div>
-							<input type="text" placeholder="What do yo u need?">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form> -->
-				</div>
-				<div class="hero__search__phone">
-					<div class="hero__search__phone__icon">
-						<i class="fa fa-phone"></i>
-					</div>
-					<div class="hero__search__phone__text">
-						<h5>+65 11.188.888</h5>
-						<span>support 24/7 time</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-</section>
-<!-- Hero Section End -->
-
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/bg1.png">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>상품 상세 정보</h2>
-					<div class="breadcrumb__option">
-						<a href="./index.html">Home</a> <a href="./index.html">Vegetables</a>
-						<span>Vegetable’s Package</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		row
-
-	</div>
-</section>
-<!-- Breadcrumb Section End -->
-
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
-	<div class="container" style="max-width: 1370px;">
+	<div class="container" style="max-width: 1370px; padding-top: 100px;">
 		<div class="row">
 
-			<div class="col-lg-6 col-md-6">
+			<div class="col-lg-7 col-md-7">
 				<div class="product__details__pic">
 
 					<div class="product__details__pic__item">
 						<!-- <div class="checkout__input"> -->
 						<img class="product__details__pic__item--large"
-							src="/resources/img/product/details/product-details-1.jpg" alt="">
+							src="/resources/img/${goods.title_img}" alt="">
 					</div>
 
 					<div class="product__details__pic__slider owl-carousel">
 						<img
 							data-imgbigurl="/resources/img/product/details/product-details-2.jpg"
-							src="/resources/img/product/details/thumb-1.jpg" alt=""> <img
+							src="/resources/img/${goods.info_img}" alt=""> <img
 							data-imgbigurl="/resources/img/product/details/product-details-3.jpg"
 							src="/resources/img/product/details/thumb-2.jpg" alt=""> <img
 							data-imgbigurl="/resources/img/product/details/product-details-5.jpg"
@@ -216,56 +144,26 @@ input[type=file]::file-selector-button {
 				<!-- product__details__pic__item -->
 			</div>
 
-			<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
+			<div class="col-lg-5 col-md-5" style="box-sizing: border-box;">
 
-				<!-- 예쁜 레이아웃 쀼쀼 -->
 				<div class="product__details__text">
 
-					<div class="checkout__input row">
-						<div class="col">
-							<p>
-								상품번호<span>*</span>
-							</p>
-						</div>
-						<div class="col">
-							<input name="gno" type="text" value='${goods.gno}'
-								style="color: black; border: 0;" readonly="readonly" />
-						</div>
-					</div>
-
-					<div class="checkout__input row"
+					<div class="checkout__input"
 						style="margin-top: 50px; color: #252525; font-weight: 700; margin-bottom: 16px;">
-						<div class="col">
-							<p>
-								상품명<span>*</span>
-							</p>
-						</div>
-						<div class="col">
-							<input name="gname" type="text" value='${goods.gname}'
-								style="color: black; border: 0;" readonly="readonly">
-						</div>
+						<input name="gname" type="text" value='${goods.gname}' style="color: black; border: 0;" readonly="readonly">
 					</div>
 
-					<div class="checkout__input row">
-						<div class="col">
-							<p>판매가</p>
-						</div>
-						<div class="col row">
-							<div class="col-9" style="padding: 0;">
-								<input name="price" type="text"
-									class="checkout__input__add product__details__price"
-									value='${goods.price}' style="color: black; border: 0;"
-									readonly="readonly">
-							</div>
-							<div class="col-3">
-								<span class="product__details__price" style="color: black";>원</span>
-							</div>
-						</div>
+					<div class="checkout__input">
+						<input name="price" type="text"
+							class="checkout__input__add product__details__price"
+							value='${goods.price}' style="color: black; border: 0; display: inline; width: 25%;"
+							readonly="readonly"> <span
+							class="product__details__price" style="color: black";>원</span>
 					</div>
 
 					<div class="checkout__input row" style="height: 80px">
 						<p>
-							기종 카테고리<span>*</span>
+							기종 카테고리
 						</p>
 						<!-- 대분류 -->
 						<div class="dropdown col">
@@ -332,22 +230,14 @@ input[type=file]::file-selector-button {
 
 		<div class="checkout__input" style="text-align: center;">
 
-			<%-- <button type="reset" class="btn btn-default" data-oper='modify'
-				style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">수정</button>
-			<form id="operForm" action="/goods/modify" method="get">
-				<input type="hidden" id="gno" name="gno" value='${goods.gno}'>
-			</form> --%>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<form id="operForm" action="/goods/modify" method="get">
+					<button type="submit" class="btn btn-default" data-oper='modify'
+						style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">수정</button>
 
-			<button type="submit" class="btn btn-info" data-oper='list'
-				style="margin-top: 160px; padding: 15px 60px; font-size: 1rem;">목록</button>
-
-			<sec:authentication property="principal" var="pinfo" />
-
-			<%-- P716 <sec:authorize access="isAUthenticated()">
-			<c:if test="${pinfo.username eq goods.writer}">
-			
-			</c:if>
-			</sec:authentication> --%>
+					<input type="hidden" id="gno" name="gno" value='${goods.gno}'>
+				</form>
+			</sec:authorize>
 
 		</div>
 		<!-- checkout__input -->
@@ -610,12 +500,6 @@ input[type=file]::file-selector-button {
 									operForm.attr("action", "/goods/modify")
 											.submit(); //input[type='hidden']의 gno를 보내고 이동
 								});
-
-						$("button[data-oper='list']").on("click", function(e) { //목록 버튼을 누를 경우
-							operForm.find("#gno").remove(); //gno 삭제
-							operForm.attr("action", "/goods/goodsList"); //list로 이동
-							operForm.submit();
-						});
 					});
 </script>
 

@@ -19,6 +19,7 @@ public interface GoodsService {
 	public boolean modify(GoodsVO goods);
 	
 	//여러 열을 바꿀 때는 insert처럼 파라미터로 VO를 받아야 함  
-	public boolean remove(String gno); 
+	public boolean remove(long gno);
+	boolean remove(String gno); 
 	
 }

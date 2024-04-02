@@ -6,13 +6,13 @@
 
 	<!-- gno 조회 -->
 	<select id="read" resultType="org.zerock.domain.GoodsVO">
-		select * from Shop_goods where gno = #{gno}
+		select * from Shop_goods where gno = #{gno} and custom != 'true'
 	</select>
 
 	<!-- 모든 값 조회 -->
 	<select id="getList" resultType="org.zerock.domain.GoodsVO">
 		<![CDATA[
-		select * from Shop_goods
+		select * from Shop_goods where custom <> 'true'
 		]]>
 	</select>
 	

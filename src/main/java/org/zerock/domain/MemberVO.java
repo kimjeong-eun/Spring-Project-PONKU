@@ -15,10 +15,6 @@ public class MemberVO {
 	private String phone; //핸드폰번호
 	private String email; //이메일
 	private String birth; //생년월일
-	//주소
-	private String address1; //우편번호
-	private String address2; //주소
-	private String address3; //상세주소 기입
 	
 	private Date enroll_date; //가입일
 	private Date last_update; //업데이트일

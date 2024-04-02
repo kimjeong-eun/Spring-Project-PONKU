@@ -32,7 +32,7 @@ public class GoodsController {
 	@Setter(onMethod_ = { @Autowired })
 	private GoodsService service;
 
-	@PostMapping("/admin")
+	@GetMapping("/admin")
 	public void admin() {
 	}
 	
@@ -57,7 +57,7 @@ public class GoodsController {
 		*/
 	
 	/* 목록 불러오기 */
-	@GetMapping("/goodsList")
+	@GetMapping("/list")
 	@PreAuthorize("permitAll")
 	public void list(Model model) {
 		log.info("list");
@@ -65,7 +65,7 @@ public class GoodsController {
 	}
 
 	/* 페이징 처리 후 목록 불러오기 */
-	//@GetMapping("/goodsList")
+	//@GetMapping("/list")
 	//@PreAuthorize("permitAll")
 	//public void list(Criteria cri, Model model) {
 	//	log.info("list" + cri);
@@ -83,7 +83,6 @@ public class GoodsController {
 	}
 
 	@GetMapping("/register")
-	//@PreAuthorize("isAuthenticated()") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
 	@PreAuthorize("hasRole('ROLE_ADMIN')") //관리자 권한으로 바꿀 예정 @PreAuthorize("hasRole('ROLE_MANAGER')")
 	public void register() {
 	}
@@ -100,31 +99,32 @@ public class GoodsController {
 			goods.getAttachList().forEach(attach -> log.info(attach));
 		}
 		
-		
 		log.info("======================");
-		service.register(goods);
-		rttr.addFlashAttribute("result", goods.getGno()); // 게시물 번호를 일회성 저장
+		//service.register(goods);
+		//rttr.addFlashAttribute("result", goods.getGno()); // 게시물 번호를 일회성 저장
 
-		return "redirect:/goods/goodsList"; // 목록 화면 이동
+		return "redirect:/goods/list"; // 목록 화면 이동
 	}
 
 	@PostMapping("/modify")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String modify(GoodsVO goods, RedirectAttributes rttr) {
 		log.info("modify: " + goods);
 
 		if (service.modify(goods)) { // 수정한 값 T -> 성공
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/goods/goodsList";
+		return "redirect:/goods/list";
 	}
 
 	@PostMapping("/remove")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String remove(@RequestParam("gno") String gno, RedirectAttributes rttr) {
 		log.info("remove......" + gno);
 
 		if (service.remove(gno)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/goods/goodsList";
+		return "redirect:/goods/list";
 	}
 }

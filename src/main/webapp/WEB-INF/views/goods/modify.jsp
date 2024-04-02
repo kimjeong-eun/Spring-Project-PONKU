@@ -54,6 +54,10 @@ input[type=file]::file-selector-button {
 		min-height: 1600px; /* 더 작은 높이로 조정 */
 	}
 }
+
+.product__details__text input {
+	color: black;
+}
 </style>
 
 <!-- Header Section Begin -->
@@ -61,57 +65,6 @@ input[type=file]::file-selector-button {
 <jsp:include page="../includes/header.jsp"></jsp:include>
 
 <!-- Header Section End -->
-
-<!-- Hero Section Begin -->
-<section class="hero-normal">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="hero__categories">
-					<div class="hero__categories__all">
-						<i class="fa fa-bars"></i> <span>All departments</span>
-					</div>
-					<ul>
-						<li><a href="#">Fresh Meat</a></li>
-						<li><a href="#">Vegetables</a></li>
-						<li><a href="#">Fruit & Nut Gifts</a></li>
-						<li><a href="#">Fresh Berries</a></li>
-						<li><a href="#">Ocean Foods</a></li>
-						<li><a href="#">Butter & Eggs</a></li>
-						<li><a href="#">Fastfood</a></li>
-						<li><a href="#">Fresh Onion</a></li>
-						<li><a href="#">Papayaya & Crisps</a></li>
-						<li><a href="#">Oatmeal</a></li>
-						<li><a href="#">Fresh Bananas</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-9">
-				<div class="hero__search">
-					<!-- <div class="hero__search__form">
-						<form action="#">
-							<div class="hero__search__categories">
-								All Categories <span class="arrow_carrot-down"></span>
-							</div>
-							<input type="text" placeholder="What do yo u need?">
-							<button type="submit" class="site-btn">SEARCH</button>
-						</form> -->
-				</div>
-				<div class="hero__search__phone">
-					<div class="hero__search__phone__icon">
-						<i class="fa fa-phone"></i>
-					</div>
-					<div class="hero__search__phone__text">
-						<h5>+65 11.188.888</h5>
-						<span>support 24/7 time</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-</section>
-<!-- Hero Section End -->
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
@@ -137,7 +90,12 @@ input[type=file]::file-selector-button {
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
 	<div class="container" style="max-width: 1370px;">
-		<form action="/goods/modify" method="post">
+		<form method="post" enctype="multipart/form-data" role="form"
+			action="/goods/modify">
+
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+
 			<div class="row">
 
 				<div class="col-lg-6 col-md-6">
@@ -167,55 +125,7 @@ input[type=file]::file-selector-button {
 
 				<div class="col-lg-6 col-md-6" style="box-sizing: border-box;">
 
-					<!-- 예쁜 레이아웃 쀼쀼 -->
 					<div class="product__details__text">
-
-						<div class="checkout__input row">
-							<div class="col">
-								<p>
-									상품번호<span>*</span>
-								</p>
-							</div>
-							<div class="col">
-								<input name="gno" type="text" value='${goods.gno}'>
-							</div>
-						</div>
-
-						<div class="checkout__input row"
-							style="margin-top: 50px; color: #252525; font-weight: 700; margin-bottom: 16px;">
-							<div class="col">
-								<p>
-									상품명<span>*</span>
-								</p>
-							</div>
-							<div class="col">
-								<input name="gname" type="text" value='${goods.gname}'>
-							</div>
-						</div>
-
-						<div class="checkout__input row">
-							<div class="col">
-								<p>판매가</p>
-							</div>
-							<div class="col row">
-								<div class="col-9" style="padding: 0;">
-									<input name="price" type="text"	class="checkout__input__add product__details__price" 
-									value='${goods.price}'>
-								</div>
-								<div class="col-3">
-									<span class="product__details__price">원</span>
-								</div>
-							</div>
-						</div>
-
-						<div class="checkout__input">
-							<p>
-								상품 설명<span>*</span>
-							</p>
-							<textarea name="information" type="text" rows="5"
-								style="width: 100%; font-size: 16px; font-family:"Cairo", sans-serif;
-							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;">${goods.information}</textarea>
-						</div>
 
 						<div class="checkout__input row" style="height: 80px">
 							<p>
@@ -247,40 +157,66 @@ input[type=file]::file-selector-button {
 								</ul>
 							</div>
 						</div>
+						<!-- checkout__input -->
 
-						<ul>
-							<li><b>Availability</b> <span>In Stock</span></li>
-							<li><b>Shipping</b> <span>01 day shipping. <samp>Free
-										pickup today</samp></span></li>
-							<li><b>Weight</b> <span>0.5 kg</span></li>
-							<li><b>Share on</b>
-								<div class="share">
-									<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-										class="fa fa-twitter"></i></a> <a href="#"><i
-										class="fa fa-instagram"></i></a> <a href="#"><i
-										class="fa fa-pinterest"></i></a>
-								</div></li>
-						</ul>
-					</div>
-					<!-- details -->
-
-					<!-- <div class="checkout__input">
-						<p>
-							재고수량<span>*</span>
-						</p>
-						<input type="text">
-					</div> -->
-
-					<div class="checkout__input">
-						<div class="row">
-							<p>
-								상품 이미지<span>*</span>
-							</p>
+						<div class="checkout__input row">
+							<div class="col">
+								<p>
+									상품번호<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input name="gno" type="text" value='${goods.gno}'>
+							</div>
 						</div>
-						<div class="row">
-							<%-- <form method="post" enctype="multipart/form-data"
-								action="uploadAjaxAction/${_csrf.parameterName}=${_csrf.token}">
-								<div class="col-10">
+
+						<div class="checkout__input row"
+							style="margin-top: 50px; color: #252525; font-weight: 700; margin-bottom: 16px;">
+							<div class="col">
+								<p>
+									상품명<span>*</span>
+								</p>
+							</div>
+							<div class="col">
+								<input name="gname" type="text" value='${goods.gname}'>
+							</div>
+						</div>
+
+						<div class="checkout__input row">
+							<div class="col">
+								<p>판매가</p>
+							</div>
+							<div class="col row">
+								<div class="col-9" style="padding: 0;">
+									<input name="price" type="text"
+										class="checkout__input__add product__details__price"
+										value='${goods.price}'>
+								</div>
+								<div class="col-3">
+									<span class="product__details__price">원</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="checkout__input">
+							<p>
+								상품 설명<span>*</span>
+							</p>
+							<textarea name="information" type="text" rows="5"
+								style="width: 100%; font-size: 16px; font-family:"Cairo", sans-serif;
+							color:#6f6f6f; font-weight: 400; line-height: 26px; margin: 0 0 15px 0;"></textarea>
+						</div>
+
+
+						<div class="checkout__input">
+							<div class="row">
+								<p>
+									상품 이미지<span>*</span>
+								</p>
+							</div>
+							<div class="row">
+
+								<div class="uploadDiv col-10">
 									<input type='file' name='uploadFile' multiple
 										style="border: 0; padding: 0;">
 								</div>
@@ -288,146 +224,294 @@ input[type=file]::file-selector-button {
 									<button id='uploadBtn' class="btn btn-light"
 										style="width: 100%;">Upload</button>
 								</div>
+							</div>
 
-								<input type="hidden" name="${_csrf.parameterName}"
-									value="${_csrf.token}" /> <input type="hidden" name="_csrf">
-								<!-- post방식 시 토큰 필수 -->
-							</form> --%>
+							<div class="uploadResult">
+								<ul>
+
+								</ul>
+							</div>
+
 						</div>
-					</div>
+						<!-- checkout__input -->
 
-					<!-- <div class="checkout__input__checkbox">
-                                <label for="acc">
-                                    Create an account?
-                                    <input type="checkbox" id="acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <p>Create an account by entering the information below. If you are a returning customer
-                            please login at the top of the page</p> -->
+						<!-- 최종 수정 관리자 출력 -->
+						<div class="checkout__input row">
+							<div class="col">
+								<input
+									value='<sec:authentication property="principal.username"/>'
+									readonly="readonly">
+							</div>
+							<div class="col">
+								<p>님께서 등록하였습니다.</p>
+							</div>
+						</div>
+
+					</div>
+					<!-- details -->
+
 				</div>
-				<!-- col-lg-7 -->
+				<!-- col-6 -->
 			</div>
 			<!-- row -->
 
-			<div class="checkout__input" style="text-align: center;">
-				<button type="submit" class="btn-default site-btn" data-oper='modify'
-					style="margin-top: 40px; padding: 15px 60px; font-size: 1rem;">수정</button>
-
-				<button type="submit" class="btn btn-danger" data-oper='remove'
-					style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">삭제</button>
-					
-				<button type="submit" data-oper='list' class="btn btn-info">목록</button>
-			</div> <!-- checkout__input -->
 		</form>
+		
+			<div class="checkout__input" style="text-align: center;">
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <form id="operForm" action="/goods/modify" method="post">
+            <button type="submit" class="btn-default site-btn" data-oper='modify' style="margin-top: 40px; padding: 15px 60px; font-size: 1rem;">수정</button>
 
-
+            <button type="submit" class="btn btn-danger" data-oper='remove' style="padding: 15px 60px; font-size: 1rem; border: 1px solid grey">삭제</button>
+            <input type="hidden" id="gno" name="gno" value='${goods.gno}'>
+        </form>
+    </sec:authorize>
+    <button type="button" data-oper='list' class="btn btn-info">목록</button>
+</div>
+			<!-- checkout__input -->
 	</div>
 	<!-- container -->
 
-<script>
-	$(function() {
-		/* 드롭다운 */
-		var toggleBtn = $(".brandBtn"); // 버튼 선택
-		var menu = $(".dropdown-menu");
-		var appleItem = $(".dropdown-menu-apple");
-		var samItem = $(".dropdown-menu-sam");
+	<script>
+	/* 업로드한 이미지 보기 */
+	//$(document).ready()의 바깥쪽에 작성
+	function showImage(fileCallPath) {
 
-		// 버튼을 클릭하면 드롭다운 메뉴 항목 보이기
-		toggleBtn.click(function() {
-			menu.toggle(); // 대분류 드롭다운 메뉴 항목 보이거나 숨기기
-			appleItem.hide(); // 애플 메뉴 항목 숨기기
-			samItem.hide(); // 삼성 메뉴 항목 숨기기
+		alert(fileCallPath);
+	}
+	
+		$(function() {
+			/* 드롭다운 */
+			var toggleBtn = $(".brandBtn"); // 버튼 선택
+			var menu = $(".dropdown-menu");
+			var appleItem = $(".dropdown-menu-apple");
+			var samItem = $(".dropdown-menu-sam");
 
-			if ($(".dropdown-menu").css("display") === "block") {
-				$(".cateMar").css("margin-top", "140px");
-			} else {
-				$(".cateMar").css("margin-top", "50px");
-			}
-		});
+			// 버튼을 클릭하면 드롭다운 메뉴 항목 보이기
+			toggleBtn.click(function() {
+				menu.toggle(); // 대분류 드롭다운 메뉴 항목 보이거나 숨기기
+				appleItem.hide(); // 애플 메뉴 항목 숨기기
+				samItem.hide(); // 삼성 메뉴 항목 숨기기
 
-		// 애플 브랜드를 클릭하면 애플 메뉴 항목 보이기
-		$(".dropdown-brand1").click(function() {
-			appleItem.show();
-			samItem.hide();
-		});
-
-		// 삼성 브랜드를 클릭하면 삼성 메뉴 항목 보이기
-		$(".dropdown-brand2").click(function() {
-			appleItem.hide();
-			samItem.show();
-		});
-
-		//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
-		$(document).ajaxSend(function(e, xhr, options) {
-			xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		});
-
-		/* 파일 업로드 */
-		//파일의 확장자와 크기 사전 처리
-		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz$)"); //정규표현식
-		var maxSize = 5242880; //5MB
-
-		function checkExtension(fileName, fileSize) {
-			if (fileSize >= maxSize) {
-				alert("파일 사이즈 초과");
-				return false;
-			}
-
-			if (regex.test(fileName)) { //.test(): 표현식 만족 시
-				alert("해당 종류의 파일은 업로드할 수 없습니다");
-				return false;
-			}
-			return true; //반복을 위함 (문제 없을 시 true)
-		}
-
-		$("#uploadBtn").on("click", function(e) {
-			e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
-
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
-
-			// 파일 업로드 처리
-			for (var i = 0; i < files.length; i++) {
-				formData.append("uploadFile", files[i]);
-			}
-
-			$.ajax({
-				url : 'uploadAjaxAction',
-				processData : false,
-				contentType : false,
-				data : formData,
-				type : 'POST',
-				success : function(result) {
-					alert("Uploaded");
-				},
-				error : function(xhr, status, error) {
-					console.error(xhr.responseText);
+				if ($(".dropdown-menu").css("display") === "block") {
+					$(".cateMar").css("margin-top", "140px");
+				} else {
+					$(".cateMar").css("margin-top", "50px");
 				}
 			});
-		});
-		
-		/* 수정 삭제 버튼 */
-		var formObj = $("form");
-		
-		$('button').on("click", function(e) {
-			e.preventDefault(); //기본 동작 방지
-			
-			var operation = $(this).data("oper");
-			
-			console.log(operation);
-			
-			if (operation === 'remove') {
-				formObj.attr("action", "/goods/remove");
-			} else if (operation === 'list') {
-				self.location = "/goods/goodsList";
-				return;
+
+			// 애플 브랜드를 클릭하면 애플 메뉴 항목 보이기
+			$(".dropdown-brand1").click(function() {
+				appleItem.show();
+				samItem.hide();
+			});
+
+			// 삼성 브랜드를 클릭하면 삼성 메뉴 항목 보이기
+			$(".dropdown-brand2").click(function() {
+				appleItem.hide();
+				samItem.show();
+			});
+
+			//헤더 토큰 정보 설정, 명시적 함수 먼저 실행
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			});
+
+			/* 파일 업로드 */
+			/* 게시물 등록 시 첨부파일 정보 hidden으로 전송 */
+			var formObj = $("form[role='form']");
+
+			/* Submit 버튼 클릭 */
+			$("button[type='submit']")
+					.on(
+							"click",
+							function(e) {
+								e.preventDefault();
+
+								var str = "";
+
+								$(".uploadResult ul li")
+										.each(
+												function(i, obj) {
+													var jobj = $(obj);
+
+													str += "<input type='hidden' name='attachList["
+															+ i
+															+ "].fileName' value='"
+															+ jobj
+																	.data("filename")
+															+ "'>";
+													str += "<input type='hidden' name='attachList["
+															+ i
+															+ "].uuid' value='"
+															+ jobj.data("uuid")
+															+ "'>";
+													str += "<input type='hidden' name='attachList["
+															+ i
+															+ "].uploadPath' value='"
+															+ jobj.data("path")
+															+ "'>";
+													str += "<input type='hidden' name='attachList["
+															+ i
+															+ "].fileType' value='"
+															+ jobj.data("type")
+															+ "'>";
+												});
+
+								formObj.append(str).submit();
+							});
+
+			/* 파일의 확장자와 크기 사전 처리 */
+			var regexp = new RegExp("(.*?)\\.(exe|sh|zip|alz$)"); //정규표현식
+			var maxSize = 5242880; //5MB
+
+			function checkExtension(fileName, fileSize) {
+				if (fileSize >= maxSize) {
+					alert("파일 사이즈 초과");
+					return false;
+				}
+
+				if (regexp.test(fileName)) { //.test(): 표현식 만족 시
+					alert("해당 종류의 파일은 업로드할 수 없습니다");
+					return false;
+				}
+				return true; //반복을 위함 (문제 없을 시 true)
 			}
-			formObj.submit();
-		})
-	});
-</script>
+
+			/* 여러 file 추가 위한 <input tye='file'>초기화 */
+			var cloneObj = $(".uploadDiv").clone(); //아무 내용 없는 div clone
+
+			var uploadResult = $(".uploadResult ul");
+
+			/* 파일 업로드 후 파일 미리보기 */
+			function ShowUploadFile(uploadResultArr) { //JSON 데이터를 받아 해당 파일명 추가
+
+				var str = "";
+
+				$(uploadResultArr)
+						.each(
+								function(i, obj) {
+									var fileCallPath = ""; // fileCallPath 변수 초기화 및 showImage 시 전역 변수로 사용
+
+									if (!obj.image) { //이미지가 아닐 경우
+
+										var fileCallPath = encodeURIComponent(obj.uploadPath
+												+ "/"
+												+ obj.uuid
+												+ "_"
+												+ obj.fileName);
+
+										str += "<li>&nbsp;<i class='fa-solid fa-paperclip'/>"
+												+ obj.fileName
+												+ "<span data-file=\'"+fileCallPath+"\'><i class='fa-solid fa-rectangle-xmark'></i></span>"
+												+ "</li>"; //첨부파일 아이콘 + 파일명
+									} else {
+										var fileCallPath = encodeURIComponent(obj.uploadPath
+												+ "/s_"
+												+ obj.uuid
+												+ "_"
+												+ obj.fileName);
+
+										var originPath = obj.uploadPath + "\\"
+												+ obj.uuid + "_" + obj.fileName;
+
+										originPath = originPath.replace(
+												new RegExp(/\\/g), "/");
+
+										str += "<li><p>"
+												+ obj.fileName
+												+ "</p><a href=\"javascript:showImage(\'"
+												+ originPath
+												+ "\')\">"
+												+ "<img src='display?fileName="
+												+ fileCallPath
+												+ "'></a>"
+												+ "<span data-file=\'"+fileCallPath+"\' data-type='image'><i class='fa-solid fa-rectangle-xmark'></i></span>"
+												+ "</li>";
+									}
+								});
+				uploadResult.append(str);
+			}
+
+			/* 업로드 버튼 클릭 */
+			$("#uploadBtn").on("click", function(e) {
+				e.preventDefault(); // 기본 동작(페이지 새로고침) 방지
+
+				var formData = new FormData();
+				var inputFile = $("input[name='uploadFile']");
+				var files = inputFile[0].files;
+
+				// 파일 업로드 처리
+				for (var i = 0; i < files.length; i++) {
+
+					if (!checkExtension(files[i].name, files[i].size)) {
+						return false;
+					}
+					formData.append("uploadFile", files[i]);
+				}
+
+				$.ajax({
+					url : 'uploadAjaxAction',
+					processData : false,
+					contentType : false,
+					data : formData,
+					type : 'POST',
+					dataType : 'json',
+					success : function(result) {
+						console.log(result);
+						//모달 창으로 등록할 것 예정
+						alert("n개의 파일이 등록되었습니다.");
+
+						ShowUploadFile(result);
+
+						$(".uploadDiv").html(cloneObj.html()); //업로드 후 복사된 객체를 div 내에 다시 추가하여 초기화
+					},
+					error : function(xhr, status, error) {
+						console.error(xhr.responseText);
+					}
+				}); //JSON 데이터 반환
+			});
+
+			/*  이미지 삭제 X 클릭 */
+			$(".uploadResult").on("click", "span", function(e) { //이벤트 위임 (업로드 후 span 생성)
+				var targetFile = $(this).data("file");
+				var type = $(this).data("type");
+				var $targetElement = $(this).closest("li"); // 클릭된 삭제 버튼이 속한 리스트 아이템 요소 선택
+
+				console.log("delete......" + targetFile);
+
+				$.ajax({
+					url : '/goods/deleteFile',
+					data : {
+						fileName : targetFile,
+						type : type
+					},
+					dataType : 'text',
+					type : 'POST',
+					success : function(result) {
+						alert(result);
+						$targetElement.remove();
+					},
+					error : function(xhr, status, error) {
+						console.error(xhr.responseText);
+					}
+				});
+			});
+
+			/* 수정 삭제 버튼 */
+			// 수정 및 삭제 버튼 클릭 이벤트 핸들러
+		    $("button[data-oper='modify'], button[data-oper='remove']").on("click", function() {
+		        var gno = $("#gno").val(); // 해당 상품의 gno 값을 가져옴
+		        $("#operForm").append("<input type='hidden' name='gno' value='" + gno + "'>"); // gno 값을 hidden으로 추가하여 전송
+		    });
+
+		    // 목록 버튼 클릭 이벤트 핸들러
+		    $("button[data-oper='list']").on("click", function() {
+		        location.href = "/goods/list"; // 목록으로 이동
+		    });
+
+		}); //function
+	</script>
 
 	<!-- Footer Section Begin -->
 

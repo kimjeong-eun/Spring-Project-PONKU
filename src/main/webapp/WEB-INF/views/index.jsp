@@ -24,7 +24,7 @@
                             <p>장난감, 문구류 할인 및 배달 가능</p>
                             <a href="#" class="primary-btn">상품보러 가기</a>
                         </div> -->
-			<video src="/resources/vid/case1.webm" style="width: 100%; height: 100%;" autoplay muted loop></video>
+			<video src="/resources/vid/case1.webm" style="width: 100%; height: 95%;" autoplay muted loop></video>
 			
 			<!-- 이것도 퍼오긴 했는데 동영상 비율이 달라서 배너? 등으로 사용하면 좋을 것 같아요 -->
 			<!-- <video src="/resources/vid/case2.mp4" style="width: 100%; height: 100%;" autoplay muted loop></video> -->

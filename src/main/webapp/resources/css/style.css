@@ -25,13 +25,37 @@
 9.  Contact
 10.  Footer Style
 -------------------------------------------------------------------*/
+/* 한글 폰트 */
+@font-face {
+    font-family: 'kpDot';
+    src : url(/resources/fonts/KoPubWorldDotumLight.ttf);
+         unicode-range: U+AC00-D7A3;
+        }
+        
+/* 영문 폰트 */
+@font-face {
+     font-family: 'JeonjuCraftGoR';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/JeonjuCraftGoR.woff2') format('woff2');
+}
 
-/*----------------------------------------*/
-/* Template default CSS
-/*----------------------------------------*/
+/* 로고 폰트 */
+@font-face {
+    font-family: 'BagelFatOne-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'kpDot', 'JeonjuCraftGoR';
+}
+
+* {
+    font-family: inherit;
+}
+
 html, body {
 	height: 100%;
-	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -69,7 +93,6 @@ h6 {
 
 p {
 	font-size: 16px;
-	font-family: "Cairo", sans-serif;
 	color: #6f6f6f;
 	font-weight: 400;
 	line-height: 26px;
@@ -168,7 +191,7 @@ ul, ol {
 	top: 0;
 	left: 0;
 	z-index: 999999;
-	background: #000;
+	background-color: white;
 }
 
 .loader {
@@ -226,16 +249,23 @@ ul, ol {
 /*---------------------
   Header
 -----------------------*/
+.header {
+	width: 100%;
+	position: fixed;
+	background-color: white;
+	z-index: 999;
+}
+
 .header__top {
 	background: #f5f5f5;
-	padding: 6px 0 9px;
+	padding: 6px 0 6px;
 }
 
 .header__top a {
-	font-size: 14px;
+	font-size: 13px;
 	color: #1c1c1c;
 	display: inline-block;
-	margin-right: 15px;
+	margin-right: 13px;
 	position: relative;
 }
 
@@ -364,16 +394,9 @@ ul, ol {
 	margin-right: 6px;
 }
 
-.header__logo {
-	padding: 15px 0;
-}
-
 .header__logo a {
 	display: inline-block;
-}
-
-.header__menu {
-	padding: 24px 0;
+    font-family: 'BagelFatOne-Regular';
 }
 
 .header__menu ul li {
@@ -435,7 +458,7 @@ ul, ol {
 }
 
 .header__menu ul li a {
-	font-size: 14px;
+	font-size: 15px;
 	color: #252525;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -445,24 +468,21 @@ ul, ol {
 	-ms-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
 	transition: all, 0.3s;
-	padding: 5px 0;
 	display: block;
 }
 
 .hero__cart {
 	text-align: right;
-	padding: 24px 0;
 }
 
 .hero__cart ul {
 	display: inline-block;
-	margin-right: 25px;
 }
 
 .hero__cart ul li {
 	list-style: none;
 	display: inline-block;
-	margin-right: 15px;
+	margin-right: 20px;
 }
 
 .hero__cart ul li:last-child {
@@ -964,7 +984,7 @@ ul, ol {
 }
 
 /*---------------------
-  Form BLog
+  From BLog
 -----------------------*/
 .from-blog {
 	padding-top: 50px;
@@ -1364,111 +1384,6 @@ ul, ol {
 	margin-right: 0;
 }
 
-.filter__item {
-	padding-top: 45px;
-	border-top: 1px solid #ebebeb;
-	padding-bottom: 20px;
-}
-
-.filter__sort {
-	margin-bottom: 15px;
-}
-
-.filter__sort span {
-	font-size: 16px;
-	color: #6f6f6f;
-	display: inline-block;
-}
-
-.filter__sort .nice-select {
-	background-color: #fff;
-	border-radius: 0;
-	border: none;
-	display: inline-block;
-	float: none;
-	height: 0;
-	line-height: 0;
-	padding-left: 18px;
-	padding-right: 30px;
-	font-size: 16px;
-	color: #1c1c1c;
-	font-weight: 700;
-	cursor: pointer;
-}
-
-.filter__sort .nice-select span {
-	color: #1c1c1c;
-}
-
-.filter__sort .nice-select:after {
-	border-bottom: 1.5px solid #1c1c1c;
-	border-right: 1.5px solid #1c1c1c;
-	height: 8px;
-	margin-top: 0;
-	right: 16px;
-	width: 8px;
-	top: -5px;
-}
-
-.filter__sort .nice-select.open .list {
-	opacity: 1;
-	pointer-events: auto;
-	-webkit-transform: scale(1) translateY(0);
-	-ms-transform: scale(1) translateY(0);
-	transform: scale(1) translateY(0);
-}
-
-.filter__sort .nice-select .list {
-	border-radius: 0;
-	margin-top: 0;
-	top: 15px;
-}
-
-.filter__sort .nice-select .option {
-	line-height: 30px;
-	min-height: 30px;
-}
-
-.filter__found {
-	text-align: center;
-	margin-bottom: 15px;
-}
-
-.filter__found h6 {
-	font-size: 16px;
-	color: #b2b2b2;
-}
-
-.filter__found h6 span {
-	color: #1c1c1c;
-	font-weight: 700;
-	margin-right: 5px;
-}
-
-.filter__option {
-	text-align: right;
-	margin-bottom: 15px;
-}
-
-.filter__option span {
-	font-size: 24px;
-	color: #b2b2b2;
-	margin-right: 10px;
-	cursor: pointer;
-	-webkit-transition: all, 0.3s;
-	-moz-transition: all, 0.3s;
-	-ms-transition: all, 0.3s;
-	-o-transition: all, 0.3s;
-	transition: all, 0.3s;
-}
-
-.filter__option span:last-child {
-	margin: 0;
-}
-
-.filter__option span:hover {
-	color: #7fad39;
-}
 
 .product__item {
 	margin-bottom: 50px;
@@ -2835,9 +2750,6 @@ ul, ol {
 	.container {
 		max-width: 1770px;
 	}
-	header .container {
-		max-width: 1400px;
-	}
 }
 
 /* Medium Device = 1200px */
@@ -2881,10 +2793,6 @@ ul, ol {
 	}
 	.categories__slider.owl-carousel .owl-nav button.owl-next {
 		right: -20px;
-	}
-	.filter__sort .nice-select {
-		padding-left: 5px;
-		padding-right: 28px;
 	}
 	.product__details__quantity {
 		margin-bottom: 10px;
@@ -2963,12 +2871,6 @@ ul, ol {
 	}
 	.footer__copyright__payment {
 		float: none;
-	}
-	.filter__item {
-		text-align: center;
-	}
-	.filter__option {
-		text-align: center;
 	}
 	.product__details__pic {
 		margin-bottom: 40px;

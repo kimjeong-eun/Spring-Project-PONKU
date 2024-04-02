@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <html lang="kr">
 <!DOCTYPE html>
-<style>
-.container {
-	max-width: 1200px;
-}
-</style>
 
 <head>
 <meta charset="UTF-8">
@@ -42,7 +36,8 @@
 	crossorigin="anonymous"></script>
 
 <!-- 폰트 어썸 -->
-<script src="https://kit.fontawesome.com/c96d31bca3.js"	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c96d31bca3.js"
+	crossorigin="anonymous"></script>
 
 <!-- Css Styles -->
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css"
@@ -72,123 +67,112 @@
 	<!-- Header Section Begin -->
 	<header class="header">
 		<div class="header__top">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-4">
-						<a><i class="fa fa-envelope"></i> ponkuu@naver.com</a>
-					</div>
-					<div class="header__top__center col-lg-4 col-md-4">
-						<a>20,000원 이상 구매시 무료배송</a>
-					</div>
+			<div class="container" style="width: 1600px; text-align: center;">
+    <a class="mailAddress"><i class="fa fa-envelope" style="font-size: 0.8rem;"></i>ponkuu@naver.com</a>
+    
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+    <script>
+        // mailAddress 클래스를 가진 요소를 제거하는 스크립트
+        document.addEventListener("DOMContentLoaded", function() {
+            var mailAddress = document.querySelector(".mailAddress");
+            if (mailAddress) {
+                mailAddress.remove();
+            }
+        });
+    </script>
+    <a href="/goods/admin">관리자 모드</a>
+    </sec:authorize>
+</div>
 
-					<div class="header__top__right col-lg-4 col-md-4">
-						<div class="header__top__right__social">
-							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-								class="fa-brands fa-instagram"></i></a>
-						</div>
-						<div class="header__top__right__language">
-							<div name=language>Korean</div>
-							<span class="arrow_carrot-down"></span>
-							<ul>
-								<li><a href="#">Korean</a></li>
-								<li><a href="#">English</a></li>
-							</ul>
-						</div>
-						<div class="header__top__right__auth">
-								<sec:authentication property="principal" var="pinfo" />
-                            	<sec:authorize access="isAuthenticated()">
-                            	<div class="hero__cart" style="display: inline-block;">
-									<ul>
-										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-										<sec:authorize access="hasRole('ROLE_ADMIN')">
-										<li><a href="/admin">관리자 모드</a></li>
-										</sec:authorize>   
-									</ul>
-								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
-								</div>
-                            	<form action="/logout" method="post" name="logoutForm">
-                            		<a href="#" name="logoutBtn" style="display: inline-block;"><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
-                            		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            	</form>
-                            	</sec:authorize>                    		   
-                                <sec:authorize access="isAnonymous()">
-                                	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
-                                </sec:authorize>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- container -->
 		</div>
 		<!-- header__top -->
 
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-3">
+			<div class="row" style="text-align: center;">
+				<div class="col-lg-2" style="text-align: right;">
 					<div class="header__logo">
-						<a href="/"><img src="/resources/img/logo.png"
-							alt=""></a>
+						<a href="/" style="color: black; font-size: 50px;">
+						PONCU</a>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-8" style="line-height: 75px;">
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
-							<li class="active"><a href="/goods/goodsList">NEW</a></li>
+							<li class="active"><a href="/goods/list">모든 상품</a></li>
 							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
-							<li><a href="./blog.html">이벤트</a></li>
-							<li><a href="./contact.html">문의게시판</a></li>
-							
- 							<sec:authorize access="isAuthenticated()">
-                            
+							<li><a href="./contact.html">문의하기</a></li>
+							<li><a href="./blog.html">리뷰</a></li>
+
+							<sec:authorize access="isAuthenticated()">
+
 								<li><a href="/myPage" name="myPage">마이페이지</a>
-	                                <ul class="header__menu__dropdown">
-	                                    <li><a href="./shop-details.html">Shop Details</a></li>
-	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-	                                    <li><a href="./checkout.html">Check Out</a></li>
-	                                    <li><a href="./blog-details.html">Blog Details</a></li>
-	                                </ul>
-	                            </li>
-                            </sec:authorize>
-                            
-                            <sec:authorize access="isAnonymous()">
-								<li>
-									<a href="#" name="noMember">마이페이지</a>
-	                            </li>                  
-                            </sec:authorize>
+									<ul class="header__menu__dropdown">
+										<li><a href="./shop-details.html">Shop Details</a></li>
+										<li><a href="./shoping-cart.html">Shoping Cart</a></li>
+										<li><a href="./checkout.html">Check Out</a></li>
+										<li><a href="./blog-details.html">Blog Details</a></li>
+									</ul></li>
+							</sec:authorize>
+
+							<sec:authorize access="isAnonymous()">
+								<li><a href="#" name="noMember">마이페이지</a></li>
+							</sec:authorize>
 
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-3"></div>
-			</div>
-			<!-- row -->
+				<div class="col-lg-2" style="line-height: 75px;">
+					<div class="header__top__right__auth" style="width: 100%;">
+
+								<sec:authentication property="principal" var="pinfo" />
+
+								<sec:authorize access="isAnonymous()">
+									<a style="display: block; padding-top: 2px; font-family: ;padding-left: 30px;" href="/customLogin"><i class="fa fa-user"></i>로그인</a>
+								</sec:authorize>
+
+								<sec:authorize access='isAuthenticated()'>
+									<div class="hero__cart" style="display: inline-block;">
+										<ul>
+											<li><form action="/logout" method="post" name="logoutForm" style="display: inline-block;">
+										<a href="#" name="logoutBtn" style="display: inline-block; padding-top: 12px;">
+											<i class="fa fa-user"></i>
+										</a> <input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+									</form></li>
+											<li><a href="#"><i class="fa fa-heart"></i></a></li>
+											<li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
+										</ul>
+										<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
+									</div>
+								</sec:authorize>
+
+					</div> <!-- header__top__right__auth -->
+				</div> <!-- col-lg-3 -->
+			</div> <!-- row -->
 		</div>
 		<!-- container -->
-		
-		
-		  <script>
-	
-		     $(document).ready(function(){
-		    	
-		    	 $("a[name='logoutBtn']").on("click",function(e){
-		    		
-		    		 e.preventDefault();
-		    		 var formObj = $("form[name='logoutForm']");
-		    		 formObj.submit();
-		    		 alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
-		    	 });
-		
-		    	 $("a[name='noMember']").on("click",function(e){
-		    		
-		    		 e.preventDefault();
-		    		 alert("로그인 후 이용 가능합니다!!");
-		    	 });
-		    	 
-		     });
-     
-    </script>
-		
+
+
+		<script>
+			$(document).ready(function() {
+
+				$("a[name='logoutBtn']").on("click", function(e) {
+
+					e.preventDefault();
+					var formObj = $("form[name='logoutForm']");
+					formObj.submit();
+					alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
+				});
+
+				$("a[name='noMember']").on("click", function(e) {
+
+					e.preventDefault();
+					alert("로그인 후 이용 가능합니다!!");
+				});
+
+			});
+		</script>
+
 
 	</header>
 	<!-- Header Section End -->

@@ -9,8 +9,8 @@
 			<div class="col-lg-3 col-md-6 col-sm-6">
 				<div class="footer__about">
 					<div class="footer__about__logo">
-						<a href="./index.html"><img
-							src="/resources/img/logo.png" alt=""></a>
+						<a href="./index.html">
+						<img src="/resources/img/logo.png" style="width: 160px; height: 50px;" alt=""></a>
 					</div>
 					<ul>
 						<li>Address: 경기도 수원시</li>

@@ -10,5 +10,7 @@ public interface GoodsAttachMapper { //첨부파일의 수정은 하지 않습�
 	
 	public void delete(String uuid);
 	
+	public List<GoodsAttachVO> findByGno(long gno);
+
 	public List<GoodsAttachVO> findByGno(String gno);
 }

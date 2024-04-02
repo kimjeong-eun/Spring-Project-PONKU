@@ -9,15 +9,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>admin page</h1>
+<h1>관리자1님 환영합니다</h1>
 
-<p>principal : <sec:authentication property="principal"/></p> <!-- principal: UserDetailsService에서 반환된 객체 -->
+<ul>
+    <li>상품 관리
+        <ul>
+            <li>상품 등록</li>
+            <li>상품 수정</li>
+            <li>상품 삭제</li>
+        </ul>
+    </li>
+    <li>회원 목록
+        <ul>
+            <li>회원 목록</li>
+        </ul>
+    </li>
+    <li>주문 관리
+        <ul>
+            <li>주문 목록</li>
+        </ul>
+    </li>
+</ul>
+
+
+<%-- <p>principal : <sec:authentication property="principal"/></p> <!-- principal: UserDetailsService에서 반환된 객체 -->
 <p>MemverVO : <sec:authentication property="principal.member"/></p>
 <p>사용자 이름 : <sec:authentication property="principal.member.username"/></p>
 <p>사용자 아이디 : <sec:authentication property="principal.username"/></p>
 <p>사용자 권한 리스트 : <sec:authentication property="principal.member.authList"/></p>
 
-<a href="/customLogout">Logout</a>
+<a href="/customLogout">Logout</a> --%>
 
 </body>
 </html>
