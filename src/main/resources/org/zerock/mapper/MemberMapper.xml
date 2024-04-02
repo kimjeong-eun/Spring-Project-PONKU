@@ -15,6 +15,7 @@
   		<result property="phone" column="phone"/>  		
   		<result property="email" column="email"/>
   		<result property="enroll_date" column="enroll_date"/>  
+
   		<result property="last_update" column="last_update"/> 
   		 
   		<result property="isMember" column="ismember"/> 
@@ -75,7 +76,7 @@
    </select>
    
    <!-- 회원가입용 -->
-   <!-- loginmapper 반영된 레코드 수 반환 -->
+   <!-- memberMapper 반영된 레코드 수 반환 -->
    <insert id="insertMember" parameterType="org.zerock.domain.MemberVO">
 		insert into shop_member (
 			member_seq, 
@@ -111,18 +112,68 @@
 		WHERE member_seq = #{member_seq}
 	</update>
 	
-	<!-- 배송지 변경 -->
-	<update id="updateAddress" parameterType="org.zerock.domain.MemberVO">
-		UPDATE SHOP_MEMBER
-		SET address1 = #{address1}, address2 = #{address2}, address3 = #{address3}, last_update = SYSDATE
-		WHERE member_seq = #{member_seq}
-	</update>
-	
 	<!-- 마이페이지 (회원탈퇴) -->
 	<update id="deleteMember" parameterType="org.zerock.domain.MemberVO">
-		DELETE SHOP_MEMBER 
+		UPDATE SHOP_MEMBER 
+		SET ISMEMBER = 'N', DELETE_DATE = SYSDATE
 		WHERE member_seq = #{member_seq}
 	</update>
 	
+	<!-- 배송지 CRUD -->
+	<!-- 배송지 추가 -->
+	<insert id="insertAddress" parameterType="org.zerock.domain.AddressVO">
+		INSERT INTO SHOP_ADDRESS (
+			ADDR_SEQ, 
+			MEMBER_SEQ, 
+			ADDRNAME, 
+			NAME, 
+			PHONE, 
+			ADDRESS1, 
+			ADDRESS2, 
+			ADDRESS3
+		)
+		VALUES (
+			addr_seq.nextval,
+			#{member_seq},  
+			#{addrName}, 
+			#{name}, 
+			#{phone}, 
+			#{address1}, 
+			#{address2}, 
+			#{address3}
+		)
+	</insert>
+	
+	<select id="selectAddress" parameterType="org.zerock.domain.AddressVO" resultType="org.zerock.domain.AddressVO">
+	    SELECT ADDR_SEQ, MEMBER_SEQ, ISDEFAULT, ADDRNAME, NAME, PHONE, ADDRESS1, ADDRESS2, ADDRESS3, ENROLL_DATE, LAST_UPDATE
+	    FROM SHOP_ADDRESS
+	    <where>
+	    	<choose>
+	    		<when test="type == 'address'">
+	    			AND ADDR_SEQ = #{addr_seq}
+	    		</when>
+	    		<otherwise>
+	    			AND MEMBER_SEQ = #{member_seq}
+	    		</otherwise>
+	    	</choose>
+	    </where>
+	</select>
+	
+	<update id="updateAddress" parameterType="org.zerock.domain.AddressVO">
+		UPDATE SHOP_ADDRESS
+		SET MEMBER_SEQ=#{member_seq}, ISDEFAULT=#{isDefault}, ADDRNAME=#{addrName}, NAME=#{name}, PHONE=#{phone}, ADDRESS1=#{address1}, ADDRESS2=#{address2}, ADDRESS3=#{address3}, LAST_UPDATE=SYSDATE
+		WHERE ADDR_SEQ = #{addr_seq}
+	</update>
 
+	<update id="updateDefaultAddress" parameterType="org.zerock.domain.AddressVO">
+		UPDATE SHOP_ADDRESS
+		SET ISDEFAULT = 'Y', LAST_UPDATE = SYSDATE
+		WHERE ADDR_SEQ = #{addr_seq}
+	</update>
+	
+	<delete id="deleteAddress" parameterType="org.zerock.domain.AddressVO">
+		DELETE FROM SHOP_ADDRESS
+		WHERE ADDR_SEQ=#{addr_seq}
+	</delete>
+	
   </mapper>

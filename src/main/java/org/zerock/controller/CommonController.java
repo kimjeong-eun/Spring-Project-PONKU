@@ -50,7 +50,6 @@ public class CommonController {
 		return "/shoppingCart";
 	}
 	
-	
 	  @PreAuthorize("isAuthenticated()")
 	  @GetMapping("/showCartElements")
 	  @ResponseBody
@@ -58,9 +57,7 @@ public class CommonController {
 	 //헤더부분 쇼핑카트 제품수 알려주는 컨트롤라
 
 		  long member_seq = Long.parseLong(member);
-		  
-
-		  
+  
 		  int result = shoppingCartService.CountCartElements(member_seq);
 	  
 		  log.info("============숖핑카트====================");
@@ -70,10 +67,5 @@ public class CommonController {
 		  return result+"";
 	  }
 
-	  
-	
-	  
-	
-	
 	
 }

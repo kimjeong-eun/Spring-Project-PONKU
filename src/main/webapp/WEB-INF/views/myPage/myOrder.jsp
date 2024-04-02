@@ -317,9 +317,8 @@
 									
 									</ul>
 								        <div class="checkout__order__total">Total <span> </span></div>
-								        
 	                            </div>
-	                        </div>
+	                       </div>
 	           		</div>
 	            </div>
 			</div>            
@@ -501,11 +500,10 @@
     			}
     		}
 			$("#order_ul").html(order_list);
-    	}		
-    	
+
+    	}	
     });
     
-     
     $(document).on("click","span[name='modal_close_btn']",function(){
     	
     	$(".modal_").hide();
@@ -518,14 +516,12 @@
      var date_str= origin_date.getFullYear() +
 			'-' + ( (origin_date.getMonth()+1) < 9 ? "0" + (origin_date.getMonth()+1) : (origin_date.getMonth()+1) )+
 		'-' + ( (origin_date.getDate()) < 9 ? "0" + (origin_date.getDate()) : (origin_date.getDate()) );
-    	
-    	
+
     	return date_str;
     }
     
 
 });
-
 
  </script>
   

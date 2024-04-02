@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -18,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.MemberVO;
+import org.zerock.security.domain.CustomUser;
 import org.zerock.service.MemberService;
 
 import lombok.Setter;
@@ -28,7 +33,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class MyPageController {
 	@Setter(onMethod_ = @Autowired)
-	private MemberService service;
+	private MemberService memberService;
 	
 	//마이페이지(기본페이지 - 현재는 회원정보 변경 페이지)
 	@GetMapping("/myPage")
@@ -43,13 +48,6 @@ public class MyPageController {
 		
 		return "./myPage/myPage";
 	}
-	//회원정보 변경
-	@PostMapping("/updateMember")
-	public String updateMember(MemberVO member) {
-		
-		int result = service.updateMember(member);
-		return "./myPage/myPage"; //회원정보 변경
-	}
 	
 	//비밀번호 변경
 	@GetMapping("/updatePw")
@@ -57,26 +55,40 @@ public class MyPageController {
 		
 		return "./myPage/updatePw";
 	}
-	//비밀번호 변경
-	@PostMapping("/updatePw")
-	public String updatePw(MemberVO member) {
-		
-		int result = service.updatePw(member);
-		return "./myPage/myPage"; //회원정보 변경
-	}
 	
-	//배송지 변경
+	//배송지 조회
 	@GetMapping("/updateAddress")
-	public String updateAddress() {
+	public String updateAddress(Model model) {
+		CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		AddressVO addrVO = new AddressVO();
+		addrVO.setMember_seq(user.getMember().getMember_seq());
+		List<AddressVO> addrList = memberService.selectAddress(addrVO);
+		
+		for(AddressVO vo : addrList) {
+			if(vo.getIsDefault() == 'Y') {
+				addrVO = vo;
+			}
+		}
+		model.addAttribute("defaultAddr", addrVO);
+ 		model.addAttribute("addrList", addrList); //model에 담아서 jsp로 보냄
+		model.addAttribute("user", user.getMember());
 		return "./myPage/updateAddress";
 	}
-	//배송지 변경
-	@PostMapping("/updateAddress")
-	public String updateAddress(MemberVO member) {
+	
+	
+	//배송지 변경 팝업
+	@GetMapping("/popupAddress")
+	public String popupAddress() {
 		
-		int result = service.updateAddress(member);
-		return "./myPage/myPage"; //회원정보 변경
+		return "./myPage/popupAddress";
+	}
+	
+	//배송지 우편번호 찾기
+	@GetMapping("/popupInputAddress")
+	public String popupInputAddress() {
+		
+		return "./myPage/popupInputAddress";
 	}
 	
 	//회원탈퇴
@@ -84,13 +96,6 @@ public class MyPageController {
 	public String deleteMember() {
 			
 		return "./myPage/deleteMember";
-	}
-	//회원탈퇴
-	@PostMapping("/deleteMember")
-	public String deleteMember(MemberVO member) {
-		
-		int result = service.deleteMember(member);
-		return "./myPage/myPage"; //회원정보 변경
 	}
 	
 	//나의 주문관리

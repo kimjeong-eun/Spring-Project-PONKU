@@ -16,9 +16,7 @@
 <li class="cmmyssg_snb_item">
 <strong class="cmmyssg_snb_tit">나의 활동관리</strong>
 <ul class="cmmyssg_snb_sublst">
-    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;좋아요&quot;}]"><a href="?menu=like" class="clickable" data-react-tarea-dtl-cd="t00058">좋아요</a></li>
     <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;상품리뷰&quot;}]"><a href="?menu=review" class="clickable" data-react-tarea-dtl-cd="t00058">상품 리뷰</a></li>
-    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;이벤트참여현황&quot;}]"><a href="?menu=myEventList" class="clickable" data-react-tarea-dtl-cd="t00058">이벤트 참여현황</a></li>
     <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;상품Q&amp;A&quot;}]"><a href="?menu=postQna" class="clickable" data-react-tarea-dtl-cd="t00058">상품 Q&amp;A</a></li>
     </ul>
 </li>
@@ -27,7 +25,7 @@
 <ul class="cmmyssg_snb_sublst">
     <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;회원정보변경&quot;}]"><a href="/myPage" class="clickable" data-react-tarea-dtl-cd="t00058">회원정보 변경</a></li>
     <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;비밀번호변경&quot;}]"><a href="/updatePw" class="clickable" data-react-tarea-dtl-cd="t00058">비밀번호 변경</a></li>
-    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;배송지관리&quot;}]"><a href="/updateAdress" class="clickable" data-react-tarea-dtl-cd="t00058">배송지 관리</a></li>
+    <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;배송지관리&quot;}]"><a href="/updateAddress" class="clickable" data-react-tarea-dtl-cd="t00058">배송지 관리</a></li>
     <li class="cmmyssg_snb_subitem" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;text&quot;,&quot;value&quot;:&quot;회원탈퇴&quot;}]"><a href="/deleteMember" class="clickable" data-react-tarea-dtl-cd="t00058">회원 탈퇴</a></li>
 </ul>
 </li>

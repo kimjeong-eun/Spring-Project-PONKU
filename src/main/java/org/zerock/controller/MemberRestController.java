@@ -2,19 +2,26 @@ package org.zerock.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.MemberVO;
+import org.zerock.security.domain.CustomUser;
 import org.zerock.service.MemberService;
 
 import lombok.Setter;
@@ -98,6 +105,8 @@ public class MemberRestController {
 		String result = "false";
 		int success = memberService.updateMember(member);
 		if(success == 1) {
+			CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			user.getMember().setEmail(member.getEmail());
 			result = "true";
 		}
 		return new ResponseEntity<String>(result, HttpStatus.OK);
@@ -113,20 +122,55 @@ public class MemberRestController {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/successUpdateAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> updateAddress(MemberVO member) {
+	@PostMapping(value = "/successDeleteMember", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteMember(MemberVO member) {
 		String result = "false";
-		int success = memberService.updateAddress(member);
+		int success = memberService.deleteMember(member);
 		if(success == 1) {
 			result = "true";
 		}
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/successDeleteMember", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> deleteMember(MemberVO member) {
+	/*** 주소 CRUD ***/
+	//배송지추가
+	@PostMapping(value = "/successInsertAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> insertAddress(AddressVO addr) {
 		String result = "false";
-		int success = memberService.deleteMember(member);
+		int success = memberService.insertAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+
+	//기본배송지 변경
+	@RequestMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateDefaultAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.updateDefaultAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	//배송지변경
+	@PostMapping(value = "/successUpdateAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> updateAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.updateAddress(addr);
+		if(success == 1) {
+			result = "true";
+		}
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+	
+	//배송지삭제
+	@PostMapping(value = "/successDeleteAddress", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteAddress(AddressVO addr) {
+		String result = "false";
+		int success = memberService.deleteAddress(addr);
 		if(success == 1) {
 			result = "true";
 		}

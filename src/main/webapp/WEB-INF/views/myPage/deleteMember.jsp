@@ -38,7 +38,7 @@
                 <div class="cmmyssg_user_info">
                     <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
                         <sec:authentication property="principal" var="pinfo"/>
-                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
+                        <a class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
                     </h2>
                 </div>
             </div>     
@@ -46,7 +46,9 @@
 
 <jsp:include page="../myPage/myPageAsideBar.jsp"></jsp:include>
 
+
 <div id="content" class="content_myssg">
+  <form id="submitForm" action="/logout" name="submitForm" method="post">
     <h2 class="stit">
         <span>회원탈퇴</span>
     </h2>
@@ -116,16 +118,6 @@
             </div>
         </div>
     </div>
-    <div class="form_section">
-        <div class="content_intro">
-            <h3>탈퇴 사유 및 개선점(선택)</h3>
-        </div>
-        <div class="content_leave">
-            <div class="leave_textarea">
-                <textarea id="recommend_improvement" maxlength="100" placeholder="PONKUU에 해주고 싶은 말씀을 입력해주세요." class="translated"></textarea><span class="trans_placeholder blind" data-default-txt="SSG.COM에 해주고 싶은 말씀을 자유롭게 입력해주세요.(100자 이내)">SSG.COM에 해주고 싶은 말씀을 자유롭게 입력해주세요.(100자 이내)</span>
-            </div>
-        </div>
-    </div>
     <div class="form_section" data-reactingv2-key="00195_000000743|t00000|1">
         <div class="inp_sec">
 			<span class="free_selected_agree">
@@ -135,8 +127,59 @@
         </div>
     </div>
     <div class="cmem_btn_area">
-        <a href="javascript:void(0)" id="submitBtn" class="cs_btn cmem_btn_orange">확인</a>
+    <input type="hidden" name="member_seq" value="${pinfo.member.member_seq}"/>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+       <button type="submit" id="submitBtn" class="cs_btn large black">확인</button>
     </div>
+  </form>
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	
+	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
+	$("#submitBtn").on("click", function(e) {
+		e.preventDefault();
+		
+		//serialize 가 form요소를 하나씩 읽어옴
+	 	let formData = $("#submitForm").serialize(); 
+		
+		if(!$("#withdrawal").is(':checked')) {
+			alert("회원 탈퇴 동의여부를 확인해주시기 바랍니다.");
+		} else {
+			// Ajax로 전송
+			$.ajax({
+				url: '/successDeleteMember', // 성공여부를 처리하는 스크립트의 경로
+	            type: 'POST',
+	            data: formData,            
+	            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+				beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+					xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+				},
+	            success: function(result) {
+	                if (result == "true") {
+	                	alert("회원탈퇴를 완료하였습니다.");
+	                	location.href = "/customLogin";//성공 시 이동할 페이지
+	                } else {
+	                	alert("회원탈퇴 실패");
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                // 서버 요청 실패 시 실행할 코드
+	                alert("회원정보 변경 실패(서버요청실패)");
+	            }
+			});
+			
+		} //else 종료
+	  	
+		
+		
+	}); //submitBtn 종료
+}); //document 종료
+
+</script>
+
 <jsp:include page="../includes/footer.jsp"></jsp:include>

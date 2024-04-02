@@ -1,6 +1,9 @@
 package org.zerock.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+import org.zerock.domain.AddressVO;
 import org.zerock.domain.AuthVO;
 import org.zerock.domain.MemberVO;
 
@@ -22,9 +25,14 @@ public interface MemberMapper {
 	//회원정보 업데이트
 	public int updateMember(MemberVO member);
 	public int updatePw(MemberVO member);
-	public int updateAddress(MemberVO member);
 	
 	//멤버 정보 삭제
 	public int deleteMember(MemberVO member);
-
+	
+	/*** 배송지 crud ***/
+	public int insertAddress(AddressVO addr);
+	public List<AddressVO> selectAddress(AddressVO addr);
+	public int updateAddress(AddressVO addr);
+	public int updateDefaultAddress(AddressVO addr); //기본배송지 변경
+	public int deleteAddress(AddressVO addr);
 }

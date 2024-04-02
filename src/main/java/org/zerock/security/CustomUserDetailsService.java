@@ -28,17 +28,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		MemberVO vo = loginMapper.selectMember(username); //security는 username이 userid로 처리
 		
-		if(vo.getIsMember().equals("N")) {
-			
-			return null;
-			
-		}else {
-			
-			return vo == null ? null : new CustomUser(vo);
-		}
-		
-		
-		
+
+	      if(vo.getIsMember().equals("N")) {
+	          
+	          return null;
+	          
+	       }else {
+	          
+	          return vo == null ? null : new CustomUser(vo);
+	       }
+		 
 	}
 
 }
