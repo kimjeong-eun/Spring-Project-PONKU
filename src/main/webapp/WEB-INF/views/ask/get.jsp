@@ -111,6 +111,7 @@ h3 {
 <div class="a-container">
 	<div class="askcontainer">
 		<h3>상세보기</h3>
+		<input type="hidden" id="checkLock" value="${ AskListVO.ask_list_lock }">
 		<div>
 			<label for="ask_list_inquirytype">문의종류</label> <input
 				class="form-control" id="ask_list_inquirytype"
@@ -177,6 +178,13 @@ h3 {
 <script src="/resources/js/mixitup.min.js"></script>
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
+<script>
+$(document).ready(function () {
+	debugger;
+	var checkLock = document.getElementById("hiddenValue").value;
+	console.log(checkLock);
+});
+</script>
 <script>
 debugger;
 var attachFile = $("#attachFile");

@@ -57,7 +57,7 @@ public class AskController { // 페이지의 분기를 담당한다.
 		model.addAttribute("cri", cri);
 	}
 	
-	@ModelAttribute("csrfToken")
+	@ModelAttribute("csrfToken") // jsp에서 csrtToken 값을 가져오는 메서드
 	public CsrfToken getCsrfToken(HttpServletRequest request) {
 	    return csrfTokenRepository.loadToken(request);
 	}

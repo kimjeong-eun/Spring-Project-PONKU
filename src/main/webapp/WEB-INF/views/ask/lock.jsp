@@ -121,13 +121,46 @@ h2, .explanation {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
+$(document).ready(function () {
+	var csrfHeaderName = $("meta[name='_csrf_header']").attr("content")//"${_csrf.headerName}";
+	var csrfTokenValue = $("meta[name='_csrf']").attr("content")//"${_csrf.token}";
+	console.log(csrfHeaderName);
+	console.log(csrfTokenValue);
+	var pw = document.getElementById("password").value;
+	var ano = document.getElementById("ano").value;
+	console.log(csrfHeaderName);
+	console.log(csrfTokenValue);
+	debugger;
+	$.ajax({ // ajax으로 전송
+		url: '/ask/lock', // 전송할 경로
+		data: JSON.stringify({ password: pw, ask_list_no: ano }),
+		//async : true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		},
+		//dataType: 'text', // text 타입으로
+		contentType: 'application/json',
+		type: 'POST', // post 방식으로
+		success: function(result) { // 성공 시 결과를
+			debugger;
+			console.log("비밀번호 일치 : " + result);
+			message(result);
+		}, error: function(result) {
+			debugger;
+			console.log("실패 : " + result);
+			message(result);
+			return;
+		}
+	}); //$.ajax
+}
+
 
 	function checkPassword() {
 		var csrfHeaderName = $("meta[name='_csrf_header']").attr("content")//"${_csrf.headerName}";
 		var csrfTokenValue = $("meta[name='_csrf']").attr("content")//"${_csrf.token}";
 		console.log(csrfHeaderName);
 		console.log(csrfTokenValue);
-		var pw = document.getElementById("password").value; // 오류 ... 값을 못가져옴
+		var pw = document.getElementById("password").value;
 		var ano = document.getElementById("ano").value;
 		console.log(csrfHeaderName);
 		console.log(csrfTokenValue);
