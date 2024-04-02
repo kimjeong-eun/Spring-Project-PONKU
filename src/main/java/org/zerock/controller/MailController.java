@@ -44,7 +44,7 @@ public class MailController {
 		
 		//비밀번호 초기화 성공시 사용자의 이메일로 메일 전송 
 		String setfrom = "ponkuu@naver.com"; //보내는 사람
-		String settitle = "비밀번호 초기화"; // 제목
+		String settitle = "비밀번호 초기화 (3조 프로젝트)"; // 제목
 		
 		String setcontent = ""
 				+ "안녕하세요, 고객님의 비밀번호 초기화 메일을 보내드립니다. 재로그인 후 비밀번호를 변경해주세요."
@@ -436,7 +436,7 @@ public class MailController {
 		
 		
 		String setfrom = "ponkuu@naver.com"; //보내는 사람
-		String settitle = "구매완료 PONKU"; // 제목
+		String settitle = "구매완료 PONKU (3조 프로젝트)"; // 제목
 		
 
 		String setcontent ="<!DOCTYPE HTML PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional //EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n"

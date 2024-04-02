@@ -22,7 +22,7 @@
 		<div style="height: 80px;">
 			<div class="row">
 
-				<div class="col-lg-3">
+<!-- 				<div class="col-lg-3">
 					<div class="hero__categories">
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>All departments</span>
@@ -42,10 +42,10 @@
 							<li><a href="#">Fresh Bananas</a></li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<!-- col-lg-3 -->
 
-				<div class="col-lg-6">
+<!-- 				<div class="col-lg-6">
 					<div class="hero__search">
 						<div class="hero__search__form">
 							<form action="#">
@@ -59,7 +59,7 @@
 							</form>
 						</div>
 					</div>
-
+ -->
 				</div>
 				<!-- col-lg-6 -->
 				

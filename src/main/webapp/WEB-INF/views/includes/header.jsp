@@ -85,8 +85,8 @@
 
 					<div class="header__top__right col-lg-4 col-md-4">
 						<div class="header__top__right__social">
-							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-								class="fa-brands fa-instagram"></i></a>
+							<a href=""><i class="fa fa-facebook"></i></a>
+							<a href="#" name ="insta_btn"><i class="fa-brands fa-instagram"></i></a>
 						</div>
 						<div class="header__top__right__language">
 							<div name=language>Korean</div>
@@ -105,7 +105,7 @@
                             	
                             	<div class="hero__cart" style="display: inline-block;">
 									<ul>
-										<li><a href="#"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
+										<li><a href="#" name="likes"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
 										<li><a href="/shoppingcart?member=${pinfo.member.member_seq }"><i class="fa fa-shopping-bag"></i><span id="cart-elements"> </span></a></li>
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
@@ -213,7 +213,21 @@
 		    	 });
 		    	 
 		    	
+		    	$("a[name='likes']").on("click",function(e){
+		    		
+		    		e.preventDefault();
+		    		alert("준비중입니다.");
+		    	
+		    		
+		    	});
 			    	
+		    	$("a[name='insta_btn']").on("click",function(e){
+		    		
+		    		e.preventDefault();
+		    		
+		    		window.open("https:////www.instagram.com/ponku.53"); 
+	
+		    	});
 		   	    	 
 		    	 
 		  });

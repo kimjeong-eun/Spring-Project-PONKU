@@ -339,7 +339,7 @@ ${dto.caseimgurl}
 	$(document).ready(function() {
 		
 		//커스텀 케이스 이미지 적용 
-		var caserul = "${dto.caseimgurl}"; //
+		var caserul = "${dto.caseimgurl}"; //케이스이미지 위치
 		$(".uploadResult").css("background-image","url('"+caserul+"')");
 		$("input[name='caseimgurl']").val(caserul);
 		

@@ -19,8 +19,9 @@ alter table Shop_goods rename column MAXSIZE to MAX_SIZE;
 
 select * from shop_goods;
 
-delete from Shop_goods where GNO = '주문상품목록확인필요';
-insert into Shop_goods values('주문상품목록확인필요','','','','','',sysdate,sysdate,'90','true');
+
+delete from Shop_goods where GNO = 'ip0329'; 
+
 insert into Shop_goods values('ip0327','글라스 범퍼 케이스','16000','글라스 범퍼 케이스 재주문률 best!','/resources/img/iphone.png','',sysdate,sysdate,'','');
 insert into Shop_goods values('ip0328','맥세이프 투명젤 케이스','20000','맥세이프 호환 가능!!','/resources/img/iphonemacsafe.png','',sysdate,sysdate,'120','true');
 insert into Shop_goods values('ip0329','비누 젤','15000','기분전환용 케이스로 추천 !','/resources/img/iphonesoap.png','',sysdate,sysdate,'90','true');
@@ -33,13 +34,17 @@ select * from shop_member;
 select * from shop_authority;
 select * from SHOP_ADDRESS;
 
+select * from shop_goods where custom != 'true';
+
+update shop_goods set custom = 'false' where custom is null;
+
+select * from shop_goods;
 
 --커스텀 케이스 재고 테이블 
 CREATE TABLE Custom_Shop_goods_stock(
 
      GNO VARCHAR2(50) references Custom_Shop_goods(GNO) on delete cascade, --상품 번호
-     QUANTITY NUMBER(3, 0) --수량
-     
+     QUANTITY NUMBER(3, 0) --수량    
 );
 
 select * from Custom_Shop_goods_stock;
@@ -113,58 +118,63 @@ select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,
 	orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date,
 	goods.gno,goods.model_name,goods.caseimgurl,goods.quantity, shop.gname casename from Order_custom_goods orders , ordered_goods goods ,shop_goods shop where orders.ORDERNO = goods.ORDERNO and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-28','YYYY-MM-DD')) and orders.gno = shop.gno;
 
-select * from Order_custom_goods where userid='jeongeun587' and orderno like '%custom%' and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-27','YYYY-MM-DD'));
+select * from Order_custom_goods where userid='j7' and orderno like '%custom%' and TRUNC(orders.order_date) between TRUNC(to_date('2024-03-27','YYYY-MM-DD')) and TRUNC(to_date('2024-03-27','YYYY-MM-DD'));
 	
 	select TRUNC(to_date('2024-03-27','YYYY-MM-DD')) from dual;
 
 alter table Custom_goods_order add CASEIMGURL VARCHAR2(150);
 alter table Order_custom_goods add order_date DATE DEFAULT SYSDATE;
 
---쇼핑카트 시퀀스 
-CREATE SEQUENCE SHOPPING_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
+------쇼핑카트 테이블
+
+create table shopping_cart(
+
+	cart_no varchar2(50) primary key,
+	gno varchar2(50) references Shop_goods(gno) on delete cascade,
+	member_seq number(30,0),
+	enroll_date date,
+	image varchar2(200),
+	quantity varchar2(50) default '1',
+	model varchar2(100)
+	
+);
 
 alter table shopping_cart add quantity VARCHAR2(50) default '1';
 alter table shopping_cart add model VARCHAR2(100);
+
+drop table shopping_cart;
 
 select * from shopping_cart;
 
 delete from shopping_cart;
 select * from shop_member;
 
+
+
 ----주문 상품 조회
 create table ordered_goods(
- ORDERNO VARCHAR2(150) references Order_custom_goods(ORDERNO),
- GNO VARCHAR2(50) references Shop_goods(GNO),
+ ORDERNO VARCHAR2(150) references Order_custom_goods(ORDERNO) on delete cascade,
+ GNO VARCHAR2(50) references Shop_goods(GNO) on delete set null,
  MODEL_NAME VARCHAR2(100), --기종
  CASEIMGURL VARCHAR2(150), --케이스이미지 url
  QUANTITY VARCHAR2(50) default '1' --상품수량
 );
 
 select * from ordered_goods;
+
+
 drop table ordered_goods;
 
 -------주문시퀀스-------
 CREATE SEQUENCE ORDER_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
 
+--쇼핑카트 시퀀스 
+CREATE SEQUENCE SHOPPING_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
 
------트리거-------
-create or replace trigger auth_trigger
-after
-insert on SHOP_MANAGER
-for each row
-begin
-if inserting THEN
-    insert into Shop_Authority(MANAGER_SEQ ,authority) values(:new.manager_seq , 'ROLE_ADMIN');
-   
-    end if;
-end;
-/
+-----트리거---------
 
 
-select * from shop_manager;
-
-
-------
+--------------------
 
 select orders.orderno , orders.username,orders.userid,orders.email,orders.phone,orders.totalprice,
 		orders.payment,orders.order_request,orders.delivery_request,orders.delivery_address,orders.order_date, shop_goods.gname casename,

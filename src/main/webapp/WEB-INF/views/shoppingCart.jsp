@@ -71,8 +71,7 @@
     <section class="shoping-cart spad" style="margin-top:140px; ">
 
         <div class="container" style="width: 70%;">
-        <h4 style="font-weight: 800; margin-bottom: 30px;">쇼핑 카트<i class="fa-solid fa-cart-shopping"></i></h4>
-        	
+        <h4 style="font-weight: 800; margin-bottom: 30px;">쇼핑 카트<i class="fa-solid fa-cart-shopping"></i></h4>        	
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
@@ -162,11 +161,12 @@
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
-                            <h5>Discount Codes</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
+                            <h5>할인 코드</h5>
+                            <form action="/discount">
+                                <input type="text" placeholder="할인 코드를 입력해주세요." name="discountCode">
                           
-                                <button type="submit" class="site-btn">APPLY COUPON</button>
+                                <button type="button" class="site-btn" name="discountCode_btn">할인코드 적용</button>
+                                
                             </form>
                         </div>
                     </div>
@@ -224,7 +224,31 @@
 		var csrfHeaderName = "${_csrf.headerName}";  //"X-CSRF-TOKEN"
 		var csrfTokenValue = "${_csrf.token}";
 		
+		//할인코드 버튼을 눌렀다면 
+		$("button[name='discountCode_btn']").on("click",function(e){
+			e.preventDefault();
+			var code =$("input[name='discountCode']").val();
+			
+			$.ajax({
+				
+				url:'/discount',
+				data:{discountCode:code},
+				dataType:'text',
+				success:function(result){
 	
+					if(result =='allFree'){
+						
+						alert("감사합니다 할인이 적용됩니다.");
+						$("span[name='totalPrice']").text('0');
+						
+						
+					}
+				}
+
+			});
+
+		});
+		
 		 $("input:checkbox[name='checkElement']").change(function() {
 			// 선택된 상품이 있다면
 			
@@ -294,7 +318,6 @@
 			 orderForm.html(str);
 			  
 			 orderForm.submit();
-
 
 		 });
 
