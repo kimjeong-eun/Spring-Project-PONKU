@@ -145,7 +145,7 @@ public class MemberRestController {
 	}
 
 	//기본배송지 변경
-	@RequestMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
+	@PostMapping(value = "/successUpdateDefaultAddr", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> updateDefaultAddress(AddressVO addr) {
 		String result = "false";
 		int success = memberService.updateDefaultAddress(addr);

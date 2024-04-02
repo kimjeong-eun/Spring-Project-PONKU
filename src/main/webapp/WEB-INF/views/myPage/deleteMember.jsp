@@ -54,23 +54,22 @@
     </h2>
     <div class="form_section">
         <div class="content_intro">
-            <h3>탈퇴 유의사항</h3>
+            <h3>※ 탈퇴 유의사항 </h3>
         </div>
         <div class="content_leave">
             <div class="section">
 
-                <div class="tit_txt">
-                    <h4>포인트 소멸</h4>
-                </div>
+                <div class="content_intro">
+		            <h3>포인트 소멸</h3>
+		        </div>
                 <ul class="info_lst">
                     <li>회원탈퇴 시 보유하고 계신 포인트가 자동 소멸되며 복원되지 않습니다.</li>
-                    <li>출금 가능 금액이 있으신 경우 고객센터로 출금 신청 후 탈퇴해주세요.</li>
                 </ul>
 
             </div>
             <div class="section">
-                <div class="tit_txt">
-                    <h4>회원 재가입 제한</h4>
+                <div class="content_intro">
+                    <h3>회원 재가입 제한</h3>
                 </div>
                 <ul class="info_lst">
                     <li>회원탈퇴 후 재가입 시 신규회원으로 가입되며, 탈퇴 전의 회원정보, 주문정보, 포인트, 쿠폰은 복원되지
@@ -79,8 +78,8 @@
                 </ul>
             </div>
             <div class="section">
-                <div class="tit_txt">
-                    <h4>개인정보 파기</h4>
+                <div class="content_intro">
+                    <h3>개인정보 파기</h3>
                 </div>
                 <ul class="info_lst">
                     <li>개인정보는 회원 재가입 유예기간 경과 후 즉시 파기됩니다.</li>
@@ -115,6 +114,16 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="form_section">
+        <div class="content_intro">
+            <h3>탈퇴 사유 및 개선점(선택)</h3>
+        </div>
+        <div class="content_leave">
+            <div class="leave_textarea">
+                <textarea id="recommend_improvement" maxlength="100" placeholder="PONKUU에 해주고 싶은 말씀을 입력해주세요." class="translated"></textarea><span class="trans_placeholder blind" data-default-txt="SSG.COM에 해주고 싶은 말씀을 자유롭게 입력해주세요.(100자 이내)">SSG.COM에 해주고 싶은 말씀을 자유롭게 입력해주세요.(100자 이내)</span>
             </div>
         </div>
     </div>
@@ -174,8 +183,6 @@ $(document).ready(function() {
 			});
 			
 		} //else 종료
-	  	
-		
 		
 	}); //submitBtn 종료
 }); //document 종료
