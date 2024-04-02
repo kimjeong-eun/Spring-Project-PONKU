@@ -18,8 +18,11 @@ public class MemberVO {
 	
 	private Date enroll_date; //가입일
 	private Date last_update; //업데이트일
+	private Date delete_date; //탈퇴일
+	private String isMember; //회원 사용 여부(탈퇴 시 N)
 	
 	private List<AuthVO> authList; //권한리스트
+	private List<AddressVO> addrList; // 배송지 리스트
 	
 }
 

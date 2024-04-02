@@ -3,31 +3,31 @@
 <!DOCTYPE html>
 <!-- Footer Section Begin -->
 <footer class="footer spad">
-   <div class="container">
-      <div class="row">
-         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="footer__about">
-               <div class="footer__about__logo">
-                  <a href="./index.html"><img
-                     src="/resources//resources/img/logo.png" alt=""></a>
-               </div>
-               <ul>
-                  <li>Address: 경기도 수원시</li>
-                  <li>Phone: +82 031.1234.1234</li>
-                  <li>Email: santabox@gmail.com</li>
-               </ul>
-            </div>
-         </div>
-         <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-            <div class="footer__widget">
-               <h6>Useful Links</h6>
-               <ul>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Delivery infomation</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Our Sitemap</a></li>
-               </ul>
-               <ul>
+  <div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="footer__about">
+					<div class="footer__about__logo">
+						<a href="./index.html"><img
+							src="/resources/img/logo/ponku_logo2.png" alt="" style="width: 10rem;"></a>
+					</div>
+					<ul>
+						<li>Address: 경기도 수원시</li>
+						<li>Phone: +82 031.1234.1234</li>
+						<li>Email: ponkuu@naver.com</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+				<div class="footer__widget">
+					<h6>Useful Links</h6>
+					<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Delivery infomation</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Our Sitemap</a></li>
+					</ul>
+					<ul>
 
                </ul>
             </div>

@@ -10,6 +10,29 @@
 .container {
 	max-width: 1200px;
 }
+
+.quick_area {
+    position: fixed;
+    top: 171px;
+    right: 0;
+    width: 66px;
+    z-index: 100;
+    background-color: gray;
+}
+
+.to_top a {
+    display: block;
+    height: 43px;
+    transform: translateY(8px);
+    box-sizing: border-box;
+    text-indent: -9999px;
+    overflow: hidden;
+    /* border-left: 1px solid #a3a3a3; */
+    /* border-bottom: 1px solid #a3a3a3; */
+    background: url(/resources/icon/top.png) no-repeat center;
+    /* background-size: contain; */
+}
+
 </style>
 
 <head>
@@ -85,8 +108,8 @@
 
 					<div class="header__top__right col-lg-4 col-md-4">
 						<div class="header__top__right__social">
-							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-								class="fa-brands fa-instagram"></i></a>
+							<a href=""><i class="fa fa-facebook"></i></a>
+							<a href="#" name ="insta_btn"><i class="fa-brands fa-instagram"></i></a>
 						</div>
 						<div class="header__top__right__language">
 							<div name=language>Korean</div>
@@ -98,11 +121,15 @@
 						</div>
 						<div class="header__top__right__auth">
 								<sec:authentication property="principal" var="pinfo" />
+								
                             	<sec:authorize access="isAuthenticated()">
+                            	
+                            	<input type="hidden" value="${pinfo.member.member_seq }" name="memberSeq"> 
+                            	
                             	<div class="hero__cart" style="display: inline-block;">
 									<ul>
-										<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-										<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+										<li><a href="#" name="likes"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
+										<li><a href="/shoppingcart?member=${pinfo.member.member_seq }"><i class="fa fa-shopping-bag"></i><span id="cart-elements"> </span></a></li>
 									</ul>
 								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
 								</div>
@@ -110,6 +137,29 @@
                             		<a href="#" name="logoutBtn" style="display: inline-block;"><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
                             		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             	</form>
+                            	
+                            	<script type="text/javascript">
+		                            	// 로그인시 쇼핑카트에 몇개가 담겼는지 정보 받아옴
+		                            	
+		            		    		var memberSeq = $("input[name='memberSeq']").val()+"";
+		            		    		
+		            		    		console.log(memberSeq);
+		            		    		
+		            			    	 $.ajax({
+		            			    		
+		            			    		 url:'/showCartElements',
+		            			    		 type:'GET',
+		            			    		 data:{member: memberSeq},
+		            			    		 contentType:'application/x-www-form-urlencoded; charset=utf-8',
+		            			    		 dataType:'text',
+		            			    		 success: function(result) {
+		            							
+		            			    			
+		            			    			 $("#cart-elements").text(result+"");
+		            						}
+		            			    		 
+		            			    	 });
+                            	</script>
                             	</sec:authorize>                    		   
                                 <sec:authorize access="isAnonymous()">
                                 	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
@@ -126,15 +176,16 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="/"><img src="/resources/img/logo.png"
-							alt=""></a>
+						<a href="/">
+						<img src="/resources/img/logo/ponku_logo2.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
+						</a>		
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
 							<li class="active"><a href="/">상품구매</a></li>
-							<li><a href="./shop-grid.html">커스텀 케이스</a></li>
+							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="/ask/main">문의게시판</a></li>
 							
@@ -142,10 +193,9 @@
                             
 								<li><a href="/myPage" name="myPage">마이페이지</a>
 	                                <ul class="header__menu__dropdown">
-	                                    <li><a href="./shop-details.html">Shop Details</a></li>
-	                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-	                                    <li><a href="./checkout.html">Check Out</a></li>
-	                                    <li><a href="./blog-details.html">Blog Details</a></li>
+	                                    <li><a href="/myPage">나의 정보관리</a></li>
+	                                    <li><a href="/myOrder">나의 주문관리</a></li> <!-- 아직 미구현 -->
+	                                    <li><a href="/myPlace">나의 활동관리</a></li> <!-- 아직 미구현 -->
 	                                </ul>
 	                            </li>
                             </sec:authorize>
@@ -184,8 +234,25 @@
 		    		 alert("로그인 후 이용 가능합니다!!");
 		    	 });
 		    	 
-		     });
-     
+		    	
+		    	$("a[name='likes']").on("click",function(e){
+		    		
+		    		e.preventDefault();
+		    		alert("준비중입니다.");
+		    	
+		    		
+		    	});
+			    	
+		    	$("a[name='insta_btn']").on("click",function(e){
+		    		
+		    		e.preventDefault();
+		    		
+		    		window.open("https:////www.instagram.com/ponku.53"); 
+	
+		    	});
+		   	    	 
+		    	 
+		  });
     </script>
 		
 

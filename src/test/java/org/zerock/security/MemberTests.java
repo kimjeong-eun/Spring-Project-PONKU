@@ -14,7 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.zerock.mapper.LoginMapperTests;
+import org.zerock.mapper.MemberMapper;
+import org.zerock.mapper.MemberMapperTests;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
@@ -30,13 +31,16 @@ public class MemberTests {
 	  @Setter(onMethod_ = @Autowired)
 	  private PasswordEncoder pwencoder; 
 	  
+	  @Setter(onMethod_ = @Autowired )
+	  private MemberMapper mapper;
+	  
 	  @Setter(onMethod_ = @Autowired)
 	  private DataSource ds;  //root-context.xml에 있는dataSource 매핑
 	
 	  @Test
 	  public void testInsertMember() {
 		  
-		  String sql = "insert into shop_member(member_seq, userid, password, username) values (999,?,?,?)";
+		  String sql = "insert into shop_Manager(manager_seq, manager_id, password, manager_name,email,enroll_date,last_update) values (1,?,?,?,?,sysdate,sysdate)";
 			
 		  Connection con=null;
 		  PreparedStatement pstmt=null;
@@ -45,9 +49,10 @@ public class MemberTests {
 	    	  con = ds.getConnection();
 			  pstmt = con.prepareStatement(sql);
 			  
-			  pstmt.setString(1,"jeongeun3");
-			  pstmt.setString(2, pwencoder.encode("1234"));
-			  pstmt.setString(3,"김정은");
+			  pstmt.setString(1,"shop5353");
+			  pstmt.setString(2, pwencoder.encode("5353"));
+			  pstmt.setString(3,"관리자");
+			  pstmt.setString(4,"ponkuu@naver.com");
 			  
 			  int n = pstmt.executeUpdate();
 			  
@@ -91,6 +96,14 @@ public class MemberTests {
 		  
 		  
 		  
+		  
+	  }
+	  
+	  @Test
+	  public void getMember() {
+		  
+		  mapper.selectMember("jeongeun587");
+		 
 		  
 	  }
 	  

@@ -12,7 +12,7 @@ body {
 }
 
 button {
-  background-color: #655AE8;
+  background-color: #000000;
   color: #f8f8f8;
   cursor: pointer;
   border: none;
@@ -24,12 +24,12 @@ button {
 
 button:focus-visible {
   outline: 0px solid;
-  background-color: rgb(125, 114, 245);
+  background-color: #808080;
 }
 
 button:hover {
   outline: 0px solid;
-  background-color: rgb(125, 114, 245);
+  background-color: #696969;
 }
 
 .info {
@@ -54,7 +54,7 @@ button:hover {
 }
 
 .box:focus {
-  outline: 1px solid #665ae870;
+  outline: 1px solid #696969;
 }
 
 /* error msg */

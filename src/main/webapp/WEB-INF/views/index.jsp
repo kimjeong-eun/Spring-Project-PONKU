@@ -22,7 +22,7 @@
 		<div style="height: 80px;">
 			<div class="row">
 
-				<div class="col-lg-3">
+<!-- 				<div class="col-lg-3">
 					<div class="hero__categories">
 						<div class="hero__categories__all">
 							<i class="fa fa-bars"></i> <span>All departments</span>
@@ -42,10 +42,10 @@
 							<li><a href="#">Fresh Bananas</a></li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<!-- col-lg-3 -->
 
-				<div class="col-lg-6">
+<!-- 				<div class="col-lg-6">
 					<div class="hero__search">
 						<div class="hero__search__form">
 							<form action="#">
@@ -59,18 +59,18 @@
 							</form>
 						</div>
 					</div>
-
+ -->
 				</div>
 				<!-- col-lg-6 -->
 				
 				<div class="col-lg-3">
-				<div class="hero__cart">
+<!-- 				<div class="hero__cart">
 						<ul>
 							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
 							<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
 						</ul>
-						<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
-					</div>
+						  <div class="header__cart__price">item: <span>$150.00</span></div>
+					</div> -->
 				</div>
 			</div>
 			<!-- .row -->
@@ -96,46 +96,46 @@
 
 <!-- Categories Section Begin -->
 <section class="categories" style="max-width: 1400px; margin: 0 auto;">
-	<div class="container">
+	<div class="container" style="">
 		<div class="row">
 			<div class="categories__slider owl-carousel">
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-1.jpg">
+						data-setbg="/resources/img/phonecase/case1.png">
 						<h5>
-							<a href="#">Fresh Fruit</a>
+							<a href="#">Alright hold on !</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-2.jpg">
+						data-setbg="/resources/img/phonecase/case2.png">
 						<h5>
-							<a href="#">Dried Fruit</a>
+							<a href="#">Fun Friends</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-3.jpg">
+						data-setbg="/resources/img/phonecase/case3.png">
 						<h5>
-							<a href="#">Vegetables</a>
+							<a href="#">You Got This</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-4.jpg">
+						data-setbg="/resources/img/phonecase/case4.png">
 						<h5>
-							<a href="#">drink fruits</a>
+							<a href="#">Selfie by Bonnie Lu</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/categories/cat-5.jpg">
+						data-setbg="/resources/img/phonecase/case5.png">
 						<h5>
-							<a href="#">drink fruits</a>
+							<a href="#">miniJOHN</a>
 						</h5>
 					</div>
 				</div>
@@ -159,7 +159,7 @@
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="blog__item">
 					<div class="blog__item__pic">
-						<img src="/resources/img/blog/blog-1.jpg" alt="">
+						<img src="/resources/img/blog/blog3.png" alt="">
 					</div>
 					<div class="blog__item__text">
 						<ul>
@@ -167,17 +167,16 @@
 							<li><i class="fa fa-comment-o"></i> 5</li>
 						</ul>
 						<h5>
-							<a href="#">Cooking tips make cooking simple</a>
+							<a href="#">Be Breast Aware</a>
 						</h5>
-						<p>Sed quia non numquam modi tempora indunt ut labore et
-							dolore magnam aliquam quaerat</p>
+						<p>유방암에 대한 인식을 돕는 컬렉션. Be Breast Aware 컬렉션을 통해 컬렉션 케이스를 구매할 때마다 Living Beyond Breast Cancer 단체에 5달러를 기부합니다.</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="blog__item">
 					<div class="blog__item__pic">
-						<img src="/resources/img/blog/blog-2.jpg" alt="">
+						<img src="/resources/img/blog/blog1.png" alt="">
 					</div>
 					<div class="blog__item__text">
 						<ul>
@@ -185,17 +184,16 @@
 							<li><i class="fa fa-comment-o"></i> 5</li>
 						</ul>
 						<h5>
-							<a href="#">6 ways to prepare breakfast for 30</a>
+							<a href="#">자신을 최우선으로 생각하세요!</a>
 						</h5>
-						<p>Sed quia non numquam modi tempora indunt ut labore et
-							dolore magnam aliquam quaerat</p>
+						<p>5월 정신건강 인식의 달을 맞이해, 케이스가 판매될 때마다 비영리 단체 To Write Love On Her Arms (TWLOHA)에 US$5를 기부합니다.</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-6">
 				<div class="blog__item">
 					<div class="blog__item__pic">
-						<img src="/resources/img/blog/blog-3.jpg" alt="">
+						<img src="/resources/img/blog/blog2.png" alt="">
 					</div>
 					<div class="blog__item__text">
 						<ul>
@@ -203,10 +201,9 @@
 							<li><i class="fa fa-comment-o"></i> 5</li>
 						</ul>
 						<h5>
-							<a href="#">Visit the clean farm in the US</a>
+							<a href="#">Pawfect Love</a>
 						</h5>
-						<p>Sed quia non numquam modi tempora indunt ut labore et
-							dolore magnam aliquam quaerat</p>
+						<p> 강아지 고양이를 향한 사랑을 사랑스러운 Pawfect Love 컬렉션으로 표현해 보세요! 세계 강아지 & 고양이 날을 맞이하여 컬렉션 케이스를 구매할 때마다 International Fund of Animal Welfare (IFAW)에 5달러가 기부됩니다.</p>
 					</div>
 				</div>
 			</div>
@@ -214,6 +211,11 @@
 	</div>
 </section>
 <!-- Blog Section End -->
+
+<!--우측 고정 메뉴  -->
+<div class="quick_area" >
+    <p class="to_top" ><a href="javascript:window.scrollTo(0,0);" class="s_point">TOP</a></p>
+</div>
 
 <script>
 	$(document).ready(function() {
