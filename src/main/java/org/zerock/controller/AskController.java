@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.net.http.HttpClient;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -60,36 +63,44 @@ public class AskController { // 페이지의 분기를 담당한다.
 	}
 
 	@PreAuthorize("permitAll")
-	@GetMapping("/get") // 상세보기 페이지로 이동..
-	public String get(@RequestParam("no") Long ask_list_no, @RequestParam("pw") String pw, Model model, CsrfToken csrfToken, HttpServletRequest request) { // @ModelAttribute("cri") Criteria cri,
+	@GetMapping("/get") // 상세보기 페이지로 이동.. // 파라미터로 넘어온 no, pw를 dto에 셋팅해서 받을 수 있는 방법 .. ?
+	public String get(@RequestParam("no") Long ask_list_no, @RequestParam("pw") String pw, AskListLockDTO dto, Model model, CsrfToken csrfToken, HttpServletRequest request) { // @ModelAttribute("cri") Criteria cri,
 		log.info("get(get) 메서드 실행");
+		dto.setAsk_list_no(ask_list_no);
+		dto.setPassword(pw);
 		log.info("넘겨받은 pw : " + pw);
-		if (!(pw == null || pw.trim().isEmpty())) { // 넘어온 pw값이 있으면 /ask/lock 비밀번호 검증
-	        String csrfTokenValue = csrfToken.getToken();
-	        log.info("토큰 : " + csrfTokenValue);
-	        // RestTemplate 객체 생성
-	        RestTemplate restTemplate = new RestTemplate();
-	        // 요청 헤더 설정
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_JSON);
-	        headers.set("X-CSRF-TOKEN", csrfTokenValue); // CSRF 토큰을 요청 헤더에 추가
-	        // 요청 본문 데이터 설정
-	        AskListLockDTO dto = new AskListLockDTO();
-	        dto.setPassword(pw);
-	        dto.setAsk_list_no(ask_list_no);
-	        // HTTP 요청 객체 생성
-	        HttpEntity<AskListLockDTO> requestEntity = new HttpEntity<>(dto, headers); 
-	        // POST 요청 보내기
-	        String url = "http://localhost:80/ask/lock";
-	        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class); 
-	        // 응답 출력
-	        System.out.println("responseEntity : " + responseEntity);
-	        String responseBody = responseEntity.getBody();
-	        System.out.println("Response: " + responseBody);
-	    }
+		if (service.checkLock(ask_list_no)) {  // 비밀글이면
+			if (!(pw == null || pw.trim().isEmpty())) { // 넘어온 pw값이 있으면 /ask/lock 비밀번호 검증
+		        String csrfTokenValue = csrfToken.getToken();
+		        log.info("토큰 : " + csrfTokenValue);
+		        // RestTemplate 객체 생성
+		        RestTemplate restTemplate = new RestTemplate();
+		       
+		        
+		        
+		        log.info("RestTempate 객체 : " + restTemplate);
+		        // 요청 헤더 설정
+		        HttpHeaders headers = new HttpHeaders();
+		        headers.setContentType(MediaType.APPLICATION_JSON);
+		        headers.set("X-CSRF-TOKEN", csrfTokenValue); // CSRF 토큰을 요청 헤더에 추가
+		        log.info("헤더 : " + headers);
+		        // 요청 본문 데이터 설정
+		        log.info("넘길 dto : " + dto); // 위에서 set no, pw 완료
+		        // HTTP 요청 객체 생성
+		        HttpEntity<AskListLockDTO> requestEntity = new HttpEntity<>(dto, headers); 
+		        // POST 요청 보내기
+		        String url = "http://localhost/ask/lock";
+		        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class); 
+		        // 응답 출력
+		        System.out.println("responseEntity : " + responseEntity);
+		        String responseBody = responseEntity.getBody();
+		        System.out.println("Response: " + responseBody);
+		        if(responseBody.equals("true")) {
+		        	dto.setPass(true);
+		        }
+		    }
 		
-		if (service.checkLock(ask_list_no) == true) { 
-			return "redirect:/ask/lock?no=" + ask_list_no;
+			return "redirect:/ask/lock?no=" + ask_list_no; // 여기로 갈 때 dto 객체로 get방식으로 넘길 수 있는 방법 ..?
 		}
 		AskListVO vo = service.get(ask_list_no);
 		model.addAttribute("AskListVO", vo);

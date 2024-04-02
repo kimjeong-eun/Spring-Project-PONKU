@@ -8,6 +8,6 @@ public class AskListLockDTO {
 	private String password;
     private Long ask_list_no;
     
-    //private boolean pass = false; // 비밀번호가 검증되었는지 확인
+    private boolean pass = false; // 비밀번호가 검증되었는지 확인
 
 }
