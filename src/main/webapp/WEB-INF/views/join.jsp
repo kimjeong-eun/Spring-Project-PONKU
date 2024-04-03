@@ -1,95 +1,115 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-<link rel="stylesheet" href="../resources/css/join.css">
-<script defer src="../resources/js/join.js"></script>
 
 <jsp:include page="./includes/header.jsp"></jsp:include>
 
 
-<div class="container" style="margin: 200px auto 220px; width: 1400px;">
-<h2 style="font-size: 1.4rem; padding-left: 540px; font-weight: 900;">회원가입</h2>
-<h3 style="font-size: 1.2rem; padding-left: 540px; color: grey;">가입을 통해 더 다양한 서비스를 만나보세요!</h3>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  <link rel="stylesheet" href="../resources/css/join.css">
+  <script defer src="../resources/js/join.js"></script>
+  <style type="text/css">
+  
+  #container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* height: 60%; */
+	}
+  
+  </style>
+</head>
+ 
+<body>
+
+  <div id="container" class="container">
 	<div class="content">
-		<form id="joinForm" name="joinForm" action="/join" method="post">
-			<!-- HEADER -->
-
-			<!-- INPUT -->
-			<section>
-				<div class="info" id="info__name">
-					<input class="box" name="username" type="text" placeholder="이름" />
-					<div class="error-msg"></div>
-				</div>
-				<div class="info" id="info__id">
-					<div id="id-input">
-						<input class="box" name="userid" id="userid" type="text"
-							placeholder="아이디 입력(6~20자)" />
-					</div>
-					<div class="error-msg" id="id-error-msg"></div>
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-				</div>
-
-				<div class="info" id="info__pw">
-					<input class="box" name="password" type="password"
-						placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8~20자)" />
-					<div class="error-msg"></div>
-				</div>
-				<div class="info" id="info__pwRe">
-					<input class="box" name="repw" type="password"
-						placeholder="비밀번호 재입력" />
-					<div class="error-msg"></div>
-				</div>
-				<div class="info" id="info__email">
-					<input class="box" id="email-txt" name="inputEmail" type="text"
-						placeholder="이메일 입력" /> <span>@</span> <input class="box"
-						id="domain-txt" name="inputDomain" type="text" /> <select
-						class="box" id="domain-list">
-						<option value="type">직접 입력</option>
-						<option value="naver.com">naver.com</option>
-						<option value="google.com">google.com</option>
-						<option value="gmail.com">gmail.com</option>
-						<option value="hanmail.net">hanmail.net</option>
-						<option value="nate.com">nate.com</option>
-						<option value="kakao.com">kakao.com</option>
-					</select> <input type="hidden" name="email" id="email" value="" />
-				</div>
-				<div class="info" id="info__birth">
-					<div id="birth-flex">
-						<select class="box" id="birth-year" name="birthY">
-							<option disabled selected>출생 연도</option>
-						</select> <select class="box" id="birth-month" name="birthM">
-							<option disabled selected>월</option>
-						</select> <select class="box" id="birth-day" name="birthD">
-							<option disabled selected>일</option>
-						</select> <input type="hidden" name="birth" id="birth" value="" />
-					</div>
-					<div class="error-msg"></div>
-				</div>
-				<!-- <div id="print-date"></div> -->
-				<div class="info" id="info__mobile">
-					<input class="box" name="phone" type="text"
-						placeholder="휴대폰 번호 입력 (‘-’ 제외 11자리 입력)" />
-					<div class="error-msg"></div>
-				</div>
-			</section>
-			<div id="result-fail"></div>
-			<button style="background-color: black; color: white;"
-				name="btn-join" id="submitBtn" type="button">가입하기</button>
-
-			<div class="exist">
-				<span>이미 회원이신가요?</span> <a href="/customLogin">로그인 하러가기</a>
+    	<form id="joinForm" name="joinForm" action="/join" method="post">
+	      <!-- HEADER -->
+	      <header>
+	        <h2>회원가입</h2>
+	        <h3>가입을 통해 더 다양한 서비스를 만나보세요!</h3>
+	      </header>
+		 
+	      <!-- INPUT -->
+	      <section>
+	     	<div class="info" id="info__name">
+	          <input class="box" name="username" type="text" placeholder="이름"/>
+	          <div class="error-msg"></div>
+	        </div>
+	        <div class="info" id="info__id">
+			    <div id="id-input">
+			        <input class="box" name="userid" id="userid" type="text" placeholder="아이디 입력"/>
+			    </div>
+			    <div class="error-msg" id="id-error-msg"></div>
+			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</div>
-		</form>
-	</div>
-</div>
+			
+	        <div class="info" id="info__pw">
+	          <input class="box" name="password" type="password" placeholder="비밀번호 입력 (문자, 숫자, 특수문자 포함 8~20자)"/>
+	          <div class="error-msg"></div>
+	        </div>
+	        <div class="info" id="info__pwRe">
+	          <input class="box" name="repw" type="password" placeholder="비밀번호 재입력"/>
+	          <div class="error-msg"></div>
+	        </div>
+	        <div class="info" id="info__email">
+	          <input class="box" id="email-txt" name="inputEmail" type="text" placeholder="이메일 입력"/>
+	          <span>@</span>
+	          <input class="box" id="domain-txt" name="inputDomain" type="text"/>
+	          <select class="box" id="domain-list">
+	            <option value="type">직접 입력</option>
+	            <option value="naver.com">naver.com</option>
+	            <option value="google.com">google.com</option>
+	            <option value="gmail.com">gmail.com</option>
+	            <option value="hanmail.net">hanmail.net</option>
+	            <option value="nate.com">nate.com</option>
+	            <option value="kakao.com">kakao.com</option>
+	          </select>
+	          <input type="hidden" name="email" id="email" value="" />
+	        </div>
+	        <div class="info" id="info__birth">
+	          <div id="birth-flex">
+	            <select class="box" id="birth-year" name="birthY">
+	              <option disabled selected>출생 연도</option>
+	            </select>
+	            <select class="box" id="birth-month" name="birthM">
+	              <option disabled selected>월</option>
+	            </select>
+	            <select class="box" id="birth-day" name="birthD">
+	              <option disabled selected>일</option>
+	            </select>
+	            <input type="hidden" name="birth" id="birth" value="" />
+	          </div>
+	          <div class="error-msg"></div>
+	        </div>
+	        <!-- <div id="print-date"></div> -->
+	        <div class="info" id="info__mobile">
+	          <input class="box" name="phone" id="phone" type="text" placeholder="휴대폰 번호 입력 (‘-’ 제외 11자리 입력)"/>
+	          <div class="error-msg"></div>
+	        </div>
+	      </section>
+	      <div id="result-fail"></div>
+	      <button name="btn-join" id="submitBtn" type="button">가입하기</button>
+	      
+	      <div class="exist">
+	        <span>이미 회원이신가요?</span>
+	        <a href="/customLogin">로그인 하러가기</a>
+	      </div>
+    	</form>
+	 </div>
+  </div>
 
 <script>
 
@@ -107,7 +127,12 @@ $(document).ready(function() {
         if (userid == '' || userid.length == 0) {
             $("#id-error-msg").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
             return false;
-        }
+        } 
+        const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
+        if(!idRegExp.test(idInputEl.value)) {
+        	$("#id-error-msg").css("color", "red").text("아이디는 영문자 또는 숫자로 6자 이상 20자 이하여야 합니다.");
+			return false;
+		}
 
         // Ajax로 전송
         $.ajax({
@@ -133,6 +158,7 @@ $(document).ready(function() {
                 console.error('AJAX request failed:', error);
             }
         }); // End Ajax
+		
     });
 
 
@@ -223,7 +249,7 @@ $(document).ready(function() {
 	else if(pwVal === pwReVal) { // 비밀번호 재입력 일치
 	 if(isPwValid)
 	   account.pw = pwVal
-	 pwReErrorMsgEl.style.color = "green"
+	 pwReErrorMsgEl.style.color = "black"
 	 pwReErrorMsgEl.textContent = errMsg.pwRe.success
 	}
 	else { // 비밀번호 재입력 불일치
@@ -392,14 +418,35 @@ $(document).ready(function() {
 	    const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 	    if (!pwRegExp.test(pwVal)) {
 	        alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하여야 합니다.");
-	        return;
+	        return false;
 	    }
 		
 	 	// 비밀번호 재입력 일치 여부 확인
 	    if (pwVal !== pwReVal) {
 	        alert("비밀번호가 일치하지 않습니다.");
-	        return;
+	        return false;
 	    }
+	 	
+	  	//이메일 유효성 검사	
+		if($("#email").val() == "") {
+			alert("이메일을 입력하여 주시기 바랍니다.");
+			return false;
+		}
+	  	
+		//생년월일 유효성 검사	
+		if ($("#birth-year option:selected").text() == "출생 연도" || $("#birth-month option:selected").text() == "월" || $("#birth-day option:selected").text() == "일") {
+			alert("생년월일을 입력하여 주시기 바랍니다.");
+			return false;
+		}  
+		
+		/*** SECTION - MOBILE ***/
+		const mobileInputEl = document.querySelector('#info__mobile input')
+		const mobileErrorMsgEl = document.querySelector('#info__mobile .error-msg')
+		const mobileRegExp = /^010([0-9]{8})$/
+		if(!mobileRegExp.test(mobileInputEl.value)) { // 유효성 검사 성공
+			alert("휴대폰번호를 입력하여 주시기 바랍니다.");
+			return false;
+		} 
 	    
 	 	//serialize 가 form요소를 하나씩 읽어옴
 	 	var formData = $("#joinForm").serialize(); 
@@ -431,6 +478,6 @@ $(document).ready(function() {
 });
 	
 </script>
-
+	
 
 <jsp:include page="./includes/footer.jsp"></jsp:include>

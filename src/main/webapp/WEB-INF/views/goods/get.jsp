@@ -531,7 +531,9 @@ input[type=file]::file-selector-button {
 			var orderForm = $("form[name='orderForm']");
 			
 			$("input[name='modelname']").val(model);
-			   $("input[name=totalPrice]").val( $("input[name='totalprice']").val());
+
+		$("input[name=totalPrice]").val( $("input[name='totalprice']").val());
+			
 			
 			orderForm.submit();
 			

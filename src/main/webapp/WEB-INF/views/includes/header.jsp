@@ -38,6 +38,7 @@
     overflow: hidden;
     background: url(/resources/icon/top.png) no-repeat center;
     background-size: cover;
+
 }
 
 header {
@@ -152,10 +153,9 @@ header {
 							<li class="active"><a href="/goods/list">모든상품</a></li>
 							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="/ask/main">문의하기</a></li>
-							<li><a href="./blog.html">리뷰</a></li>
+							<li><a href="/review/list">리뷰</a></li>
 
 							<sec:authorize access="isAuthenticated()">
-
 								<li><a href="/myPage" name="myPage">마이페이지</a>
 									<ul class="header__menu__dropdown">
 										<li><a href="/myPage" style="font-size: 13.5px; height: 47px;">나의 정보 관리</a></li>
@@ -252,7 +252,6 @@ header {
 			<!-- row -->
 		</div>
 		<!-- container -->
-
 		<script>
 			$(document).ready(function() {
 
