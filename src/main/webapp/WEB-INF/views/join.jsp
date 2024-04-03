@@ -437,7 +437,7 @@ $(document).ready(function() {
 		if ($("#birth-year option:selected").text() == "출생 연도" || $("#birth-month option:selected").text() == "월" || $("#birth-day option:selected").text() == "일") {
 			alert("생년월일을 입력하여 주시기 바랍니다.");
 			return false;
-		}
+		}  
 		
 		/*** SECTION - MOBILE ***/
 		const mobileInputEl = document.querySelector('#info__mobile input')
