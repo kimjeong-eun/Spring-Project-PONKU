@@ -17,19 +17,19 @@
     right: 0;
     width: 66px;
     z-index: 100;
-    background-color: gray;
 }
 
 .to_top a {
     display: block;
-    height: 43px;
+    height: 62px;
     transform: translateY(8px);
     box-sizing: border-box;
     text-indent: -9999px;
     overflow: hidden;
     /* border-left: 1px solid #a3a3a3; */
     /* border-bottom: 1px solid #a3a3a3; */
-    background: url(/resources/icon/top.png) no-repeat center;
+    background: url(/resources/icon/top2.png) no-repeat center;
+    background-size: cover;
     /* background-size: contain; */
 }
 
@@ -232,6 +232,7 @@
 		    		
 		    		 e.preventDefault();
 		    		 alert("로그인 후 이용 가능합니다!!");
+		    		 location.href="/customLogin";
 		    	 });
 		    	 
 		    	
