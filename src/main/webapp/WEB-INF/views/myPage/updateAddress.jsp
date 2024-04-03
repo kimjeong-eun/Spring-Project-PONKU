@@ -142,12 +142,14 @@
 		<div class="go_cancel">
 			<button onclick="window.open('/popupAddress','_blank','width=700, height=600, top=50, left=50, scrollbars=yes')" class="btn_cs ty3"><span>새 배송지 추가</span></button>
 		</div>
-
+		
+		<c:if test="${defaultAddr.isDefault eq 'Y'.charAt(0)}"> 	
 		<div class="button_btm">
 			
 				<button id="defaultAddrBtn" class="btn_cs ty1"><span>기본 배송지 설정</span></button>
 			
 		</div>
+		</c:if>
 		
 		<form action="/successUpdateDefaultAddr" method="post" name="selectForm">
 		
