@@ -252,33 +252,30 @@
 
 $(document).ready(function(){
   
-  (function(){
-  
     var bno = '<c:out value="${board.bno}"/>';
         
     $.getJSON("/review/getAttachList", {bno: bno}, function(arr){
         console.log(arr);
         var str = "";
         $(arr).each(function(i, attach){
-            // image type
+            
+        	// image type
             if(attach.filetype){
                 var fileCallPath = encodeURIComponent(attach.uploadpath + "/s_" + attach.uuid + "_" + attach.filename);
-                str += "<li data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
-                str += "<div>";
-                str += "<img src='display?filename="+fileCallPath+"'>";
+                str += "<div data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
+                str += "<img src='/display?filename="+fileCallPath+"'>";
                 str += "</div>";
-                str += "</li>";
             } else {
-                str += "<li data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
-                str += "<div>";
+                str += "<div data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
                 str += "<span>"+attach.filename+"</span><br/>";
-                str += "<img src='/resources/img/attach.png'>";
+                str += "<img src='/resources/img/attach.png'></a>";
                 str += "</div>";
-                str += "</li>";
            	 }
+        	
         	});
-       	  $("div[name='uploadResult']").html(str);
-      });
+        
+       	  $("div[name='uploadResult']").html(str).show();
+     
      
      });//end getjson
 
@@ -291,7 +288,7 @@ $(document).ready(function(){
     
     var liObj = $(this);
     
-    var path = encodeURIComponent(liObj.data("path")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
+    var path = encodeURIComponent(liObj.data("uploadpath")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
     
     if(liObj.data("type")){
       showImage(path.replace(new RegExp(/\\/g),"/"));

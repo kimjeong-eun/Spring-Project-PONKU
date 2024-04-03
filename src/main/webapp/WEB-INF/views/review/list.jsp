@@ -47,11 +47,67 @@
    color: #fff;
    border-color: #000;
 }
+#regBtn {
+    position: relative;
+    bottom: 10px; 			/* 하단 여백 조정 */
+    right: 10px; 			/* 우측 여백 조정 */
+    padding: 5px 10px; 		/* 내부 여백 조정 */
+    font-size: 14px; 		/* 글꼴 크기 조정 */
+    border: 1px solid #ccc; /* 테두리 스타일 */
+    border-radius: 5px; 	/* 테두리의 모서리 둥글기 조정 */
+    background-color: #f8f9fa; /* 배경색 지정 */
+    color: #333; 			/* 글꼴 색상 지정 */
+    cursor: pointer; 		/* 커서 타입 지정 */
+    transition: background-color 0.3s, color 0.3s; /* hover 효과를 위한 transition 설정 */
+}
+
+#regBtn:hover {
+    background-color: #007bff; /* hover 시 배경색 변경 */
+    color: #fff; /* hover 시 글꼴 색상 변경 */
+}
+/* 입력 필드 스타일 */
+input[type='text'] {
+    padding: 8px; /* 내부 여백 */
+    border: 1px solid #ccc; /* 테두리 스타일 */
+    border-radius: 5px; /* 테두리의 모서리 둥글기 */
+    font-size: 14px; /* 글꼴 크기 */
+}
+
+/* 버튼 스타일 */
+button {
+    padding: 8px 16px; /* 내부 여백 */
+    background-color: #ccc; /* 배경색 */
+    color: #fff; /* 글꼴 색상 */
+    border: 1px solid #888; /* 테두리 스타일 */
+    border-radius: 5px; /* 테두리의 모서리 둥글기 */
+    cursor: pointer; /* 마우스 커서 타입 */
+    transition: background-color 0.3s, color 0.3s; /* hover 효과를 위한 transition 설정 */
+}
+
+button:hover {
+    background-color: #888; /* hover 시 배경색 변경 */
+}
+
+
+/* 셀렉트 박스 스타일 */
+select {
+    padding: 8px; /* 내부 여백 */
+    border: 1px solid #ccc; /* 테두리 스타일 */
+    border-radius: 5px; /* 테두리의 모서리 둥글기 */
+    font-size: 14px; /* 글꼴 크기 */
+}
+
+/* 선택된 옵션 스타일 */
+select option[selected] {
+    background-color: #007bff; /* 선택된 옵션 배경색 */
+    color: #fff; /* 선택된 옵션 글꼴 색상 */
+}
+
 </style>
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default" style="text-align: center; position: relative;">
+        <div class="panel panel-default" style="text-align: right; position: relative;">
             <div class="panel-heading">
            <button id='regBtn' type="button" class="btn btn-xs" style="position: absolute; bottom: 0; right: 0;">리뷰 등록</button>
             </div>
@@ -63,7 +119,7 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>#번호</th>
+							<th>리뷰번호</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>

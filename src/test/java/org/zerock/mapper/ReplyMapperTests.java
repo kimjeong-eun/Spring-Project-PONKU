@@ -43,7 +43,7 @@ public class ReplyMapperTests {
 				IntStream.rangeClosed(1, 10).forEach(i -> {
 					ReplyVO cvo = new ReplyVO();
 			
-				cvo.setId(bnoArr[i % 5]);	// 위에 만든 배열을 5로 나눈 나머지 값을 넣음
+				cvo.setRno(bnoArr[i % 5]);	// 위에 만든 배열을 5로 나눈 나머지 값을 넣음
 				cvo.setContent("댓글 테스트" + i);
 				cvo.setReplyer("사용자" + i);	// 더미 객체 생성용
 				

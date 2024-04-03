@@ -20,7 +20,7 @@ public interface ReplyService {
 	
 	public ReplyPageDTO getListPage(Criteria cri, Long id);
 	
-	public int postComment(String comment);
+	
 	
 
 }

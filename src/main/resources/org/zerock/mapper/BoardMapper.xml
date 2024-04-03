@@ -49,10 +49,14 @@
 
 
 	<select id="getList" resultType="org.zerock.domain.BoardVO">
-	<![CDATA[
-		select * from board where bno > 0 
-		]]>
-	</select>
+    <![CDATA[
+        SELECT * FROM board
+        WHERE bno > 0
+        ORDER BY bno ASC
+        FETCH FIRST 100 ROWS ONLY
+    ]]>
+</select>
+
 	
 	<!-- 데이터 삽입 sql문 -->
 	<insert id="insert">

@@ -23,39 +23,40 @@ public class ReplyServiceImpl implements ReplyService{
 	private ReplyMapper mapper;
 	
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper boardmapper;
+	private BoardMapper boardMapper;
 	
 	
 	@Transactional
 	@Override
-	public int register(ReplyVO cvo) {
+	public int register(ReplyVO vo) {
 		
-		log.info("등록 : " + cvo);
+		log.info("등록 : " + vo);
+	
 		
-		return mapper.insert(cvo);
+		return mapper.insert(vo);
 	}
 
 	@Override
-	public ReplyVO get(Long id) {
+	public ReplyVO get(Long rno) {
 		
-		log.info("조회 : " + id);
+		log.info("조회 : " + rno);
 		
-		return mapper.read(id);
+		return mapper.read(rno);
 	}
 
 	@Override
-	public int modify(ReplyVO cvo) {
+	public int modify(ReplyVO vo) {
+		log.info("수정 :" + vo);
 		
-		log.info("수정 :" + cvo);
-		
-		return mapper.update(cvo);
+		return mapper.update(vo);
 	}
+	
 	
 	@Transactional
 	@Override
 	public int remove(Long rno) {
+		log.info("삭제 :" + rno);
 		
-		log.info("삭제 : " + rno);
 		
 		ReplyVO vo = mapper.read(rno);
 		
@@ -65,26 +66,17 @@ public class ReplyServiceImpl implements ReplyService{
 	@Override
 	public List<ReplyVO> getList(Criteria cri, Long bno) {
 		
-		log.info("보드에 있는 댓글 리스트 : " + bno);
-		
+		log.info("게시판 조회 :" + bno);
 		return mapper.getListWithPaging(cri, bno);
+		
 	}
 
 	@Override
-	public int postComment(String comment) {
-		
-		log.info("댓글 삽입 :" + comment);
-		
-		return mapper.insertComment(comment);
-	}
-	
-
-	@Override
-	public ReplyPageDTO getListPage(Criteria cri, Long id) {
+	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
 		
 		return new ReplyPageDTO(
-				mapper.getCountByid(id), 
-				mapper.getListWithPaging(cri, id));
+				mapper.getCountByBno(bno), 
+				mapper.getListWithPaging(cri, bno));
 	}
 
 }

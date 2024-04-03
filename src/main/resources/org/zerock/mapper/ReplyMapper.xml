@@ -6,47 +6,47 @@
 
 	<insert id="insert">
 
-		insert into comments (id, rno, replyer, content)
-		values (id_num.nextval, #{rno}, #{replyer}, #{content, jdbcType=VARCHAR})
+		insert into comments (rno, bno, replyer, content)
+		values (id_num.nextval, #{bno}, #{replyer}, #{content})
 
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.ReplyVO">
 
-		select * from comments where id = #{id}
+		select * from comments where rno = #{rno}
 
 	</select>
 
 
 	<delete id="delete">
 
-		delete from comments where id = #{id}
+		delete from comments where rno = #{rno}
 
 	</delete>
 
 	<update id="update">
 
-		update comments set id = #{content}, updatedate = sysdate where id = #{id}
+		update comments set content = #{content}, updateDate = sysdate where rno = #{rno}
 
 	</update>
 	
 	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
 		<![CDATA[
- 			select id, rno, replyer, content, replyDate, updateDate
+ 			select rno, bno, replyer, content, replyDate, updateDate
  		from (
    		 select /*+INDEX(comments id) */ 
-      		rownum rn, id, rno, replyer, content, replyDate, updateDate
+      		rownum rno, bno, replyer, content, replyDate, updateDate
     from comments
-    where id =  #{id}
+    where rno =  #{rno}
     and id > 0
     and rownum <= #{cri.pageNum} * #{cri.amount} ) where rn > (#{cri.pageNum} -1) * #{cri.amount}
 		]]>
 	</select>
 
 
-	<select id="getCountByid" resultType="int">
+	<select id="getCountByRno" resultType="int">
 		<![CDATA[
-			select count(id) from comments where id = #{id}
+			select count(rno) from comments where rno = #{rno}
 				]]>
 	</select>
 

@@ -41,14 +41,14 @@ public class ReplyServiceTests {
 	public void testRegister() {
 		
 		ReplyVO vo = new ReplyVO();
-		vo.setId(29L);
+		vo.setBno(29L);
 		vo.setRno(65L);
 		vo.setReplyer("새 사용자");
 		vo.setContent("새로운 내용");
 		
 		service.register(vo);
 		
-		log.info("생성된 게시물의 번호" + vo.getId());
+		log.info("생성된 게시물의 번호" + vo.getRno());
 		
 		
 	}

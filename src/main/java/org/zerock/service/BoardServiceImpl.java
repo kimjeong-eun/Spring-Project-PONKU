@@ -48,11 +48,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		board.getAttachList().forEach(attach ->{ //첨부파일 리스트 첨부객체
 			
-			log.info("============================================");
-			log.info("-------------bno------------" + board.getBno());
+			if (attach != null) {
 			attach.setBno(board.getBno());
 			attachMapper.insert(attach);
-		});
+		}
+	});
 		
 	}
 

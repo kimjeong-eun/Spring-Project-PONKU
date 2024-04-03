@@ -77,9 +77,9 @@ public class uploadController {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		Date date = new Date();
+		// Date date = new Date();
 
-		String str = sdf.format(date);
+		String str = sdf.format(new Date());
 
 		return str.replace("-", File.separator);
 	}
@@ -88,11 +88,11 @@ public class uploadController {
 
 		try {
 			String contentType = Files.probeContentType(file.toPath());
+			log.info("확장자 :" + contentType);
 
 			return contentType.startsWith("image");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -120,30 +120,30 @@ public class uploadController {
 
 			AttachFileDTO attachDTO = new AttachFileDTO();
 
-			String uploadFileName = multipartFile.getOriginalFilename();
+			String uploadfilename = multipartFile.getOriginalFilename();
 
 			// IE has file path
-			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-			log.info("파일 명 : " + uploadFileName);
-			attachDTO.setFileName(uploadFileName);
+			uploadfilename = uploadfilename.substring(uploadfilename.lastIndexOf("\\") + 1);
+			log.info("파일 명 : " + uploadfilename);
+			attachDTO.setFilename(uploadfilename);
 
 			UUID uuid = UUID.randomUUID();
 
-			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			uploadfilename = uuid.toString() + "_" + uploadfilename;
 
 			try {
-				File saveFile = new File(uploadPath, uploadFileName);
+				File saveFile = new File(uploadPath, uploadfilename);
 				multipartFile.transferTo(saveFile);
 
 				attachDTO.setUuid(uuid.toString());
-				attachDTO.setUploadPath(uploadFolderPath);
+				attachDTO.setUploadpath(uploadFolderPath);
 
 				// check image type file
 				if (checkImageType(saveFile)) {
 
 					attachDTO.setImage(true);
 
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadfilename));
 
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
 
@@ -163,11 +163,11 @@ public class uploadController {
 	
 	@GetMapping("/display")	
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(String fileName) {
+	public ResponseEntity<byte[]> getFile(String filename) {
 
-		log.info("fileName: " + fileName);
+		log.info("filename: " + filename);
 
-		File file = new File("c:\\upload\\" + fileName);
+		File file = new File("c:\\upload\\" + filename);
 
 		log.info("file: " + file);
 
@@ -186,9 +186,9 @@ public class uploadController {
 	
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String filename) {
 
-		Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
+		Resource resource = new FileSystemResource("c:\\upload\\" + filename);
 
 		if (resource.exists() == false) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -229,24 +229,24 @@ public class uploadController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public ResponseEntity<String> deleteFile(String fileName, String type) {
+	public ResponseEntity<String> deleteFile(String filename, String type) {
 
-		log.info("deleteFile: " + fileName);
+		log.info("deleteFile: " + filename);
 
 		File file;
 
 		try {
-			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File("c:\\upload\\" + URLDecoder.decode(filename, "UTF-8"));
 
 			file.delete();
 
 			if (type.equals("image")) {
 
-				String largeFileName = file.getAbsolutePath().replace("s_", "");
+				String largefilename = file.getAbsolutePath().replace("s_", "");
 
-				log.info("largeFileName: " + largeFileName);
+				log.info("largefilename: " + largefilename);
 
-				file = new File(largeFileName);
+				file = new File(largefilename);
 
 				file.delete();
 			}

@@ -67,7 +67,7 @@ public class BoardServiceTests {
 	public void testDelete() {
 
 		// 게시물 번호의 존재 여부를 확인하고 테스트할 것
-		log.info("REMOVE RESULT: " + service.remove(2L));
+		log.info("REMOVE RESULT: " + service.remove(6L));
 
 	}
 
@@ -80,7 +80,7 @@ public class BoardServiceTests {
 			return;
 		}
 
-		board.setTitle("제목 수정합니다.");
+		board.setTitle("케이스가 튼튼해요.");
 		log.info("MODIFY RESULT: " + service.modify(board));
 	}
 

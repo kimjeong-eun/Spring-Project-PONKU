@@ -8,13 +8,15 @@ create table board (
 );
 
 create table comments(
-    id number(10, 0) primary key,
-   	rno number(10, 0),
+    rno number(10, 0) primary key,
+   	bno number(10, 0),
     replyer varchar2(50) not null,
     content varchar2(1000) not null,
     replyDate date default sysdate,
     updateDate date default sysdate
 );
+
+truncate table board;
 
 
 CREATE TABLE attach_review (
@@ -26,9 +28,15 @@ CREATE TABLE attach_review (
   CONSTRAINT fk_board_attach FOREIGN KEY (bno) REFERENCES board (bno)
 );
 
+ALTER TABLE attach_review MODIFY uploadpath VARCHAR2(200) not NULL;
+
+
+
 select * from attach_review;
+select * from comments;
 
 drop table Attach_review;
+drop table comments;
 
 select * from comments;
 select * from board;
@@ -57,7 +65,9 @@ select * from board order by bno asc;
 
 create sequence id_num;
 
-create sequence bno_seq;
+create sequence bno_seq start with 1 increment by 1 nocache nocycle;
+
+drop sequence bno_seq;
 
 -- 첫 번째 댓글 더미 데이터 삽입
 INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
@@ -83,37 +93,26 @@ VALUES (bno_seq.nextval, 8, 'user5', '다섯 번째 댓글입니다.', SYSDATE, 
 
 
 INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목1', '내용1', '작성자1', sysdate, sysdate);
+VALUES (bno_seq.nextval, '최고의 케이스!', '멋진 디자인과 편리한 사용성을 가진 케이스입니다. 
+외관이 아름답고 내부 공간이 넉넉해서 노트북을 보호하면서도 편리하게 사용할 수 있어요.', '김정은', sysdate, sysdate);
 
 INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목2', '내용2', '작성자2', sysdate, sysdate);
+VALUES (bno_seq.nextval, '가벼운 케이스', '가볍고 휴대하기 편한 케이스입니다. 
+노트북을 어디든지 편리하게 들고 다닐 수 있어서 좋아요.', '김수영', sysdate, sysdate);
 
 INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목3', '내용3', '작성자3', sysdate, sysdate);
+VALUES (bno_seq.nextval, '내구성 좋은 케이스', '내구성이 뛰어난 케이스입니다. 
+견고한 소재로 제작되어 노트북을 완벽하게 보호해줍니다.', '최범근', sysdate, sysdate);
 
 INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목4', '내용4', '작성자4', sysdate, sysdate);
+VALUES (bno_seq.nextval, '심플한 케이스', '심플한 디자인과 기능적인 내부 공간을 가진 케이스입니다. 
+간결하면서도 효율적으로 사용할 수 있어서 좋아요.', '김정은', sysdate, sysdate);
 
 INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목5', '내용5', '작성자5', sysdate, sysdate);
+VALUES (bno_seq.nextval, '안정적인 케이스', '노트북을 안정적으로 보호해주는 케이스입니다. 
+안전한 보관과 사용을 위해 완벽한 선택이에요.', '이나연', sysdate, sysdate);
 
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목6', '내용6', '작성자6', sysdate, sysdate);
 
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목7', '내용7', '작성자7', sysdate, sysdate);
-
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목8', '내용8', '작성자8', sysdate, sysdate);
-
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목9', '내용9', '작성자9', sysdate, sysdate);
-
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목10', '내용10', '작성자10', sysdate, sysdate);
-
-INSERT INTO board (bno, title, content, writer, regdate, updatedate) 
-VALUES (bno_seq.nextval, '제목11', '내용11', '작성자11', sysdate, sysdate);
 
 
 

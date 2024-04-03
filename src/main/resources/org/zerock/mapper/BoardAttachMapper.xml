@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.BoardAttachMapper">
 
-	<insert id="insert">
-	insert into attach_review (uuid, uploadpath, filename, filetype, bno) values (#{uuid}, #{uploadpath, jdbcType=VARCHAR}, #{filename=VARCHAR}, #{filetype}, #{bno});
-	</insert>
-	
+   <insert id="insert">
+   insert into attach_review (uuid, uploadpath, filename, filetype, bno) values (#{uuid}, #{uploadpath}, #{filename}, #{filetype}, #{bno})
+   </insert>
+   
 	<delete id="delete">
 	delete from attach_review where uuid = #{uuid}
 	</delete>

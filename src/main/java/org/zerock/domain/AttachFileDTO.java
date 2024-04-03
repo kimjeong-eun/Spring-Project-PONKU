@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class AttachFileDTO {
 	
-	private String fileName;
-	private String uploadPath;
 	private String uuid;
+	private String uploadpath;
+	private String filename;
 	private boolean image;
 
 }

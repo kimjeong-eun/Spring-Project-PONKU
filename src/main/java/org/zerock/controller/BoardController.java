@@ -123,7 +123,7 @@ public class BoardController {
 		return "redirect:/review/list" + cri.getListLink();
 	}
 	
-	@GetMapping(value = "/getAttachList" , produces = MediaType.APPLICATION_JSON_VALUE )
+	@GetMapping(value = "/getAttachList" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE )
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
 	

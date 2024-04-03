@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class ReplyVO {
 	
-	private Long id;
 	private Long rno;
+	private Long bno;
 	
 	private String replyer;
 	private String content;
