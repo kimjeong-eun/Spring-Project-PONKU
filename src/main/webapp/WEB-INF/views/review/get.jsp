@@ -90,14 +90,13 @@
 
 
 <style>
-/* 리뷰 폼 컨테이너 스타일 */
 .review-form-container {
     max-width: 500px;
     margin: 0 auto; /* 중앙 정렬 */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: white;
 }
 
 /* 리뷰 폼 그룹 스타일 */
@@ -117,6 +116,7 @@
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box; /* 패딩과 테두리 포함하여 크기 조정 */
+    background-color: #f2f2f2; /* 적당한 회색 배경색 */
 }
 
 /* 텍스트 영역 스타일 */
@@ -126,8 +126,9 @@
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box; /* 패딩과 테두리 포함하여 크기 조정 */
-    resize: vertical; /* 수직으로만 크기 조절 가능 */
+    background-color: #f2f2f2; /* 적당한 회색 배경색 */
 }
+
 .review-image-preview {
     margin-top: 10px;
 }
@@ -167,6 +168,21 @@
     margin-bottom: 20px;
     padding: 10px;
   }
+  
+.btn-info {
+    background-color: #000000; /* 검은색 배경색 */
+    color: #ffffff; /* 흰색 글자색 */
+    border: 1px solid #000000; /* 검은색 테두리 */
+    padding: 8px 16px; /* 내부 여백 */
+    border-radius: 5px; /* 둥근 테두리 */
+    cursor: pointer; /* 마우스 커서 타입 */
+}
+
+.btn-info:hover {
+    background-color: #333333; /* 마우스 오버 시 어두운 검은색 배경색 */
+    border: 1px solid #333333; /* 마우스 오버 시 어두운 검은색 테두리 */
+}
+
 
 </style>
 
@@ -260,14 +276,14 @@ $(document).ready(function(){
         $(arr).each(function(i, attach){
             
         	// image type
-            if(attach.filetype){
-                var fileCallPath = encodeURIComponent(attach.uploadpath + "/s_" + attach.uuid + "_" + attach.filename);
-                str += "<div data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
-                str += "<img src='/display?filename="+fileCallPath+"'>";
+            if(attach.fileType){
+                var fileCallPath = encodeURIComponent(attach.uploadPath + "/s_" + attach.uuid + "_" + attach.fileName);
+                str += "<div data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
+                str += "<img src='/display?fileName="+fileCallPath+"'>";
                 str += "</div>";
             } else {
-                str += "<div data-path='"+attach.uploadpath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.filename+"' data-type='"+attach.filetype+"'>";
-                str += "<span>"+attach.filename+"</span><br/>";
+                str += "<div data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-fileName='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
+                str += "<span>"+attach.fileName+"</span><br/>";
                 str += "<img src='/resources/img/attach.png'></a>";
                 str += "</div>";
            	 }
@@ -288,13 +304,13 @@ $(document).ready(function(){
     
     var liObj = $(this);
     
-    var path = encodeURIComponent(liObj.data("uploadpath")+"/" + liObj.data("uuid")+"_" + liObj.data("filename"));
+    var path = encodeURIComponent(liObj.data("uploadPath")+"/" + liObj.data("uuid")+"_" + liObj.data("fileName"));
     
     if(liObj.data("type")){
       showImage(path.replace(new RegExp(/\\/g),"/"));
     }else {
       //download 
-      self.location ="/download?filename="+path
+      self.location ="/download?fileName="+path
     }
     
     
@@ -304,7 +320,7 @@ $(document).ready(function(){
 	    alert(fileCallPath);
 	    
 	    // 이미지 미리보기 영역을 보이도록 변경하고 이미지를 표시합니다.
-	    $(".review-image-preview").css("display", "flex").show().html("<img src='/display?filename=" + fileCallPath + "' >").animate({width:'100%', height: '100%'}, 1000);
+	    $(".review-image-preview").css("display", "flex").show().html("<img src='/display?fileName=" + fileCallPath + "' >").animate({width:'100%', height: '100%'}, 1000);
 	}
 
 	// 이미지 미리보기 영역을 클릭했을 때 동작하는 이벤트 핸들러를 정의합니다.

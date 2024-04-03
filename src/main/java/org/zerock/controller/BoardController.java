@@ -146,14 +146,14 @@ public class BoardController {
 			try {
 
 				Path file = Paths.get(
-						"c:\\upload\\" + attach.getUploadpath() + "\\" + attach.getUuid() + "_" + attach.getFilename());
+						"c:\\upload\\" + attach.getUploadPath() + "\\" + attach.getUuid() + "_" + attach.getFileName());
 
 				Files.deleteIfExists(file); // 파일이 존재한다면 삭제!
 
 				if (Files.probeContentType(file).startsWith("image")) {
 
-					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadpath() + "\\s_" + attach.getUuid() + "_"
-							+ attach.getFilename());
+					Path thumbNail = Paths.get("c:\\upload\\" + attach.getUploadPath() + "\\s_" + attach.getUuid() + "_"
+							+ attach.getFileName());
 					Files.delete(thumbNail);
 				}
 			} catch (Exception e) {

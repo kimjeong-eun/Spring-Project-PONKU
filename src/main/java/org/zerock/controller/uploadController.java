@@ -120,30 +120,30 @@ public class uploadController {
 
 			AttachFileDTO attachDTO = new AttachFileDTO();
 
-			String uploadfilename = multipartFile.getOriginalFilename();
+			String uploadfileName = multipartFile.getOriginalFilename();
 
 			// IE has file path
-			uploadfilename = uploadfilename.substring(uploadfilename.lastIndexOf("\\") + 1);
-			log.info("파일 명 : " + uploadfilename);
-			attachDTO.setFilename(uploadfilename);
+			uploadfileName = uploadfileName.substring(uploadfileName.lastIndexOf("\\") + 1);
+			log.info("파일 명 : " + uploadfileName);
+			attachDTO.setFileName(uploadfileName);
 
 			UUID uuid = UUID.randomUUID();
 
-			uploadfilename = uuid.toString() + "_" + uploadfilename;
+			uploadfileName = uuid.toString() + "_" + uploadfileName;
 
 			try {
-				File saveFile = new File(uploadPath, uploadfilename);
+				File saveFile = new File(uploadPath, uploadfileName);
 				multipartFile.transferTo(saveFile);
 
 				attachDTO.setUuid(uuid.toString());
-				attachDTO.setUploadpath(uploadFolderPath);
+				attachDTO.setUploadPath(uploadFolderPath);
 
 				// check image type file
 				if (checkImageType(saveFile)) {
 
 					attachDTO.setImage(true);
 
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadfilename));
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadfileName));
 
 					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
 
@@ -163,11 +163,11 @@ public class uploadController {
 	
 	@GetMapping("/display")	
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(String filename) {
+	public ResponseEntity<byte[]> getFile(String fileName) {
 
-		log.info("filename: " + filename);
+		log.info("fileName: " + fileName);
 
-		File file = new File("c:\\upload\\" + filename);
+		File file = new File("c:\\upload\\" + fileName);
 
 		log.info("file: " + file);
 
@@ -186,9 +186,9 @@ public class uploadController {
 	
 	@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
-	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String filename) {
+	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
 
-		Resource resource = new FileSystemResource("c:\\upload\\" + filename);
+		Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
 
 		if (resource.exists() == false) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -217,7 +217,7 @@ public class uploadController {
 			
 			log.info("downloadName: " + downloadName);
 
-			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+			headers.add("Content-Disposition", "attachment; fileName=" + downloadName);
 
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -229,24 +229,24 @@ public class uploadController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/deleteFile")
 	@ResponseBody
-	public ResponseEntity<String> deleteFile(String filename, String type) {
+	public ResponseEntity<String> deleteFile(String fileName, String type) {
 
-		log.info("deleteFile: " + filename);
+		log.info("deleteFile: " + fileName);
 
 		File file;
 
 		try {
-			file = new File("c:\\upload\\" + URLDecoder.decode(filename, "UTF-8"));
+			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 
 			file.delete();
 
 			if (type.equals("image")) {
 
-				String largefilename = file.getAbsolutePath().replace("s_", "");
+				String largefileName = file.getAbsolutePath().replace("s_", "");
 
-				log.info("largefilename: " + largefilename);
+				log.info("largefileName: " + largefileName);
 
-				file = new File(largefilename);
+				file = new File(largefileName);
 
 				file.delete();
 			}

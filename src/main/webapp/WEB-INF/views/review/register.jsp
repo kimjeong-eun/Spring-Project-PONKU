@@ -21,7 +21,7 @@
 
       <!-- /.panel-heading -->
       <div class="panel-body">
-
+	<sec:authentication property="principal" var="pinfo"/>
      <form role="form" action="/review/register" method="post" class="review-form"  enctype="multipart/form-data">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>  
     
@@ -37,7 +37,7 @@
 
     <div class="form-group">
         <label for="review-writer">작성자</label>
-        <input id="review-writer" class="form-control review-input" name="writer" placeholder="작성자를 입력하세요">
+        <input id="review-writer" class="form-control review-input" name="writer" readonly="readonly" value="${pinfo.username }" >
     </div>
     
     <div class="form-group">
@@ -120,13 +120,13 @@
 					
 					  console.dir(jobj);
 				      console.log("-------------------------");
-				      console.log(jobj.data("filename"));
+				      console.log(jobj.data("fileName"));
 				      
 				      
-				      str += "<input type='hidden' name='attachList["+i+"].filename' value='"+jobj.data("filename")+"'>";
+				      str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
 				      str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-				      str += "<input type='hidden' name='attachList["+i+"].uploadpath' value='"+jobj.data("path")+"'>";
-				      str += "<input type='hidden' name='attachList["+i+"].filetype' value='"+ jobj.data("type")+"'>";
+				      str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+				      str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+ jobj.data("type")+"'>";
 				      
 				});
 				 console.log(str);
@@ -140,14 +140,14 @@
 			
 			var maxSize = 5242880 ; //5mb
 			
-			function checkExtension(filename , fileSize){
+			function checkExtension(fileName , fileSize){
 				
 				if(fileSize >= maxSize){
 					alert("파일 사이즈 초과");
 					return false;
 				}
 				
-				if(regex.test(filename)){
+				if(regex.test(fileName)){
 					alert("해당 종류의 파일은 업로드할 수 없습니다.");
 					return false;
 				}
@@ -210,23 +210,23 @@
 			    $(uploadResultArr).each(function(i, obj){ //i: 인덱스 obj: fileDTO
 					
 					if(obj.image){
-						var fileCallPath =  encodeURIComponent( obj.uploadpath+ "/s_"+obj.uuid +"_"+obj.filename);
-						str += "<li data-path='"+obj.uploadpath+"'";
-						str +=" data-uuid='"+obj.uuid+"' data-filename='"+obj.filename+"' data-type='"+obj.image+"'"
+						var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+						str += "<li data-path='"+obj.uploadPath+"'";
+						str +=" data-uuid='"+obj.uuid+"' data-fileName='"+obj.fileName+"' data-type='"+obj.image+"'"
 						str +" ><div>";
 						str += "<span> "+ obj.filename+"</span>";
 						str += "<button type='button' data-file=\'"+fileCallPath+"\' "
 						str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
-						str += "<img src='/display?filename="+fileCallPath+"'>";
+						str += "<img src='/display?fileName="+fileCallPath+"'>";
 						str += "</div>";
 						str +"</li>";
 					}else{
-						var fileCallPath =  encodeURIComponent( obj.uploadpath+"/"+ obj.uuid +"_"+obj.filename);			      
+						var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.uuid +"_"+obj.fileName);			      
 					    var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 					      
 						str += "<li "
-						str += "data-path='"+obj.uploadpath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.filename+"' data-type='"+obj.image+"' ><div>";
-						str += "<span> "+ obj.filename+"</span>";
+						str += "data-path='"+obj.uploadPath+"' data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
+						str += "<span> "+ obj.fileName+"</span>";
 						str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
 						str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
 						str += "<img src='/resources/img/attach.png'></a>";
@@ -252,7 +252,7 @@
 				$.ajax({
 					
 					url: '/deleteFile',
-					data:{filename:targetFile , type : type},
+					data:{fileName:targetFile , type : type},
 					beforeSend: function(xhr) {
 						
 					xhr.setRequestHeader(csrfHeaderName , csrfTokenValue);
