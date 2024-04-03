@@ -1,30 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<title>장바구니 | Ponku</title>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>쇼핑카트</title>
+
 
 <style type="text/css">
-
-.sub-header{
-
-	position: absolute;
-	width: 100%;
-	height:20%;
-	background-image: url("/resources/img/subheader.png");
-	background-size: cover;
-}
-
-
     .modal_{
       position:absolute;
   	  display:none;  
-      
       justify-content: center;
       top:0;
       left:0;
@@ -32,43 +18,25 @@
       width:100%;
       height:130rem;
 	  background-color: rgba(0,0,0,0.4);
-
       }
       
 .modal_body{
           position:absolute;
           top:10%; /* 모달을 화면가운데 놓기위함.  */
-      
-
           width:50rem;  /* 모달의 가로크기  */
           height:50rem; /* 모달의 세로크기  */
-
           padding:40px;  
-
-          
-
           background-color: rgb(255,255,255); 
           border-radius:10px; 
           box-shadow:0 2px 3px 0 rgba(34,36,38,0.15); 
-
-         
           transform:translateX(10%); 
       }
-
-
-
 </style>
-
-
-</head>
-<body>
  
 <jsp:include page="./includes/header.jsp"></jsp:include>
 
-<div class="sub-header" id="sub-header"></div>
- 
-  <!-- Shoping Cart Section Begin -->
-    <section class="shoping-cart spad" style="margin-top:140px; ">
+  <!-- Shopping Cart Section Begin -->
+    <section class="shoping-cart spad">
 
         <div class="container" style="width: 70%;">
         <h4 style="font-weight: 800; margin-bottom: 30px;">쇼핑 카트<i class="fa-solid fa-cart-shopping"></i></h4>        	
@@ -190,10 +158,7 @@
                     	<form action="/orderGoods" method="post" name="orderForm">
                     		
                     		<!--여기에 폼요소 넘어감  -->
-                    	 
-                    	
                     	</form>
-
                     </div>
                 </div>
             </div>
@@ -206,13 +171,9 @@
         		<span  name="modal_close_btn" style="width: 3rem; height: 3rem; font-size: 30px; float:right ; margin-bottom: 1rem; cursor: pointer;"> X </span>
             <br/>
 	        	<div name="madal_body_content" style="width: 100%; height: 90%; margin-top: 1rem; background-size: contain;">
-	        	
-	        	
 	        	</div>        	
         	</div>
         </div>
-        
-        
         
     </section>
     <!-- Shoping Cart Section End -->
@@ -240,8 +201,6 @@
 						
 						alert("감사합니다 할인이 적용됩니다.");
 						$("span[name='totalPrice']").text('0');
-						
-						
 					}
 				}
 
@@ -526,10 +485,6 @@
 	    });
 		
 	});
-
-
 </script>
 
 <jsp:include page="./includes/footer.jsp"></jsp:include>
-</body>
-</html>

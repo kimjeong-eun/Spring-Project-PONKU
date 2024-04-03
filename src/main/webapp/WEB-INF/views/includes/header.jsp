@@ -6,6 +6,13 @@
 <html lang="kr">
 <!DOCTYPE html>
 
+<head>
+<meta charset="UTF-8">
+<meta name="description">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<sec:csrfMetaTags />
+
 <style>
 .container {
 	max-width: 1200px;
@@ -17,12 +24,11 @@
     right: 0;
     width: 66px;
     z-index: 100;
-    background-color: gray;
 }
 
 .to_top a {
     display: block;
-    height: 43px;
+    height: 62px;
     transform: translateY(8px);
     box-sizing: border-box;
     text-indent: -9999px;
@@ -30,21 +36,12 @@
     /* border-left: 1px solid #a3a3a3; */
     /* border-bottom: 1px solid #a3a3a3; */
     background: url(/resources/icon/top.png) no-repeat center;
+    background-size: cover;
     /* background-size: contain; */
 }
-
 </style>
 
-<head>
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<sec:csrfMetaTags/>
-<title>Show Your Colors | Ponku</title>
-
-<!-- Google Font -->
+<!-- Cairo Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
 	rel="stylesheet">
@@ -96,165 +93,173 @@
 
 	<!-- Header Section Begin -->
 	<header class="header">
-		<div class="header__top">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-4">
-						<a><i class="fa fa-envelope"></i> ponkuu@naver.com</a>
-					</div>
-					<div class="header__top__center col-lg-4 col-md-4">
-						<a>20,000원 이상 구매시 무료배송</a>
-					</div>
 
-					<div class="header__top__right col-lg-4 col-md-4">
-						<div class="header__top__right__social">
-							<a href=""><i class="fa fa-facebook"></i></a>
-							<a href="#" name ="insta_btn"><i class="fa-brands fa-instagram"></i></a>
-						</div>
-						<div class="header__top__right__language">
-							<div name=language>Korean</div>
-							<span class="arrow_carrot-down"></span>
-							<ul>
-								<li><a href="#">Korean</a></li>
-								<li><a href="#">English</a></li>
-							</ul>
-						</div>
-						<div class="header__top__right__auth">
-								<sec:authentication property="principal" var="pinfo" />
-								
-                            	<sec:authorize access="isAuthenticated()">
-                            	
-                            	<input type="hidden" value="${pinfo.member.member_seq }" name="memberSeq"> 
-                            	
-                            	<div class="hero__cart" style="display: inline-block;">
-									<ul>
-										<li><a href="#" name="likes"><i class="fa fa-heart"></i> <!-- <span></span> --></a></li>
-										<li><a href="/shoppingcart?member=${pinfo.member.member_seq }"><i class="fa fa-shopping-bag"></i><span id="cart-elements"> </span></a></li>
-									</ul>
-								<!--   <div class="header__cart__price">item: <span>$150.00</span></div> -->
-								</div>
-                            	<form action="/logout" method="post" name="logoutForm">
-                            		<a href="#" name="logoutBtn" style="display: inline-block;"><i class="fa fa-user"></i>LogOut ( ${pinfo.username })</a>
-                            		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            	</form>
-                            	
-                            	<script type="text/javascript">
-		                            	// 로그인시 쇼핑카트에 몇개가 담겼는지 정보 받아옴
-		                            	
-		            		    		var memberSeq = $("input[name='memberSeq']").val()+"";
-		            		    		
-		            		    		console.log(memberSeq);
-		            		    		
-		            			    	 $.ajax({
-		            			    		
-		            			    		 url:'/showCartElements',
-		            			    		 type:'GET',
-		            			    		 data:{member: memberSeq},
-		            			    		 contentType:'application/x-www-form-urlencoded; charset=utf-8',
-		            			    		 dataType:'text',
-		            			    		 success: function(result) {
-		            							
-		            			    			
-		            			    			 $("#cart-elements").text(result+"");
-		            						}
-		            			    		 
-		            			    	 });
-                            	</script>
-                            	</sec:authorize>                    		   
-                                <sec:authorize access="isAnonymous()">
-                                	<a href="/customLogin"><i class="fa fa-user"></i>LogIn</a>
-                                </sec:authorize>
-						</div>
-					</div>
-				</div>
+		<div class="header__top">
+			<div class="container" style="width: 1600px; text-align: center;">
+				<a class="mailAddress"><i class="fa fa-envelope"
+					style="font-size: 0.8rem;"></i>ponkuu@naver.com</a>
+
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<script>
+						// mailAddress 클래스를 가진 요소를 제거하는 스크립트
+						document.addEventListener("DOMContentLoaded",
+								function() {
+									var mailAddress = document
+											.querySelector(".mailAddress");
+									if (mailAddress) {
+										mailAddress.remove();
+									}
+								});
+					</script>
+					<a href="/goods/admin">관리자 모드</a>
+				</sec:authorize>
 			</div>
-			<!-- container -->
 		</div>
 		<!-- header__top -->
 
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-3">
+			<div class="row" style="text-align: center;">
+				<div class="col-lg-2" style="text-align: right;">
 					<div class="header__logo">
-						<a href="/">
-						<img src="/resources/img/logo/ponku_logo2.png" alt="" style="width: 10rem; transform: translateX(-10rem);">
-						</a>		
+						<a href="/" style="color: black; font-size: 50px;">PONKU</a>
 					</div>
 				</div>
-				<div class="col-lg-6">
+				<div class="col-lg-8" style="line-height: 75px;">
 					<nav class="header__menu" style="text-align: center;">
 						<ul>
 							<li class="active"><a href="/goods/list">모든상품</a></li>
 							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="./blog.html">이벤트</a></li>
 							<li><a href="/ask/main">문의게시판</a></li>
-							
- 							<sec:authorize access="isAuthenticated()">
-                            
+
+							<sec:authorize access="isAuthenticated()">
+
 								<li><a href="/myPage" name="myPage">마이페이지</a>
-	                                <ul class="header__menu__dropdown">
-	                                    <li><a href="/myPage">나의 정보관리</a></li>
-	                                    <li><a href="/myOrder">나의 주문관리</a></li> <!-- 아직 미구현 -->
-	                                    <li><a href="/myPlace">나의 활동관리</a></li> <!-- 아직 미구현 -->
-	                                </ul>
-	                            </li>
-                            </sec:authorize>
-                            
-                            <sec:authorize access="isAnonymous()">
-								<li>
-									<a href="#" name="noMember">마이페이지</a>
-	                            </li>                  
-                            </sec:authorize>
+									<ul class="header__menu__dropdown">
+										<li><a href="/myPage">나의 정보관리</a></li>
+										<li><a href="/myOrder">나의 주문관리</a></li>
+										<!-- 아직 미구현 -->
+										<li><a href="/myPlace">나의 활동관리</a></li>
+										<!-- 아직 미구현 -->
+									</ul></li>
+							</sec:authorize>
+
+							<sec:authorize access="isAnonymous()">
+								<li><a href="#" name="noMember">마이페이지</a></li>
+							</sec:authorize>
 
 						</ul>
 					</nav>
 				</div>
-				<div class="col-lg-3"></div>
+				<!-- col-lg-8 -->
+
+				<div class="col-lg-2" style="line-height: 75px;">
+					<div class="header__top__right__auth" style="width: 100%;">
+
+						<sec:authentication property="principal" var="pinfo" />
+
+						<sec:authorize access="isAnonymous()">
+							<a
+								style="display: block; padding-top: 2px; font-family:; padding-left: 30px;"
+								href="/customLogin"><i class="fa fa-user"></i>로그인</a>
+						</sec:authorize>
+
+						<sec:authorize access='isAuthenticated()'>
+							<input type="hidden" value="${pinfo.member.member_seq }"
+								name="memberSeq">
+							<div class="hero__cart" style="display: inline-block;">
+								<ul>
+									<li>
+										<form action="/logout" method="post" name="logoutForm"
+											style="display: inline-block;">
+											<a href="#" name="logoutBtn"
+												style="display: inline-block; padding-top: 12px;"> <i
+												class="fa fa-user"></i>
+											</a> <input type="hidden" name="${_csrf.parameterName}"
+												value="${_csrf.token}" />
+										</form>
+									</li>
+
+									<li><a href="#" name="insta_btn"><i
+											class="fa-brands fa-instagram"></i></a></li>
+
+									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+
+									<li><a
+										href="/shoppingcart?member=${pinfo.member.member_seq }"><i
+											class="fa fa-shopping-bag"></i><span id="cart-elements">
+										</span></a></li>
+
+								</ul>
+
+								<script type="text/javascript">
+									// 로그인시 쇼핑카트에 몇개가 담겼는지 정보 받아옴
+
+									var memberSeq = $("input[name='memberSeq']")
+											.val()
+											+ "";
+
+									console.log(memberSeq);
+
+									$
+											.ajax({
+												url : '/showCartElements',
+												type : 'GET',
+												data : {
+													member : memberSeq
+												},
+												contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+												dataType : 'text',
+												success : function(result) {
+
+													$("#cart-elements").text(
+															result + "");
+												}
+											});
+								</script>
+
+							</div>
+						</sec:authorize>
+
+					</div>
+					<!-- header__top__right__auth -->
+				</div>
+				<!-- col-lg-2 -->
+
 			</div>
 			<!-- row -->
 		</div>
 		<!-- container -->
-		
-		
-		  <script>
-	
-		     $(document).ready(function(){
-		    	
-		    	 $("a[name='logoutBtn']").on("click",function(e){
-		    		
-		    		 e.preventDefault();
-		    		 var formObj = $("form[name='logoutForm']");
-		    		 formObj.submit();
-		    		 alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
-		    	 });
-		
-		    	 $("a[name='noMember']").on("click",function(e){
-		    		
-		    		 e.preventDefault();
-		    		 alert("로그인 후 이용 가능합니다!!");
-		    	 });
-		    	 
-		    	
-		    	$("a[name='likes']").on("click",function(e){
-		    		
-		    		e.preventDefault();
-		    		alert("준비중입니다.");
-		    	
-		    		
-		    	});
-			    	
-		    	$("a[name='insta_btn']").on("click",function(e){
-		    		
-		    		e.preventDefault();
-		    		
-		    		window.open("https:////www.instagram.com/ponku.53"); 
-	
-		    	});
-		   	    	 
-		    	 
-		  });
-    </script>
-		
+
+		<script>
+			$(document).ready(function() {
+
+				$("a[name='logoutBtn']").on("click", function(e) {
+					e.preventDefault();
+					var formObj = $("form[name='logoutForm']");
+					formObj.submit();
+					alert("로그아웃이 완료되었습니다. 이용해주셔서 감사합니다.");
+				});
+
+				$("a[name='noMember']").on("click", function(e) {
+					e.preventDefault();
+					alert("로그인 후 이용 가능합니다!!");
+					location.href="/customLogin";
+				});
+
+				$("a[name='likes']").on("click", function(e) {
+					e.preventDefault();
+					alert("준비중입니다.");
+				});
+
+				$("a[name='insta_btn']").on("click", function(e) {
+
+					e.preventDefault();
+
+					window.open("https:////www.instagram.com/ponku.53");
+				});
+			});
+		</script>
 
 	</header>
 	<!-- Header Section End -->
