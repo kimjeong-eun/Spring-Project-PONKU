@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.AskListAttachMapper">
+
+	<insert id="insert"> <!-- 첨부파일이 존재하는 게시물이 등록되면 첨부파일 테이블에 첨부파일을 등록한다. -->
+		insert into ask_list_attach (uuid, uploadpath, filename, filetype, ano) values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{ano} )
+	</insert>
+
+	<delete id="delete"> <!-- 첨부파일을 삭제한다. -->
+		delete from ask_list_attach where uuid = #{uuid}
+	</delete>
+
+	<select id="findByAno" resultType="org.zerock.domain.AskListAttachVO"> <!-- 게시물 번호를 받아 해당 게시물의 첨부파일을 가져온다. -->
+		select * from ask_list_attach where ano = #{ano}
+	</select>
+
+	<delete id="deleteAll">
+		delete from ask_list_attach where ano = #{ano}
+	</delete>
+
+	<select id="getOldFiles" resultType="org.zerock.domain.AskListAttachVO">
+		select * from ask_list_attach where uploadpath = to_char(sysdate - 1 ,'yyyy\mm\dd')
+	</select>
+	<!-- uploadpath가 어제 날짜인것을 select .. ? -->
+
+
+
+
+
+</mapper>
