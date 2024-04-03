@@ -2,23 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<jsp:include page="./includes/header.jsp"></jsp:include>
 
 <style type="text/css">
 
 body{
 	width:100%;
 	height: 110%; 
-}
-
-.sub-header{
-
-	position: absolute;
-	width: 100%;
-	height:20%;
-/* 	border: 1px solid green;  */
-	background-image: url("/resources/img/subheader.png");
-	background-size: cover;
 }
 
 .custombox{
@@ -44,16 +33,14 @@ body{
 }
 
 .canvas-select{
-
 	position:absolute;
 	width: 30%;
 	height: 60%;
 /* 	border: 1px solid red;  */
-	left: 60%;
+	left: 56%;
 	top:0;
 	display: inline-block;
 	float: left;
-
 }
 
 
@@ -208,12 +195,9 @@ p{
 }
 </style>
 
+<jsp:include page="./includes/header.jsp"></jsp:include>
 
-
-<div class="sub-header" id="sub-header"></div>
-
-
-<div class="custombox">
+<div class="custombox" style="margin: 20px auto 280px;">
 
 <canvas class="customview" style="touch-action: none; cursor: inherit;" width="600" height="600" ></canvas>
 

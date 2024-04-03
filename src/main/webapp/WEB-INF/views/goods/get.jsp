@@ -107,27 +107,17 @@ input[type=file]::file-selector-button {
 	width: 600px;
 }
 
-.sub-header{
-
-	position: absolute;
-	width: 100%;
-	height:20%;
-/* 	border: 1px solid green;  */
-	background-image: url("/resources/img/subheader.png");
-	background-size: cover;
-}
 </style>
 
 <!-- Header Section Begin -->
 
 <jsp:include page="../includes/header.jsp"></jsp:include>
 
-<div class="sub-header" id="sub-header"></div>
 <!-- Header Section End -->
 
 <!-- Product Details Section Begin -->
 <section class="product-details spad" >
-	<div class="container" style="max-width: 1370px; padding-top: 100px; margin-top: 10rem;">
+	<div class="container" style="max-width: 1370px; margin-top: 10rem;">
 		<div class="row">
 
 			<div class="col-lg-7 col-md-7">
@@ -176,18 +166,8 @@ input[type=file]::file-selector-button {
 						<p>
 							기종 카테고리
 						</p>
-						<!-- 대분류 -->
-		<!-- 				<div class="dropdown col">
-							<button class="btn btn-light dropdown-toggle brandBtn"
-								style="border-radius: 0;" type="button" aria-expanded="false">브랜드</button>
-							<ul class="dropdown-menu"
-								style="border-radius: 0; border: none; background-color: #f5f5f5;">
-								<li><a class="dropdown-item dropdown-brand1">애플</a></li>
-								<li><a class="dropdown-item dropdown-brand2">삼성</a></li>
-								<li><a class="dropdown-item dropdown-brand3">구글</a></li>
-							</ul>
-						</div> -->
-						<!-- 중분류 -->					
+						<!-- 중분류 -->
+								<div style="width: 300px;">			
 							<select name="modelselect" id="modelselect" class="btn btn-light dropdown-toggle">
 							<optgroup label="아이폰">
 								<option name="model" value="iphone13">아이폰13</option>
@@ -202,10 +182,14 @@ input[type=file]::file-selector-button {
 								<option disabled="disabled">준비중입니다.</option>
 							</optgroup>
 							</select>
-						<div class="dropdown col" style="margin-top: 5rem;">
-							<strong  style="font-size: 20px; text-align: center;">수량</strong><input type="number" max="50" min="1" name="quantity" id="quantity" value="1" style="margin-bottom: 2rem; font-size: 25px;"><br/>
+							<div>
 							
-							<strong style="font-size: 20px; text-align: center; color: red;">TOTAL</strong><input type="text" value="${goods.price}" readonly="readonly" name="totalprice" id="totalprice" style="font-size: 25px;"/>
+						<div class="dropdown col" style="margin-top: 35px;">
+							<p>수량</p>
+							<input type="number" max="50" min="1" name="quantity" id="quantity" value="1" style="margin-bottom: 2rem; color: black; width: 50%;"><br/>
+							
+							<p>TOTAL</p>
+							<input type="text" value="${goods.price}" readonly="readonly" name="totalprice" id="totalprice" style="color: black; width: 50%;"/>
 						</div>	
 						
 						<div class="dropdown col">
@@ -221,21 +205,19 @@ input[type=file]::file-selector-button {
 								<li><a class="dropdown-item" href="">갤럭시 S</a></li>
 							</ul> -->
 						</div>
-							
-						
 						
 						<sec:authentication property="principal" var="pinfo"/>
 						<div class="row">
 						
 						<sec:authorize access="isAuthenticated()">
-							<div class="col">
+							<div class="col" style="padding: 0;">
 								<button type="button" class="btn btn-info" name="cart" id="cart"
-									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">장바구니</button>
+									style="border-radius: 0; border: 0; border-right: 1px solid white; margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">장바구니</button>
 							</div>
 					    </sec:authorize>
-							<div class="col">
+							<div class="col" style="padding: 0;">
 								<button type="button" class="btn btn-info" name="order"
-									style="margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">구매하기</button>
+									style="border-radius: 0; border: 0; margin-top: 160px; padding: 15px 60px; font-size: 1rem; width: 100%; background-color: black;">구매하기</button>
 							</div>
 						</div>
 

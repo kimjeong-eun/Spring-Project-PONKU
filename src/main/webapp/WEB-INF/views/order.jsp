@@ -86,7 +86,7 @@ ${dto.caseimgurl}
  <!-- Checkout Section Begin -->
  	<sec:authentication property="principal" var="pinfo"/>
     <section class="checkout spad">
-        <div class="container">
+        <div class="container" style="width: 1400px;">
 <!--             <div class="row">
                 <div class="col-lg-12">
                     <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code

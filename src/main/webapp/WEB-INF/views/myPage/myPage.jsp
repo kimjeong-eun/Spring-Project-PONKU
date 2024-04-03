@@ -1,23 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<title>마이페이지 | Ponku</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
-
-<head>
-	<meta charset="UTF-8">
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<link rel="stylesheet" type="text/css" href="../resources/css/myPage/myPage.css">
  	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet"> -->
+    
+<jsp:include page="../includes/header.jsp"></jsp:include>
 
-<body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%; top: 0px;">
+<body class="body_wide body_wide_ctn" style="position: relative; min-height: 100%;">
 <noscript>
 	<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWBFGRL"
 	        height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -50,7 +45,7 @@
 
 <jsp:include page="../myPage/myPageAsideBar.jsp"></jsp:include>
 
-<div id="content" class="content_myssg">
+<div id="content" class="content_myssg" style="padding-bottom: 180px;">
 		<form id="submitForm" name="submitForm" method="post">
 		<sec:authentication property="principal" var="pinfo"/>
 	    <h2 class="stit"><span>회원정보 변경</span></h2>

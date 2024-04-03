@@ -3,27 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+
 <style>
-.breadcrumb-section {
-	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-		url('/resources/img/breadcrumb.jpg');
-	background-size: cover;
-	background-position: center;
-	color: #fff;
-}
-
-.breadcrumb-section a {
-	color: #fff;
-	text-decoration: none;
-	transition: color 0.3s;
-}
-
-.breadcrumb-section a:hover {
-	color: #000;
-}
-
 .write-post {
 	padding: 50px 0;
 }
@@ -170,27 +153,11 @@ i.fa-solid {
 }
 </style>
 
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/bannerimg.png">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>문의 게시판</h2>
-					<div class="breadcrumb__option">
-						<a href="./index.html">홈</a> <span>문의 게시판</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Breadcrumb Section End -->
+<jsp:include page="../includes/header.jsp"></jsp:include>
 
 <!-- 글 작성 폼 섹션 -->
 <section class="write-post">
-	<div class="container">
+	<div class="container" style="margin: 130px auto 180px; width: 700px;">
 		<h2>
 			문의하기&nbsp;<i class="fa-solid fa-comment-dots"></i>
 		</h2>

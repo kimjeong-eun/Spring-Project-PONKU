@@ -11,6 +11,9 @@
 <meta name="description">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<link rel="icon" href="/resources/img/favi.ico">
+
 <sec:csrfMetaTags />
 
 <style>
@@ -20,8 +23,8 @@
 
 .quick_area {
     position: fixed;
-    top: 171px;
-    right: 0;
+    top: 670px;
+    right: 29px;
     width: 66px;
     z-index: 100;
 }
@@ -33,11 +36,23 @@
     box-sizing: border-box;
     text-indent: -9999px;
     overflow: hidden;
-    /* border-left: 1px solid #a3a3a3; */
-    /* border-bottom: 1px solid #a3a3a3; */
     background: url(/resources/icon/top.png) no-repeat center;
     background-size: cover;
-    /* background-size: contain; */
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* 헤더의 배경색에 맞게 수정 */
+    transition: top 0.7s ease; /* 부드러운 애니메이션을 위한 transition 설정 */
+    z-index: 9999; /* 다른 요소 위에 표시되도록 z-index 설정 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 헤더에 그림자 효과 추가 */
+}
+
+.header-hidden {
+    top: -107.5px; /* 헤더를 숨기기 위해 top을 음수 값으로 설정 */
 }
 </style>
 
@@ -90,6 +105,13 @@
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+	
+	<!--우측 고정 메뉴  -->
+<div class="quick_area">
+	<p class="to_top">
+		<a href="javascript:window.scrollTo(0,0);" class="s_point">TOP</a>
+	</p>
+</div>
 
 	<!-- Header Section Begin -->
 	<header class="header">
@@ -129,17 +151,17 @@
 						<ul>
 							<li class="active"><a href="/goods/list">모든상품</a></li>
 							<li><a href="/custompage">커스텀 케이스</a></li>
-							<li><a href="./blog.html">이벤트</a></li>
-							<li><a href="/ask/main">문의게시판</a></li>
+							<li><a href="/ask/main">문의하기</a></li>
+							<li><a href="./blog.html">리뷰</a></li>
 
 							<sec:authorize access="isAuthenticated()">
 
 								<li><a href="/myPage" name="myPage">마이페이지</a>
 									<ul class="header__menu__dropdown">
-										<li><a href="/myPage">나의 정보관리</a></li>
-										<li><a href="/myOrder">나의 주문관리</a></li>
+										<li><a href="/myPage" style="font-size: 13.5px; height: 47px;">나의 정보 관리</a></li>
+										<li><a href="/myOrder" style="font-size: 13.5px; height: 47px;">나의 주문 관리</a></li>
 										<!-- 아직 미구현 -->
-										<li><a href="/myPlace">나의 활동관리</a></li>
+										<li><a href="/myPlace" style="font-size: 13.5px; height: 47px;">나의 활동 관리</a></li>
 										<!-- 아직 미구현 -->
 									</ul></li>
 							</sec:authorize>
@@ -183,11 +205,11 @@
 									<li><a href="#" name="insta_btn"><i
 											class="fa-brands fa-instagram"></i></a></li>
 
-									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
 
 									<li><a
 										href="/shoppingcart?member=${pinfo.member.member_seq }"><i
-											class="fa fa-shopping-bag"></i><span id="cart-elements">
+											class="fa-solid fa-cart-shopping"></i><span id="cart-elements">
 										</span></a></li>
 
 								</ul>
@@ -259,6 +281,17 @@
 					window.open("https:////www.instagram.com/ponku.53");
 				});
 			});
+			
+			/* 930px 이후 스크롤 시 헤더가 숨는다 */
+			window.addEventListener('scroll', function() {
+			    var header = document.querySelector('header');
+			    if (window.pageYOffset > 930) {
+			        header.classList.add('header-hidden');
+			    } else {
+			        header.classList.remove('header-hidden');
+			    }
+			});
+
 		</script>
 
 	</header>

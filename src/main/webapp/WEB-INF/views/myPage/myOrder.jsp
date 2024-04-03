@@ -108,7 +108,7 @@
 </div>
 
 <div id="category" class="category"></div>
-<div id="container" class="cmmyssg_wrap">
+<div id="container" class="cmmyssg_wrap" style="padding-bottom: 180px;">
 				<!-- SSG -->
 <input type="hidden" id="ssgDomain" value="http://www.ssg.com">
 <input type="hidden" id="couponWebImgPathUrl" value="https://sui.ssgcdn.com">
@@ -324,7 +324,7 @@
 			</div>            
         </div>
     </div>
-  
+</div> <!-- .container -->  
   <script type="text/javascript">
   
   	$(document).ready(function() {

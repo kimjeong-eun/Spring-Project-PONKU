@@ -6,7 +6,6 @@
 <!-- <i> 태그 = 아이콘을 넣기 위한 script -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
 <style>
 .faq-dropdown-container {
 	display: flex; /* Flexbox를 사용하여 자식 요소를 수평으로 정렬 */
@@ -194,26 +193,11 @@ div.ask__main {
 	color: #000;
 }
 </style>
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg"
-	data-setbg="/resources/img/bannerimg.png">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>문의 게시판</h2>
-					<div class="breadcrumb__option">
-						<a href="./index.html">홈</a> <span>문의 게시판</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Breadcrumb Section End -->
+
+<jsp:include page="../includes/header.jsp"></jsp:include>
 
 <!-- 게시판 리스트 -->
-<div class="container mx-auto">
+<div class="container" style="margin: 130px auto 180px; width: 1600px;">
 	<div class="ask__main">
 		<div class="row">
 			<div class="col">
@@ -242,7 +226,7 @@ div.ask__main {
 			</div>
 		</div>
 	</div>
-</div>
+
 <div class="b-s-container">
 	<div class="button-search-container">
 		<div class="button-container">
@@ -259,7 +243,7 @@ div.ask__main {
 </div>
 
 <!-- 테이블 시작 -->
-<div class="container mt-4">
+<div class="mt-4">
 	<table class="table">
 		<thead>
 			<tr>
@@ -300,7 +284,6 @@ div.ask__main {
 
 <div class="pagination-container">
 	<!-- 페이징 -->
-	
 </div>
 
 <!-- Contact Section Begin 오프라인 매장이 있는 컨셉이라면 .. 넣기 -->
@@ -385,6 +368,7 @@ div.ask__main {
         </div>
     </div> -->
 <!-- Contact Form End -->
+</div> <!-- container -->
 
 <jsp:include page="../includes/footer.jsp"></jsp:include>
 
@@ -558,12 +542,4 @@ $(document).ready(function () {
 	});
 	
 }); // document.ready
-    
-    
-	
-
 </script>
-
-</body>
-
-</html>
