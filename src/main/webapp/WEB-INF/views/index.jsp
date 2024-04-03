@@ -101,41 +101,41 @@
 			<div class="categories__slider owl-carousel">
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/phonecase/case1.png">
+						data-setbg="/resources/img/marsh-cloud.jpg">
 						<h5>
-							<a href="#">Alright hold on !</a>
+							<a href="/goods/get?gno=4">Marshmallow Cloud</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/phonecase/case2.png">
+						data-setbg="/resources/img/matin-denim.jpg">
 						<h5>
-							<a href="#">Fun Friends</a>
+							<a href="/goods/get?gno=2">Matin Kim Destroyed Denim Case</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/phonecase/case3.png">
+						data-setbg="/resources/img/padding.jpg">
 						<h5>
-							<a href="#">You Got This</a>
+							<a href="/goods/get?gno=5">The Baffle Case</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/phonecase/case4.png">
+						data-setbg="/resources/img/matin-black-logo.jpg">
 						<h5>
-							<a href="#">Selfie by Bonnie Lu</a>
+							<a href="/goods/get?gno=1">Matin Kim Black Logo Case</a>
 						</h5>
 					</div>
 				</div>
 				<div class="col-lg-3">
 					<div class="categories__item set-bg"
-						data-setbg="/resources/img/phonecase/case5.png">
+						data-setbg="/resources/img/sparkles.jpg">
 						<h5>
-							<a href="#">miniJOHN</a>
+							<a href="/goods/get?gno=3">Chrome Sparkles - Graphite</a>
 						</h5>
 					</div>
 				</div>
