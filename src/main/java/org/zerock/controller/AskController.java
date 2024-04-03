@@ -63,7 +63,7 @@ public class AskController { // 페이지의 분기를 담당한다.
 	}
 
 	@PreAuthorize("permitAll")
-	@GetMapping("/get") // 상세보기 페이지로 이동.. // 파라미터로 넘어온 no, pw를 dto에 셋팅해서 받을 수 있는 방법 .. ?
+	@GetMapping("/get") // 상세보기 페이지로 이동.. // 파라미터로 넘어온 no, pw를 dto에 셋팅해서 받을 수 있는 방법 .. ? 은 없다 ..
 	public String get(@RequestParam("no") Long ask_list_no, @RequestParam("pw") String pw, AskListLockDTO dto, Model model, CsrfToken csrfToken, HttpServletRequest request) { // @ModelAttribute("cri") Criteria cri,
 		log.info("get(get) 메서드 실행");
 		dto.setAsk_list_no(ask_list_no);

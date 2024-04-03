@@ -20,4 +20,5 @@ public class AskListVO { // 문의게시판
 	private String ask_list_lock_password;		// 비밀번호(비밀글일때)
 	
 	private List<AskListAttachVO> attachList;	// 첨부파일 리스트
+	private boolean passCheck;					// 패스워드를 통과했는지 여부
 }

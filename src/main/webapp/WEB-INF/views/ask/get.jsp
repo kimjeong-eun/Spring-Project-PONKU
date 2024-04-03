@@ -179,7 +179,7 @@ h3 {
 <script src="/resources/js/owl.carousel.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script>
-$(document).ready(function () {
+$(document).ready(function () { // 비밀글이고, 비밀번호 검증을 마쳤으면 이 페이지를 띄우도록 해야함 .. 
 	debugger;
 	var checkLock = document.getElementById("checkLock").value;
 	var ask_list_no = document.getElementById("asklistno").value;
