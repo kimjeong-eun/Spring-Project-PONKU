@@ -205,7 +205,7 @@
         	 <h1 style="font-size: 30px;">상세 이미지</h1><br/>
         		<span  name="modal_close_btn" style="width: 3rem; height: 3rem; font-size: 30px; float:right ; margin-bottom: 1rem; cursor: pointer;"> X </span>
             <br/>
-	        	<div name="madal_body_content" style="width: 100%; height: 90%; margin-top: 1rem;">
+	        	<div name="madal_body_content" style="width: 100%; height: 90%; margin-top: 1rem; background-size: contain;">
 	        	
 	        	
 	        	</div>        	
