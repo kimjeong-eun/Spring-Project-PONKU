@@ -107,7 +107,7 @@
 	</ul>
 </div>
 
-<div id="category" class="category"></div>
+<div id="wrap">
 <div id="container" class="cmmyssg_wrap">
 				<!-- SSG -->
 <input type="hidden" id="ssgDomain" value="http://www.ssg.com">
@@ -324,6 +324,8 @@
 			</div>            
         </div>
     </div>
+  </div>
+</div>
   
   <script type="text/javascript">
   
