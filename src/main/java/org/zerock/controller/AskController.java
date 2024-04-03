@@ -100,9 +100,10 @@ public class AskController { // 페이지의 분기를 담당한다.
 		        }
 		    }
 		
-			return "redirect:/ask/lock?no=" + ask_list_no; // 여기로 갈 때 dto 객체로 get방식으로 넘길 수 있는 방법 ..?
+			//return "redirect:/ask/lock?no=" + ask_list_no; // 여기로 갈 때 dto 객체로 get방식으로 넘길 수 있는 방법 ..?
 		}
 		AskListVO vo = service.get(ask_list_no);
+		log.info("get 메서드로 가져온 객체 : " + vo);
 		model.addAttribute("AskListVO", vo);
 		try {
             ObjectMapper objectMapper = new ObjectMapper(); // json 문자열로 변환하기 위한 jackson 객체

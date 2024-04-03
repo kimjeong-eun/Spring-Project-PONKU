@@ -89,7 +89,6 @@ h3 {
 	font-weight: bold;
 }
 </style>
-
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg"
 	data-setbg="/resources/img/bannerimg.png">
@@ -111,7 +110,8 @@ h3 {
 <div class="a-container">
 	<div class="askcontainer">
 		<h3>상세보기</h3>
-		<input type="hidden" id="checkLock" value="${ AskListVO.ask_list_lock }">
+		<input type="hidden" id="checkLock" value='${ AskListVO.ask_list_lock }'>
+		<input type="hidden" id="asklistno" value='${ AskListVO.ask_list_no }'>
 		<div>
 			<label for="ask_list_inquirytype">문의종류</label> <input
 				class="form-control" id="ask_list_inquirytype"
@@ -181,8 +181,12 @@ h3 {
 <script>
 $(document).ready(function () {
 	debugger;
-	var checkLock = document.getElementById("hiddenValue").value;
+	var checkLock = document.getElementById("checkLock").value;
+	var ask_list_no = document.getElementById("asklistno").value;
 	console.log(checkLock);
+	if(checkLock){
+		response.sendRedirect("/ask/lock?no=" + ask_list_no);
+	}
 });
 </script>
 <script>

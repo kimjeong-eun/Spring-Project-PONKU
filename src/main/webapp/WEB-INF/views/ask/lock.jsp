@@ -152,7 +152,7 @@ $(document).ready(function () {
 			return;
 		}
 	}); //$.ajax
-}
+});
 
 
 	function checkPassword() {
