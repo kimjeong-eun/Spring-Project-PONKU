@@ -186,7 +186,7 @@
 						<ul>
 							<li class="active"><a href="/goods/list">모든상품</a></li>
 							<li><a href="/custompage">커스텀 케이스</a></li>
-							<li><a href="./blog.html">이벤트</a></li>
+							<li><a href="/review/list">리뷰 이벤트</a></li>
 							<li><a href="/ask/main">문의게시판</a></li>
 							
  							<sec:authorize access="isAuthenticated()">
