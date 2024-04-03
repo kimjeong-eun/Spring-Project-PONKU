@@ -50,7 +50,7 @@
 				<div class="delivery_reg">
 					<div class="aside">
 						<div class="btn_delivery_reset">
-							<a href="javascript:shpploc.init();">초기화</a>
+							<a onclick="init()">초기화</a>
 						</div>
 					</div>
 					<form id="submitForm" name="submitForm">
@@ -119,6 +119,7 @@
 								</tbody>
 								</table>
 							</div>
+							 <input type="hidden" name="isDefault" id="isDefault"/>
 							 <input type="hidden" name="member_seq" value="${pinfo.member.member_seq}" />
 							 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</fieldset>
@@ -127,8 +128,8 @@
 				</div>
 			</div>
 			<div class="pop_btn_area notranslate">
-				 <button name="btn-submit" id="submitBtn" type="button">확인</button>
-				<a href="javascript:void(0);" onclick="shpploc.cancel()" class="color3">취소</a>
+				 <button name="btn-submit" id="submitBtn" type="button" onclick="work()">확인</button>
+				<a onclick="window.close();" class="color3">취소</a>
 			</div>
 		</div>
 		<button class="button_close" type="button" onclick="window.close();">팝업닫기<span class="ir"></span></button>
@@ -170,38 +171,6 @@ $(document).ready(function() {
 		}	
 	};
 	
-	/*** 전송 버튼 클릭 시 alert창 띄우기 ***/
-	$("#submitBtn").on("click", function(e){
-	    
-	 	//serialize 가 form요소를 하나씩 읽어옴
-	 	var formData = $("#submitForm").serialize(); 
-	 	
-		// Ajax로 전송
-        $.ajax({
-            url: '/successInsertAddress', // 성공여부를 처리하는 스크립트의 경로
-            type: 'POST',
-            data: formData,            
-            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
-			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
-				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-			},
-            success: function(result) {
-                if (result == "true") {
-                	alert("신규 배송지가 추가되었습니다.");
-                	window.close();
-                	location.href = "/updateAddress";//성공 시 이동할 페이지
-                } else {
-                	alert("배송지 추가 실패.");
-                	window.close();
-                	location.href = "/updateAddress";//실패 시 이동할 페이지
-                }
-            },
-            error: function(xhr, status, error) {
-                // 서버 요청 실패 시 실행할 코드
-                console.error('AJAX request failed:', error);
-            }
-        }); // End Ajax
-	});  
 	
 });
 
@@ -211,6 +180,46 @@ jQuery(document).ready(function() { // jQuery 라이브러리 로드
         openDaumZipAddress(); //daum 우편번호 api 이용하여 우편번호 검색 레이어 열기
     });
 });
+
+function work() {
+	let csrfHeaderName = "${_csrf.headerName}"; //"X-CSRF-TOKEN"
+	let csrfTokenValue = "${_csrf.token}";
+	
+    if (confirm("기본배송지로 설정하시겠습니까?")) {
+    	$("#isDefault").val("Y");	
+    } else {
+    	$("#isDefault").val("N");
+    }
+    
+	let formData = $("#submitForm").serialize();
+	
+	$.ajax({
+        url: '/successInsertAddress',
+        type: 'POST',
+        data: formData,
+        dataType: 'text',
+        beforeSend: function (xhr) {
+            // CSRF 토큰 설정
+            xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+        },
+        success: function (result) {
+            if (result == "true") {
+               		alert("배송지가 추가되었습니다.");
+                    window.opener.parent.location.reload();
+                    window.close();
+            } else {
+                	alert("배송지 추가 실패");
+                    window.close();
+           	}
+        },
+        error: function (xhr, status, error) {
+            // 서버 요청 실패 시 실행할 코드
+            alert("오류가 발생했습니다. 다시 시도해주세요.");
+            console.error('AJAX request failed:', error);
+        }
+    });
+
+}
 
 
 </script>

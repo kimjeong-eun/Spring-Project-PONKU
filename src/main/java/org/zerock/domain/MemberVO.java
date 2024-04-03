@@ -9,6 +9,7 @@ import lombok.Data;
 public class MemberVO {
 
 	private long member_seq; //기본키(PK)
+	private long addr_seq;
 	private String userid; //아이디 
 	private String password; //패스워드 
 	private String username; //이름

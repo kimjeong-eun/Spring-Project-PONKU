@@ -9,7 +9,7 @@ import lombok.Data;
 public class AddressVO {
 	private long addr_seq; //배송지 기본키(pk)
 	private long member_seq; //회원번호 외래키(fk)
-	private char isDefault; //기본배송지 여부(default N)
+	private String isDefault; //기본배송지 여부(default N)
 	private String addrName; //배송지별칭
 	private String name; //수령인 이름
 	private String phone; //수령인 핸드폰번호
