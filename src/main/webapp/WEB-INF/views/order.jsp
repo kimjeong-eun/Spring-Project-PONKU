@@ -9,15 +9,13 @@
 <title>구매 정보 입력</title>
 								<style>
 								.uploadResult {
-					    			width: 10rem;
-								    height: 120px;
-								    background-position-x:1rem;
-								    /* background-color: gray; */
-								  
+					    			width: 9rem;
+								    height: 15rem;
+								    background-position-x:-3rem;
 								    background-size: 130%;
 								    position: relative;
 								    border: 2px solid black;
-								    
+								    margin-bottom: 30px;
 								}
 								.uploadResult ul{
 									width: 30rem;
@@ -103,7 +101,12 @@ ${dto.caseimgurl}
             		<h4>주문 정보(비회원)</h4>
             	</sec:authorize>
 
-               <form action="/orderComplete" name="formObj" method="post">
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <div class="row">
+                            
+                            <form action="/orderComplete" name="formObj" method="post">
                 
                 <p>주문 상품 이미지(예시)<span style="color: red;">*</span></p>
                 
@@ -116,15 +119,11 @@ ${dto.caseimgurl}
 	         		</div> 
 
                 </c:forEach>
- 
-
-                    <div class="row">
-                        <div class="col-lg-8 col-md-6">
-                            <div class="row">
                             
-                            <sec:authorize access="isAuthenticated()"> <!--로그인 사용자일때  -->
-                            <div class="checkout__input__checkbox">
-                            
+                                    <div class="checkout__input">
+                                    
+                                    <sec:authorize access="isAuthenticated()"> <!--로그인 사용자일때  -->
+                            <div class="checkout__input__checkbox" style="margin-bottom: 15px;">
                                 <label for="acc">
                                     주문자 정보와 동일
                                     <input type="checkbox" id="acc" name="orderinfo">
@@ -156,9 +155,7 @@ ${dto.caseimgurl}
 							</script>
                             </sec:authorize>
                             
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>성함<span>*</span></p>
+                                        <p style="margin-bottom: 10px;">성함<span>*</span></p>
                                         <input type="text" name="username">
                                     </div>
                                 </div>
@@ -280,7 +277,7 @@ ${dto.caseimgurl}
                             </div>                            
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div class="checkout__order">
+                            <div class="checkout__order" style="width: 57rem;">
                             
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>

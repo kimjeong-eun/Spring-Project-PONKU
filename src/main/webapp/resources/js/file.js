@@ -289,7 +289,7 @@ $("button[id='submitwrite']").on("click", function(e) {
 		success: function(response) {
 			console.log(response);
 			debugger;
-			alert(response);
+			alert("게시물이 작성되었습니다. 메인 페이지로 이동합니다.");
 				window.location.href = '/ask/main'; // 성공 시 리디렉션
 			
 			// 성공적인 응답 처리

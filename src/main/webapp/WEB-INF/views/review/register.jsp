@@ -5,9 +5,40 @@
 
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
+<style>
+.review-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.review-form .form-group {
+    margin-bottom: 20px;
+}
+
+.review-form label {
+    font-weight: bold;
+}
+
+.review-form .form-control {
+    width: 100%;
+}
+
+.review-submit-btn {
+    width: 100%;
+}
+.image-preview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+</style>
+
 <%@include file="../includes/header.jsp"%>
 
-
+<div class="container" style="width: 1400px; margin: 200px auto;">
 <div class="row">
   <div class="col-lg-12">
   </div>
@@ -66,37 +97,7 @@
 </div>
 <!-- /.row -->
 
-<style>
-.review-form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.review-form .form-group {
-    margin-bottom: 20px;
-}
-
-.review-form label {
-    font-weight: bold;
-}
-
-.review-form .form-control {
-    width: 100%;
-}
-
-.review-submit-btn {
-    width: 100%;
-}
-.image-preview {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-
-</style>
+</div>
 
 
 

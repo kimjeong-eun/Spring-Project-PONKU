@@ -2,91 +2,7 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
-<%@include file="../includes/header.jsp"%>
-
-
-<div class="row">
-  <div class="col-lg-12">
-  </div>
-  <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-
-        <div class="review-form-container">
-    <div class="form-group review-form-group">
-        <label class="review-label">리뷰번호</label>
-        <input class="form-control review-input" name="bno" value="<c:out value='${board.bno }'/>" readonly="readonly">
-    </div>
-
-    <div class="form-group review-form-group">
-        <label class="review-label">제목</label>
-        <input class="form-control review-input" name="title" value="<c:out value='${board.title }'/>" readonly="readonly">
-    </div>
-
-    <div class="form-group review-form-group">
-        <label class="review-label">내용</label>
-        <textarea class="form-control review-textarea" rows="3" name="content" readonly="readonly"><c:out value='${board.content}'/></textarea>
-    </div>
-
-    <div class="form-group review-form-group">
-        <label class="review-label">작성자</label>
-        <input class="form-control review-input" name="writer" value="<c:out value='${board.writer }'/>" readonly="readonly">
-    </div>
-    
-    <div class="form-group review-form-group">
-    <label class="review-label">첨부된 이미지</label>
-    <div id="image-preview" class="review-image-preview" name="uploadResult" style="display: none;">
-        <!-- 기존에 등록한 이미지를 여기에 표시할 곳입니다. -->
-        <!-- 이미지가 없을 경우에는 아무것도 표시되지 않습니다. -->
-    </div>
-</div>
-
-    
-
-        <sec:authentication property="principal" var="pinfo"/>
-
-        <sec:authorize access="isAuthenticated()">
-
-        <c:if test="${pinfo.username eq board.writer}">
-        
-        <button data-oper='modify' class="btn btn-default">수정</button>
-        
-        </c:if>
-        </sec:authorize>
-
-<button data-oper='list' class="btn btn-info">목록</button>
-
-<form id='operForm' action="/review/modify" method="get">
-  <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
-  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
-  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>  
- 
-</form>
-
-
-
-      </div>
-      <!--  end panel-body -->
-
-    </div>
-    <!--  end panel-body -->
-  </div>
-  <!-- end panel -->
-</div>
-<!-- /.row -->
-
-
 
 <style>
 .review-form-container {
@@ -181,22 +97,86 @@
     background-color: #333333; /* 마우스 오버 시 어두운 검은색 배경색 */
     border: 1px solid #333333; /* 마우스 오버 시 어두운 검은색 테두리 */
 }
-
-
 </style>
 
+<%@include file="../includes/header.jsp"%>
 
-
-<div class='row'>
-
+<div class="container" style="width: 1400px; margin-top: 200px;">
   <div class="col-lg-12">
+    <div class="panel panel-default">
+
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+
+        <div class="review-form-container">
+    <div class="form-group review-form-group">
+        <label class="review-label">리뷰번호</label>
+        <input class="form-control review-input" name="bno" value="<c:out value='${board.bno }'/>" readonly="readonly">
+    </div>
+
+    <div class="form-group review-form-group">
+        <label class="review-label">제목</label>
+        <input class="form-control review-input" name="title" value="<c:out value='${board.title }'/>" readonly="readonly">
+    </div>
+
+    <div class="form-group review-form-group">
+        <label class="review-label">내용</label>
+        <textarea class="form-control review-textarea" rows="3" name="content" readonly="readonly"><c:out value='${board.content}'/></textarea>
+    </div>
+
+    <div class="form-group review-form-group">
+        <label class="review-label">작성자</label>
+        <input class="form-control review-input" name="writer" value="<c:out value='${board.writer }'/>" readonly="readonly">
+    </div>
+    
+    <div class="form-group review-form-group">
+    <label class="review-label">첨부된 이미지</label>
+    <div id="image-preview" class="review-image-preview" name="uploadResult" style="display: none;">
+        <!-- 기존에 등록한 이미지를 여기에 표시할 곳입니다. -->
+        <!-- 이미지가 없을 경우에는 아무것도 표시되지 않습니다. -->
+    </div>
+</div>
+
+        <sec:authentication property="principal" var="pinfo"/>
+
+        <sec:authorize access="isAuthenticated()">
+
+        <c:if test="${pinfo.username eq board.writer}">
+        
+        <button data-oper='modify' class="btn btn-default">수정</button>
+        
+        </c:if>
+        </sec:authorize>
+
+<button data-oper='list' class="btn btn-info">목록</button>
+
+<form id='operForm' action="/review/modify" method="get">
+  <input type='hidden' id='bno' name='bno' value='<c:out value="${board.bno}"/>'>
+  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+  <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
+  <input type='hidden' name='type' value='<c:out value="${cri.type}"/>'>  
+ 
+</form>
+
+      </div>
+      <!--  end panel-body -->
+
+    </div>
+    <!--  end panel-body -->
+  </div>
+  <!-- end panel -->
+</div>
+<!-- /.row -->
+
+
 
     <!-- /.panel -->
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="width: 750px; margin: 10px auto 200px;">
       <div class="panel-heading">
         <i class="fa fa-comments fa-fw"></i> 댓글
         <sec:authorize access="isAuthenticated()">
-        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 달기</button>
+        <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'">댓글 달기</button>
         </sec:authorize>
       </div>      
        
@@ -216,11 +196,7 @@
 
 
 		</div>
-  </div>
-  <!-- ./ end row -->
-</div>
-
-
+</div> <!-- container -->
 
 <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog"

@@ -1382,7 +1382,7 @@ ul, ol {
 }
 
 .product__item__pic {
-   height: 270px;
+   height: 400px;
    position: relative;
    overflow: hidden;
 }
@@ -1463,7 +1463,6 @@ ul, ol {
 
 .product__item__text h5 {
    color: #252525;
-   font-weight: 700;
 }
 
 .product__pagination, .blog__pagination {

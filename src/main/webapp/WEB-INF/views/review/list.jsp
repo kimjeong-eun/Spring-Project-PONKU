@@ -5,14 +5,6 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
-<%@include file="../includes/header.jsp"%>
-<div class="row">
-	<div class="col-lg-12">
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
 <style>
 /* 페이지네이션 컨테이너 스타일 */
 .pagination-container {
@@ -102,8 +94,11 @@ select option[selected] {
     background-color: #007bff; /* 선택된 옵션 배경색 */
     color: #fff; /* 선택된 옵션 글꼴 색상 */
 }
-
 </style>
+
+<%@include file="../includes/header.jsp"%>
+
+<div class="container" style="width: 1400px; margin: 200px auto;">
 
 <div class="row">
     <div class="col-lg-12">
@@ -219,7 +214,7 @@ select option[selected] {
 				<!-- /.modal-dialog -->
 			</div>
 			<!-- /.modal -->
-
+</div> <!-- /.container -->
 
 <script type="text/javascript">
 	$(document).ready(
@@ -291,10 +286,5 @@ select option[selected] {
 
 					});
 </script>
-
-
-
-
-
 
 <%@include file="../includes/footer.jsp"%>

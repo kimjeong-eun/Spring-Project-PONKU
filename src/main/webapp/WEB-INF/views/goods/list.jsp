@@ -14,7 +14,7 @@
     <section class="product spad">
         <div class="container" style="max-width: 1550px; margin: 0 auto; padding-top: 100px;">
             <div class="row">
-                <div class="col-lg-3 col-md-5">
+                <div class="col-lg-2 col-md-5">
                     <div class="sidebar">
 <!--                         <div class="sidebar__item">
                             <h4>Department</h4>
@@ -48,45 +48,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
-                            </div>
-                        </div>
+
                         <div class="sidebar__item">
                             <h4>MODEL</h4>
                             <div class="sidebar__item__size">
@@ -182,7 +144,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-9 col-md-7">
+                <div class="col-lg-10 col-md-7">
                     
                     <div class="row">
                     
@@ -190,7 +152,8 @@
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="product__item">
                             
-                                <div class="product__item__pic set-bg" data-setbg="/resources/img/${goods.title_img}"> <!-- title_img -->
+                                <div class="product__item__pic set-bg" data-setbg="/resources/img/${goods.title_img}" style="background-position-x:-4rem;
+								    background-size: 140%;"> <!-- title_img -->
                                 
 <!--                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i style="line-height: 38px;" class="fa fa-heart"></i></a></li>
@@ -201,8 +164,8 @@
                                 </div>
                                 
                                 <div class="product__item__text">
-                                    <h6><a href='/goods/get?gno=<c:out value="${goods.gno}"/>' target="_blank"><c:out value="${goods.gname}"/></a></h6> <!-- gname -->
-                                    <h5><c:out value="${goods.price}"/> 원</h5> <!-- 가격 -->
+                                    <h6 style="font-size: 1.2rem;"><a href='/goods/get?gno=<c:out value="${goods.gno}"/>' target="_blank"><c:out value="${goods.gname}"/></a></h6> <!-- gname -->
+                                    <h5 style="font-size: 0.9rem;">₩<c:out value="${goods.price}"/></h5> <!-- 가격 -->
                                 </div>
                                 
                             </div>

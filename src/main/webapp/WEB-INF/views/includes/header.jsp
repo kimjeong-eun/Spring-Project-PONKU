@@ -23,8 +23,8 @@
 
 .quick_area {
     position: fixed;
-    top: 670px;
-    right: 29px;
+    top: 800px;
+    right: 39px;
     width: 66px;
     z-index: 100;
 }

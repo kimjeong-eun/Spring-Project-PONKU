@@ -154,9 +154,9 @@ ${dto.caseimgurl}
 							</script>
                             </sec:authorize>
                             
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="padding: 0;">
                                     <div class="checkout__input">
-                                        <p>성함<span>*</span></p>
+                                        <p>성함<span style="color: red;">*</span></p>
                                         <input type="text" name="username">
                                     </div>
                                 </div>
