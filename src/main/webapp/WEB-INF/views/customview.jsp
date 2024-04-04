@@ -24,7 +24,7 @@ body{
 
 	width: 600px;
 	height: 600px;
-	border: 1px solid black;  
+	/* border: 1px solid black;   */
 	background-image: url("/resources/img/iphone.png");
 	background-color: gray;
 	position:relative;
