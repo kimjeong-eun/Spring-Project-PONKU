@@ -64,7 +64,7 @@ public class AskFileUploadController {
 	@ResponseBody
 	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		List<AttachFileDTO> list = new ArrayList<>(); // 파일들의 정보를 저장할 List 객체 생성
-		String uploadFolder = "C:\\shopProjectFile"; // 업로드 경로
+		String uploadFolder = "C:\\upload"; // 업로드 경로
 		String uploadFolderPath = getFolder(); // 2024\03\02 문자열 받음
 		// make folder --------
 		File uploadPath = new File(uploadFolder, uploadFolderPath); // C:\\upload\2024\03\02 파일 객체를 만든다
@@ -124,7 +124,7 @@ public class AskFileUploadController {
 
 		log.info("fileName: " + fileName);
 
-		File file = new File("c:\\shopProjectFile\\" + fileName); // 파일 객체를 만든다 c://upload//파일의 경로가 포함된 파일명.확장자
+		File file = new File("c:\\upload\\" + fileName); // 파일 객체를 만든다 c://upload//파일의 경로가 포함된 파일명.확장자
 
 		log.info("file: " + file);
 
@@ -153,7 +153,7 @@ public class AskFileUploadController {
 	@GetMapping(value = "/downloadAsk", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE) // 다운로드는 미디어 타입이 고정되어있다.(APPLICATION_OCTET_STREAM_VALUE)
 	@ResponseBody
 	public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) { // 파일 다운로드 메서드(브라우저 정보와, 경로가 포함된 파일이름을 받는다)
-		Resource resource = new FileSystemResource("c:\\shopProjectFile\\" + fileName); // 파일을 인식한다. byte를 이용할 수도 있지만 간단히 처리하기 위해 Resource를 사용했다.
+		Resource resource = new FileSystemResource("c:\\upload\\" + fileName); // 파일을 인식한다. byte를 이용할 수도 있지만 간단히 처리하기 위해 Resource를 사용했다.
 
 		if (resource.exists() == false) { // 파일이 인식되지 않으면
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 못찾겠당 리턴
@@ -205,7 +205,7 @@ public class AskFileUploadController {
 		File file; // 빈 파일객체 .. ?
 		try {
 			file = new File(
-					"c:\\shopProjectFile\\" + uploadPath + "\\" + uuid + "_" + URLDecoder.decode(fileName, "UTF-8")); // 인코딩된
+					"c:\\upload\\" + uploadPath + "\\" + uuid + "_" + URLDecoder.decode(fileName, "UTF-8")); // 인코딩된
 																														// 파일명을
 																														// 디코딩하여
 																														// 원래의
@@ -218,7 +218,7 @@ public class AskFileUploadController {
 							// 원본파일을 삭제함)
 			log.info("파일 삭제 이미지여부 : " + (type == true));
 			if (type == true) { // 파일의 타입이 이미지라면 썸네일도 삭제
-				String largeFileName = "c:\\shopProjectFile\\" + uploadPath + "\\s_" + fileName;
+				String largeFileName = "c:\\upload\\" + uploadPath + "\\s_" + fileName;
 				// 없앤다
 				// getAbsolutePath() : 현재 실행 중인 Workding directory에 File에 전달한 경로를 조합하여 절대 경로를 리턴
 				log.info("삭제파일 절대경로 : " + largeFileName);
