@@ -110,7 +110,6 @@
 <div id="wrap">
 <div id="container" class="cmmyssg_wrap">
 				<!-- SSG -->
-<input type="hidden" id="ssgDomain" value="http://www.ssg.com">
 <input type="hidden" id="couponWebImgPathUrl" value="https://sui.ssgcdn.com">
 <input type="hidden" id="openChooseBenefit" value="N">
 <input type="hidden" id="mbrspMbrDivCd" value="2001">

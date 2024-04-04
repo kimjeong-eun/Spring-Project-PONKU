@@ -66,7 +66,7 @@ public class MyPageController {
 		List<AddressVO> addrList = memberService.selectAddress(addrVO);
 		
 		for(AddressVO vo : addrList) {
-			if(vo.getIsDefault() == 'Y') {
+			if(vo.getIsDefault().equals("Y")) {
 				addrVO = vo;
 			}
 		}

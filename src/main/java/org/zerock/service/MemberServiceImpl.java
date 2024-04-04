@@ -114,6 +114,7 @@ public class MemberServiceImpl implements MemberService {
 	  
 	//회원정보 업데이트  
 	@Override
+	@Transactional
 	public int updateMember(MemberVO member) {
 		int result = 0;
 		String message = "member update 예외 발생";	
@@ -130,6 +131,7 @@ public class MemberServiceImpl implements MemberService {
 
 	//비밀번호 변경  
 	@Override
+	@Transactional
 	public int updatePw(MemberVO member) {
 		int result = 0;
 		String message = "member update 예외 발생";	
@@ -145,6 +147,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	//회원탈퇴
+	@Override
+	@Transactional
 	public int deleteMember(MemberVO member) {
 		int result = 0;
 		String message = "member delete 예외 발생";	
@@ -161,18 +165,24 @@ public class MemberServiceImpl implements MemberService {
 	/*** 배송지 crud ***/
 	//배송지 추가
 	@Override
+	@Transactional
 	public int insertAddress(AddressVO addr) {
 		int result = 0;
 		String message = "address insert 예외 발생";	
-		result = memberMapper.insertAddress(addr);
-		
-		if(result == 0) {
+		try {
+			if(addr.getIsDefault().equals("Y")) {
+				result = memberMapper.insertAddress(addr);
+				result = memberMapper.updateDefaultY(addr);
+				result = memberMapper.updateDefaultAddress(addr);
+			} else {
+				result = memberMapper.insertAddress(addr);
+			}	
+		} catch(Exception e) {
 			log.info(message);
-			throw new RuntimeException(message);
-		} 
-			
+		}
 		return result;
 	}
+
 	//배송지 조회
 	@Override
 	public List<AddressVO> selectAddress(AddressVO addr) {
@@ -188,6 +198,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	//배송지 변경
 	@Override
+	@Transactional
 	public int updateAddress(AddressVO addr) {
 		int result = 0;
 		String message = "address update 예외 발생";	
@@ -201,11 +212,13 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
-	//기본배송지 변경
+	
 	@Override
+	@Transactional
 	public int updateDefaultAddress(AddressVO addr) {
 		int result = 0;
 		String message = "address update 예외 발생";	
+		result = memberMapper.updateDefaultY(addr);
 		result = memberMapper.updateDefaultAddress(addr);
 		
 		if(result == 0) {
@@ -218,6 +231,7 @@ public class MemberServiceImpl implements MemberService {
 		
 	//배송지 삭제
 	@Override
+	@Transactional
 	public int deleteAddress(AddressVO addr) {
 		int result = 0;
 		String message = "address delete 예외 발생";	

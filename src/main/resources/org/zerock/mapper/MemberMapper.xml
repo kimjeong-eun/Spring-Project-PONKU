@@ -122,6 +122,11 @@
 	<!-- 배송지 CRUD -->
 	<!-- 배송지 추가 -->
 	<insert id="insertAddress" parameterType="org.zerock.domain.AddressVO">
+	
+	    <selectKey keyProperty="addr_seq" order="BEFORE" resultType="long">
+        	select addr_seq.nextval from dual
+    	</selectKey>
+    	
 		INSERT INTO SHOP_ADDRESS (
 			ADDR_SEQ, 
 			MEMBER_SEQ, 
@@ -130,17 +135,19 @@
 			PHONE, 
 			ADDRESS1, 
 			ADDRESS2, 
-			ADDRESS3
+			ADDRESS3,
+			ISDEFAULT
 		)
 		VALUES (
-			addr_seq.nextval,
+			#{addr_seq},
 			#{member_seq},  
 			#{addrName}, 
 			#{name}, 
 			#{phone}, 
 			#{address1}, 
 			#{address2}, 
-			#{address3}
+			#{address3},
+			#{isDefault}
 		)
 	</insert>
 	
@@ -163,6 +170,17 @@
 		UPDATE SHOP_ADDRESS
 		SET MEMBER_SEQ=#{member_seq}, ISDEFAULT=#{isDefault}, ADDRNAME=#{addrName}, NAME=#{name}, PHONE=#{phone}, ADDRESS1=#{address1}, ADDRESS2=#{address2}, ADDRESS3=#{address3}, LAST_UPDATE=SYSDATE
 		WHERE ADDR_SEQ = #{addr_seq}
+	</update>
+
+	<update id="updateDefaultY" parameterType="org.zerock.domain.AddressVO">
+	  	UPDATE SHOP_ADDRESS 
+	  	SET ISDEFAULT = 'N' 
+	  	WHERE addr_seq IN 
+		(
+			SELECT ADDR_SEQ 
+		  	FROM SHOP_ADDRESS sa 
+		  	WHERE ISDEFAULT = 'Y'
+		)	
 	</update>
 
 	<update id="updateDefaultAddress" parameterType="org.zerock.domain.AddressVO">

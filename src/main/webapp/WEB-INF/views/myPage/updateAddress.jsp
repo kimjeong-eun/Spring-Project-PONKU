@@ -54,7 +54,7 @@
 			<p>기본배송지</p>
 		</div>
 
-			<c:if test="${defaultAddr.isDefault eq 'Y'.charAt(0)}"> 
+			<c:if test="${defaultAddr.isDefault eq 'Y'}"> 
 			<p class="notranslate">
 				(${defaultAddr.address1})
 				<br>
@@ -98,7 +98,7 @@
 						<input type="hidden" name="addr_seq" value="${item.addr_seq}">
 						
 						<td>
-							<c:if test="${item.isDefault eq 'Y'.charAt(0)}"> 
+							<c:if test="${item.isDefault eq 'Y'}"> 
 								<span class="sub_tit warning">
 									[기본배송지]
 								</span>
@@ -124,10 +124,10 @@
 						<input type="hidden" name="member_seq" value="${user.member_seq}"/>
 						
 						<td>
-							<a href="javascript:fn_modify('4234033');" class="btn_cs ty4">
+							<a onclick="edit()" class="btn_cs ty4">
 								<span>수정</span>
 							</a>
-							<a href="javascript:fn_shpplocDel('5315911');" class="btn_cs ty2">
+							<a onclick="delete()"" class="btn_cs ty2">
 								<span>삭제</span>
 							</a>
 						</td>
@@ -143,7 +143,7 @@
 			<button onclick="window.open('/popupAddress','_blank','width=700, height=600, top=50, left=50, scrollbars=yes')" class="btn_cs ty3"><span>새 배송지 추가</span></button>
 		</div>
 		
-		<c:if test="${defaultAddr.isDefault eq 'Y'.charAt(0)}"> 	
+		<c:if test="${defaultAddr.isDefault eq 'Y'}"> 	
 		<div class="button_btm">
 			
 				<button id="defaultAddrBtn" class="btn_cs ty1"><span>기본 배송지 설정</span></button>
@@ -272,6 +272,7 @@ function openDaumZipAddress() { //daum zip code api
         offDaumZipAddress(); //Close search layer
     }
 }
+
 
 function offDaumZipAddress() {
 

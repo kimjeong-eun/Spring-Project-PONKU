@@ -33,7 +33,6 @@
 <div id="category" class="category"></div>
 <div id="container" class="cmmyssg_wrap">
 				<!-- SSG -->
-<input type="hidden" id="ssgDomain" value="http://www.ssg.com">
 <input type="hidden" id="couponWebImgPathUrl" value="https://sui.ssgcdn.com">
 <input type="hidden" id="openChooseBenefit" value="N">
 <input type="hidden" id="mbrspMbrDivCd" value="2001">
@@ -43,7 +42,7 @@
                 <div class="cmmyssg_user_info">
                     <h2 class="cmmyssg_user_tit" data-react-unit-type="text" data-react-unit-id="" data-react-unit-text="[{&quot;type&quot;:&quot;tarea_addt_val&quot;,&quot;value&quot;:&quot;이름&quot;}]">
                         <sec:authentication property="principal" var="pinfo"/>
-                        <a href="http://www.ssg.com/myssg/main.ssg" class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
+                        <a class="cmmyssg_user_tittx clickable" data-react-tarea-dtl-cd="t00060"><span class="cmmyssg_user_titname">${pinfo.member.username}님</span>의 마이페이지</a>
                     </h2>
                 </div>
             </div>     
