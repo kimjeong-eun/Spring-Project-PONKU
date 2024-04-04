@@ -28,7 +28,7 @@ body{
 	background-image: url("/resources/img/iphone.png");
 	background-color: gray;
 	position:relative;
-	left: 15%;
+	left: 2%;
 		
 }
 
@@ -166,7 +166,7 @@ p{
 	height:30px;
 	margin-left: 20px;
 	margin-bottom: 10px;
-	font-size: 30px;
+	font-size: 21px;
 	
 }
 #totalprice {
@@ -176,7 +176,7 @@ p{
 	width: 80%;
 	height: 30px;
 	padding: 0;
-	font-size: 30px;
+	font-size: 21px;
 	
 }
 
