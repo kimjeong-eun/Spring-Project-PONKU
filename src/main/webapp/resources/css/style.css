@@ -611,7 +611,7 @@ ul, ol {
   Categories
 -----------------------*/
 .categories__item {
-   height: 270px;
+   height: 330px;
    position: relative;
 }
 
@@ -631,8 +631,10 @@ ul, ol {
    text-transform: uppercase;
    letter-spacing: 2px;
    padding: 12px 0 10px;
+   margin-bottom: 35px;
    background: #ffffff;
    display: block;
+   opacity: 85%;
 }
 
 .categories__slider .col-lg-3 {

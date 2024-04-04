@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
-                        <div class="sidebar__item">
+<!--                         <div class="sidebar__item">
                             <h4>Department</h4>
                             <ul>
                                 <li><a href="#">Fresh Meat</a></li>
@@ -30,8 +30,8 @@
                                 <li><a href="#">Papayaya & Crisps</a></li>
                                 <li><a href="#">Oatmeal</a></li>
                             </ul>
-                        </div>
-                        <div class="sidebar__item">
+                        </div> -->
+<!--                         <div class="sidebar__item">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
@@ -88,91 +88,91 @@
                             </div>
                         </div>
                         <div class="sidebar__item">
-                            <h4>Popular Size</h4>
+                            <h4>MODEL</h4>
                             <div class="sidebar__item__size">
                                 <label for="large">
-                                    Large
+                                    Apple
                                     <input type="radio" id="large">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="medium">
-                                    Medium
+                                    Samsung
                                     <input type="radio" id="medium">
                                 </label>
                             </div>
                             <div class="sidebar__item__size">
                                 <label for="small">
-                                    Small
+                                    Google
                                     <input type="radio" id="small">
                                 </label>
                             </div>
-                            <div class="sidebar__item__size">
+<!--                             <div class="sidebar__item__size">
                                 <label for="tiny">
                                     Tiny
                                     <input type="radio" id="tiny">
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="sidebar__item">
                             <div class="latest-product__text">
-                                <h4>Latest Products</h4>
+                                <h4>추천 상품</h4>
                                 <div class="latest-product__slider owl-carousel">
                                     <div class="latest-prdouct__slider__item">
-                                        <a href="#" class="latest-product__item">
+                                        <a href="/goods/get?gno=4" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-1.jpg" alt="">
+                                                <img src="/resources/img/marsh-cloud.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <h6>Marshmallow Cloud</h6>
+                                                <span>83,000</span>
                                             </div>
                                         </a>
-                                        <a href="#" class="latest-product__item">
+                                        <a href="/goods/get?gno=2" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-2.jpg" alt="">
+                                                <img src="/resources/img/matin-denim.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <h6>Matin Kim Destroyed Denim Case</h6>
+                                                <span>83,000</span>
                                             </div>
                                         </a>
-                                        <a href="#" class="latest-product__item">
+                                        <a href="/goods/get?gno=5" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-3.jpg" alt="">
+                                                <img src="/resources/img/padding.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <h6>The Baffle Case</h6>
+                                                <span>77,500</span>
                                             </div>
                                         </a>
                                     </div>
                                     <div class="latest-prdouct__slider__item">
-                                        <a href="#" class="latest-product__item">
+                                        <a href="/goods/get?gno=1" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-1.jpg" alt="">
+                                                <img src="/resources/img/matin-black-logo.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <h6>Matin Kim Black Logo Case</h6>
+                                                <span>83,000</span>
+                                            </div>
+                                        </a>
+                                        <a href="/goods/get?gno=8" class="latest-product__item">
+                                            <div class="latest-product__item__pic">
+                                                <img src="/resources/img/zanmang-loopy.jpg" alt="">
+                                            </div>
+                                            <div class="latest-product__item__text">
+                                                <h6>zanmang-loopy</h6>
+                                                <span>94,000</span>
                                             </div>
                                         </a>
                                         <a href="#" class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-2.jpg" alt="">
+                                                <img src="/resources/img/wonsoju.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/resources/img/latest-product/lp-3.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <h6>wonsoju</h6>
+                                                <span>입고예정</span>
                                             </div>
                                         </a>
                                     </div>
@@ -192,11 +192,11 @@
                             
                                 <div class="product__item__pic set-bg" data-setbg="/resources/img/${goods.title_img}"> <!-- title_img -->
                                 
-                                    <ul class="product__item__pic__hover">
+<!--                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i style="line-height: 38px;" class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i style="line-height: 38px;" class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i style="line-height: 38px;" class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
+                                    </ul> -->
                                     
                                 </div>
                                 

@@ -232,7 +232,6 @@ input[type=file]::file-selector-button {
 						</p>
 						<input type="text">
 					</div> -->
-
 				<!-- <div class="checkout__input__checkbox">
                                 <label for="acc">
                                     Create an account?
@@ -627,6 +626,10 @@ input[type=file]::file-selector-button {
 
 <!-- Footer Section Begin -->
 
+
+<%-- <jsp:include page="/review/list"></jsp:include>
+ --%>
+ 
 <jsp:include page="../includes/footer.jsp"></jsp:include>
 
 <!-- Footer Section End -->

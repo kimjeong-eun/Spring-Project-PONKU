@@ -141,8 +141,7 @@
 									<li><form action="/logout" method="post" name="logoutForm"
 											style="display: inline-block;">
 											<a href="#" name="logoutBtn"
-												style="display: inline-block; padding-top: 12px;"> <i
-												class="fa fa-user"></i>
+												style="display: inline-block; padding-top: 12px;"> <i class="fa-solid fa-right-from-bracket"></i>
 											</a> <input type="hidden" name="${_csrf.parameterName}"
 												value="${_csrf.token}" />
 										</form></li>

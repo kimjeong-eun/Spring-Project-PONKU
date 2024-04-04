@@ -153,7 +153,7 @@ header {
 							<li class="active"><a href="/goods/list">모든상품</a></li>
 							<li><a href="/custompage">커스텀 케이스</a></li>
 							<li><a href="/ask/main">문의하기</a></li>
-							<li><a href="/review/list">리뷰</a></li>
+							<li><a href="/review/list">리뷰모아보기</a></li>
 
 							<sec:authorize access="isAuthenticated()">
 								<li><a href="/myPage" name="myPage">마이페이지</a>
@@ -195,8 +195,8 @@ header {
 										<form action="/logout" method="post" name="logoutForm"
 											style="display: inline-block;">
 											<a href="#" name="logoutBtn"
-												style="display: inline-block; padding-top: 12px;"> <i
-												class="fa fa-user"></i>
+												style="display: inline-block; padding-top: 12px;"> 
+												<i class="fa-solid fa-right-from-bracket"></i>
 											</a> <input type="hidden" name="${_csrf.parameterName}"
 												value="${_csrf.token}" />
 										</form>
@@ -204,8 +204,8 @@ header {
 
 									<li><a href="#" name="insta_btn"><i
 											class="fa-brands fa-instagram"></i></a></li>
-
-									<li><a href="#"><i class="fa-solid fa-heart"></i></a></li>
+									<!--깃헙  -->
+									<li><a href="https://github.com/kimjeong-eun/shopProject.git"><i class="fa-brands fa-github"></i></a></li>
 
 									<li><a
 										href="/shoppingcart?member=${pinfo.member.member_seq }"><i
