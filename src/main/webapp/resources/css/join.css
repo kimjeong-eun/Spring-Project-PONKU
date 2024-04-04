@@ -105,11 +105,11 @@ option {
 }
 
 /* HEADER */
-header  {
+div #join{
   width: 100%;
 }
 
-header h2 {
+div h2#join{
   display: inline;
   font-size: 25px;
   font-weight: 700;

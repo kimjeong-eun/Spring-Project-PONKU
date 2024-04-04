@@ -26,21 +26,21 @@
     justify-content: center;
     align-items: center;
     /* height: 60%; */
-	}
-  
+  }
+ 
   </style>
 </head>
  
 <body>
 
   <div id="container" class="container">
-	<div class="content">
+	<div class="content" style= "margin-top:10rem">
     	<form id="joinForm" name="joinForm" action="/join" method="post">
 	      <!-- HEADER -->
-	      <header>
-	        <h2>회원가입</h2>
-	        <h3>가입을 통해 더 다양한 서비스를 만나보세요!</h3>
-	      </header>
+	      <div>
+	        <h2 id="join">회원가입</h2>
+	        <h3 id="join">가입을 통해 더 다양한 서비스를 만나보세요!</h3>
+	      </div>
 		 
 	      <!-- INPUT -->
 	      <section>
