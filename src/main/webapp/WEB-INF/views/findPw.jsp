@@ -90,7 +90,7 @@ body {
     <jsp:include page="./includes/header.jsp"></jsp:include>
     
     <!--  html 전체 영역을 지정하는 container -->
-    <div id="container">
+    <div id="container" style="margin-top: 9rem;">
       <!--  login 폼 영역을 : loginBox -->
 	
       <form id="loginBox" action="/validId" method="post" name="findForm" >
