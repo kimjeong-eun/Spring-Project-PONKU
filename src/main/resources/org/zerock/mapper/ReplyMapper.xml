@@ -4,10 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.ReplyMapper">
 
-	<insert id="insert">
+	<insert id="insert" >
+	
+	<selectKey keyProperty="bno" resultType="java.lang.Long" order="AFTER" statementType="PREPARED">
+       SELECT id_num.currval as bno FROM dual
+    </selectKey>
 
-		insert into comments (rno, bno, replyer, content)
-		values (id_num.nextval, #{bno}, #{replyer}, #{content})
+	insert into comments (rno, bno, replyer, content)
+	values (id_num.nextval, #{bno}, #{replyer}, #{content})
 
 	</insert>
 

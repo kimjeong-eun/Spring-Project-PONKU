@@ -16,7 +16,27 @@ create table comments(
     updateDate date default sysdate
 );
 
-truncate table board;
+
+update shop_member set email = 'jeongeun587@navver.com' where member_seq = 64;
+
+alter table comments add constraint fk_comments foreign key (bno) references board (bno);
+
+alter table board drop constraint fk_comments;
+
+INSERT INTO comments (rno, bno, replyer, content, replyDate, updateDate)
+VALUES (id_num.nextval, 1, '작성자1', '첫 번째 더미 댓글입니다.', SYSDATE, SYSDATE);
+
+INSERT INTO comments (rno, bno, replyer, content, replyDate, updateDate)
+VALUES (id_num.nextval, 2, '작성자2', '두 번째 더미 댓글입니다.', SYSDATE, SYSDATE);
+
+INSERT INTO comments (rno, bno, replyer, content, replyDate, updateDate)
+VALUES (id_num.nextval, 3, '작성자3', '세 번째 더미 댓글입니다.', SYSDATE, SYSDATE);
+
+INSERT INTO comments (rno, bno, replyer, content, replyDate, updateDate)
+VALUES (id_num.nextval, 4, '작성자4', '네 번째 더미 댓글입니다.', SYSDATE, SYSDATE);
+
+INSERT INTO comments (rno, bno, replyer, content, replyDate, updateDate)
+VALUES (id_num.nextval, 5, '작성자5', '다섯 번째 더미 댓글입니다.', SYSDATE, SYSDATE);
 
 
 CREATE TABLE attach_review (
@@ -31,7 +51,9 @@ CREATE TABLE attach_review (
 ALTER TABLE attach_review MODIFY uploadpath VARCHAR2(200) not NULL;
 
 
+select * from board where rownum < 10 order by bno desc;
 
+select * from board;
 select * from attach_review;
 select * from comments;
 
@@ -69,25 +91,7 @@ create sequence bno_seq start with 1 increment by 1 nocache nocycle;
 
 drop sequence bno_seq;
 
--- 첫 번째 댓글 더미 데이터 삽입
-INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
-VALUES (bno_seq.nextval, 1, 'user1', '첫 번째 댓글입니다.', SYSDATE, SYSDATE);
 
--- 두 번째 댓글 더미 데이터 삽입
-INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
-VALUES (bno_seq.nextval, 4, 'user2', '두 번째 댓글입니다.', SYSDATE, SYSDATE);
-
--- 세 번째 댓글 더미 데이터 삽입
-INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
-VALUES (bno_seq.nextval, 6, 'user3', '세 번째 댓글입니다.', SYSDATE, SYSDATE);
-
--- 네 번째 댓글 더미 데이터 삽입
-INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
-VALUES (bno_seq.nextval, 7, 'user4', '네 번째 댓글입니다.', SYSDATE, SYSDATE);
-
--- 다섯 번째 댓글 더미 데이터 삽입
-INSERT INTO comments (id, rno, replyer, content, replyDate, updateDate)
-VALUES (bno_seq.nextval, 8, 'user5', '다섯 번째 댓글입니다.', SYSDATE, SYSDATE);
 
 
 

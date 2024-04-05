@@ -35,19 +35,19 @@ public class ReplyMapperTests {
 		log.info(mapper);
 	}
 	// 부모 객체 bno값 확인하여 반복 더미데이터를 삽입하는 용도
-		private Long[] bnoArr = { 56L, 57L, 58L, 59L, 60L };
-		
+		private Long[] bnoArr = { 1L, 2L, 3L };
 		@Test
 		public void testCreate() { // bno가 있는 값을 확인하여 반복 더미데이터를 삽입
 			
-				IntStream.rangeClosed(1, 10).forEach(i -> {
-					ReplyVO cvo = new ReplyVO();
+				IntStream.rangeClosed(1, 3).forEach(i -> {
+					
+					ReplyVO vo = new ReplyVO();
 			
-				cvo.setRno(bnoArr[i % 5]);	// 위에 만든 배열을 5로 나눈 나머지 값을 넣음
-				cvo.setContent("댓글 테스트" + i);
-				cvo.setReplyer("사용자" + i);	// 더미 객체 생성용
+				vo.setRno(bnoArr[i % 5]);		// 위에 만든 배열을 5로 나눈 나머지 값을 넣음
+				vo.setContent("댓글 테스트" + i);
+				vo.setReplyer("사용자" + i);	// 더미 객체 생성용
 				
-				mapper.insert(cvo);// 위에서 만든 더미 객체를 mapper에서 insert 작업을 진행
+				mapper.insert(vo);// 위에서 만든 더미 객체를 mapper에서 insert 작업을 진행
 				
 			});
 		
@@ -72,7 +72,7 @@ public class ReplyMapperTests {
 		@Test
 		public void testRead() {
 			
-			Long targetRno = 56L;
+			Long targetRno = 116L;
 			
 			ReplyVO cvo = mapper.read(targetRno);
 			
@@ -84,7 +84,7 @@ public class ReplyMapperTests {
 		@Test
 		public void testUpdate() {
 			
-			Long targetid = 47L;
+			Long targetid = 116L;
 			
 			ReplyVO vo = mapper.read(targetid);
 			

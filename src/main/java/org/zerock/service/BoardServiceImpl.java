@@ -68,26 +68,27 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public boolean modify(BoardVO board) {
+	    // 게시물 수정 로그 출력
+	    log.info("수정 :" + board);
+	    
+	    // 기존에 등록된 첨부 파일 모두 삭제
+	    attachMapper.deleteAll(board.getBno());
+	    
+	    // 게시물 수정 결과
+	    boolean modifyResult = mapper.update(board) == 1;
 
-		log.info("수정 :" + board);
+	    // 수정이 성공하고, 새로운 첨부 파일이 존재하는 경우
+	    if (modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0) {
+	        // 새로운 첨부 파일 추가
+	        board.getAttachList().forEach(attach -> {
+	            attach.setBno(board.getBno());
+	            attachMapper.insert(attach);
+	        });
+	    }
 
-		attachMapper.deleteAll(board.getBno());
-
-		boolean modifyResult = mapper.update(board) == 1;
-
-		if (modifyResult && board.getAttachList() != null && board.getAttachList().size() > 0) {
-
-			board.getAttachList().forEach(attach -> {
-
-				attach.setBno(board.getBno());
-				attachMapper.insert(attach);
-
-			});
-
-		}
-
-		return modifyResult;
+	    return modifyResult;
 	}
+
 	
 	@Transactional
 	@Override
