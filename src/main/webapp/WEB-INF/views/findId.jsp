@@ -20,6 +20,7 @@ body {
 }
 
 #container {
+margin: 230px auto 220px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -28,11 +29,12 @@ body {
 }
 
 #loginBox {
-  width: 300px;
+ padding: 160px 70px;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #f5f5f5;
 }
 .input-form-box {
+padding: 10px;
   border: 0px solid #ff0000;
   display: flex;
   margin-bottom: 5px;
@@ -96,7 +98,9 @@ body {
       <form id="loginBox" action="/validId" method="post" name="findForm" >
         
         <!-- 로그인 페이지 타이틀 -->
-        <div id="loginBoxTitle">아이디 찾기</div>
+        <div class="header__logo">
+			<a href="/" style="color: black; font-size: 50px;">아이디 찾기</a>
+		</div>
         <p style="font-size: 12px;">회원 정보 확인을 위한 이름과 e-mail을 입력해주세요.</p>
       
         <!-- 아이디, 비번, 버튼 박스 -->
@@ -106,9 +110,13 @@ body {
           <div class="input-form-box"><span>이메일 </span><input type="email" name="Inputemail" class="form-control" placeholder="이메일을 입력하세요" required="required" style="margin-bottom: 10px;"></div>
           
           <div class="button-login-box" >
-            <button name="findBtn" type="submit" class="btn btn-primary btn-xs" style="width:100% ; margin-bottom: 15px;" >회원 정보 찾기</button>
+            <button name="findBtn" type="submit" class="btn btn-xs" style="background-color: black; color: white; width:100% ; margin-bottom: 15px;" >회원 정보 찾기</button>
             
-			<div id="findInfo"><a href="/findPw">Pw찾기</a> | <a href="/join">회원가입</a> | <a href="/customLogin">로그인</a></div>    
+          
+         <div id="findInfo" style="margin: 120px 0 50px;">
+         <a style="color:#2a2a2a; padding: 11px;" href="/findId">ID찾기</a> | <a style="color:#2a2a2a; padding: 11px;" href="/findPw">Pw찾기</a>|<a style="color:#2a2a2a; padding: 11px;" href="/join">회원가입</a>
+         </div>
+             
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </div>
         </div>

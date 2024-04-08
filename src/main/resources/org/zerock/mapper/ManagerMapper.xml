@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mydatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.zerock.mapper.ManagerMapper">
+
+	<resultMap type="org.zerock.domain.ManagerVO" id="ManagerMap">
+		<id property="manager_seq" column="manager_seq" />
+		<result property="manager_seq" column="manager_seq" />
+		<result property="manager_id" column="manager_id" />
+		<result property="password" column="password" />
+		<result property="manager_name" column="manager_name" />
+		<result property="email" column="email" />
+		
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+	
+	<resultMap type="org.zerock.domain.AuthVO" id="authMap">
+  		<result property="manager_seq" column="manager_seq"/>
+  		<result property="auth" column="authority"/>
+  	</resultMap>
+
+	<insert id="insertManager"
+		parameterType="org.zerock.domain.ManagerVO">
+		insert into shop_manager (manager_seq, manager_id,
+		password, manager_name, email) values (manager_seq.nextval,
+		#{manager_id}, #{password}, #{manager_name}, #{email})
+	</insert>
+
+	<select id="read" resultMap="ManagerMap">
+SELECT m.manager_seq, m.manager_id, m.password, m.manager_name, m.email
+  FROM shop_manager m
+  LEFT OUTER JOIN shop_authority a ON m.manager_seq = a.manager_seq
+ WHERE m.manager_id = #{manager_id}
+	</select>
+</mapper>

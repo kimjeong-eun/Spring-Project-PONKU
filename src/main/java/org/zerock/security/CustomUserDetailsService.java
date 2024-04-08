@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.zerock.domain.MemberVO;
-import org.zerock.mapper.LoginMapper;
+import org.zerock.mapper.MemberMapper;
 import org.zerock.security.domain.CustomUser;
 
 import lombok.Setter;
@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Setter(onMethod_ = {@Autowired})
-	private LoginMapper loginMapper;
+	private MemberMapper loginMapper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,12 +28,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 		
 		MemberVO vo = loginMapper.selectMember(username); //security는 username이 userid로 처리
 		
-		return vo == null ? null : new CustomUser(vo);
-		
+
+	      if(vo.getIsMember().equals("N")) {
+	          
+	          return null;
+	          
+	       }else {
+	          
+	          return vo == null ? null : new CustomUser(vo);
+	       }
+		 
 	}
-	
-	
-	
-	
 
 }

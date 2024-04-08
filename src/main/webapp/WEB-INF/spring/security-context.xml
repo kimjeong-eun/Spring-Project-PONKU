@@ -11,6 +11,8 @@
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
 	
 	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+	<bean id="defaultHttpFirewall" class="org.springframework.security.web.firewall.DefaultHttpFirewall"/>
+	<security:http-firewall ref="defaultHttpFirewall"/>
 	
 	<security:http>
 			<security:form-login login-page="/customLogin" default-target-url="/" authentication-failure-url="/loginError"/>

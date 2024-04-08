@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> 
 
@@ -19,18 +18,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="../resources/css/join.css">
   <script defer src="../resources/js/join.js"></script>
+  <style type="text/css">
+  
+  #container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* height: 60%; */
+  }
+ 
+  </style>
 </head>
  
 <body>
 
-  <div class="container">
-	<div class="content">
+  <div id="container" class="container">
+	<div class="content" style= "margin-top:10rem">
     	<form id="joinForm" name="joinForm" action="/join" method="post">
 	      <!-- HEADER -->
-	      <header>
-	        <h2>회원가입</h2>
-	        <h3>가입을 통해 더 다양한 서비스를 만나보세요!</h3>
-	      </header>
+	      <div>
+	        <h2 id="join">회원가입</h2>
+	        <h3 id="join">가입을 통해 더 다양한 서비스를 만나보세요!</h3>
+	      </div>
 		 
 	      <!-- INPUT -->
 	      <section>
@@ -40,7 +50,7 @@
 	        </div>
 	        <div class="info" id="info__id">
 			    <div id="id-input">
-			        <input class="box" name="userid" id="userid" type="text" placeholder="아이디 입력(6~20자)"/>
+			        <input class="box" name="userid" id="userid" type="text" placeholder="아이디 입력"/>
 			    </div>
 			    <div class="error-msg" id="id-error-msg"></div>
 			    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -86,7 +96,7 @@
 	        </div>
 	        <!-- <div id="print-date"></div> -->
 	        <div class="info" id="info__mobile">
-	          <input class="box" name="phone" type="text" placeholder="휴대폰 번호 입력 (‘-’ 제외 11자리 입력)"/>
+	          <input class="box" name="phone" id="phone" type="text" placeholder="휴대폰 번호 입력 (‘-’ 제외 11자리 입력)"/>
 	          <div class="error-msg"></div>
 	        </div>
 	      </section>
@@ -117,7 +127,12 @@ $(document).ready(function() {
         if (userid == '' || userid.length == 0) {
             $("#id-error-msg").css("color", "red").text("공백은 ID로 사용할 수 없습니다.");
             return false;
-        }
+        } 
+        const idRegExp = /^[a-zA-Z0-9]{6,20}$/;
+        if(!idRegExp.test(idInputEl.value)) {
+        	$("#id-error-msg").css("color", "red").text("아이디는 영문자 또는 숫자로 6자 이상 20자 이하여야 합니다.");
+			return false;
+		}
 
         // Ajax로 전송
         $.ajax({
@@ -143,6 +158,7 @@ $(document).ready(function() {
                 console.error('AJAX request failed:', error);
             }
         }); // End Ajax
+		
     });
 
 
@@ -233,7 +249,7 @@ $(document).ready(function() {
 	else if(pwVal === pwReVal) { // 비밀번호 재입력 일치
 	 if(isPwValid)
 	   account.pw = pwVal
-	 pwReErrorMsgEl.style.color = "green"
+	 pwReErrorMsgEl.style.color = "black"
 	 pwReErrorMsgEl.textContent = errMsg.pwRe.success
 	}
 	else { // 비밀번호 재입력 불일치
@@ -402,21 +418,65 @@ $(document).ready(function() {
 	    const pwRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 	    if (!pwRegExp.test(pwVal)) {
 	        alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 20자 이하여야 합니다.");
-	        return;
+	        return false;
 	    }
 		
 	 	// 비밀번호 재입력 일치 여부 확인
 	    if (pwVal !== pwReVal) {
 	        alert("비밀번호가 일치하지 않습니다.");
-	        return;
+	        return false;
 	    }
+	 	
+	  	//이메일 유효성 검사	
+		if($("#email").val() == "") {
+			alert("이메일을 입력하여 주시기 바랍니다.");
+			return false;
+		}
+	  	
+		//생년월일 유효성 검사	
+		if ($("#birth-year option:selected").text() == "출생 연도" || $("#birth-month option:selected").text() == "월" || $("#birth-day option:selected").text() == "일") {
+			alert("생년월일을 입력하여 주시기 바랍니다.");
+			return false;
+		}  
+		
+		/*** SECTION - MOBILE ***/
+		const mobileInputEl = document.querySelector('#info__mobile input')
+		const mobileErrorMsgEl = document.querySelector('#info__mobile .error-msg')
+		const mobileRegExp = /^010([0-9]{8})$/
+		if(!mobileRegExp.test(mobileInputEl.value)) { // 유효성 검사 성공
+			alert("휴대폰번호를 입력하여 주시기 바랍니다.");
+			return false;
+		} 
 	    
-	    var form = $("form[name='joinForm']"); // ID를 사용하여 폼 요소를 선택
-		form.submit();
-	    
-	});
+	 	//serialize 가 form요소를 하나씩 읽어옴
+	 	var formData = $("#joinForm").serialize(); 
+	 	
+		// Ajax로 전송
+        $.ajax({
+            url: '/successJoin', // 회원가입 성공여부를 처리하는 스크립트의 경로
+            type: 'POST',
+            data: formData,            
+            dataType: 'text', //리턴타입 , 성공여부를 text로 추출함
+			beforeSend: function(xhr){   // 헤더에 csrf 값 추가
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+            success: function(result) {
+                if (result == "true") {
+                	alert("환영합니다. PONKUU 가입을 완료하였습니다.");
+                	location.href = "/customLogin";//성공 시 이동할 페이지
+                } else {
+                	alert("회원가입을 실패하였습니다. 관리자 문의 바람.");
+                }
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청 실패 시 실행할 코드
+                alertCheckId = false; //실패 시 false
+                console.error('AJAX request failed:', error);
+            }
+        }); // End Ajax
+	});    
 });
-
+	
 </script>
 	
 

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.AskListMapper">
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " >
+			<choose>
+				<when test="type eq 'all'">
+				ask_list_title like '%'||#{keyword}||'%' or ask_list_content like '%'||#{keyword}||'%' or ask_list_writer like '%'||#{keyword}||'%' 
+				</when>
+				<when test="type eq 'title'">
+					ask_list_title like '%'||#{keyword}||'%'
+				</when>
+				<when test="type eq 'content'">
+					ask_list_content like '%'||#{keyword}||'%'
+				</when>
+				<when test="type eq 'writer'">
+					ask_list_writer like '%'||#{keyword}||'%'
+				</when>
+			</choose>
+		</trim>
+	</sql>
+	<sql id="secret">
+		<trim prefix="(" suffix=") AND" >
+			<choose>
+				<when test="secret == true">
+				ask_list_lock = 1 or ask_list_lock = 0
+				</when>
+				<when test="secret == false">
+				ask_list_lock = 0
+				</when>
+			</choose>
+		</trim>
+	</sql>
+	
+	<select id="getList" resultType="org.zerock.domain.AskListVO">
+	<![CDATA[
+		select * from ask_list where ask_list_no > 0 and rownum <= 100
+		]]>
+	</select>
+
+	<select id="getListWithPaging" resultType="org.zerock.domain.AskListVO">
+  	<![CDATA[
+	select ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+ 	from 
+   	(select /*+INDEX(ask_list idx_ask_list_no) */ 
+    	rownum rn, ask_list_no, ask_list_inquirytype, ask_list_productno, ask_list_title, ask_list_content, ask_list_writer, ask_list_regdate, ask_list_updatedate, ask_list_attach, ask_list_lock, ask_list_lock_password
+    from ask_list
+    where
+    ]]>
+    <include refid="criteria"></include>
+    <include refid="secret"></include>
+    <![CDATA[
+    ask_list_no > 0 and rownum <= #{pageNum} * #{amount})
+ 	 where rn > (#{pageNum} -1) * #{amount}
+	]]>
+	</select> <!-- cri: 인터페이스에서 @param으로 받아야 사용가능 !!!! 주의주의주의 -->
+
+	<insert id="insert" > <!-- ask_list_productno, #{ask_list_productno}, 보류 -->
+		insert into ask_list
+		(ask_list_no,
+		ask_list_inquirytype,
+		ask_list_productno,
+		ask_list_title,
+		ask_list_content,
+		ask_list_writer,
+		ask_list_updatedate,
+		ask_list_attach,
+		ask_list_lock,
+		ask_list_lock_password)
+		values(seq_ask_list_no.nextval,
+		#{ask_list_inquirytype},
+		#{ask_list_productno},
+		#{ask_list_title}, #{ask_list_content},
+		#{ask_list_writer}, sysdate,
+		#{ask_list_attach}, #{ask_list_lock}, #{ask_list_lock_password})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="ask_list_no" order="BEFORE"
+			resultType="long">
+			select seq_ask_list_no.nextval from dual
+		</selectKey>
+		insert into ask_list
+		(ask_list_no,
+		ask_list_inquirytype,
+		ask_list_productno,
+		ask_list_title,
+		ask_list_content,
+		ask_list_writer,
+		ask_list_updatedate,
+		ask_list_attach,
+		ask_list_lock,
+		ask_list_lock_password)
+		values(#{ask_list_no},
+		#{ask_list_inquirytype},
+		#{ask_list_productno},
+		#{ask_list_title}, #{ask_list_content},
+		#{ask_list_writer}, sysdate,
+		#{ask_list_attach}, #{ask_list_lock}, #{ask_list_lock_password})
+	</insert>
+
+	<select id="read" resultType="org.zerock.domain.AskListVO">
+		select * from ask_list where
+		ask_list_no = #{ask_list_no}
+	</select>
+
+	<delete id="delete">
+		delete ask_list where ask_list_no = #{ask_list_no}
+	</delete>
+
+	<update id="update"> <!-- 번호, 작성자, 작성일 빼고 수정 가능 -->
+		update ask_list set
+		ask_list_inquirytype = #{ask_list_inquirytype},
+		ask_list_productno = #{ask_list_productno},
+		ask_list_title =
+		#{ask_list_title},
+		ask_list_content = #{ask_list_content},
+		ask_list_updatedate = sysdate,
+		ask_list_attach = #{ask_list_attach},
+		ask_list_lock = #{ask_list_lock},
+		ask_list_lock_password =
+		#{ask_list_lock_password}
+		where ask_list_no = #{ask_list_no}
+	</update>
+
+	<select id="getTotalCount" resultType="int"> <!-- 전체 게시물 수를 가져옴 -->
+		select count(*) from ask_list where
+	<include refid="criteria"></include>
+	<include refid="secret"></include>
+		ask_list_no > 0
+	</select>
+
+	<select id="checkLock" resultType="boolean"> <!-- 해당 게시물이 비밀글인지 여부를 반환 -->
+		select ask_list_lock from ask_list where ask_list_no = #{ask_list_no}
+	</select>
+	
+	<select id="askPassword" resultType="String"> <!-- 해당 게시물의 비밀번호를 반환 -->
+		select ask_list_lock_password from ask_list where ask_list_no = #{ask_list_no}
+	</select>
+
+
+
+</mapper>

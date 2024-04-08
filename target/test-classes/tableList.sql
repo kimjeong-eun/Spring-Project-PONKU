@@ -25,6 +25,7 @@ CREATE TABLE Shop_Authority (
 	authority VARCHAR2(100) NOT NULL
 );
 
+select * from Shop_Authority;
 -----------------------시퀀스생성
 CREATE SEQUENCE MEMBER_SEQ INCREMENT BY 1 START WITH 1 NOCYCLE NOCACHE;
 
