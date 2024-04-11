@@ -39,3 +39,13 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 
 #### 쇼핑카트&구매 - <a href="https://github.com/kimjeong-eun/shopProject/wiki/%EA%B5%AC%EB%A7%A4-&%EC%87%BC%ED%95%91%EC%B9%B4%ED%8A%B8"> 상세보기 - WIKI 이동</a>
 - 쇼핑카트담기 & 구매로직
+
+
+***
+## 발표자료 
+ [폰쿠.pdf](https://github.com/kimjeong-eun/shopProject/files/14945720/default.pdf)
+
+***
+![home](https://github.com/kimjeong-eun/shopProject/assets/102582351/cb956a0f-60c1-4c3a-b91b-5bf3624e1376)
+
+
