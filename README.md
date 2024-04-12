@@ -59,8 +59,11 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 <br><br>
 
 ***
-## PONKU 웹사이트 <a href="http://13.125.247.16:8080/goods/list" >클릭!</a> 시 홈페이지로 이동합니다.
-
+## PONKU 웹사이트 <a href="http://13.125.247.16:8080/goods/list" target="_blank" >클릭!</a> 시 홈페이지로 이동합니다.
+### Test 계정 로그인
+ID : user1234  
+PW : 1111qqqq*
+<br>
 ## PONKU 발표자료 <a href="https://github.com/kimjeong-eun/shopProject/files/14945720/default.pdf" >다운로드</a>
 ***
 ![home](https://github.com/kimjeong-eun/shopProject/assets/102582351/cb956a0f-60c1-4c3a-b91b-5bf3624e1376)
