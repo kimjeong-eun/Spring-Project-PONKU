@@ -1,27 +1,36 @@
 # Spring-Project-PONKU
 스프링 + JSP 폰케이스 판매 사이트
+<br><br>
 
 ## 🖥️ 프로젝트 소개
 CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
-<br>
+<br><br>
+
 
 ## 🕰️ 개발 기간
 * 24.03.18일 - 24.04.04일 (약 3주)
+<br><br>
 
 ### 🧑‍🤝‍🧑 맴버구성
-정은 - 로그인 / 커스텀 케이스 / 쇼핑카드 / 마이페이지(주문.배송조회 / 구매내역)
+정은 - 로그인 / 커스텀 케이스 / 쇼핑카트 / 마이페이지(주문.배송조회 / 구매내역)
+<br>
 수영 - 회원가입 / 마이페이지(회원정보 변경 / 비밀번호 변경 / 배송지 관리 / 회원탈퇴)
+<br>
 범근 - 리뷰 등록 / 모아보기 게시판
+<br>
 성은 - 문의 게시판
+<br>
 나연 - 전체 상품 리스트 / 관리자 모드
+<br><br>
 
 ### ⚙️ 개발 환경
 - `Java 11`
 - `JDK 11.0.05`
 - **IDE** : STS 3.9
 - **Framework** : Spring(3.x)
-- **Database** : Oracle DB(11xe)
+- **Database** : Oracle DB(11xe) 
 - **ORM** : Mybatis
+<br><br>
 
 ## 📌 주요 기능
 
@@ -47,11 +56,12 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 - 비밀번호 변경
 - 배송지 관리
 - 회원 탈퇴
+<br><br>
 
 ***
-## 발표자료 
- [폰쿠.pdf](https://github.com/kimjeong-eun/shopProject/files/14945720/default.pdf)
+## PONKU 웹사이트 <a href="http://13.125.247.16:8080/goods/list" >클릭!</a> 시 홈페이지로 이동합니다.
 
+## PONKU 발표자료 <a href="https://github.com/kimjeong-eun/shopProject/files/14945720/default.pdf" >다운로드</a>
 ***
 ![home](https://github.com/kimjeong-eun/shopProject/assets/102582351/cb956a0f-60c1-4c3a-b91b-5bf3624e1376)
 
