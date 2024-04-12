@@ -60,7 +60,8 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 
 ***
 ## PONKU 웹사이트 <a href="http://13.125.247.16:8080" target="_blank" >클릭!</a> 시 홈페이지로 이동합니다.
-[새 탭에서 열기](http://13.125.247.16:8080/){:target="_blank"}
+[새 탭에서 열기](www.google.com){: target=" _blank"}
+
 ### Test 계정 로그인
 ID : user1234  
 PW : 1111qqqq*
