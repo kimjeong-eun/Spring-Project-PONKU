@@ -1,5 +1,5 @@
 # Spring-Project-PONKU
-스프링 + JSP 폰케이스 판매 사이트
+[스프링 프로젝트] 폰케이스 판매 사이트
 <br><br>
 
 ## 🖥️ 프로젝트 소개
@@ -25,11 +25,12 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 
 ### ⚙️ 개발 환경
 - `Java 11`
-- `JDK 11.0.05`
 - **IDE** : STS 3.9
 - **Framework** : Spring(3.x)
 - **Database** : Oracle DB(11xe) 
 - **ORM** : Mybatis
+- **Infra** : Aws EC2
+- **VCS** : git&github
 <br><br>
 
 ## 📌 주요 기능
@@ -38,7 +39,7 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 - Spring Security
 
 #### 회원가입 - <a href="https://github.com/kimjeong-eun/shopProject/wiki/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85" >상세보기 - WIKI 이동</a>
-- ID 중복 체크
+- 회원가입 (유효성 검사 - ID 중복 체크 등)
 
 #### 전체 게시판 - <a href="https://github.com/kimjeong-eun/shopProject/wiki/List"> 상세보기 - WIKI 이동</a>
 - 전체 목록 조회
@@ -54,7 +55,7 @@ CASEDIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 - 구매내역
 - 회원정보 변경
 - 비밀번호 변경
-- 배송지 관리
+- 배송지 관리 (crud)
 - 회원 탈퇴
 <br><br>
 
