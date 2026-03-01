@@ -21,24 +21,21 @@ CASETIFY 를 참고하여 만든 폰케이스 판매 사이트입니다.
 ## 🛠 기술 스택 (Tech Stack)
 ### Backend
 - **Language**: Java 11
-- **Framework**: Spring Framework 5.0.7.RELEASE (Spring MVC)
-- **Security**: Spring Security 5.0.6.RELEASE
-- **Persistence**: MyBatis 3.4.6, HikariCP 2.7.9
-- **Database**: Oracle Database (XE)
+- **Framework**: Spring Framework 5.0.7
+- **Security**: Spring Security 5.0.6
+- **Persistence**: MyBatis 3.4.6
+- **Database**: Oracle
 - **Build Tool**: Maven
 
 ### Frontend
 - **View**: JSP, JSTL
 - **Bundler**: Parcel
-- **Library**: jQuery, Bootstrap
+- **Library**: jQuery
 
 ### Infrastructure
 - **Server**: AWS EC2
-- **Logging**: Log4j2, Log4jdbc
-
-<img width="2287" height="696" alt="image" src="https://github.com/user-attachments/assets/d029db1b-b6bf-40c2-b648-b5f59d3faa1f" />
-
 <br><br>
+
 
 ## 📌 주요 기능
 
@@ -77,7 +74,7 @@ ID : user1234  / PW : 1111qqqq*
 
 
 ## 🏗 아키텍처 패턴 (Architecture Pattern)
-본 프로젝트는 **계층형 아키텍처(Layered Architecture)**를 채택하여 관심사를 분리하고 유지보수성을 높였습니다.
+본 프로젝트는 계층형 아키텍처(Layered Architecture)를 채택하여 관심사를 분리하고 유지보수성을 높였습니다.
 - **Presentation Layer**: Spring MVC 컨트롤러를 통한 요청 처리 및 뷰 렌더링
 - **Service Layer**: 비즈니스 로직 수행 및 `@Transactional`을 이용한 트랜잭션 관리
 - **Persistence Layer**: MyBatis Mapper를 이용한 SQL 분리 및 데이터 접근
